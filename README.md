@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&pause=1100&color=A855F7&center=true&vCenter=true&width=720&lines=DWGX+%E2%80%94+Backend+%7C+System+%7C+Automation;Java+%E2%80%A2+Python+%E2%80%A2+Lua+%E2%80%A2+Kotlin;Build+clean.+Ship+fast.+Keep+learning." />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&pause=1100&color=A855F7&center=true&vCenter=true&width=720&lines=DWGX+—+Backend+%7C+System+%7C+Automation;Java+•+Python+•+Lua+•+Kotlin;Build+clean.+Ship+fast.+Keep+learning." />
 </p>
 
 <p align="center">
@@ -25,33 +25,59 @@
 ## ⚡ About
 
 - 👨‍💻 Developer / Tech Explorer  
-- 🧩 Focus: **Backend · Systems · Automation**  
-- 🎮 Hobby: build tools, write code, share stuff  
-- 🌌 Motto: **Less noise, more signal.**
+- 🧩 Focus: **Backend · Systems · Automation · Game Services**  
+- 🎮 Hobby: build platforms, write code, ship fast  
+- 🌌 Motto: **be water my friend**
 
 ---
 
-## 📈 Stats (Auto Dark/Light)
+## 🎮 Game Platform
+
+> **Realtime browser-based battle platform**  
+> Designed for fast matchmaking & competitive play.
+
+<p align="center">
+  <a href="http://japanese.icu" target="_blank">
+    <img src="https://img.shields.io/badge/Play_Now-japanese.icu-0ea5e9?style=for-the-badge&logo=gamejolt&logoColor=white" />
+  </a>
+</p>
+
+<p align="center">
+  🌐 <b>Live Platform:</b> <a href="http://japanese.icu">http://japanese.icu</a>
+</p>
+
+---
+
+## 📈 Stats (Stable)
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&theme=tokyonight" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&theme=default" />
-    <img height="165" src="https://github-readme-stats.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&theme=tokyonight" />
+    <source media="(prefers-color-scheme: dark)"
+      srcset="https://github-readme-stats.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&theme=tokyonight" />
+    <source media="(prefers-color-scheme: light)"
+      srcset="https://github-readme-stats.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&theme=default" />
+    <img height="165"
+      src="https://github-readme-stats.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&theme=tokyonight" />
   </picture>
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=DWGX&hide_border=true&theme=tokyonight" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=DWGX&hide_border=true&theme=default" />
-    <img height="165" src="https://github-readme-streak-stats.herokuapp.com/?user=DWGX&hide_border=true&theme=tokyonight" />
+    <source media="(prefers-color-scheme: dark)"
+      srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=tokyonight&utcOffset=8" />
+    <source media="(prefers-color-scheme: light)"
+      srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=default&utcOffset=8" />
+    <img height="165"
+      src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=tokyonight&utcOffset=8" />
   </picture>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=tokyonight" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=default" />
-    <img height="155" src="https://github-readme-stats.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=tokyonight" />
+    <source media="(prefers-color-scheme: dark)"
+      srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=tokyonight" />
+    <source media="(prefers-color-scheme: light)"
+      srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=default" />
+    <img height="155"
+      src="https://github-readme-stats.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=tokyonight" />
   </picture>
 </p>
 
@@ -67,35 +93,30 @@
 
 ## 🧪 Now Building
 
-- 🛠 Backend services & frameworks  
+- 🛠 Backend services & real-time systems  
+- 🎮 Multiplayer & matchmaking platforms  
 - ⚙️ Automation scripts & utilities  
-- 🔐 System logic & interesting experiments  
 
 ---
 
 ## 🔗 Links
 
 <p align="center">
-  <a href="https://www.youtube.com/@dwgx1337"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" /></a>
-  <a href="https://space.bilibili.com/1452905012"><img src="https://img.shields.io/badge/Bilibili-00A1D6?style=for-the-badge&logo=bilibili&logoColor=white" /></a>
-  <a href="https://user.qzone.qq.com/136666451/"><img src="https://img.shields.io/badge/QQ-12B7F5?style=for-the-badge&logo=qq&logoColor=white" /></a>
+  <a href="http://japanese.icu">
+    <img src="https://img.shields.io/badge/Game_Platform-japanese.icu-7F5AF0?style=for-the-badge&logo=unity&logoColor=white" />
+  </a>
+  <a href="https://www.youtube.com/@dwgx1337">
+    <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
+  </a>
+  <a href="https://space.bilibili.com/1452905012">
+    <img src="https://img.shields.io/badge/Bilibili-00A1D6?style=for-the-badge&logo=bilibili&logoColor=white" />
+  </a>
+  <a href="https://user.qzone.qq.com/136666451/">
+    <img src="https://img.shields.io/badge/QQ-12B7F5?style=for-the-badge&logo=qq&logoColor=white" />
+  </a>
 </p>
 
 ---
-
-<details>
-  <summary><b>🏆 Extras (Click to expand)</b></summary>
-  <br/>
-  <p align="center">
-    <img src="https://github-profile-trophy.vercel.app/?username=DWGX&theme=gruvbox&no-frame=true&row=1&column=7" />
-  </p>
-
-  <!-- 🐍 Contribution Snake（需要你在仓库加 GitHub Action 生成 output 分支图片）
-  <p align="center">
-    <img src="https://raw.githubusercontent.com/DWGX/DWGX/output/github-contribution-grid-snake.svg" alt="snake" />
-  </p>
-  -->
-</details>
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0ea5e9,100:a855f7&height=120&section=footer" />

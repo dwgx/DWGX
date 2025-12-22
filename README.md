@@ -10,8 +10,11 @@
   <img src="https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640" width="140" style="border-radius:18px;" />
 </p>
 
+<!-- ✅ 稳定文本：不依赖外链 SVG 动画 -->
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&pause=1100&color=A855F7&center=true&vCenter=true&width=720&lines=DWGX+—+Backend+%7C+System+%7C+Automation;Java+•+Python+•+Lua+•+Kotlin;Build+clean.+Ship+fast.+Keep+learning." />
+  <b>DWGX</b> — Backend · System · Automation<br/>
+  Java · Python · PHP · Node.js<br/>
+  <i>所有人保持内裤干燥>si>
 </p>
 
 <p align="center">
@@ -48,7 +51,7 @@
 
 ---
 
-## 📈 Stats (Stable)
+## 📈 Stats
 
 <p align="center">
   <picture>
@@ -86,7 +89,7 @@
 ## 🧰 Stack
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=java,python,lua,kotlin,spring,php,mysql,html,css,js,linux,git,markdown&perline=7" />
+  <img src="https://skillicons.dev/icons?i=java,python,php,nodejs,vue,spring,mysql,html,css,js,linux,git,markdown&perline=7" />
 </p>
 
 ---
@@ -115,8 +118,6 @@
     <img src="https://img.shields.io/badge/QQ-12B7F5?style=for-the-badge&logo=qq&logoColor=white" />
   </a>
 </p>
-
----
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0ea5e9,100:a855f7&height=120&section=footer" />

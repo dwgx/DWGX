@@ -14,7 +14,7 @@
 <p align="center">
   <b>DWGX</b> — Backend · System · Automation<br/>
   Java · Python · PHP · Node.js<br/>
-  <i>所有人保持内裤干燥>si>
+  <i>所有人保持内裤干燥<si>
 </p>
 
 <p align="center">

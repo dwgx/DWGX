@@ -46,7 +46,7 @@
 </p>
 
 <p align="center">
-  🌐 <b>Live Platform:</b> <a href="http://japanese.icu">http://japanese.icu</a>
+  🌐 <b>Live Platform:</b> <a href="http://dwgx.top">http://japanese.icu</a>
 </p>
 
 ---

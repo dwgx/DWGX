@@ -34,21 +34,6 @@
 
 ---
 
-## 🎮 Game Platform
-
-> **Realtime browser-based battle platform**  
-> Designed for fast matchmaking & competitive play.
-
-<p align="center">
-  <a href="http://japanese.icu" target="_blank">
-    <img src="https://img.shields.io/badge/Play_Now-japanese.icu-0ea5e9?style=for-the-badge&logo=gamejolt&logoColor=white" />
-  </a>
-</p>
-
-<p align="center">
-  🌐 <b>Live Platform:</b> <a href="http://dwgx.top">http://japanese.icu</a>
-</p>
-
 ---
 
 ## 📈 Stats

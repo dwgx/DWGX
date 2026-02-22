@@ -89,6 +89,7 @@ hobbies: [Build Platforms, Write Code, Ship Fast]
 <b>Claude</b><br/>
 <sub>Opus / Sonnet / Haiku</sub>
 </td>
+<!-- PLACEHOLDER_MORE_MODELS -->
 <td align="center" width="25%">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/-Gemini-4285F4?style=flat-square&logo=google&logoColor=white&labelColor=4285F4&color=4285F4" />
@@ -110,15 +111,15 @@ hobbies: [Build Platforms, Write Code, Ship Fast]
 
 <br/>
 
-![OpenAI Compatible](https://img.shields.io/badge/OpenAI_Compatible-✅-10b981?style=flat-square&labelColor=1a1a2e)
-![Claude Compatible](https://img.shields.io/badge/Claude_Compatible-✅-10b981?style=flat-square&labelColor=1a1a2e)
-![Gemini Compatible](https://img.shields.io/badge/Gemini_Compatible-✅-10b981?style=flat-square&labelColor=1a1a2e)
-![Multi Model](https://img.shields.io/badge/50+_Models-🔥-f59e0b?style=flat-square&labelColor=1a1a2e)
+![OpenAI Compatible](https://img.shields.io/badge/OpenAI_Compatible-%E2%9C%85-10b981?style=flat-square&labelColor=1a1a2e)
+![Claude Compatible](https://img.shields.io/badge/Claude_Compatible-%E2%9C%85-10b981?style=flat-square&labelColor=1a1a2e)
+![Gemini Compatible](https://img.shields.io/badge/Gemini_Compatible-%E2%9C%85-10b981?style=flat-square&labelColor=1a1a2e)
+![Multi Model](https://img.shields.io/badge/50+_Models-%F0%9F%94%A5-f59e0b?style=flat-square&labelColor=1a1a2e)
 
 <br/>
 
 ```
-🔗 https://skiapi.dev
+https://skiapi.dev
 ```
 
 <sub>统一接口格式 · 多模型聚合 · Token 管理 · 用量统计 · 按量计费</sub>
@@ -132,6 +133,7 @@ hobbies: [Build Platforms, Write Code, Ship Fast]
 ---
 
 ### 🧰 Tech Stack
+<!-- PLACEHOLDER_STACK -->
 
 <div align="center">
 
@@ -146,38 +148,15 @@ hobbies: [Build Platforms, Write Code, Ship Fast]
 
 ---
 
-### 🔨 Now Building
+### `> now_exploring()`
 
-<table>
-<tr>
-<td width="50%">
+<div align="center">
 
-🛠 **Backend Services & Real-time Systems**
-> High-performance server-side architectures
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=18&duration=3000&pause=800&color=a855f7&center=true&vCenter=true&random=true&width=600&lines=%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97%E7%9A%84%E7%AC%AC114514%E9%A1%B9;%E9%87%8F%E5%AD%90%E4%B8%8D%E5%AE%9A%E9%87%8F+%C2%B7+%E8%96%9B%E5%AE%9A%E8%B0%94%E7%9A%84%E7%8C%AB%E5%9C%A8%E5%86%99%E4%BB%A3%E7%A0%81;%E6%AD%A3%E5%9C%A8%E7%94%A8+Rust+%E9%87%8D%E5%86%99%E5%AE%87%E5%AE%99;%E4%BB%8A%E5%A4%A9%E7%9A%84+bug+%E6%98%8E%E5%A4%A9%E5%86%8D%E4%BF%AE;%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA+AI+%E4%BD%86%E5%AE%83%E8%A7%89%E5%BE%97%E8%87%AA%E5%B7%B1%E6%98%AF%E4%BA%BA;%E6%8A%8A+sleep(1)+%E6%94%B9%E6%88%90+sleep(0)+%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87+100%25;%E5%9C%A8+O(1)+%E6%97%B6%E9%97%B4%E5%86%85%E8%A7%A3%E5%86%B3%E4%BA%86+NP+%E9%97%AE%E9%A2%98;%E7%94%A8+CSS+%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F)](https://github.com/DWGX)
 
-</td>
-<td width="50%">
+</div>
 
-🎮 **Multiplayer & Matchmaking Platforms**
-> Real-time game service infrastructure
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-⚙️ **Automation Scripts & Utilities**
-> Tools that make life easier
-
-</td>
-<td width="50%">
-
-🌐 **Full-stack Web Applications**
-> End-to-end solutions
-
-</td>
-</tr>
-</table>
+<!-- PLACEHOLDER_STATS -->
 
 ---
 
@@ -204,6 +183,8 @@ hobbies: [Build Platforms, Write Code, Ship Fast]
   <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=default" />
   <img height="160" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&bg_color=0d1117&title_color=0ea5e9&text_color=c9d1d9" />
 </picture>
+
+<!-- PLACEHOLDER_FOOTER -->
 
 <br/>
 

@@ -60,31 +60,39 @@ motto: "be water my friend"
 <tr>
 <td width="50%">
 
-**Primary Laptop** — ASUS ROG Strix G18 (G815LR)
-> Intel Core Ultra 9 275HX · 24 Cores
-> NVIDIA RTX 5070 Ti Laptop · 32GB DDR5 5600MHz
-> 1TB NVMe · 18" 2.5K 240Hz
+<img src="https://cdn.simpleicons.org/republicofgamers/f2a6c4" height="14" /> **ASUS ROG Strix G18** — Primary Laptop
+> Ultra 9 275HX · RTX 5070 Ti · 32GB DDR5 · 18" 2.5K
 
-**Desktop Build**
-> Colorful iGame RTX 3060 Ultra · Triple Fan
-> Colorful 16GB DDR4 3200MHz (8GB × 2)
+<img src="https://cdn.simpleicons.org/nvidia/76b900" height="14" /> **Custom Desktop**
+> Colorful iGame RTX 3060 Ultra · 16GB DDR4 3200
 
-**MacBook** — MacBook Air M2 (A2681)
+<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **MacBook Air M2** — A2681
 > Apple M2 · 13.6" Liquid Retina
+
+<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **iPhone 17** — 256GB · Japan Region
+
+<img src="https://cdn.simpleicons.org/xiaomi/ff6900" height="14" /> **Redmi K60** — 512GB
+
+<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **iPhone SE** — 1st Gen · 2016
 
 </td>
 <td width="50%">
 
-**Peripherals**
-> &#128286; VGN FLASH Ultra 太陽神 · Black · Magnetic Switch
-> &#128433; VGN Dragonfly 3 Master · PAW3950 · 56g · 8KHz
+<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **AirPods Pro 3** — ANC · Spatial Audio
 
-**Audio & Storage**
-> &#128191; Panasonic SL-CT790 × 2 · Portable CD Player
-> &#128190; Toshiba Canvio Basics DTB520 · 2TB
+<img src="https://cdn.simpleicons.org/meta/0668e1" height="14" /> **Meta Quest 3** — Mixed Reality · Standalone
 
-**VR**
-> &#129685; Meta Quest 3 · Mixed Reality · Standalone
+<img src="https://cdn.simpleicons.org/panasonic/f2a6c4" height="14" /> **Panasonic SL-CT790** × 2 — Vintage CD Player
+
+**VGN FLASH Ultra** 太陽神 · Black · Magnetic Switch
+
+**VGN Dragonfly 3 Master** · PAW3950 · 56g · 8KHz
+
+**Flipper Zero** · Sub-GHz · NFC · RFID · IR
+
+<img src="https://cdn.simpleicons.org/espressif/e7352c" height="14" /> **ESP32** × 2 + **ESP32-S3** — IoT Dev
+
+**Toshiba Canvio** DTB520 · 2TB
 
 </td>
 </tr>

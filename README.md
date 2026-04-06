@@ -1,13 +1,11 @@
 <!-- ======================================== -->
 <!--  DWGX — GitHub Profile README          -->
-<!--  幻想郷の結界の向こう側から              -->
 <!-- ======================================== -->
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:06020f,30:1a0a3e,60:2d1b69,100:f2a6c4&height=200&section=header&text=&fontSize=0" />
 
 <div align="center">
 
-<!-- ASCII Art Logo -->
 ```
  ██████╗ ██╗    ██╗ ██████╗ ██╗  ██╗
  ██╔══██╗██║    ██║██╔════╝ ╚██╗██╔╝
@@ -21,7 +19,7 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=24&pause=1000&color=F2A6C4&center=true&vCenter=true&random=false&width=520&lines=%E5%A4%A2%E3%81%A8%E7%8F%BE%E3%81%AE%E5%A2%83%E7%95%8C%E3%82%92%E5%BD%B7%E5%BE%A8%E3%81%86%E9%96%8B%E7%99%BA%E8%80%85;Backend+%C2%B7+Systems+%C2%B7+Automation;Java+%C2%B7+Python+%C2%B7+C%2B%2B+%C2%B7+Swift;Be+Water+My+Friend+%F0%9F%8C%8A)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=24&pause=1000&color=F2A6C4&center=true&vCenter=true&random=false&width=520&lines=Developer+%C2%B7+System+Architect+%C2%B7+Creator;Backend+%C2%B7+Systems+%C2%B7+Automation;Java+%C2%B7+Python+%C2%B7+C%2B%2B+%C2%B7+Swift;Be+Water+My+Friend+%F0%9F%8C%8A)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=DWGX&style=flat-square&color=f2a6c4&label=Profile+Views" />
@@ -39,43 +37,69 @@
 
 ```yaml
 name: DWGX
-role: Developer / Tech Explorer / 東方 Enthusiast
+role: Developer / System Architect / Creator
 focus: [Backend, Systems, Automation, AI Gateway, Game Hacking]
-languages: [Java, Python, C++, PHP, Node.js, Swift]
+languages: [Java, Python, C++, Swift, Node.js, PHP]
+location: Kobe, Hyogo, Japan
 motto: "be water my friend"
-location: 幻想郷の結界の向こう側
 ```
 
 ---
 
 <!-- ======================================== -->
-<!--  幻想万華鏡 — Featured Section           -->
+<!--  Home Studio                             -->
 <!-- ======================================== -->
 
 <div align="center">
 
-## ⛩ 幻想鄉萬華鏡
+## &#128187; Home Studio
 
-<a href="https://dwgx.github.io">
-  <img src="https://dwgx.github.io/assets/gensou-cover.jpg" width="720" style="border-radius: 12px;" />
-</a>
+</div>
 
-<br/><br/>
+<table>
+<tr>
+<td width="50%">
 
-*幻想万華鏡 ～ The Memories of Phantasm*
+**Primary Laptop** — ASUS ROG Strix G18 (G815LR)
+> Intel Core Ultra 9 275HX · 24 Cores
+> NVIDIA RTX 5070 Ti Laptop · 32GB DDR5 5600MHz
+> 1TB NVMe · 18" 2.5K 240Hz
 
-<sub>東方Project 二次創作動畫 · 滿福神社 · 全18話</sub>
+**Desktop Build**
+> Colorful iGame RTX 3060 Ultra · Triple Fan
+> Colorful 16GB DDR4 3200MHz (8GB × 2)
 
-<br/>
+**MacBook** — MacBook Air M2 (A2681)
+> Apple M2 · 13.6" Liquid Retina
 
-[![Visit Site](https://img.shields.io/badge/🌸_Visit_My_Site-dwgx.github.io-f2a6c4?style=for-the-badge&labelColor=1a0a3e)](https://dwgx.github.io)
+</td>
+<td width="50%">
+
+**Peripherals**
+> &#128286; VGN FLASH Ultra 太陽神 · Black · Magnetic Switch
+> &#128433; VGN Dragonfly 3 Master · PAW3950 · 56g · 8KHz
+
+**Audio & Storage**
+> &#128191; Panasonic SL-CT790 × 2 · Portable CD Player
+> &#128190; Toshiba Canvio Basics DTB520 · 2TB
+
+**VR**
+> &#129685; Meta Quest 3 · Mixed Reality · Standalone
+
+</td>
+</tr>
+</table>
+
+<div align="center">
+
+[![Visit Site](https://img.shields.io/badge/🌸_dwgx.github.io-f2a6c4?style=for-the-badge&labelColor=1a0a3e)](https://dwgx.github.io)
 
 </div>
 
 ---
 
 <!-- ======================================== -->
-<!--  SkiAPI — Featured Project               -->
+<!--  SkiAPI                                  -->
 <!-- ======================================== -->
 
 <div align="center">
@@ -124,8 +148,6 @@ location: 幻想郷の結界の向こう側
 ![Gemini Compatible](https://img.shields.io/badge/Gemini_Compatible-%E2%9C%85-10b981?style=flat-square&labelColor=1a0a2e)
 ![50+ Models](https://img.shields.io/badge/50+_Models-%F0%9F%94%A5-f59e0b?style=flat-square&labelColor=1a0a2e)
 
-<br/>
-
 ```
 https://skiapi.dev
 ```
@@ -168,16 +190,6 @@ https://skiapi.dev
 
 ---
 
-### `> now_exploring()`
-
-<div align="center">
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&duration=3000&pause=800&color=C9A84C&center=true&vCenter=true&random=true&width=600&lines=%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97%E7%9A%84%E7%AC%AC114514%E9%A1%B9;%E9%87%8F%E5%AD%90%E4%B8%8D%E5%AE%9A%E9%87%8F+%C2%B7+%E8%96%9B%E5%AE%9A%E8%B0%94%E7%9A%84%E7%8C%AB%E5%9C%A8%E5%86%99%E4%BB%A3%E7%A0%81;%E6%AD%A3%E5%9C%A8%E7%94%A8+Rust+%E9%87%8D%E5%86%99%E5%AE%87%E5%AE%99;%E4%BB%8A%E5%A4%A9%E7%9A%84+bug+%E6%98%8E%E5%A4%A9%E5%86%8D%E4%BF%AE;%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA+AI+%E4%BD%86%E5%AE%83%E8%A7%89%E5%BE%97%E8%87%AA%E5%B7%B1%E6%98%AF%E4%BA%BA;%E5%9C%A8+O(1)+%E6%97%B6%E9%97%B4%E5%86%85%E8%A7%A3%E5%86%B3%E4%BA%86+NP+%E9%97%AE%E9%A2%98;%E7%94%A8+CSS+%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F;%E5%8D%9A%E4%B8%BD%E7%81%B5%E6%A2%A6%E5%9C%A8+debug+%E7%9A%84%E6%97%B6%E5%80%99%E7%94%A8%E4%BA%86%E5%A4%A2%E6%83%B3%E5%B0%81%E5%8D%B0)](https://dwgx.github.io)
-
-</div>
-
----
-
 ### 📊 GitHub Stats
 
 <div align="center">
@@ -205,9 +217,9 @@ https://skiapi.dev
 <br/>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=8" />
-  <source media="(prefers-color-scheme: light)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=default&utcOffset=8" />
-  <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=8" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=default&utcOffset=9" />
+  <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
 </picture>
 &nbsp;&nbsp;
 <picture>
@@ -243,5 +255,5 @@ https://skiapi.dev
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=120&section=footer&text=&fontSize=0" />
 
 <div align="center">
-  <sub>⛩ 幻想郷の結界の向こう側から — Built at the boundary of dreams and reality</sub>
+  <sub>Kobe, Japan &mdash; Be water, my friend.</sub>
 </div>

@@ -19,7 +19,7 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=24&pause=1000&color=F2A6C4&center=true&vCenter=true&random=false&width=520&lines=Developer+%C2%B7+System+Architect+%C2%B7+Creator;Backend+%C2%B7+Systems+%C2%B7+Automation;Java+%C2%B7+Python+%C2%B7+C%2B%2B+%C2%B7+Swift;Be+Water+My+Friend+%F0%9F%8C%8A)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=24&pause=1000&color=F2A6C4&center=true&vCenter=true&random=false&width=520&lines=%E6%88%91%E5%B0%B1%E6%98%AF%E6%88%91;Developer+%C2%B7+System+Architect+%C2%B7+Creator;Java+%C2%B7+Python+%C2%B7+C%2B%2B+%C2%B7+Swift)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=DWGX&style=flat-square&color=f2a6c4&label=Profile+Views" />
@@ -41,7 +41,7 @@ role: Developer / System Architect / Creator
 focus: [Backend, Systems, Automation, AI Gateway, Game Hacking]
 languages: [Java, Python, C++, Swift, Node.js, PHP]
 location: Kobe, Hyogo, Japan
-motto: "be water my friend"
+motto: "我就是我"
 ```
 
 ---
@@ -263,5 +263,5 @@ https://skiapi.dev
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=120&section=footer&text=&fontSize=0" />
 
 <div align="center">
-  <sub>Kobe, Japan &mdash; Be water, my friend.</sub>
+  <sub>Kobe, Japan &mdash; 我就是我</sub>
 </div>

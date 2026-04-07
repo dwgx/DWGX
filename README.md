@@ -67,13 +67,13 @@ motto: "我就是我"
 > Colorful iGame RTX 3060 Ultra · 16GB DDR4 3200
 
 <img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **MacBook Air M2** — A2681
-> Apple M2 · 13.6" Liquid Retina
+> Apple M2 · 8GB · 256GB SSD · 13.6" Liquid Retina
 
 <img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **iPhone 17** — 256GB · Japan Region
 
 <img src="https://cdn.simpleicons.org/xiaomi/ff6900" height="14" /> **Redmi K60** — 512GB
 
-<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **iPhone SE** — 1st Gen · 2016
+<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **Apple Watch** — 1st Gen · Stainless Steel · 2015
 
 </td>
 <td width="50%">
@@ -86,11 +86,11 @@ motto: "我就是我"
 
 **VGN FLASH Ultra** 太陽神 · Black · Magnetic Switch
 
-**VGN Dragonfly 3 Master** · PAW3950 · 56g · 8KHz
+**VGN Dragonfly 3 Master** 超跑紅 · PAW3950 · 56g · 8KHz
 
 **Flipper Zero** · Sub-GHz · NFC · RFID · IR
 
-<img src="https://cdn.simpleicons.org/espressif/e7352c" height="14" /> **ESP32** × 2 + **ESP32-S3** — IoT Dev
+<img src="https://cdn.simpleicons.org/espressif/e7352c" height="14" /> **ESP32-S3** — AI Accel · USB OTG · IoT Dev
 
 **Toshiba Canvio** DTB520 · 2TB
 

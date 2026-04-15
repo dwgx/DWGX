@@ -38,7 +38,7 @@
 ```yaml
 name: DWGX
 role: Developer / System Architect / Creator
-focus: [Backend, Systems, Automation, AI Gateway, Game Hacking]
+focus: [Backend, Systems, Automation, Game Hacking, Touhou Project]
 languages: [Java, Python, C++, Swift, Node.js, PHP]
 location: Kobe, Hyogo, Japan
 motto: "我就是我"
@@ -107,60 +107,30 @@ motto: "我就是我"
 ---
 
 <!-- ======================================== -->
-<!--  SkiAPI                                  -->
+<!--  Featured: Gensou Mangekyou              -->
 <!-- ======================================== -->
 
 <div align="center">
 
-## ⚡ SkiAPI — Unified AI Gateway
+## 🎬 Gensou Mangekyou ~ The Memories of Phantasm
 
-<a href="https://skiapi.dev">
-<img src="https://pic1.imgdb.cn/item/6999ab7f1f6cae6d41e8a153.png" width="680" />
-</a>
+<img src="https://dwgx.github.io/assets/gensou-cover.webp" width="680" />
+
+<br/>
+<br/>
+
+**幻想万華鏡 — 東方Project 二次創作動畫**
+
+滿福神社製作 · 全18話 BDRip · 夢と現実の狭間、幻想郷の記憶
 
 <br/>
 
-基於 [NewAPI](https://github.com/Calcium-Ion/new-api) 的統一 AI 模型網關 — 一個接口，接入所有主流大模型
+![Touhou Project](https://img.shields.io/badge/東方Project-二次創作-f2a6c4?style=flat-square&labelColor=1a0a2e)
+![Studio](https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=1a0a2e)
+![Episodes](https://img.shields.io/badge/Episodes-18-10b981?style=flat-square&labelColor=1a0a2e)
+![Format](https://img.shields.io/badge/Format-BDRip-4285F4?style=flat-square&labelColor=1a0a2e)
 
-<br/>
-
-<table>
-<tr>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/-OpenAI-412991?style=flat-square&logo=openai&logoColor=white" /><br/>
-<b>OpenAI</b><br/>
-<sub>GPT-4o / o1 / o3</sub>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/-Claude-d97706?style=flat-square&logo=anthropic&logoColor=white" /><br/>
-<b>Claude</b><br/>
-<sub>Opus / Sonnet / Haiku</sub>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/-Gemini-4285F4?style=flat-square&logo=google&logoColor=white" /><br/>
-<b>Gemini</b><br/>
-<sub>Pro / Ultra / Flash</sub>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/-More-f2a6c4?style=flat-square&logo=meta&logoColor=white" /><br/>
-<b>更多模型</b><br/>
-<sub>DeepSeek / Qwen / ...</sub>
-</td>
-</tr>
-</table>
-
-<br/>
-
-![OpenAI Compatible](https://img.shields.io/badge/OpenAI_Compatible-%E2%9C%85-10b981?style=flat-square&labelColor=1a0a2e)
-![Claude Compatible](https://img.shields.io/badge/Claude_Compatible-%E2%9C%85-10b981?style=flat-square&labelColor=1a0a2e)
-![Gemini Compatible](https://img.shields.io/badge/Gemini_Compatible-%E2%9C%85-10b981?style=flat-square&labelColor=1a0a2e)
-![50+ Models](https://img.shields.io/badge/50+_Models-%F0%9F%94%A5-f59e0b?style=flat-square&labelColor=1a0a2e)
-
-```
-https://skiapi.dev
-```
-
-<sub>統一接口格式 · 多模型聚合 · Token 管理 · 用量統計 · 按量計費</sub>
+<sub>博麗霊夢 · 霧雨魔理沙 · 幻想郷の冒険記録</sub>
 
 </div>
 
@@ -172,7 +142,6 @@ https://skiapi.dev
 
 | Project | Description | Stars | Tech |
 |---------|------------|-------|------|
-| [**YuKiKo**](https://github.com/dwgx/YuKiKo) | SkiAPI 統一 AI 模型網關 | ![](https://img.shields.io/github/stars/dwgx/YuKiKo?style=flat-square&color=c9a84c&label=) | Python |
 | [**JSM**](https://github.com/dwgx/JSM) | macOS Java Server Manager | ![](https://img.shields.io/github/stars/dwgx/JSM?style=flat-square&color=c9a84c&label=) | Swift |
 | [**RepoDLL**](https://github.com/dwgx/RepoDLL) | DX11+ImGui 遊戲覆蓋層 | ![](https://img.shields.io/github/stars/dwgx/RepoDLL?style=flat-square&color=c9a84c&label=) | C++ |
 | [**東方夜雀食堂**](https://github.com/dwgx/THIzaKaYaDEVCosole) | Unity IL2CPP Debug Console | ![](https://img.shields.io/github/stars/dwgx/THIzaKaYaDEVCosole?style=flat-square&color=c9a84c&label=) | C++ |
@@ -245,7 +214,6 @@ https://skiapi.dev
 <div align="center">
 
 [![Website](https://img.shields.io/badge/🌸_dwgx.github.io-f2a6c4?style=for-the-badge&labelColor=1a0a3e)](https://dwgx.github.io)
-[![SkiAPI](https://img.shields.io/badge/⚡_SkiAPI.dev-c9a84c?style=for-the-badge&labelColor=1a0a3e)](https://skiapi.dev)
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@dwgx1337)
 [![Bilibili](https://img.shields.io/badge/Bilibili-00A1D6?style=for-the-badge&logo=bilibili&logoColor=white)](https://space.bilibili.com/1452905012)
 [![QQ](https://img.shields.io/badge/QQ-12B7F5?style=for-the-badge&logo=tencentqq&logoColor=white)](https://user.qzone.qq.com/136666451/)

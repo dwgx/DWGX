@@ -19,7 +19,7 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=24&pause=1000&color=F2A6C4&center=true&vCenter=true&random=false&width=520&lines=%E6%88%91%E5%B0%B1%E6%98%AF%E6%88%91;Developer+%C2%B7+System+Architect+%C2%B7+Creator;Java+%C2%B7+Python+%C2%B7+C%2B%2B+%C2%B7+Swift)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=24&pause=1000&color=F2A6C4&center=true&vCenter=true&random=false&width=520&lines=Developer+%C2%B7+System+Architect+%C2%B7+Creator;Java+%C2%B7+C%2B%2B+%C2%B7+Swift+%C2%B7+Node.js;Game+Hacking+%C2%B7+Backend+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=DWGX&style=flat-square&color=f2a6c4&label=Profile+Views" />
@@ -38,8 +38,8 @@
 ```yaml
 name: DWGX
 role: Developer / System Architect / Creator
-focus: [Backend, Systems, Automation, Game Hacking, Touhou Project]
-languages: [Java, Python, C++, Swift, Node.js, PHP]
+focus: [Backend, Systems, Automation, Game Hacking, Engine Tooling]
+languages: [Java, C++, Swift, Node.js, Go, PHP]
 location: Kobe, Hyogo, Japan
 motto: "我就是我"
 ```
@@ -114,14 +114,14 @@ motto: "我就是我"
 
 ## 🎬 Gensou Mangekyou ~ The Memories of Phantasm
 
-<img src="https://dwgx.github.io/assets/gensou-cover.webp" width="680" />
+<img src="https://dwgx.github.io/assets/gensou-mangekyou.gif" width="680" />
 
 <br/>
 <br/>
 
 **幻想万華鏡 — 東方Project 二次創作動畫**
 
-滿福神社製作 · 全18話 BDRip · 夢と現実の狭間、幻想郷の記憶
+滿福神社製作 · 全18話 BDRip
 
 <br/>
 
@@ -129,8 +129,6 @@ motto: "我就是我"
 ![Studio](https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=1a0a2e)
 ![Episodes](https://img.shields.io/badge/Episodes-18-10b981?style=flat-square&labelColor=1a0a2e)
 ![Format](https://img.shields.io/badge/Format-BDRip-4285F4?style=flat-square&labelColor=1a0a2e)
-
-<sub>博麗霊夢 · 霧雨魔理沙 · 幻想郷の冒険記録</sub>
 
 </div>
 
@@ -158,10 +156,11 @@ motto: "我就是我"
 
 | Category | Technologies |
 |----------|-------------|
-| **Languages** | ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white) ![Swift](https://img.shields.io/badge/Swift-FA7343?style=flat-square&logo=swift&logoColor=white) ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) |
-| **Backend** | ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) |
-| **Systems** | ![DirectX](https://img.shields.io/badge/DirectX_11-107C10?style=flat-square&logo=xbox&logoColor=white) ![ImGui](https://img.shields.io/badge/ImGui-41454A?style=flat-square&logoColor=white) ![Unity](https://img.shields.io/badge/Unity_IL2CPP-000000?style=flat-square&logo=unity&logoColor=white) |
-| **Tools** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) |
+| **Languages** | ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white) ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white) ![Swift](https://img.shields.io/badge/Swift-FA7343?style=flat-square&logo=swift&logoColor=white) ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) |
+| **Backend** | ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white) ![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat-square&logo=nginx&logoColor=white) |
+| **Systems** | ![DirectX](https://img.shields.io/badge/DirectX_11-107C10?style=flat-square&logo=xbox&logoColor=white) ![ImGui](https://img.shields.io/badge/ImGui-41454A?style=flat-square&logoColor=white) ![Unity](https://img.shields.io/badge/Unity-000000?style=flat-square&logo=unity&logoColor=white) ![IL2CPP](https://img.shields.io/badge/IL2CPP-000000?style=flat-square&logo=unity&logoColor=white) ![Unreal 5](https://img.shields.io/badge/Unreal_5-0E1128?style=flat-square&logo=unrealengine&logoColor=white) ![Nanite](https://img.shields.io/badge/Nanite-FF6B35?style=flat-square&logo=unrealengine&logoColor=white) ![Lumen](https://img.shields.io/badge/Lumen-FFB800?style=flat-square&logo=unrealengine&logoColor=white) |
+| **Reversing** | ![IDA Pro](https://img.shields.io/badge/IDA_Pro-B10E1C?style=flat-square&logoColor=white) ![Ghidra](https://img.shields.io/badge/Ghidra-4B8BF5?style=flat-square&logoColor=white) ![x64dbg](https://img.shields.io/badge/x64dbg-3C3C3C?style=flat-square&logoColor=white) ![Cheat Engine](https://img.shields.io/badge/Cheat_Engine-A80000?style=flat-square&logoColor=white) |
+| **Tools** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-064F8C?style=flat-square&logo=cmake&logoColor=white) ![Xcode](https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=xcode&logoColor=white) ![JetBrains](https://img.shields.io/badge/JetBrains-000000?style=flat-square&logo=jetbrains&logoColor=white) ![Neovim](https://img.shields.io/badge/Neovim-57A143?style=flat-square&logo=neovim&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GH_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white) ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white) ![Wireshark](https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white) ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white) |
 
 </div>
 

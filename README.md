@@ -2,7 +2,7 @@
 <!--  dwgx.menu  v2.0                                                 -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="assets/bios-header.png" width="100%" alt="DWGXBIOS boot screen" />
+<img src="assets/bios-header.png" width="100%" alt="dwgx.menu" />
 
 <div align="center">
 
@@ -240,16 +240,49 @@ previous   = js · php
 
 ---
 
-### `modules.loaded`
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  style switch: scene-nfo release note                            -->
+<!-- ════════════════════════════════════════════════════════════════ -->
 
 ```
- ●  lang/        java  cpp  csharp  swift  go  python  typescript  js  php
- ●  systems/     dx11  imgui  unity  il2cpp  unreal5  nanite  lumen
- ●  reversing/   ida  ghidra  x64dbg  il2cppdumper  dnspy  cheat-engine
- ●  ai-mcp/      claude  mcp  openai  ollama  voicevox  live2d
- ●  backend/     spring  nodejs  mysql  redis  nginx
- ●  tools/       git  linux  docker  cmake  xcode  jetbrains  neovim  wireshark
- ●  netops/      cloudflare  github-actions  postman
+                              . d w g x . p r e s e n t s .
+ ████████████████████████████████████████████████████████████████████████████
+ ██                                                                        ██
+ ██      d w g x . m e n u      ·      v 2 . 1      ·      2 0 2 6         ██
+ ██                                                                        ██
+ ██              scene release // kobe, jp // solo crew                    ██
+ ██                                                                        ██
+ ████████████████████████████████████████████████████████████████████████████
+
+ ┌──────────────────────────────────────────────────────────────────────────┐
+ │  ▌  group      dwgx                                                      │
+ │  ▌  location   kobe · jp  ·  jst +9                                      │
+ │  ▌  release    personal-profile.v2.1                                     │
+ │  ▌  files      1 readme.md  +  2 assets                                  │
+ │  ▌  size       ≈ 1.8 mb  (gif-heavy)                                     │
+ │  ▌  target     github.com/dwgx                                           │
+ │  ▌  supplier   15yo indep dev · minecraft cheat scene origin             │
+ │  ▌  date       2026.04.21                                                │
+ └──────────────────────────────────────────────────────────────────────────┘
+
+ ▓▒░  [ stack manifest ]  ░▒▓────────────────────────────────────────────────
+
+    jvm        java 21 · paper-plugin · spring boot
+    native     c++ 20 · cmake · imgui · dx11 · win32
+    managed    c# · swift · typescript · python · go
+    reverse    ida · ghidra · x64dbg · il2cppdumper · dnspy · cheat engine
+    ai         claude · mcp · openai · ollama · live2d · voicevox
+    hardware   flipper zero · esp32-s3 · soldering iron
+    backend    spring · node · mysql · redis · nginx · cloudflare
+    archive    5768 days uptime · still learning · will never know enough
+
+ ▓▒░  [ shoutouts ]  ░▒▓─────────────────────────────────────────────────────
+
+    to every kid who traced a decompiled class at 3 am
+    to every anon who dropped a repo and walked away without credit
+    to the cat who sleeps on my mechanical keyboard
+
+    — dwgx, kobe
 ```
 
 ---
@@ -279,6 +312,54 @@ previous   = js · php
   <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
   <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
 </picture>
+
+</div>
+
+---
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  archive drawer — handwritten ledger style                       -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+```
+ ╔══════════════════════════════════════════════════════════════════════════╗
+ ║   档 案 抽 屉     ·     archive drawer     ·     drawer no. 01          ║
+ ╠══════════════════════════════════════════════════════════════════════════╣
+ ║                                                                          ║
+ ║   [ 01 ]   2010  ·  —        始点                · kobe, jp             ║
+ ║   [ 02 ]   ····  ·  —        minecraft cheat scene · first compile      ║
+ ║   [ 03 ]   ····  ·  —        paper-plugin · anti-cheat                  ║
+ ║   [ 04 ]   ····  ·  —        esp32-s3 · flipper zero · ble-spam         ║
+ ║   [ 05 ]   ····  ·  —        vrchat il2cpp diving begin                 ║
+ ║   [ 06 ]   ····  ·  —        skiapi · backend / frontend                ║
+ ║   [ 07 ]   2026  ·  apr      WindsurfAPI ★200 milestone                 ║
+ ║   [ 08 ]   2026  ·  apr      vrchat-il2cpp-re 97.7% deobf  ·  42k cls   ║
+ ║   [ 09 ]   2026  ·  apr      VRCSM · RepoDLL · flipper-custom-apps      ║
+ ║   [ 10 ]   2026  ·  apr      dwgx.menu v2.1 rebuild                     ║
+ ║   [ 11 ]   ....  ·  —        still writing                              ║
+ ║                                                                          ║
+ ║                                                   ─── 封 印 ─── 夲 ───   ║
+ ╚══════════════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  ledger — quote / motto fragment                                 -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<div align="center">
+
+```
+    ╭───────────────────────────────────────────────────────────╮
+    │                                                           │
+    │                   be   water   my   friend.               │
+    │                                                           │
+    │                                                           │
+    │                       水は器に従う                        │
+    │                                                           │
+    ╰───────────────────────────────────────────────────────────╯
+```
 
 </div>
 

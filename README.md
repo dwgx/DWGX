@@ -1,8 +1,8 @@
-<!-- ======================================== -->
-<!--  DWGX — GitHub Profile README          -->
-<!-- ======================================== -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  dwgx.menu  v2.0  —  幻想郷                                      -->
+<!-- ════════════════════════════════════════════════════════════════ -->
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:06020f,30:1a0a3e,60:2d1b69,100:f2a6c4&height=200&section=header&text=&fontSize=0" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=soft&color=0:06020f,30:1a0a3e,60:2d1b69,100:f2a6c4&height=140&section=header&text=&fontSize=0" />
 
 <div align="center">
 
@@ -13,172 +13,275 @@
  ██║  ██║██║███╗██║██║   ██║ ██╔██╗
  ██████╔╝╚███╔███╔╝╚██████╔╝██╔╝ ██╗
  ╚═════╝  ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝
+ ─────────────────────────────────────────────────────────
+  [BOOT] injecting dwgx.dll into host ............. OK
+  [BOOT] mounting  /home/kobe ...................... OK
+  [BOOT] loading   persona.dat ..................... OK
+  [BOOT] resolving IL2CPP · DX11 · MCP · Photon .... OK
+  [BOOT] handshake with 幻想郷 servers ............. OK
+  [READY] press F12 to toggle overlay
+ ─────────────────────────────────────────────────────────
 ```
 
-<img src="https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640" width="130" style="border-radius:50%;" />
+<img src="https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640" width="128" style="border-radius:50%;" />
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=24&pause=1000&color=F2A6C4&center=true&vCenter=true&random=false&width=520&lines=Developer+%C2%B7+System+Architect+%C2%B7+Creator;Java+%C2%B7+C%2B%2B+%C2%B7+Swift+%C2%B7+Node.js;Game+Hacking+%C2%B7+Backend+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=600&lines=injected+into+process+%C2%B7+host%3D幻想郷;Java+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
-  <img src="https://komarev.com/ghpvc/?username=DWGX&style=flat-square&color=f2a6c4&label=Profile+Views" />
+  <img src="https://komarev.com/ghpvc/?username=DWGX&style=flat-square&color=f2a6c4&label=visits" />
   &nbsp;
-  <img src="https://img.shields.io/github/followers/DWGX?style=flat-square&color=f2a6c4&label=Followers" />
+  <img src="https://img.shields.io/github/followers/DWGX?style=flat-square&color=f2a6c4&label=follow" />
   &nbsp;
-  <img src="https://img.shields.io/github/stars/DWGX?style=flat-square&color=c9a84c&label=Stars" />
+  <img src="https://img.shields.io/github/stars/DWGX?style=flat-square&color=c9a84c&label=stars" />
 </p>
 
 </div>
 
 ---
 
-### `> whoami`
+### `main.cfg`
 
-```yaml
-name: DWGX
-role: Developer / System Architect / Creator
-focus: [Backend, Systems, Automation, Game Hacking, Engine Tooling]
-languages: [Java, C++, Swift, Node.js, Go, PHP]
-location: Kobe, Hyogo, Japan
-motto: "我就是我"
+```ini
+; dwgx.cfg  —  last modified 2026-04-21 JST
+; injection status: active  ·  process.count: 10
+
+[identity]
+alias      = dwgx · 帝王尬笑
+location   = Kobe, Hyogo · JST+9
+motto      = 我就是我
+bio        = 也许我就是dwgx
+
+[role]
+primary    = independent-developer
+origin     = Minecraft cheat scene
+focus      = reverse-engineering, game-hacking, systems, backend, ai-tooling
+anti-focus = normal-human-activity
+
+[languages]
+active     = java · cpp · csharp · swift · typescript · python · go
+previous   = js · php
 ```
 
 ---
 
-<!-- ======================================== -->
-<!--  Home Studio                             -->
-<!-- ======================================== -->
+### `process.table`
+
+```
+ PID    MODULE                   ADDR             LANG    STATUS
+ ──────────────────────────────────────────────────────────────────────────────
+ 0001   vrchat-il2cpp-re         0x7FF6A4010000   c#      ▓▓▓▓▓▓▓▓▓░  97.7% deobf
+ 0002   VRCSM                    0x7FF6A40AB000   ts      ▓▓▓▓▓▓▓░░░  cache.mgr
+ 0003   WindsurfAPI              0x7FF6A40FF000   js      LISTENING  :8080  ★199
+ 0004   RepoDLL                  0x7FF6A4100000   cpp     HOOKED  Present()  ★10
+ 0005   cs2-walkbot-ext          0x7FF6A4190000   c       ACTIVE  WindMouse+Fitts
+ 0006   blender-copilot          0x7FF6A4220000   py      MCP-READY  70-tools
+ 0007   VRC-Auto-Uploader        0x7FF6A42B0000   py      UnityBatchmode
+ 0008   flipper-custom-apps      0x7FF6A4340000   c       ESP32-BOOST  ble-spam
+ 0009   JSM                      0x7FF6A4400000   swift   macOS-DAEMON
+ 0010   THIzaKaYaDEVCosole       0x7FF6A4500000   cpp     unity-il2cpp-repl
+```
+
+---
 
 <div align="center">
 
-## &#128187; Home Studio
-
-</div>
+### `pinned`
 
 <table>
 <tr>
-<td width="50%">
+<td width="33%" valign="top">
 
-<img src="https://cdn.simpleicons.org/republicofgamers/f2a6c4" height="14" /> **ASUS ROG Strix G18** — Primary Laptop
-> Ultra 9 275HX · RTX 5070 Ti · 32GB DDR5 · 18" 2.5K
+```
+╔════════════════════════╗
+║ vrchat-il2cpp-re       ║
+╠════════════════════════╣
+║                        ║
+║ 42,000 classes         ║
+║ 97.7% deobfuscated     ║
+║ Photon protocol RE     ║
+║                        ║
+║ lang  · C#             ║
+║ stage · live           ║
+║ diff  · ★★★★☆          ║
+╚════════════════════════╝
+```
 
-<img src="https://cdn.simpleicons.org/nvidia/76b900" height="14" /> **Custom Desktop**
-> Colorful iGame RTX 3060 Ultra · 16GB DDR4 3200
-
-<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **MacBook Air M2** — A2681
-> Apple M2 · 8GB · 256GB SSD · 13.6" Liquid Retina
-
-<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **iPhone 17** — 256GB · Japan Region
-
-<img src="https://cdn.simpleicons.org/xiaomi/ff6900" height="14" /> **Redmi K60** — 512GB
-
-<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **Apple Watch** — 1st Gen · Stainless Steel · 2015
+[open module →](https://github.com/dwgx/vrchat-il2cpp-re)
 
 </td>
-<td width="50%">
+<td width="33%" valign="top">
 
-<img src="https://cdn.simpleicons.org/apple/f2a6c4" height="14" /> **AirPods Pro 3** — ANC · Spatial Audio
+```
+╔════════════════════════╗
+║ VRCSM                  ║
+╠════════════════════════╣
+║                        ║
+║ VRChat cache / config  ║
+║ Windows desktop app    ║
+║ C++20 + WebView2 + TS  ║
+║                        ║
+║ lang  · TypeScript     ║
+║ stage · active-dev     ║
+║ diff  · ★★★☆☆          ║
+╚════════════════════════╝
+```
 
-<img src="https://cdn.simpleicons.org/meta/0668e1" height="14" /> **Meta Quest 3** — Mixed Reality · Standalone
+[open module →](https://github.com/dwgx/VRCSM)
 
-<img src="https://cdn.simpleicons.org/panasonic/f2a6c4" height="14" /> **Panasonic SL-CT790** × 2 — Vintage CD Player
+</td>
+<td width="33%" valign="top">
 
-**VGN FLASH Ultra** 太陽神 · Black · Magnetic Switch
+```
+╔════════════════════════╗
+║ WindsurfAPI            ║
+╠════════════════════════╣
+║                        ║
+║ Windsurf ⇄ OpenAI      ║
+║ 59+ free models        ║
+║ load-balancing proxy   ║
+║                        ║
+║ lang  · JavaScript     ║
+║ stage · popular  ★199  ║
+║ diff  · ★★☆☆☆          ║
+╚════════════════════════╝
+```
 
-**VGN Dragonfly 3 Master** 超跑紅 · PAW3950 · 56g · 8KHz
-
-**Flipper Zero** · Sub-GHz · NFC · RFID · IR
-
-<img src="https://cdn.simpleicons.org/espressif/e7352c" height="14" /> **ESP32-S3** — AI Accel · USB OTG · IoT Dev
-
-**Toshiba Canvio** DTB520 · 2TB
+[open module →](https://github.com/dwgx/WindsurfAPI)
 
 </td>
 </tr>
 </table>
 
-<div align="center">
-
-[![Visit Site](https://img.shields.io/badge/🌸_dwgx.github.io-f2a6c4?style=for-the-badge&labelColor=1a0a3e)](https://dwgx.github.io)
-
 </div>
 
 ---
 
-<!-- ======================================== -->
-<!--  Featured: Gensou Mangekyou              -->
-<!-- ======================================== -->
+### `recent.log`
+
+```
+ 2026-04-20 11:27   push  WindsurfAPI           ★199   js     windsurf ⇄ openai proxy
+ 2026-04-19 13:19   push  VRCSM                 ★1     ts     vrchat cache/settings manager
+ 2026-04-16 13:50   push  vrchat-il2cpp-re      ★1     c#     97.7% deobf · 42k classes
+ 2026-04-15 10:44   push  RepoDLL               ★10    cpp    dx11+imgui · mono reflection
+ 2026-04-19 13:23   push  cs2-walkbot-ext       ★1     c      windmouse+fitts · imgui overlay
+ 2026-04-16 06:56   push  blender-copilot       ★1     py     blender mcp · 70+ tools
+ 2026-04-20 11:22   push  VRC-Auto-Uploader     ★1     py     unity batchmode · avatar pipeline
+ 2026-04-20 11:24   push  flipper-custom-apps   ★1     c      ble-spam + esp32 dual-radio
+ 2026-04-15 10:44   push  YuKiKo                ★19    py     skiapi backend engine
+ 2026-04-15 10:44   push  Wechathacker          ★2     -      wxid binary-search tool
+```
+
+<details>
+<summary><code>archive.log  — +14 older entries</code></summary>
+
+```
+ 2026-04-20 11:26   push  Live2DPet             ★1     js     ai live2d + voicevox pet
+ 2026-04-20 11:26   push  claude-gemini-subagent ★1    sh     claude-code subagent bridge
+ 2026-04-15 10:52   push  claude-codex-subagent ★1     sh     claude→codex worker subagent
+ 2026-04-15 10:53   push  FlipperZeroTeacher    ★1     html   flipper 雙語教學知識庫
+ 2026-04-15 10:52   push  dev-history           ★1     -      項目檔案 · 開發日曆
+ 2026-04-15 10:52   push  blog                  ★1     md     personal markdown blog
+ 2026-04-18 12:52   push  dwgx.github.io        ★1     html   personal site · 幻想郷
+ 2026-04-15 11:34   push  skiapi-frontend       ★1     js     newapi admin console · MUI
+ 2026-04-10 09:18   push  strict                ★1     java   minecraft 1.21.3 anti-cheat
+ 2026-04-10 09:17   push  CleanerKing           ★1     java   host-machine accelerator
+ 2026-04-10 09:16   push  darkpixel             ★1     java   1.21.4 paper-plugin
+ 2026-03-21 11:50   push  Rep0S2cLeak           ★1     c#     repo leaked src
+ 2026-03-21 11:50   push  ToolBox               ★2     py     good toolbox
+ 2026-03-08 23:18   push  QQbot                 ★1     py     tencent bot python lib
+```
+
+</details>
+
+---
+
+### `hardware.dmp`
+
+```
+               ╭─── dwgx@kobe ──────────────────────────────────╮
+               │                                                │
+ ROG Strix ════╡  host       ASUS ROG Strix G18  (primary)      │
+               │  cpu        Intel Ultra 9 275HX                │
+               │  gpu        NVIDIA RTX 5070 Ti                 │
+               │  mem        32 GB DDR5                         │
+               │  disp       18"  2.5K                          │
+               │                                                │
+ Desktop ══════╡  gpu        Colorful iGame RTX 3060 Ultra      │
+               │  mem        16 GB DDR4 3200                    │
+               │                                                │
+ MacBook ══════╡  host       MacBook Air M2 · A2681             │
+               │  mem        8 GB · 256 GB SSD · 13.6" Retina   │
+               │                                                │
+ Mobile ═══════╡  phone      iPhone 17 · 256GB · JP-region      │
+               │  phone-2    Redmi K60 · 512GB                  │
+               │  wear       Apple Watch 1st · Stainless · 2015 │
+               │                                                │
+ Peripheral ═══╡  kbd        VGN FLASH Ultra 太陽神 · mag-switch │
+               │  mouse      VGN Dragonfly 3 Master 超跑紅 · 56g │
+               │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
+               │  vr         Meta Quest 3                       │
+               │                                                │
+ Hacker ═══════╡  tool       Flipper Zero · Sub-GHz · NFC · IR  │
+               │  mcu        ESP32-S3 · USB OTG · AI-Accel      │
+               │  storage    Toshiba Canvio DTB520 · 2TB        │
+               │                                                │
+               │  uptime     5768 days                          │
+               │  status     online · JST+9                     │
+               ╰────────────────────────────────────────────────╯
+```
+
+---
 
 <div align="center">
 
-## 🎬 Gensou Mangekyou ~ The Memories of Phantasm
+### `featured`
 
-<img src="https://dwgx.github.io/assets/gensou-mangekyou.gif" width="680" />
+## 幻想万華鏡 ~ The Memories of Phantasm
+
+<img src="https://dwgx.github.io/assets/gensou-mangekyou.gif" width="640" />
 
 <br/>
-<br/>
 
-**幻想万華鏡 — 東方Project 二次創作動畫**
+<sub>滿福神社製作  ·  全18話  ·  BDRip  ·  東方Project 二次創作</sub>
 
-滿福神社製作 · 全18話 BDRip
+<br/><br/>
 
-<br/>
-
-![Touhou Project](https://img.shields.io/badge/東方Project-二次創作-f2a6c4?style=flat-square&labelColor=1a0a2e)
-![Studio](https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=1a0a2e)
-![Episodes](https://img.shields.io/badge/Episodes-18-10b981?style=flat-square&labelColor=1a0a2e)
-![Format](https://img.shields.io/badge/Format-BDRip-4285F4?style=flat-square&labelColor=1a0a2e)
+<img src="https://img.shields.io/badge/東方Project-二次創作-f2a6c4?style=flat-square&labelColor=06020f" />
+<img src="https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=06020f" />
+<img src="https://img.shields.io/badge/Episodes-18-d4c8ef?style=flat-square&labelColor=06020f" />
+<img src="https://img.shields.io/badge/Format-BDRip-2d1b69?style=flat-square&labelColor=06020f" />
 
 </div>
 
 ---
 
-### 🎮 Featured Projects
+### `modules.loaded`
 
-<div align="center">
-
-| Project | Description | Stars | Tech |
-|---------|------------|-------|------|
-| [**JSM**](https://github.com/dwgx/JSM) | macOS Java Server Manager | ![](https://img.shields.io/github/stars/dwgx/JSM?style=flat-square&color=c9a84c&label=) | Swift |
-| [**RepoDLL**](https://github.com/dwgx/RepoDLL) | DX11+ImGui 遊戲覆蓋層 | ![](https://img.shields.io/github/stars/dwgx/RepoDLL?style=flat-square&color=c9a84c&label=) | C++ |
-| [**東方夜雀食堂**](https://github.com/dwgx/THIzaKaYaDEVCosole) | Unity IL2CPP Debug Console | ![](https://img.shields.io/github/stars/dwgx/THIzaKaYaDEVCosole?style=flat-square&color=c9a84c&label=) | C++ |
-| [**Live2D Pet**](https://github.com/dwgx/Live2DPet) | AI Live2D 桌面寵物 + VOICEVOX | ![](https://img.shields.io/github/stars/dwgx/Live2DPet?style=flat-square&color=c9a84c&label=) | JavaScript |
-| [**Flipper Zero**](https://github.com/dwgx/FlipperZeroTeacher) | 雙語教學知識庫 | ![](https://img.shields.io/github/stars/dwgx/FlipperZeroTeacher?style=flat-square&color=c9a84c&label=) | HTML |
-
-</div>
+```
+ ●  lang/        java  cpp  csharp  swift  go  python  typescript  js  php
+ ●  systems/     dx11  imgui  unity  il2cpp  unreal5  nanite  lumen
+ ●  reversing/   ida  ghidra  x64dbg  il2cppdumper  dnspy  cheat-engine
+ ●  ai-mcp/      claude  mcp  openai  ollama  voicevox  live2d
+ ●  backend/     spring  nodejs  mysql  redis  nginx
+ ●  tools/       git  linux  docker  cmake  xcode  jetbrains  neovim  wireshark
+ ●  netops/      cloudflare  github-actions  postman
+```
 
 ---
 
-### 🧰 Tech Stack
-
-<div align="center">
-
-| Category | Technologies |
-|----------|-------------|
-| **Languages** | ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white) ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white) ![Swift](https://img.shields.io/badge/Swift-FA7343?style=flat-square&logo=swift&logoColor=white) ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) |
-| **Backend** | ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white) ![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat-square&logo=nginx&logoColor=white) |
-| **Systems** | ![DirectX](https://img.shields.io/badge/DirectX_11-107C10?style=flat-square&logo=xbox&logoColor=white) ![ImGui](https://img.shields.io/badge/ImGui-41454A?style=flat-square&logoColor=white) ![Unity](https://img.shields.io/badge/Unity-000000?style=flat-square&logo=unity&logoColor=white) ![IL2CPP](https://img.shields.io/badge/IL2CPP-000000?style=flat-square&logo=unity&logoColor=white) ![Unreal 5](https://img.shields.io/badge/Unreal_5-0E1128?style=flat-square&logo=unrealengine&logoColor=white) ![Nanite](https://img.shields.io/badge/Nanite-FF6B35?style=flat-square&logo=unrealengine&logoColor=white) ![Lumen](https://img.shields.io/badge/Lumen-FFB800?style=flat-square&logo=unrealengine&logoColor=white) |
-| **Reversing** | ![IDA Pro](https://img.shields.io/badge/IDA_Pro-B10E1C?style=flat-square&logoColor=white) ![Ghidra](https://img.shields.io/badge/Ghidra-4B8BF5?style=flat-square&logoColor=white) ![x64dbg](https://img.shields.io/badge/x64dbg-3C3C3C?style=flat-square&logoColor=white) ![Cheat Engine](https://img.shields.io/badge/Cheat_Engine-A80000?style=flat-square&logoColor=white) |
-| **Tools** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-064F8C?style=flat-square&logo=cmake&logoColor=white) ![Xcode](https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=xcode&logoColor=white) ![JetBrains](https://img.shields.io/badge/JetBrains-000000?style=flat-square&logo=jetbrains&logoColor=white) ![Neovim](https://img.shields.io/badge/Neovim-57A143?style=flat-square&logo=neovim&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GH_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white) ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white) ![Wireshark](https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white) ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white) |
-
-</div>
-
----
-
-### 📊 GitHub Stats
+### `stats`
 
 <div align="center">
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
-  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&theme=default" />
   <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
 </picture>
 &nbsp;&nbsp;
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com/?user=DWGX&hide_border=true&background=06020F&stroke=2d1b69&ring=f2a6c4&fire=c9a84c&currStreakLabel=f2a6c4&sideLabels=d4c8ef&currStreakNum=d4c8ef&sideNums=d4c8ef&dates=8a7aaa" />
-  <source media="(prefers-color-scheme: light)" srcset="https://streak-stats.demolab.com/?user=DWGX&hide_border=true" />
   <img height="170" src="https://streak-stats.demolab.com/?user=DWGX&hide_border=true&background=06020F&stroke=2d1b69&ring=f2a6c4&fire=c9a84c&currStreakLabel=f2a6c4&sideLabels=d4c8ef&currStreakNum=d4c8ef&sideNums=d4c8ef&dates=8a7aaa" />
 </picture>
 
@@ -186,36 +289,42 @@ motto: "我就是我"
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&theme=default" />
   <img height="160" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-</picture>
-
-<br/>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
-  <source media="(prefers-color-scheme: light)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=default&utcOffset=9" />
-  <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
 </picture>
 &nbsp;&nbsp;
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=DWGX&theme=github_dark" />
-  <source media="(prefers-color-scheme: light)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=DWGX&theme=default" />
-  <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=DWGX&theme=github_dark" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
+  <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
 </picture>
 
 </div>
 
 ---
 
-### 🔗 Connect
+### `hex.dump`
+
+```
+ 00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑........
+ 00401010  64 77 67 78 40 6b 6f 62   65 3a 7e 24 00 00 00 00   dwgx@kobe:~$....
+ 00401020  e6 88 91 e5 b0 b1 e6 98   af e6 88 91 00 00 00 00   我就是我........
+ 00401030  2f 68 6f 6d 65 2f 6b 6f   62 65 2f 2e 64 77 67 78   /home/kobe/.dwgx
+ 00401040  2f 70 65 72 73 6f 6e 61   2e 64 61 74 00 00 00 00   /persona.dat....
+ 00401050  e5 b9 bb e6 83 b3 e9 83   b7 20 2f 2f 20 31 35 79   幻想郷 // 15y
+```
+
+---
+
+### `hotkeys`
 
 <div align="center">
 
-[![Website](https://img.shields.io/badge/🌸_dwgx.github.io-f2a6c4?style=for-the-badge&labelColor=1a0a3e)](https://dwgx.github.io)
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@dwgx1337)
-[![Bilibili](https://img.shields.io/badge/Bilibili-00A1D6?style=for-the-badge&logo=bilibili&logoColor=white)](https://space.bilibili.com/1452905012)
-[![QQ](https://img.shields.io/badge/QQ-12B7F5?style=for-the-badge&logo=tencentqq&logoColor=white)](https://user.qzone.qq.com/136666451/)
+<kbd>F1</kbd> [dwgx.github.io](https://dwgx.github.io)
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<kbd>F2</kbd> [YouTube](https://www.youtube.com/@dwgx1337)
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<kbd>F3</kbd> [Bilibili](https://space.bilibili.com/1452905012)
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<kbd>F4</kbd> [QQ](https://user.qzone.qq.com/136666451/)
 
 </div>
 
@@ -223,12 +332,12 @@ motto: "我就是我"
 
 <div align="center">
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=DWGX&bg_color=06020f&color=f2a6c4&line=c9a84c&point=f2a6c4&area=true&area_color=2d1b69&hide_border=true&custom_title=Contribution%20Activity" width="95%" />
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=DWGX&bg_color=06020f&color=f2a6c4&line=c9a84c&point=f2a6c4&area=true&area_color=2d1b69&hide_border=true&custom_title=archive.activity" width="95%" />
 
 </div>
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=120&section=footer&text=&fontSize=0" />
+```
+ ─── dwgx@kobe ── JST+9 ── mode: archive ── uptime 5768d ── 我就是我 ───
+```
 
-<div align="center">
-  <sub>Kobe, Japan &mdash; 我就是我</sub>
-</div>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=soft&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=100&section=footer&text=&fontSize=0" />

@@ -57,13 +57,13 @@ previous   = js · php
  0001   vrchat-il2cpp-re         0x7FF6A4010000   c#      ▓▓▓▓▓▓▓▓▓░  97.7% deobf
  0002   VRCSM                    0x7FF6A40AB000   ts      ▓▓▓▓▓▓▓░░░  cache.mgr
  0003   WindsurfAPI              0x7FF6A40FF000   js      LISTENING  :8080  ★199
- 0004   RepoDLL                  0x7FF6A4100000   cpp     HOOKED  Present()  ★10
- 0005   cs2-walkbot-ext          0x7FF6A4190000   c       ACTIVE  WindMouse+Fitts
- 0006   blender-copilot          0x7FF6A4220000   py      MCP-READY  70-tools
- 0007   VRC-Auto-Uploader        0x7FF6A42B0000   py      UnityBatchmode
- 0008   flipper-custom-apps      0x7FF6A4340000   c       ESP32-BOOST  ble-spam
- 0009   JSM                      0x7FF6A4400000   swift   macOS-DAEMON
- 0010   THIzaKaYaDEVCosole       0x7FF6A4500000   cpp     unity-il2cpp-repl
+ 0004   skiapi-frontend          0x7FF6A4180000   js      ADMIN-UI  MUI.console
+ 0005   RepoDLL                  0x7FF6A4220000   cpp     HOOKED  Present()  ★10
+ 0006   Rep0S2cLeak              0x7FF6A42D0000   c#      LEAKED  src.dumped
+ 0007   Lavender-rise-main       0x7FF6A4350000   java    MC-1.21  cheat-client
+ 0008   OpenNative               0x7FF6A4400000   cpp     NATIVE-HOOK  dx11.vtbl
+ 0009   flipper-custom-apps      0x7FF6A4480000   c       ESP32-BOOST  ble-spam
+ 0010   FlipperZeroTeacher       0x7FF6A4520000   html    雙語教學.知識庫
 ```
 
 ---
@@ -206,10 +206,6 @@ previous   = js · php
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
- Hacker ═══════╡  tool       Flipper Zero · Sub-GHz · NFC · IR  │
-               │  mcu        ESP32-S3 · USB OTG · AI-Accel      │
-               │  storage    Toshiba Canvio DTB520 · 2TB        │
-               │                                                │
                │  uptime     5768 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
@@ -264,18 +260,97 @@ previous   = js · php
  │  ▌  supplier   15yo indep dev · minecraft cheat scene origin             │
  │  ▌  date       2026.04.21                                                │
  └──────────────────────────────────────────────────────────────────────────┘
+```
 
- ▓▒░  [ stack manifest ]  ░▒▓────────────────────────────────────────────────
+<div align="center">
 
-    jvm        java 21 · paper-plugin · spring boot
-    native     c++ 20 · cmake · imgui · dx11 · win32
-    managed    c# · swift · typescript · python · go
-    reverse    ida · ghidra · x64dbg · il2cppdumper · dnspy · cheat engine
-    ai         claude · mcp · openai · ollama · live2d · voicevox
-    hardware   flipper zero · esp32-s3 · soldering iron
-    backend    spring · node · mysql · redis · nginx · cloudflare
-    archive    5768 days uptime · still learning · will never know enough
+### `▓▒░  [ stack.manifest ]  ░▒▓`
 
+<img src="https://skillicons.dev/icons?i=java,spring,kotlin,cpp,cmake,cs,swift,ts,py,go,mysql,redis,nginx,cloudflare,nodejs,docker&perline=16" />
+
+</div>
+
+<table align="center" width="100%">
+<tr>
+  <td align="right" width="110"><code><b>jvm</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/Java_21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Paper_Plugin-F2A6C4?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white&labelColor=06020f" />
+  </td>
+</tr>
+<tr>
+  <td align="right"><code><b>native</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/C++_20-00599C?style=for-the-badge&logo=cplusplus&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Dear_ImGui-2D1B69?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/DirectX_11-76B900?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Win32-0078D6?style=for-the-badge&logo=windows&logoColor=white&labelColor=06020f" />
+  </td>
+</tr>
+<tr>
+  <td align="right"><code><b>managed</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white&labelColor=06020f" />
+  </td>
+</tr>
+<tr>
+  <td align="right"><code><b>reverse</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/IDA_Pro-C9A84C?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Ghidra-FF6E00?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/x64dbg-1E90FF?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Il2CppDumper-8A2BE2?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/dnSpy-4B4B4B?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Cheat_Engine-D01C1F?style=for-the-badge&labelColor=06020f" />
+  </td>
+</tr>
+<tr>
+  <td align="right"><code><b>ai</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=anthropic&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/MCP-F2A6C4?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Live2D-FF66AA?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/VOICEVOX-4EA64E?style=for-the-badge&labelColor=06020f" />
+  </td>
+</tr>
+<tr>
+  <td align="right"><code><b>hardware</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/Flipper_Zero-FF8300?style=for-the-badge&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/ESP32--S3-E7352C?style=for-the-badge&logo=espressif&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Soldering_Iron-C9A84C?style=for-the-badge&labelColor=06020f" />
+  </td>
+</tr>
+<tr>
+  <td align="right"><code><b>backend</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white&labelColor=06020f" />
+  </td>
+</tr>
+<tr>
+  <td align="right"><code><b>archive</b></code></td>
+  <td>
+    <img src="https://img.shields.io/badge/5768_days_uptime-F2A6C4?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/still_learning-2D1B69?style=for-the-badge&labelColor=06020f" />
+    <img src="https://img.shields.io/badge/will_never_know_enough-C9A84C?style=for-the-badge&labelColor=06020f" />
+  </td>
+</tr>
+</table>
+
+```
  ▓▒░  [ shoutouts ]  ░▒▓─────────────────────────────────────────────────────
 
     to every kid who traced a decompiled class at 3 am
@@ -311,6 +386,60 @@ previous   = js · php
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
   <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
+</picture>
+
+</div>
+
+---
+
+### `trophies`
+
+<div align="center">
+
+<img src="https://github-profile-trophy.vercel.app/?username=DWGX&theme=radical&no-frame=true&no-bg=true&margin-w=6&row=1&column=7&rank=SECRET,SSS,SS,S,AAA,AA,A" />
+
+</div>
+
+---
+
+### `summary.cards`
+
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=DWGX&theme=nord_dark" />
+  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=DWGX&theme=nord_dark" />
+</picture>
+&nbsp;
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=DWGX&theme=nord_dark" />
+  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=DWGX&theme=nord_dark" />
+</picture>
+
+<br/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=DWGX&theme=nord_dark&exclude=html,css" />
+  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=DWGX&theme=nord_dark&exclude=html,css" />
+</picture>
+&nbsp;
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=DWGX&theme=nord_dark" />
+  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=DWGX&theme=nord_dark" />
+</picture>
+
+</div>
+
+---
+
+### `contribution.snake`
+
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" />
+  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" width="100%" />
 </picture>
 
 </div>

@@ -1,42 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" preserveAspectRatio="xMidYMid meet" role="img" aria-label="DWGX BIOS boot screen">
-  <defs>
-    <style>
-      .serif { font-family: 'Times New Roman', Georgia, serif; font-weight: 700; }
-      .mono  { font-family: 'Courier New', 'Consolas', 'DejaVu Sans Mono', monospace; }
-      text { dominant-baseline: alphabetic; }
-    </style>
-    <pattern id="scan" x="0" y="0" width="2" height="3" patternUnits="userSpaceOnUse">
-      <rect width="2" height="1" fill="#ffffff" opacity="0.04" />
-    </pattern>
-  </defs>
-
-  <rect width="960" height="440" fill="#000" />
+  <rect width="960" height="440" fill="#000000"/>
 
   <g transform="translate(34, 30)">
-    <polygon points="0,80 28,0 56,80" fill="#d01c1f" />
-    <polygon points="52,80 80,0 108,80" fill="#d01c1f" />
-    <polygon points="26,80 54,20 82,80" fill="#8a0e12" />
+    <polygon points="0,80 28,0 56,80" fill="#d01c1f"/>
+    <polygon points="52,80 80,0 108,80" fill="#d01c1f"/>
+    <polygon points="26,80 54,20 82,80" fill="#8a0e12"/>
   </g>
 
-  <text x="170" y="48" class="serif" font-size="34" fill="#ffffff">American</text>
-  <text x="170" y="86" class="serif" font-size="34" fill="#ffffff">Megatrends</text>
-  <text x="170" y="108" class="mono"  font-size="14" fill="#d01c1f">www.dwgx.menu</text>
+  <text x="170" y="48" font-family="Times New Roman, Georgia, serif" font-weight="700" font-size="34" fill="#ffffff">American</text>
+  <text x="170" y="86" font-family="Times New Roman, Georgia, serif" font-weight="700" font-size="34" fill="#ffffff">Megatrends</text>
+  <text x="170" y="108" font-family="Courier New, Consolas, monospace" font-size="14" fill="#d01c1f">www.dwgx.menu</text>
 
-  <g class="mono" font-size="16" fill="#dcdcdc">
-    <text x="34" y="170">DWGXBIOS(C)2026 dwgx Megatrends, Inc.</text>
-    <text x="34" y="192">ROG STRIX G18 ACPI BIOS Revision 2.0</text>
-    <text x="34" y="214">CPU  : Intel(R) Core(TM) Ultra 9 275HX CPU 2.80GHz</text>
-    <text x="34" y="236"> Speed : 5.40 GHz</text>
+  <text x="34" y="170" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">DWGXBIOS(C)2026 dwgx Megatrends, Inc.</text>
+  <text x="34" y="192" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">ROG STRIX G18 ACPI BIOS Revision 2.0</text>
+  <text x="34" y="214" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">CPU  : Intel(R) Core(TM) Ultra 9 275HX CPU 2.80GHz</text>
+  <text x="34" y="236" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc"> Speed : 5.40 GHz</text>
 
-    <text x="34" y="276">Press <tspan fill="#f2a6c4">DEL</tspan> to run Setup</text>
-    <text x="34" y="298">Press <tspan fill="#f2a6c4">&lt;F8&gt;</tspan> for BBS POPUP</text>
-    <text x="34" y="320">DDR5 Frequency 6400 Mhz, Dual-Channel, Linear Mode</text>
-    <text x="34" y="342">Checking NVRAM..</text>
-    <text x="34" y="372">Loading modules: vrchat-il2cpp-re  VRCSM  WindsurfAPI</text>
-    <text x="34" y="394">32768MB OK<tspan id="cursor" dx="8">_</tspan>
-      <animate xlink:href="#cursor" attributeName="opacity" values="1;1;0;0" dur="1s" repeatCount="indefinite" />
-    </text>
+  <text x="34" y="276" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">Press <tspan fill="#f2a6c4">DEL</tspan> to run Setup</text>
+  <text x="34" y="298" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">Press <tspan fill="#f2a6c4">&lt;F8&gt;</tspan> for BBS POPUP</text>
+  <text x="34" y="320" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">DDR5 Frequency 6400 Mhz, Dual-Channel, Linear Mode</text>
+  <text x="34" y="342" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">Checking NVRAM..</text>
+  <text x="34" y="372" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">Loading modules: vrchat-il2cpp-re  VRCSM  WindsurfAPI</text>
+  <text x="34" y="394" font-family="Courier New, Consolas, monospace" font-size="16" fill="#dcdcdc">32768MB OK<tspan dx="8" fill="#dcdcdc">_<animate attributeName="opacity" values="1;1;0;0" dur="1s" repeatCount="indefinite"/></tspan></text>
+
+  <g fill="#ffffff" fill-opacity="0.04">
+    <rect x="0" y="1"   width="960" height="1"/>
+    <rect x="0" y="4"   width="960" height="1"/>
+    <rect x="0" y="7"   width="960" height="1"/>
+    <rect x="0" y="10"  width="960" height="1"/>
+    <rect x="0" y="13"  width="960" height="1"/>
+    <rect x="0" y="16"  width="960" height="1"/>
+    <rect x="0" y="19"  width="960" height="1"/>
+    <rect x="0" y="22"  width="960" height="1"/>
+    <rect x="0" y="25"  width="960" height="1"/>
+    <rect x="0" y="28"  width="960" height="1"/>
+    <rect x="0" y="31"  width="960" height="1"/>
+    <rect x="0" y="34"  width="960" height="1"/>
+    <rect x="0" y="37"  width="960" height="1"/>
+    <rect x="0" y="40"  width="960" height="1"/>
+    <rect x="0" y="43"  width="960" height="1"/>
   </g>
-
-  <rect width="960" height="440" fill="url(#scan)" pointer-events="none" />
 </svg>

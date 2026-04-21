@@ -382,11 +382,23 @@ to the cat who sleeps on my mechanical keyboard
 
 ---
 
-### `trophies`
+### `achievements`
 
 <div align="center">
 
-<img src="https://github-profile-trophy.vercel.app/?username=DWGX&theme=radical&no-frame=true&no-bg=true&margin-w=6&row=1&column=7&rank=SECRET,SSS,SS,S,AAA,AA,A" />
+<img src="https://img.shields.io/badge/★-Solo_Crew-f2a6c4?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-IL2CPP_Diver-c9a84c?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Starstruck_199-ed8b00?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Pull_Shark-3178c6?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
+
+<br/>
+
+<img src="https://img.shields.io/badge/★-Cheat_Scene_Alumnus-2d1b69?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-ff66aa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5768_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 </div>
 

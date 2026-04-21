@@ -1,33 +1,16 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.0  —  幻想郷                                      -->
+<!--  dwgx.menu  v2.0                                                 -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=soft&color=0:06020f,30:1a0a3e,60:2d1b69,100:f2a6c4&height=140&section=header&text=&fontSize=0" />
+<img src="assets/bios-header.svg" width="100%" alt="DWGXBIOS boot screen" />
 
 <div align="center">
-
-```
- ██████╗ ██╗    ██╗ ██████╗ ██╗  ██╗
- ██╔══██╗██║    ██║██╔════╝ ╚██╗██╔╝
- ██║  ██║██║ █╗ ██║██║  ███╗ ╚███╔╝
- ██║  ██║██║███╗██║██║   ██║ ██╔██╗
- ██████╔╝╚███╔███╔╝╚██████╔╝██╔╝ ██╗
- ╚═════╝  ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝
- ─────────────────────────────────────────────────────────
-  [BOOT] injecting dwgx.dll into host ............. OK
-  [BOOT] mounting  /home/kobe ...................... OK
-  [BOOT] loading   persona.dat ..................... OK
-  [BOOT] resolving IL2CPP · DX11 · MCP · Photon .... OK
-  [BOOT] handshake with 幻想郷 servers ............. OK
-  [READY] press F12 to toggle overlay
- ─────────────────────────────────────────────────────────
-```
 
 <img src="https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640" width="128" style="border-radius:50%;" />
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=600&lines=injected+into+process+%C2%B7+host%3D幻想郷;Java+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=600&lines=injected+into+process+%C2%B7+host%3Dkobe;Java+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=DWGX&style=flat-square&color=f2a6c4&label=visits" />
@@ -183,7 +166,7 @@ previous   = js · php
  2026-04-15 10:53   push  FlipperZeroTeacher    ★1     html   flipper 雙語教學知識庫
  2026-04-15 10:52   push  dev-history           ★1     -      項目檔案 · 開發日曆
  2026-04-15 10:52   push  blog                  ★1     md     personal markdown blog
- 2026-04-18 12:52   push  dwgx.github.io        ★1     html   personal site · 幻想郷
+ 2026-04-18 12:52   push  dwgx.github.io        ★1     html   personal site
  2026-04-15 11:34   push  skiapi-frontend       ★1     js     newapi admin console · MUI
  2026-04-10 09:18   push  strict                ★1     java   minecraft 1.21.3 anti-cheat
  2026-04-10 09:17   push  CleanerKing           ★1     java   host-machine accelerator
@@ -240,7 +223,7 @@ previous   = js · php
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="https://dwgx.github.io/assets/gensou-mangekyou.gif" width="640" />
+<img src="assets/gensou.gif" width="640" />
 
 <br/>
 
@@ -309,7 +292,7 @@ previous   = js · php
  00401020  e6 88 91 e5 b0 b1 e6 98   af e6 88 91 00 00 00 00   我就是我........
  00401030  2f 68 6f 6d 65 2f 6b 6f   62 65 2f 2e 64 77 67 78   /home/kobe/.dwgx
  00401040  2f 70 65 72 73 6f 6e 61   2e 64 61 74 00 00 00 00   /persona.dat....
- 00401050  e5 b9 bb e6 83 b3 e9 83   b7 20 2f 2f 20 31 35 79   幻想郷 // 15y
+ 00401050  69 6e 64 65 70 20 64 65   76 20 2f 2f 20 31 35 79   indep dev // 15y
 ```
 
 ---

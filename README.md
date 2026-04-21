@@ -251,7 +251,7 @@ scene release // kobe, jp // solo crew
 **files** — 1 readme.md + 2 assets  
 **size** — ≈ 1.8 mb (gif-heavy)  
 **target** — github.com/dwgx  
-**supplier** — 15yo indep dev · minecraft cheat scene origin  
+**born** — 20100705  
 **date** — 2026.04.21
 
 <div align="center">
@@ -344,9 +344,8 @@ scene release // kobe, jp // solo crew
 
 . s h o u t o u t s .
 
-to every kid who traced a decompiled class at 3 am  
-to every anon who dropped a repo and walked away without credit  
-to the cat who sleeps on my mechanical keyboard
+to every anon who kept pushing commits with zero stars and zero watchers  
+to every kid who built something just to see if it could be done
 
 — dwgx, kobe
 

@@ -12,45 +12,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet">
   <rect width="960" height="540" fill="#000000"/>
 
-  <!-- AMI red pyramid logo (stacked stripes) -->
-  <g transform="translate(42, 28)" fill="#d01c1f">
-    <rect x="54" y="0"   width="12"  height="8"/>
-    <rect x="48" y="10"  width="24"  height="8"/>
-    <rect x="42" y="20"  width="36"  height="8"/>
-    <rect x="36" y="30"  width="48"  height="8"/>
-    <rect x="30" y="40"  width="60"  height="8"/>
-    <rect x="24" y="50"  width="72"  height="8"/>
-    <rect x="18" y="60"  width="84"  height="8"/>
-    <rect x="12" y="70"  width="96"  height="8"/>
-    <rect x="6"  y="80"  width="108" height="8"/>
-    <rect x="0"  y="90"  width="120" height="8"/>
+  <!-- AMI red pyramid: isosceles triangle clipped into horizontal stripes -->
+  <defs>
+    <clipPath id="amitri">
+      <polygon points="75,0 150,130 0,130"/>
+    </clipPath>
+  </defs>
+  <g transform="translate(42, 30)">
+    <g clip-path="url(#amitri)" fill="#d01c1f">
+      <rect x="-10" y="0"   width="170" height="11"/>
+      <rect x="-10" y="14"  width="170" height="11"/>
+      <rect x="-10" y="28"  width="170" height="11"/>
+      <rect x="-10" y="42"  width="170" height="11"/>
+      <rect x="-10" y="56"  width="170" height="11"/>
+      <rect x="-10" y="70"  width="170" height="11"/>
+      <rect x="-10" y="84"  width="170" height="11"/>
+      <rect x="-10" y="98"  width="170" height="11"/>
+      <rect x="-10" y="112" width="170" height="11"/>
+      <rect x="-10" y="126" width="170" height="5"/>
+    </g>
   </g>
 
   <!-- "American Megatrends" two-line white bold serif, right of logo -->
   <g font-family="'Times New Roman', Times, 'Nimbus Roman', serif" font-weight="700" font-size="62" fill="#ffffff" letter-spacing="-1">
-    <text x="192" y="72">American</text>
-    <text x="192" y="134">Megatrends</text>
+    <text x="216" y="82">American</text>
+    <text x="216" y="146">Megatrends</text>
   </g>
 
   <!-- POST text block, classic AMIBIOS VGA look, white on black -->
   <g font-family="'Consolas', 'Courier New', 'Lucida Console', monospace" font-size="14" fill="#dcdcdc">
+    <text x="32" y="220">AMIBIOS(C)2026 American Megatrends, Inc.</text>
+    <text x="32" y="242">ASUS ROG Strix G18 ACPI BIOS Revision 2.0</text>
+    <text x="32" y="264">CPU: Intel(R) Core(TM) Ultra 9 275HX CPU @ 2.80GHz</text>
+    <text x="32" y="282"> Speed: 5400MHz</text>
 
-    <text x="32" y="210">AMIBIOS(C)2026 American Megatrends, Inc.</text>
-    <text x="32" y="232">ASUS ROG Strix G18 ACPI BIOS Revision 2.0</text>
-    <text x="32" y="254">CPU: Intel(R) Core(TM) Ultra 9 275HX CPU @ 2.80GHz</text>
-    <text x="32" y="272"> Speed: 5400MHz</text>
+    <text x="32" y="316">Total Memory: 32768MB (DDR5-6400)</text>
 
-    <text x="32" y="306">Total Memory: 32768MB (DDR5-6400)</text>
+    <text x="32" y="350">USB Devices total: 0 Drive, 1 Keyboard, 1 Mouse, 3 Hubs</text>
 
-    <text x="32" y="340">USB Devices total: 0 Drive, 1 Keyboard, 1 Mouse, 3 Hubs</text>
+    <text x="32" y="384">Detected ATA/ATAPI Devices...</text>
+    <text x="32" y="402">SATA Port1: Samsung SSD 990 PRO 2TB</text>
+    <text x="32" y="420">SATA Port2: WDC WD20EZAZ-00GGJB0</text>
+    <text x="32" y="438">SATA Port3: Toshiba Canvio DTB520</text>
 
-    <text x="32" y="374">Detected ATA/ATAPI Devices...</text>
-    <text x="32" y="392">SATA Port1: Samsung SSD 990 PRO 2TB</text>
-    <text x="32" y="410">SATA Port2: WDC WD20EZAZ-00GGJB0</text>
-    <text x="32" y="428">SATA Port3: Toshiba Canvio DTB520</text>
-
-    <text x="32" y="468" fill="#ffd866">Press DEL to run Setup</text>
-    <text x="32" y="486" fill="#ffd866">Press F8 for BBS POPUP</text>
+    <text x="32" y="470" fill="#ffd866">Press DEL to run Setup</text>
+    <text x="32" y="488" fill="#ffd866">Press F8 for BBS POPUP</text>
   </g>
 
 </svg>

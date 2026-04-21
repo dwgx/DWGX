@@ -2,7 +2,7 @@
 <!--  dwgx.menu  v2.0                                                 -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="assets/bios-header.svg" width="100%" alt="DWGXBIOS boot screen" />
+<img src="assets/bios-header.png" width="100%" alt="DWGXBIOS boot screen" />
 
 <div align="center">
 
@@ -33,7 +33,7 @@
 [identity]
 alias      = dwgx · 帝王尬笑
 location   = Kobe, Hyogo · JST+9
-motto      = 我就是我
+motto      = be water
 bio        = 也许我就是dwgx
 
 [role]
@@ -289,7 +289,7 @@ previous   = js · php
 ```
  00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑........
  00401010  64 77 67 78 40 6b 6f 62   65 3a 7e 24 00 00 00 00   dwgx@kobe:~$....
- 00401020  e6 88 91 e5 b0 b1 e6 98   af e6 88 91 00 00 00 00   我就是我........
+ 00401020  62 65 20 77 61 74 65 72   2c 20 6d 79 20 66 72 69   be water, my fri
  00401030  2f 68 6f 6d 65 2f 6b 6f   62 65 2f 2e 64 77 67 78   /home/kobe/.dwgx
  00401040  2f 70 65 72 73 6f 6e 61   2e 64 61 74 00 00 00 00   /persona.dat....
  00401050  69 6e 64 65 70 20 64 65   76 20 2f 2f 20 31 35 79   indep dev // 15y
@@ -320,7 +320,7 @@ previous   = js · php
 </div>
 
 ```
- ─── dwgx@kobe ── JST+9 ── mode: archive ── uptime 5768d ── 我就是我 ───
+ ─── dwgx@kobe ── JST+9 ── mode: archive ── uptime 5768d ── be water ───
 ```
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=soft&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=100&section=footer&text=&fontSize=0" />

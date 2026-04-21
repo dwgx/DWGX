@@ -9,52 +9,51 @@
 </head>
 <body>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="440" viewBox="0 0 960 220" preserveAspectRatio="xMidYMid meet">
-  <rect width="960" height="220" fill="#000000"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet">
+  <rect width="960" height="540" fill="#000000"/>
 
-  <!-- subtle crt vignette corners -->
-  <defs>
-    <radialGradient id="vig" cx="50%" cy="50%" r="70%">
-      <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
-    </radialGradient>
-    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#b01418"/>
-      <stop offset="50%" stop-color="#d01c1f"/>
-      <stop offset="100%" stop-color="#8a0f13"/>
-    </linearGradient>
-  </defs>
-
-  <!-- top-left: ENERGY STAR compliance box -->
+  <!-- Top-left: ENERGY STAR compliance box -->
   <g transform="translate(22, 20)">
-    <rect width="72" height="58" fill="none" stroke="#c0c0c0" stroke-width="1.2"/>
-    <text x="36" y="18" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#c0c0c0" letter-spacing="0.6">ENERGY</text>
-    <text x="36" y="40" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#c9a84c">★</text>
-    <text x="36" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#c0c0c0" letter-spacing="0.6">STAR</text>
+    <rect width="68" height="54" fill="none" stroke="#c0c0c0" stroke-width="1"/>
+    <text x="34" y="16" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" font-weight="bold" fill="#c0c0c0" letter-spacing="0.6">ENERGY</text>
+    <text x="34" y="38" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#c9a84c">★</text>
+    <text x="34" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#c0c0c0" letter-spacing="0.6">STAR</text>
   </g>
 
-  <!-- top-right text: classic AMIBIOS copyright -->
-  <g font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#c8c8c8">
-    <text x="108" y="36">AMIBIOS(C) 1985-2026 American Megatrends, Inc.</text>
-    <text x="108" y="54" fill="#888888">BIOS Revision 2.0  ·  dwgx.menu edition  ·  kobe.jp</text>
+  <!-- Giant American Megatrends wordmark (upright bold, real AMI style) -->
+  <g transform="translate(480, 72)" text-anchor="middle">
+    <text font-family="'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="48" fill="#e8e8e8" letter-spacing="-1">American Megatrends<tspan dy="-22" font-size="16">®</tspan></text>
   </g>
 
-  <!-- center wordmark: iconic American Megatrends italic serif -->
-  <g transform="translate(480, 138)">
-    <text text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-weight="bold" font-size="58" fill="url(#red)" letter-spacing="2">American Megatrends</text>
-    <text text-anchor="middle" y="28" font-family="Consolas, monospace" font-size="11" fill="#707070" letter-spacing="5">® KOBE  ·  JST+9  ·  PROCESS COUNT 10</text>
+  <!-- POST text block, classic AMIBIOS VGA look -->
+  <g font-family="'Consolas', 'Courier New', 'Lucida Console', monospace" font-size="13" fill="#cfcfcf">
+
+    <text x="40" y="140">AMIBIOS(C) Copyright 1985-2026 American Megatrends, Inc.</text>
+    <text x="40" y="158">BIOS Date: 04/21/2026 07:27:34 Ver: 08.00.15</text>
+
+    <text x="40" y="196">CPU Type   : Intel(R) Core(TM) Ultra 9 275HX</text>
+    <text x="40" y="214">CPU Speed  : 5400 MHz  (8P + 16E cores)</text>
+    <text x="40" y="232">Memory     : 32768MB  DDR5-6400  Dual-Channel</text>
+
+    <text x="40" y="270">Initializing USB Controllers ..  <tspan fill="#e8e8e8">Done.</tspan></text>
+    <text x="40" y="288">USB Device(s) : 1 Keyboard, 1 Mouse, 3 Hub</text>
+
+    <text x="40" y="326">Auto-Detecting Pri Master ..  IDE Hard Disk</text>
+    <text x="40" y="344">Pri Master    : Samsung SSD 990 PRO 2TB</text>
+    <text x="40" y="362">Auto-Detecting Pri Slave  ..  ATAPI CDROM</text>
+
+    <text x="40" y="400" fill="#ffd866">Press DEL to run Setup</text>
+    <text x="40" y="418" fill="#ffd866">Press F8 for BBS POPUP</text>
+
+    <text x="40" y="460" fill="#7a7a7a">Checking NVRAM ..</text>
+    <text x="40" y="478" fill="#7a7a7a">32768MB OK<tspan fill="#e8e8e8">_</tspan></text>
   </g>
 
-  <!-- bottom scanlines / register footer -->
-  <rect x="0" y="200" width="960" height="1" fill="#d01c1f" opacity="0.55"/>
-  <rect x="0" y="206" width="960" height="1" fill="#c9a84c" opacity="0.28"/>
-  <g font-family="Consolas, monospace" font-size="9" fill="#555555" letter-spacing="1">
-    <text x="22" y="216">dwgx@kobe:~$  boot.ok</text>
-    <text x="938" y="216" text-anchor="end">[ POST:00  ·  OK ]</text>
+  <!-- Bottom-right copyright foot -->
+  <g font-family="'Consolas', monospace" font-size="10" fill="#5a5a5a">
+    <text x="938" y="522" text-anchor="end">dwgx.menu edition  ·  kobe.jp  ·  JST+9</text>
   </g>
 
-  <!-- vignette overlay last -->
-  <rect width="960" height="220" fill="url(#vig)"/>
 </svg>
 
 </body>

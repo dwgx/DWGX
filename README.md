@@ -241,25 +241,19 @@ previous   = js · php
 <!-- ════════════════════════════════════════════════════════════════ -->
 
 ```
-                              . d w g x . p r e s e n t s .
- ████████████████████████████████████████████████████████████████████████████
- ██                                                                        ██
- ██      d w g x . m e n u      ·      v 2 . 1      ·      2 0 2 6         ██
- ██                                                                        ██
- ██              scene release // kobe, jp // solo crew                    ██
- ██                                                                        ██
- ████████████████████████████████████████████████████████████████████████████
+ . d w g x . p r e s e n t s .
 
- ┌──────────────────────────────────────────────────────────────────────────┐
- │  ▌  group      dwgx                                                      │
- │  ▌  location   kobe · jp  ·  jst +9                                      │
- │  ▌  release    personal-profile.v2.1                                     │
- │  ▌  files      1 readme.md  +  2 assets                                  │
- │  ▌  size       ≈ 1.8 mb  (gif-heavy)                                     │
- │  ▌  target     github.com/dwgx                                           │
- │  ▌  supplier   15yo indep dev · minecraft cheat scene origin             │
- │  ▌  date       2026.04.21                                                │
- └──────────────────────────────────────────────────────────────────────────┘
+ dwgx.menu  ·  v2.1  ·  2026
+ scene release // kobe, jp // solo crew
+
+ group      dwgx
+ location   kobe · jp · jst+9
+ release    personal-profile.v2.1
+ files      1 readme.md + 2 assets
+ size       ≈ 1.8 mb (gif-heavy)
+ target     github.com/dwgx
+ supplier   15yo indep dev · minecraft cheat scene origin
+ date       2026.04.21
 ```
 
 <div align="center">
@@ -351,13 +345,13 @@ previous   = js · php
 </table>
 
 ```
- ▓▒░  [ shoutouts ]  ░▒▓─────────────────────────────────────────────────────
+ . s h o u t o u t s .
 
-    to every kid who traced a decompiled class at 3 am
-    to every anon who dropped a repo and walked away without credit
-    to the cat who sleeps on my mechanical keyboard
+ to every kid who traced a decompiled class at 3 am
+ to every anon who dropped a repo and walked away without credit
+ to the cat who sleeps on my mechanical keyboard
 
-    — dwgx, kobe
+ — dwgx, kobe
 ```
 
 ---

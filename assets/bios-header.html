@@ -12,34 +12,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet">
   <rect width="960" height="540" fill="#000000"/>
 
-  <!-- AMI red pyramid: isosceles triangle clipped into horizontal stripes -->
+  <!-- AMI red pyramid: outer triangle with inverted inner triangle carved out, horizontal stripes -->
   <defs>
-    <clipPath id="amitri">
-      <polygon points="75,0 150,130 0,130"/>
+    <!-- donut clip: outer triangle minus inverted inner triangle (evenodd fill rule) -->
+    <clipPath id="amitri" clip-rule="evenodd">
+      <path d="M 75,0 L 150,130 L 0,130 Z M 48,62 L 102,62 L 75,100 Z"/>
     </clipPath>
   </defs>
   <g transform="translate(42, 30)">
-    <g clip-path="url(#amitri)" fill="#d01c1f">
-      <rect x="-10" y="0"   width="170" height="11"/>
-      <rect x="-10" y="14"  width="170" height="11"/>
-      <rect x="-10" y="28"  width="170" height="11"/>
-      <rect x="-10" y="42"  width="170" height="11"/>
-      <rect x="-10" y="56"  width="170" height="11"/>
-      <rect x="-10" y="70"  width="170" height="11"/>
-      <rect x="-10" y="84"  width="170" height="11"/>
-      <rect x="-10" y="98"  width="170" height="11"/>
-      <rect x="-10" y="112" width="170" height="11"/>
-      <rect x="-10" y="126" width="170" height="5"/>
+    <g clip-path="url(#amitri)" fill="#e81c1f">
+      <rect x="-10" y="0"   width="170" height="7"/>
+      <rect x="-10" y="10"  width="170" height="7"/>
+      <rect x="-10" y="20"  width="170" height="7"/>
+      <rect x="-10" y="30"  width="170" height="7"/>
+      <rect x="-10" y="40"  width="170" height="7"/>
+      <rect x="-10" y="50"  width="170" height="7"/>
+      <rect x="-10" y="60"  width="170" height="7"/>
+      <rect x="-10" y="70"  width="170" height="7"/>
+      <rect x="-10" y="80"  width="170" height="7"/>
+      <rect x="-10" y="90"  width="170" height="7"/>
+      <rect x="-10" y="100" width="170" height="7"/>
+      <rect x="-10" y="110" width="170" height="7"/>
+      <rect x="-10" y="120" width="170" height="7"/>
     </g>
   </g>
 
-  <!-- "American Megatrends" two-line white bold serif, right of logo -->
+  <!-- "American Megatrends" two-line white bold serif -->
   <g font-family="'Times New Roman', Times, 'Nimbus Roman', serif" font-weight="700" font-size="62" fill="#ffffff" letter-spacing="-1">
     <text x="216" y="82">American</text>
     <text x="216" y="146">Megatrends</text>
   </g>
 
-  <!-- POST text block, classic AMIBIOS VGA look, white on black -->
+  <!-- POST text block, classic AMIBIOS VGA look -->
   <g font-family="'Consolas', 'Courier New', 'Lucida Console', monospace" font-size="14" fill="#dcdcdc">
     <text x="32" y="220">AMIBIOS(C)2026 American Megatrends, Inc.</text>
     <text x="32" y="242">ASUS ROG Strix G18 ACPI BIOS Revision 2.0</text>

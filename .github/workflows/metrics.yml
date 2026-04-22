@@ -29,22 +29,3 @@ jobs:
           committer_branch: main
           committer_message: "chore: update metrics dashboard"
 
-  # achievements (取代挂掉的 trophy)
-  achievements:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: lowlighter/metrics@latest
-        with:
-          filename: assets/metrics-achievements.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          user: DWGX
-          template: classic
-          base: ""
-          config_timezone: Asia/Tokyo
-          plugin_achievements: yes
-          plugin_achievements_threshold: C
-          plugin_achievements_secrets: yes
-          plugin_achievements_display: detailed
-          plugin_achievements_limit: 0
-          output_action: commit
-          committer_branch: main

@@ -407,10 +407,6 @@ to every kid who built something just to see if it could be done
 <img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-ff66aa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-5768_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
-<br/><br/>
-
-<img src="assets/metrics-achievements.svg" width="85%" alt="github achievements dashboard" />
-
 </div>
 
 ---
@@ -424,24 +420,6 @@ to every kid who built something just to see if it could be done
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" />
   <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" width="100%" alt="3d contribution" />
 </picture>
-
-<br/><br/>
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-gitblock.svg" width="100%" alt="git block" />
-
-</div>
-
----
-
-### `skyline.3d`
-
-<div align="center">
-
-<img src="assets/skyline.png" width="100%" alt="skyline rendered from STL" />
-
-<br/>
-
-<sub>rendered from STL · <a href="https://skyline.github.com/DWGX/2026">interactive 3D on skyline.github.com →</a></sub>
 
 </div>
 
@@ -547,5 +525,3 @@ to every kid who built something just to see if it could be done
 ```
  ─── dwgx@kobe ── JST+9 ── mode: archive ── uptime 5768d ── be water ───
 ```
-
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=160&section=footer&text=be%20water&fontAlign=50&fontAlignY=70&fontColor=06020f&fontSize=26&animation=twinkling" />

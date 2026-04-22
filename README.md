@@ -425,6 +425,24 @@ to every kid who built something just to see if it could be done
   <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" width="100%" alt="3d contribution" />
 </picture>
 
+<br/><br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-gitblock.svg" width="100%" alt="git block" />
+
+</div>
+
+---
+
+### `skyline.3d`
+
+<div align="center">
+
+<img src="assets/skyline.png" width="100%" alt="skyline rendered from STL" />
+
+<br/>
+
+<sub>rendered from STL · <a href="https://skyline.github.com/DWGX/2026">interactive 3D on skyline.github.com →</a></sub>
+
 </div>
 
 ---

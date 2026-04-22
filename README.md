@@ -425,24 +425,6 @@ to every kid who built something just to see if it could be done
   <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" width="100%" alt="3d contribution" />
 </picture>
 
-<br/><br/>
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-gitblock.svg" width="100%" alt="git block skyline" />
-
-</div>
-
----
-
-### `isocalendar.plot`
-
-<div align="center">
-
-<img src="assets/metrics-isocalendar.svg" width="85%" alt="isometric contribution calendar" />
-
-<br/>
-
-<img src="assets/metrics-habits.svg" width="85%" alt="coding habits" />
-
 </div>
 
 ---

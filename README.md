@@ -215,6 +215,14 @@ previous   = js · php
 
 <div align="center">
 
+### `discord.presence`
+
+<a href="https://discord.com/users/1284670281926967336">
+  <img src="https://lanyard.cnrad.dev/api/1284670281926967336?theme=dark&bg=06020f&borderRadius=10px&animated=true&idleMessage=AFK%20%C2%B7%20probably%20coding" alt="discord presence" />
+</a>
+
+---
+
 ### `featured`
 
 ## 幻想万華鏡 ~ The Memories of Phantasm

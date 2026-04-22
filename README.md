@@ -399,6 +399,42 @@ to every kid who built something just to see if it could be done
 <img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-ff66aa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-5768_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
+<br/><br/>
+
+<img src="assets/metrics-achievements.svg" width="85%" alt="github achievements dashboard" />
+
+</div>
+
+---
+
+### `3d.contrib`
+
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" width="100%" alt="3d contribution" />
+</picture>
+
+<br/><br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-gitblock.svg" width="100%" alt="git block skyline" />
+
+</div>
+
+---
+
+### `isocalendar.plot`
+
+<div align="center">
+
+<img src="assets/metrics-isocalendar.svg" width="85%" alt="isometric contribution calendar" />
+
+<br/>
+
+<img src="assets/metrics-habits.svg" width="85%" alt="coding habits" />
+
 </div>
 
 ---
@@ -444,33 +480,6 @@ to every kid who built something just to see if it could be done
 </picture>
 
 </div>
-
----
-
-<!-- ════════════════════════════════════════════════════════════════ -->
-<!--  archive drawer — handwritten ledger style                       -->
-<!-- ════════════════════════════════════════════════════════════════ -->
-
-```
- ╔══════════════════════════════════════════════════════════════════════════╗
- ║   档 案 抽 屉     ·     archive drawer     ·     drawer no. 01          ║
- ╠══════════════════════════════════════════════════════════════════════════╣
- ║                                                                          ║
- ║   [ 01 ]   2010  ·  —        始点                · kobe, jp             ║
- ║   [ 02 ]   ····  ·  —        minecraft cheat scene · first compile      ║
- ║   [ 03 ]   ····  ·  —        paper-plugin · anti-cheat                  ║
- ║   [ 04 ]   ····  ·  —        esp32-s3 · flipper zero · ble-spam         ║
- ║   [ 05 ]   ····  ·  —        vrchat il2cpp diving begin                 ║
- ║   [ 06 ]   ····  ·  —        skiapi · backend / frontend                ║
- ║   [ 07 ]   2026  ·  apr      WindsurfAPI ★200 milestone                 ║
- ║   [ 08 ]   2026  ·  apr      vrchat-il2cpp-re 97.7% deobf  ·  42k cls   ║
- ║   [ 09 ]   2026  ·  apr      VRCSM · RepoDLL · flipper-custom-apps      ║
- ║   [ 10 ]   2026  ·  apr      dwgx.menu v2.1 rebuild                     ║
- ║   [ 11 ]   ....  ·  —        still writing                              ║
- ║                                                                          ║
- ║                                       ─────── drawer.sealed ───────      ║
- ╚══════════════════════════════════════════════════════════════════════════╝
-```
 
 ---
 
@@ -531,4 +540,4 @@ to every kid who built something just to see if it could be done
  ─── dwgx@kobe ── JST+9 ── mode: archive ── uptime 5768d ── be water ───
 ```
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=soft&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=100&section=footer&text=&fontSize=0" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:f2a6c4,30:2d1b69,60:1a0a3e,100:06020f&height=160&section=footer&text=be%20water&fontAlign=50&fontAlignY=70&fontColor=06020f&fontSize=26&animation=twinkling" />

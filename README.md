@@ -59,22 +59,11 @@ previous   = js · php
 
 ### `process.table`
 
-```
- PID    MODULE                   ADDR             LANG    STATUS
- ──────────────────────────────────────────────────────────────────────────────
- 0001   WindsurfAPI              0x7FF6A4010000   js      LISTENING  :8080  ★2889
- 0002   KiroStudio               0x7FF6A40AB000   rust    GATEWAY  proto-bridge+pool
- 0003   SaoMoLa                  0x7FF6A40FF000   c       UPLOADING  vrc.avatar.pipe
- 0004   driver-vuln-research     0x7FF6A4180000   asm     BYOVD  ring0.probe
- 0005   vrchat-il2cpp-re         0x7FF6A4220000   c#      ▓▓▓▓▓▓▓▓▓░  64k cls deobf
- 0006   SmartCLI                 0x7FF6A42D0000   py      PTY+pyte  tui.driver
- 0007   VRCSM                    0x7FF6A4350000   ts      ▓▓▓▓▓▓▓░░░  cache.mgr
- 0008   claude-code-fork         0x7FF6A4400000   ts      SOURCEMAP  cli.reversed
- 0009   RepoDLL                  0x7FF6A4480000   cpp     HOOKED  Present()  ★10
- 0010   Lavender-rise-main       0x7FF6A4520000   java    MC-1.21  cheat-client
- 0011   flipper-custom-apps      0x7FF6A45C0000   c       ESP32-BOOST  ble-spam
- 0012   FlipperZeroTeacher       0x7FF6A4660000   html    雙語教學.知識庫
-```
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg" width="88%" alt="process.table" />
+
+</div>
 
 ---
 
@@ -347,7 +336,7 @@ scene release // kobe, jp // solo crew
 
 <div align="center">
 
-### `▓▒░  [ stack.manifest ]  ░▒▓`
+### `━─·  [ stack.manifest ]  ·─━`
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg" width="92%" alt="stack.manifest" />
 

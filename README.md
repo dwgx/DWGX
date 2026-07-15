@@ -2,7 +2,7 @@
 <!--  dwgx.menu  v2.1                                                 -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="assets/bios-header.png" width="100%" alt="dwgx.menu" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <div align="center">
 

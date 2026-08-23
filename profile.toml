@@ -3,6 +3,7 @@
 # Edit this file; do not hand-patch generated numbers in README.
 
 login = "dwgx"
+prompt = "dwgx@menu"
 version = "2.2"
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
@@ -179,7 +180,7 @@ qq_avatar = "https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640"
 
 [hardware]
 # Generated into hardware.dmp. Do not put secrets, IPs, or phone numbers here.
-header = "dwgx@kobe"
+header = "dwgx@menu"
 rog = [
   "host       ASUS ROG Strix G18  (primary)",
   "cpu        Intel Ultra 9 275HX",

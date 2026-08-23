@@ -24,7 +24,30 @@ ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile.toml"
 README = ROOT / "README.md"
 SVG = ROOT / "assets" / "process-table.svg"
+STATS_SVG = ROOT / "assets" / "stats.svg"
+LANGS_SVG = ROOT / "assets" / "langs.svg"
 API = "https://api.github.com"
+GQL = "https://api.github.com/graphql"
+
+LANG_SKIP = {"HTML", "CSS", "SCSS", "Less", "Markdown", "Jinja"}
+LANG_COLORS = {
+    "JavaScript": "#f1e05a",
+    "TypeScript": "#3178c6",
+    "Python": "#3572A5",
+    "Rust": "#dea584",
+    "C++": "#f34b7d",
+    "C#": "#178600",
+    "C": "#555555",
+    "Go": "#00ADD8",
+    "Java": "#b07219",
+    "Swift": "#F05138",
+    "Shell": "#89e051",
+    "PowerShell": "#012456",
+    "Assembly": "#6E4C13",
+    "Astro": "#ff5a03",
+    "HTML": "#e34c26",
+    "CSS": "#563d7c",
+}
 
 PINK = "#f2a6c4"
 GOLD = "#c9a84c"
@@ -37,6 +60,10 @@ GREEN = "#7ee787"
 def load_profile() -> dict:
     with PROFILE.open("rb") as f:
         return tomllib.load(f)
+
+
+def prompt_host(profile: dict) -> str:
+    return str(profile.get("prompt") or "dwgx@menu")
 
 
 def gh_token() -> str:
@@ -69,6 +96,111 @@ def api_get(path: str, token: str, params: str = "") -> object:
     )
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
+
+
+def api_graphql(query: str, variables: dict, token: str) -> dict:
+    body = json.dumps({"query": query, "variables": variables}).encode("utf-8")
+    req = urllib.request.Request(
+        GQL,
+        data=body,
+        method="POST",
+        headers={
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "dwgx-profile-render",
+            **({"Authorization": f"Bearer {token}"} if token else {}),
+        },
+    )
+    with urllib.request.urlopen(req, timeout=45) as resp:
+        payload = json.loads(resp.read().decode("utf-8"))
+    if payload.get("errors"):
+        raise RuntimeError(payload["errors"][0].get("message") or "graphql error")
+    return payload.get("data") or {}
+
+
+STATS_QUERY = """
+query($login: String!) {
+  user(login: $login) {
+    followers { totalCount }
+    issues { totalCount }
+    pullRequests { totalCount }
+    contributionsCollection {
+      totalCommitContributions
+    }
+    repositories(first: 100, ownerAffiliations: OWNER, isFork: false, orderBy: {field: STARGAZERS, direction: DESC}) {
+      nodes {
+        languages(first: 8, orderBy: {field: SIZE, direction: DESC}) {
+          edges { size node { name color } }
+        }
+      }
+    }
+  }
+}
+"""
+
+
+def fetch_extra_stats(login: str, token: str, repos: list[dict]) -> dict:
+    extra = {
+        "followers": 0,
+        "issues": 0,
+        "prs": 0,
+        "commits_year": 0,
+        "langs": [],
+    }
+    if token:
+        try:
+            data = api_graphql(STATS_QUERY, {"login": login}, token)
+            user = (data.get("user") or {}) if isinstance(data, dict) else {}
+            extra["followers"] = int(((user.get("followers") or {}).get("totalCount")) or 0)
+            extra["issues"] = int(((user.get("issues") or {}).get("totalCount")) or 0)
+            extra["prs"] = int(((user.get("pullRequests") or {}).get("totalCount")) or 0)
+            extra["commits_year"] = int(
+                ((user.get("contributionsCollection") or {}).get("totalCommitContributions")) or 0
+            )
+            sizes: dict[str, dict] = {}
+            for node in ((user.get("repositories") or {}).get("nodes") or []):
+                for edge in ((node.get("languages") or {}).get("edges") or []):
+                    info = edge.get("node") or {}
+                    name = info.get("name")
+                    if not name or name in LANG_SKIP:
+                        continue
+                    rec = sizes.setdefault(name, {"size": 0, "color": info.get("color")})
+                    rec["size"] += int(edge.get("size") or 0)
+                    if info.get("color"):
+                        rec["color"] = info.get("color")
+            ranked = sorted(sizes.items(), key=lambda kv: -kv[1]["size"])
+            extra["langs"] = [
+                {
+                    "name": name,
+                    "size": rec["size"],
+                    "color": rec.get("color") or LANG_COLORS.get(name) or GOLD,
+                }
+                for name, rec in ranked[:6]
+            ]
+            return extra
+        except (urllib.error.URLError, urllib.error.HTTPError, RuntimeError, TimeoutError, json.JSONDecodeError):
+            pass
+    extra["langs"] = langs_from_repos(repos)
+    return extra
+
+
+def langs_from_repos(repos: list[dict]) -> list[dict]:
+    counts: dict[str, int] = {}
+    for r in repos:
+        if r.get("fork"):
+            continue
+        name = r.get("language")
+        pl = r.get("primaryLanguage")
+        if isinstance(pl, dict):
+            name = pl.get("name") or name
+        if not name or name in LANG_SKIP:
+            continue
+        counts[name] = counts.get(name, 0) + 1
+    ranked = sorted(counts.items(), key=lambda kv: -kv[1])
+    return [
+        {"name": n, "size": c, "color": LANG_COLORS.get(n) or GOLD}
+        for n, c in ranked[:6]
+    ]
 
 
 def fetch_user(login: str, token: str) -> dict:
@@ -225,7 +357,7 @@ def process_svg(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> 
         f'<rect width="{width}" height="{height}" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>',
         f'<rect x="1" y="1" width="{width-2}" height="{header_h}" rx="3" fill="#161b22"/>',
         '<line x1="0" y1="26" x2="617" y2="26" stroke="#30363d" stroke-width="1"/>',
-        f'<text x="16.0" y="18.0" font-size="13" font-weight="700" fill="{PINK}">dwgx@kobe</text>',
+        f'<text x="16.0" y="18.0" font-size="13" font-weight="700" fill="{PINK}">{esc(prompt_host(profile))}</text>',
         f'<text x="109.6" y="18.0" font-size="13" font-weight="700" fill="{TEXT}">process.table</text>',
         f'<text x="234.4" y="18.0" font-size="13" font-weight="400" fill="{MUTED}">[{n} tasks]</text>',
         f'<text x="476.2" y="18.0" font-size="13" font-weight="400" fill="{GREEN}">active · JST+9</text>',
@@ -327,7 +459,7 @@ def label_prefix(name: str) -> str:
 def hardware_dump(profile: dict, days: int) -> str:
     hw = profile["hardware"]
     lines: list[str] = []
-    header = str(hw.get("header") or "dwgx@kobe")
+    header = str(hw.get("header") or prompt_host({"prompt": "dwgx@menu"}))
     core = f"─── {header} "
     top = "╭" + core + ("─" * max(1, 48 - len(core))) + "╮"
     empty = "│  " + pad_body("") + "│"
@@ -402,7 +534,7 @@ def pinned_table(profile: dict, repos: dict[str, dict], public_count: int, stars
     more_box = pin_box(
         {
             "name": f"+ {more} more modules",
-            "blurb": f"{public_count} public repos\n{stars} total stars\nsolo crew · kobe",
+            "blurb": f"{public_count} public repos\n{stars} total stars\nsolo crew · shipping",
             "lang": "polyglot",
             "stage": "shipping",
             "diff": "★★★★★",
@@ -417,6 +549,84 @@ def pinned_table(profile: dict, repos: dict[str, dict], public_count: int, stars
     row1 = "<tr>\n" + "\n".join(cells[:3]) + "\n</tr>"
     row2 = "<tr>\n" + "\n".join(cells[3:6]) + "\n</tr>"
     return "<table>\n" + row1 + "\n" + row2 + "\n</table>"
+
+
+def fmt_num(n: int) -> str:
+    return f"{int(n):,}"
+
+
+def panel_frame(width: int, height: int, host: str, title: str, body: list[str]) -> str:
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+        f'viewBox="0 0 {width} {height}" '
+        f"font-family=\"ui-monospace,'Cascadia Mono',Consolas,'SF Mono',monospace\">",
+        f'<rect width="{width}" height="{height}" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>',
+        f'<rect x="1" y="1" width="{width-2}" height="26" rx="3" fill="#161b22"/>',
+        f'<line x1="0" y1="26" x2="{width}" y2="26" stroke="#30363d" stroke-width="1"/>',
+        f'<text x="16.0" y="18.0" font-size="13" font-weight="700" fill="{PINK}">{esc(host)}</text>',
+        f'<text x="{16 + text_w(host, True) + 12:.1f}" y="18.0" font-size="13" font-weight="700" fill="{TEXT}">{esc(title)}</text>',
+        f'<text x="{width - 72}" y="18.0" font-size="13" font-weight="400" fill="{GREEN}">live</text>',
+    ]
+    parts.extend(body)
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def stats_svg(host: str, user: dict, stars: int, extra: dict) -> str:
+    rows = [
+        ("Total Stars", fmt_num(stars), GOLD),
+        ("Public Repos", fmt_num(int(user.get("public_repos") or 0)), PINK),
+        ("Followers", fmt_num(int(extra.get("followers") or user.get("followers") or 0)), TEXT),
+        ("Pull Requests", fmt_num(int(extra.get("prs") or 0)), BLUE),
+        ("Commits (year)", fmt_num(int(extra.get("commits_year") or 0)), GREEN),
+        ("Issues", fmt_num(int(extra.get("issues") or 0)), MUTED),
+    ]
+    width, height = 495, 170
+    body: list[str] = []
+    col_w = 230
+    for i, (label, value, color) in enumerate(rows):
+        col = i % 2
+        row = i // 2
+        x = 20 + col * col_w
+        y = 58 + row * 34
+        body.append(
+            f'<text x="{x}" y="{y}" font-size="12" font-weight="400" fill="{MUTED}">{esc(label)}</text>'
+        )
+        body.append(
+            f'<text x="{x}" y="{y + 16}" font-size="16" font-weight="700" fill="{color}">{esc(value)}</text>'
+        )
+    return panel_frame(width, height, host, "stats.panel", body)
+
+
+def langs_svg(host: str, langs: list[dict]) -> str:
+    width, height = 400, 170
+    body: list[str] = []
+    total = sum(int(x.get("size") or 0) for x in langs) or 1
+    bar_x, bar_w = 118, 220
+    if not langs:
+        body.append(
+            f'<text x="20" y="80" font-size="13" fill="{MUTED}">no language data</text>'
+        )
+        return panel_frame(width, height, host, "langs.panel", body)
+    for i, lang in enumerate(langs[:6]):
+        y = 48 + i * 20
+        pct = int(lang["size"]) / total
+        name = str(lang["name"])
+        color = str(lang.get("color") or GOLD)
+        fw = max(2.0, round(bar_w * pct, 1))
+        body.append(
+            f'<text x="16" y="{y + 9}" font-size="12" font-weight="400" fill="{TEXT}">{esc(name)}</text>'
+        )
+        body.append(
+            f'<rect x="{bar_x}" y="{y}" width="{bar_w}" height="10" rx="3" fill="#30363d"/>'
+        )
+        body.append(
+            f'<rect x="{bar_x}" y="{y}" width="{fw}" height="10" rx="3" fill="{esc(color)}"/>'
+        )
+        body.append(
+            f'<text x="{bar_x + bar_w + 10}" y="{y + 9}" font-size="11" fill="{MUTED}">{pct*100:.0f}%</text>'
+        )
+    return panel_frame(width, height, host, "langs.panel", body)
 
 
 def shield_stars(n: int) -> str:
@@ -451,7 +661,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dkobe;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmenu;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
@@ -575,10 +785,10 @@ previous   = {ident['languages_previous']}
 . d w g x . p r e s e n t s .
 
 dwgx.menu · v{profile.get('version','2.2')} · 2026  
-scene release // kobe, jp // solo crew
+scene release // jst+9 // solo crew
 
 **group** — dwgx  
-**location** — kobe · jp · jst+9  
+**host** — dwgx.menu  
 **release** — personal-profile.v{profile.get('version','2.2')}  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
@@ -599,7 +809,7 @@ scene release // kobe, jp // solo crew
 to every anon who kept pushing commits with zero stars and zero watchers  
 to every kid who built something just to see if it could be done
 
-— dwgx, kobe
+— dwgx
 
 ---
 
@@ -651,15 +861,9 @@ to every kid who built something just to see if it could be done
 
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=dwgx&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
-  <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api?username=dwgx&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
-</picture>
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
 &nbsp;&nbsp;
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=dwgx&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-  <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=dwgx&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-</picture>
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
 
 </div>
 
@@ -697,7 +901,7 @@ to every kid who built something just to see if it could be done
 
 ```
  00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑....
- 00401010  64 77 67 78 40 6b 6f 62   65 3a 7e 2f 64 65 76 24   dwgx@kobe:~/dev$
+ 00401010  64 77 67 78 40 6d 65 6e   75 3a 7e 2f 64 65 76 24   dwgx@menu:~/dev$
  00401020  72 65 76 65 72 73 65 2e   65 6e 67 69 6e 65 65 72   reverse.engineer
  00401030  67 61 6d 65 20 68 61 63   6b 69 6e 67 20 73 79 73   game hacking sys
  00401040  62 65 20 77 61 74 65 72   20 6d 79 20 66 72 69 65   be water my frie
@@ -724,7 +928,7 @@ to every kid who built something just to see if it could be done
 </div>
 
 ```
- ─── dwgx@kobe ── JST+9 ── mode: shipping ── uptime {ctx['uptime']}d ── be water ───
+ ─── {prompt_host(profile)} ── JST+9 ── mode: shipping ── uptime {ctx['uptime']}d ── be water ───
 ```
 """
 
@@ -744,11 +948,16 @@ def main() -> int:
     }
     public = int(user.get("public_repos") or len(repos))
     stars = total_stars(repos)
+    extra = fetch_extra_stats(login, token, repos)
+    if not extra.get("followers"):
+        extra["followers"] = int(user.get("followers") or 0)
     days = uptime_days(str(profile.get("born") or "2010-07-05"))
     today = today_jst().isoformat()
-    svg = process_svg(profile, by_name, tags)
+    host = prompt_host(profile)
     SVG.parent.mkdir(parents=True, exist_ok=True)
-    SVG.write_text(svg, encoding="utf-8")
+    SVG.write_text(process_svg(profile, by_name, tags), encoding="utf-8")
+    STATS_SVG.write_text(stats_svg(host, user, stars, extra), encoding="utf-8")
+    LANGS_SVG.write_text(langs_svg(host, extra.get("langs") or []), encoding="utf-8")
     ctx = {
         "today": today,
         "uptime": days,
@@ -764,6 +973,8 @@ def main() -> int:
     README.write_text(render_readme(profile, ctx).rstrip() + "\n", encoding="utf-8")
     print(f"wrote {README.relative_to(ROOT)}")
     print(f"wrote {SVG.relative_to(ROOT)}")
+    print(f"wrote {STATS_SVG.relative_to(ROOT)}")
+    print(f"wrote {LANGS_SVG.relative_to(ROOT)}")
     print(
         f"public_repos={public} stars={stars} uptime={days} "
         f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']}"

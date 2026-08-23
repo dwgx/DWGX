@@ -11,7 +11,7 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dkobe;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmenu;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
@@ -188,7 +188,7 @@ previous   = php
 ║                          ║
 ║  98 public repos         ║
 ║  3185 total stars        ║
-║  solo crew · kobe        ║
+║  solo crew · shipping    ║
 ║                          ║
 ║  lang  · polyglot        ║
 ║  stage · shipping        ║
@@ -226,7 +226,7 @@ previous   = php
 ### `hardware.dmp`
 
 ```
-               ╭─── dwgx@kobe ──────────────────────────────────╮
+               ╭─── dwgx@menu ──────────────────────────────────╮
                │                                                │
  ROG Strix ════╡  host       ASUS ROG Strix G18  (primary)      │
                │  cpu        Intel Ultra 9 275HX                │
@@ -299,10 +299,10 @@ previous   = php
 . d w g x . p r e s e n t s .
 
 dwgx.menu · v2.2 · 2026  
-scene release // kobe, jp // solo crew
+scene release // jst+9 // solo crew
 
 **group** — dwgx  
-**location** — kobe · jp · jst+9  
+**host** — dwgx.menu  
 **release** — personal-profile.v2.2  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
@@ -323,7 +323,7 @@ scene release // kobe, jp // solo crew
 to every anon who kept pushing commits with zero stars and zero watchers  
 to every kid who built something just to see if it could be done
 
-— dwgx, kobe
+— dwgx
 
 ---
 
@@ -375,15 +375,9 @@ to every kid who built something just to see if it could be done
 
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=dwgx&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
-  <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api?username=dwgx&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
-</picture>
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
 &nbsp;&nbsp;
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=dwgx&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-  <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=dwgx&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-</picture>
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
 
 </div>
 
@@ -421,7 +415,7 @@ to every kid who built something just to see if it could be done
 
 ```
  00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑....
- 00401010  64 77 67 78 40 6b 6f 62   65 3a 7e 2f 64 65 76 24   dwgx@kobe:~/dev$
+ 00401010  64 77 67 78 40 6d 65 6e   75 3a 7e 2f 64 65 76 24   dwgx@menu:~/dev$
  00401020  72 65 76 65 72 73 65 2e   65 6e 67 69 6e 65 65 72   reverse.engineer
  00401030  67 61 6d 65 20 68 61 63   6b 69 6e 67 20 73 79 73   game hacking sys
  00401040  62 65 20 77 61 74 65 72   20 6d 79 20 66 72 69 65   be water my frie
@@ -448,5 +442,5 @@ to every kid who built something just to see if it could be done
 </div>
 
 ```
- ─── dwgx@kobe ── JST+9 ── mode: shipping ── uptime 5894d ── be water ───
+ ─── dwgx@menu ── JST+9 ── mode: shipping ── uptime 5894d ── be water ───
 ```

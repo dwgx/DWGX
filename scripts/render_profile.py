@@ -11,8 +11,14 @@ import unicodedata
 import urllib.error
 import urllib.request
 import xml.sax.saxutils
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+
+JST = timezone(timedelta(hours=9))
+
+
+def today_jst() -> date:
+    return datetime.now(JST).date()
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile.toml"
@@ -105,7 +111,7 @@ def fetch_latest_tag(full_name: str, token: str) -> str:
 
 def uptime_days(born: str, today: date | None = None) -> int:
     y, m, d = (int(x) for x in born.split("-"))
-    return ((today or date.today()) - date(y, m, d)).days
+    return ((today or today_jst()) - date(y, m, d)).days
 
 
 def repo_index(repos: list[dict]) -> dict[str, dict]:
@@ -739,7 +745,7 @@ def main() -> int:
     public = int(user.get("public_repos") or len(repos))
     stars = total_stars(repos)
     days = uptime_days(str(profile.get("born") or "2010-07-05"))
-    today = date.today().isoformat()
+    today = today_jst().isoformat()
     svg = process_svg(profile, by_name, tags)
     SVG.parent.mkdir(parents=True, exist_ok=True)
     SVG.write_text(svg, encoding="utf-8")

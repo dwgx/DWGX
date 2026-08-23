@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.2  ·  generated 2026-08-23 JST          -->
+<!--  dwgx.menu  v2.2  ·  generated 2026-08-24 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -38,7 +38,7 @@
 ### `main.cfg`
 
 ```ini
-; dwgx.cfg  —  last modified 2026-08-23 JST
+; dwgx.cfg  —  last modified 2026-08-24 JST
 ; injection status: active  ·  process.count: 12
 
 [identity]
@@ -254,7 +254,7 @@ previous   = php
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
-               │  uptime     5893 days                          │
+               │  uptime     5894 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
 ```
@@ -307,7 +307,7 @@ scene release // kobe, jp // solo crew
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  
-**date** — 2026.08.23  
+**date** — 2026.08.24  
 **now** — WindsurfAPI v3.9.28 · KiroStudio v1.2.1 · VRCSM v0.16.5
 
 <div align="center">
@@ -343,7 +343,7 @@ to every kid who built something just to see if it could be done
 <img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5893_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5894_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 <br/>
 
@@ -448,5 +448,5 @@ to every kid who built something just to see if it could be done
 </div>
 
 ```
- ─── dwgx@kobe ── JST+9 ── mode: shipping ── uptime 5893d ── be water ───
+ ─── dwgx@kobe ── JST+9 ── mode: shipping ── uptime 5894d ── be water ───
 ```

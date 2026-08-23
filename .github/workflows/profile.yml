@@ -13,6 +13,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: dwgx-main-writers
+  cancel-in-progress: false
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -35,4 +39,5 @@ jobs:
           git add README.md assets/process-table.svg
           git diff --cached --quiet && echo "no changes" && exit 0
           git commit -m "chore: refresh profile numbers"
+          git pull --rebase origin main
           git push

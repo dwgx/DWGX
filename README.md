@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.2  ·  generated 2026-08-24 JST          -->
+<!--  dwgx.menu  v2.3  ·  generated 2026-08-24 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -11,7 +11,7 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmenu;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmain;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
@@ -29,7 +29,7 @@
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
 
-<p><code>now</code> · WindsurfAPI v3.9.28 · KiroStudio v1.2.1 · VRCSM v0.16.5</p>
+<p><code>now</code> · ORIGIN · genesis.wiki · WindsurfAPI v3.9.28 · KiroStudio v1.2.1</p>
 
 </div>
 
@@ -66,6 +66,30 @@ previous   = php
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg" width="88%" alt="process.table" />
+
+</div>
+
+---
+
+### `origin.genesis`
+
+<div align="center">
+
+```
+╔══════════════════════════════════════════════════════════════════╗
+║  ORIGIN  ·  Genesis Protocol                                     ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  A world with laws, so AI can live in it.                        ║
+║  The model is a resident, not the source of truth. Every change  ║
+║  has a cause.                                                    ║
+║                                                                  ║
+║  9 layers · 6 promises · 200+ traditions                         ║
+║  open →  https://genesis.wiki                                    ║
+╚══════════════════════════════════════════════════════════════════╝
+```
+
+[genesis.wiki →](https://genesis.wiki)
 
 </div>
 
@@ -183,24 +207,26 @@ previous   = php
 
 ```
 ╔══════════════════════════╗
-║ + 93 more modules        ║
+║ VRCSM                    ║
 ╠══════════════════════════╣
 ║                          ║
-║  98 public repos         ║
-║  3185 total stars        ║
-║  solo crew · shipping    ║
+║  VRChat cache / config   ║
+║  Windows desktop app     ║
+║  C++20 + WebView2 + TS   ║
 ║                          ║
-║  lang  · polyglot        ║
+║  lang  · TypeScript      ║
 ║  stage · shipping        ║
-║  diff  · ★★★★★           ║
+║  diff  · ★★★☆☆           ║
 ╚══════════════════════════╝
 ```
 
-[browse all →](https://github.com/dwgx?tab=repositories)
+[open module →](https://github.com/dwgx/VRCSM)
 
 </td>
 </tr>
 </table>
+
+[98 public repos · 3185 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -226,7 +252,7 @@ previous   = php
 ### `hardware.dmp`
 
 ```
-               ╭─── dwgx@menu ──────────────────────────────────╮
+               ╭─── dwgx@main ──────────────────────────────────╮
                │                                                │
  ROG Strix ════╡  host       ASUS ROG Strix G18  (primary)      │
                │  cpu        Intel Ultra 9 275HX                │
@@ -266,7 +292,7 @@ previous   = php
 ### `discord.presence`
 
 <a href="https://discord.com/users/1284670281926967336">
-  <img src="https://lanyard.cnrad.dev/api/1284670281926967336?theme=dark&bg=06020f&borderRadius=10px&animated=true&idleMessage=AFK%20%C2%B7%20probably%20coding" alt="discord presence" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
 </a>
 
 ---
@@ -275,7 +301,7 @@ previous   = php
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="assets/gensou.gif" width="640" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif" width="640" alt="幻想万華鏡" />
 
 <br/>
 
@@ -298,17 +324,17 @@ previous   = php
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v2.2 · 2026  
+dwgx.menu · v2.3 · 2026  
 scene release // jst+9 // solo crew
 
 **group** — dwgx  
-**host** — dwgx.menu  
-**release** — personal-profile.v2.2  
+**host** — dwgx@main  
+**release** — personal-profile.v2.3  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  
 **date** — 2026.08.24  
-**now** — WindsurfAPI v3.9.28 · KiroStudio v1.2.1 · VRCSM v0.16.5
+**now** — ORIGIN · genesis.wiki · WindsurfAPI v3.9.28 · KiroStudio v1.2.1
 
 <div align="center">
 
@@ -415,7 +441,7 @@ to every kid who built something just to see if it could be done
 
 ```
  00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑....
- 00401010  64 77 67 78 40 6d 65 6e   75 3a 7e 2f 64 65 76 24   dwgx@menu:~/dev$
+ 00401010  64 77 67 78 40 6d 61 69   6e 3a 7e 2f 64 65 76 24   dwgx@main:~/dev$
  00401020  72 65 76 65 72 73 65 2e   65 6e 67 69 6e 65 65 72   reverse.engineer
  00401030  67 61 6d 65 20 68 61 63   6b 69 6e 67 20 73 79 73   game hacking sys
  00401040  62 65 20 77 61 74 65 72   20 6d 79 20 66 72 69 65   be water my frie
@@ -438,9 +464,11 @@ to every kid who built something just to see if it could be done
 <kbd>F4</kbd> [Bilibili](https://space.bilibili.com/1452905012)
 &nbsp;&nbsp;·&nbsp;&nbsp;
 <kbd>F5</kbd> [QQ](https://user.qzone.qq.com/136666451/)
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<kbd>F6</kbd> [genesis.wiki](https://genesis.wiki)
 
 </div>
 
 ```
- ─── dwgx@menu ── JST+9 ── mode: shipping ── uptime 5894d ── be water ───
+ ─── dwgx@main ── JST+9 ── mode: shipping ── uptime 5894d ── be water ───
 ```

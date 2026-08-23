@@ -3,8 +3,8 @@
 # Edit this file; do not hand-patch generated numbers in README.
 
 login = "dwgx"
-prompt = "dwgx@menu"
-version = "2.2"
+prompt = "dwgx@main"
+version = "2.3"
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
 
@@ -22,7 +22,7 @@ languages_flagship = "javascript (WindsurfAPI) · rust (KiroStudio)"
 languages_previous = "php"
 
 [now]
-line = "WindsurfAPI {windsurf_tag} · KiroStudio {kiro_tag} · VRCSM {vrcsm_tag}"
+line = "ORIGIN · genesis.wiki · WindsurfAPI {windsurf_tag} · KiroStudio {kiro_tag}"
 
 # GitHub native pins should match this order (6 max).
 pins = [
@@ -107,9 +107,9 @@ note = "vrc.avatar.pipe"
 [[process]]
 name = "origin"
 lang = "go"
-status = "PRIVATE"
-status_color = "#8b949e"
-note = "world.protocol"
+status = "GENESIS"
+status_color = "#c9a84c"
+note = "genesis.wiki"
 
 [[process]]
 name = "MCPClient"
@@ -175,12 +175,21 @@ youtube = "https://www.youtube.com/@dwgx1337"
 bilibili = "https://space.bilibili.com/1452905012"
 qq = "https://user.qzone.qq.com/136666451/"
 discord = "https://discord.com/users/1284670281926967336"
-lanyard = "https://lanyard.cnrad.dev/api/1284670281926967336?theme=dark&bg=06020f&borderRadius=10px&animated=true&idleMessage=AFK%20%C2%B7%20probably%20coding"
+discord_id = "1284670281926967336"
 qq_avatar = "https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640"
+genesis = "https://genesis.wiki"
+
+[flagship]
+name = "ORIGIN"
+kicker = "Genesis Protocol"
+title = "A world with laws, so AI can live in it."
+blurb = "The model is a resident, not the source of truth. Every change has a cause."
+url = "https://genesis.wiki"
+facts = "9 layers · 6 promises · 200+ traditions"
 
 [hardware]
 # Generated into hardware.dmp. Do not put secrets, IPs, or phone numbers here.
-header = "dwgx@menu"
+header = "dwgx@main"
 rog = [
   "host       ASUS ROG Strix G18  (primary)",
   "cpu        Intel Ultra 9 275HX",

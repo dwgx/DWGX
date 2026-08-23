@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import subprocess
 import sys
@@ -26,6 +27,8 @@ README = ROOT / "README.md"
 SVG = ROOT / "assets" / "process-table.svg"
 STATS_SVG = ROOT / "assets" / "stats.svg"
 LANGS_SVG = ROOT / "assets" / "langs.svg"
+DISCORD_SVG = ROOT / "assets" / "discord.svg"
+AVATAR_PNG = ROOT / "assets" / "discord-avatar.png"
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
 
@@ -63,7 +66,7 @@ def load_profile() -> dict:
 
 
 def prompt_host(profile: dict) -> str:
-    return str(profile.get("prompt") or "dwgx@menu")
+    return str(profile.get("prompt") or "dwgx@main")
 
 
 def gh_token() -> str:
@@ -459,7 +462,7 @@ def label_prefix(name: str) -> str:
 def hardware_dump(profile: dict, days: int) -> str:
     hw = profile["hardware"]
     lines: list[str] = []
-    header = str(hw.get("header") or prompt_host({"prompt": "dwgx@menu"}))
+    header = str(hw.get("header") or "dwgx@main")
     core = f"─── {header} "
     top = "╭" + core + ("─" * max(1, 48 - len(core))) + "╮"
     empty = "│  " + pad_body("") + "│"
@@ -523,32 +526,21 @@ def pin_box(pin: dict, repos: dict[str, dict]) -> str:
 def pinned_table(profile: dict, repos: dict[str, dict], public_count: int, stars: int) -> str:
     pins = list(profile.get("pin") or [])
     cells: list[str] = []
-    for pin in pins[:5]:
+    for pin in pins[:6]:
         name = pin["name"]
         box = pin_box(pin, repos)
         cells.append(
             f'<td width="33%" valign="top">\n\n{box}\n\n'
             f'[open module →](https://github.com/dwgx/{name})\n\n</td>'
         )
-    more = max(0, public_count - 5)
-    more_box = pin_box(
-        {
-            "name": f"+ {more} more modules",
-            "blurb": f"{public_count} public repos\n{stars} total stars\nsolo crew · shipping",
-            "lang": "polyglot",
-            "stage": "shipping",
-            "diff": "★★★★★",
-        },
-        {},
+    rows: list[str] = []
+    for i in range(0, len(cells), 3):
+        rows.append("<tr>\n" + "\n".join(cells[i : i + 3]) + "\n</tr>")
+    foot = (
+        f"\n\n[{public_count} public repos · {stars} stars · browse all →]"
+        "(https://github.com/dwgx?tab=repositories)"
     )
-    cells.append(
-        f'<td width="33%" valign="top">\n\n{more_box}\n\n'
-        f"[browse all →](https://github.com/dwgx?tab=repositories)\n\n</td>"
-    )
-    # 2 rows of 3
-    row1 = "<tr>\n" + "\n".join(cells[:3]) + "\n</tr>"
-    row2 = "<tr>\n" + "\n".join(cells[3:6]) + "\n</tr>"
-    return "<table>\n" + row1 + "\n" + row2 + "\n</table>"
+    return "<table>\n" + "\n".join(rows) + "\n</table>" + foot
 
 
 def fmt_num(n: int) -> str:
@@ -598,35 +590,221 @@ def stats_svg(host: str, user: dict, stars: int, extra: dict) -> str:
     return panel_frame(width, height, host, "stats.panel", body)
 
 
+def _pt(cx: float, cy: float, r: float, deg: float) -> tuple[float, float]:
+    rad = math.radians(deg - 90)
+    return cx + r * math.cos(rad), cy + r * math.sin(rad)
+
+
+def donut_slice(cx: float, cy: float, r_out: float, r_in: float, a0: float, a1: float) -> str:
+    if a1 - a0 <= 0.01:
+        return ""
+    a1 = min(a1, a0 + 359.9)
+    large = 1 if (a1 - a0) > 180 else 0
+    x0, y0 = _pt(cx, cy, r_out, a0)
+    x1, y1 = _pt(cx, cy, r_out, a1)
+    x2, y2 = _pt(cx, cy, r_in, a1)
+    x3, y3 = _pt(cx, cy, r_in, a0)
+    return (
+        f"M {x0:.2f} {y0:.2f} "
+        f"A {r_out:.2f} {r_out:.2f} 0 {large} 1 {x1:.2f} {y1:.2f} "
+        f"L {x2:.2f} {y2:.2f} "
+        f"A {r_in:.2f} {r_in:.2f} 0 {large} 0 {x3:.2f} {y3:.2f} Z"
+    )
+
+
 def langs_svg(host: str, langs: list[dict]) -> str:
-    width, height = 400, 170
+    width, height = 495, 170
     body: list[str] = []
     total = sum(int(x.get("size") or 0) for x in langs) or 1
-    bar_x, bar_w = 118, 220
     if not langs:
         body.append(
             f'<text x="20" y="80" font-size="13" fill="{MUTED}">no language data</text>'
         )
         return panel_frame(width, height, host, "langs.panel", body)
-    for i, lang in enumerate(langs[:6]):
-        y = 48 + i * 20
+    cx, cy, r_out, r_in = 92.0, 100.0, 58.0, 32.0
+    angle = 0.0
+    for lang in langs[:6]:
         pct = int(lang["size"]) / total
-        name = str(lang["name"])
+        sweep = max(1.2, pct * 360.0)
         color = str(lang.get("color") or GOLD)
-        fw = max(2.0, round(bar_w * pct, 1))
+        path = donut_slice(cx, cy, r_out, r_in, angle, angle + sweep)
+        if path:
+            body.append(f'<path d="{path}" fill="{esc(color)}" />')
+        angle += sweep
+    body.append(f'<circle cx="{cx}" cy="{cy}" r="{r_in - 1}" fill="#0d1117"/>')
+    body.append(
+        f'<text x="{cx}" y="{cy + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="{PINK}">langs</text>'
+    )
+    for i, lang in enumerate(langs[:6]):
+        y = 52 + i * 18
+        pct = int(lang["size"]) / total * 100
+        color = str(lang.get("color") or GOLD)
+        name = str(lang["name"])
+        body.append(f'<rect x="170" y="{y - 8}" width="10" height="10" rx="2" fill="{esc(color)}"/>')
         body.append(
-            f'<text x="16" y="{y + 9}" font-size="12" font-weight="400" fill="{TEXT}">{esc(name)}</text>'
+            f'<text x="186" y="{y + 1}" font-size="12" fill="{TEXT}">{esc(name)}</text>'
         )
         body.append(
-            f'<rect x="{bar_x}" y="{y}" width="{bar_w}" height="10" rx="3" fill="#30363d"/>'
-        )
-        body.append(
-            f'<rect x="{bar_x}" y="{y}" width="{fw}" height="10" rx="3" fill="{esc(color)}"/>'
-        )
-        body.append(
-            f'<text x="{bar_x + bar_w + 10}" y="{y + 9}" font-size="11" fill="{MUTED}">{pct*100:.0f}%</text>'
+            f'<text x="455" y="{y + 1}" text-anchor="end" font-size="12" fill="{MUTED}">{pct:.0f}%</text>'
         )
     return panel_frame(width, height, host, "langs.panel", body)
+
+
+STATUS_COLOR = {
+    "online": GREEN,
+    "idle": GOLD,
+    "dnd": "#f85149",
+    "offline": MUTED,
+}
+
+
+def fetch_presence(discord_id: str) -> dict:
+    empty = {
+        "status": "offline",
+        "username": "dwgx",
+        "display": "dwgx",
+        "activity": "AFK · probably coding",
+        "avatar": None,
+    }
+    if not discord_id:
+        return empty
+    try:
+        req = urllib.request.Request(
+            f"https://api.lanyard.rest/v1/users/{discord_id}",
+            headers={"User-Agent": "dwgx-profile-render"},
+        )
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            payload = json.loads(resp.read().decode("utf-8"))
+        data = payload.get("data") or {}
+        user = data.get("discord_user") or {}
+        acts = data.get("activities") or []
+        activity = "AFK · probably coding"
+        for act in acts:
+            name = (act.get("name") or "").strip()
+            details = (act.get("details") or "").strip()
+            state = (act.get("state") or "").strip()
+            if name and name.lower() != "custom status":
+                bits = [name]
+                if details:
+                    bits.append(details)
+                elif state:
+                    bits.append(state)
+                activity = " · ".join(bits)
+                break
+            if state:
+                activity = state
+        avatar_hash = user.get("avatar")
+        avatar_url = None
+        if avatar_hash:
+            avatar_url = (
+                f"https://cdn.discordapp.com/avatars/{discord_id}/{avatar_hash}.png?size=128"
+            )
+        return {
+            "status": str(data.get("discord_status") or "offline"),
+            "username": str(user.get("username") or "dwgx"),
+            "display": str(user.get("global_name") or user.get("username") or "dwgx"),
+            "activity": activity[:64],
+            "avatar": avatar_url,
+        }
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError):
+        return empty
+
+
+def save_avatar(url: str | None) -> bool:
+    if not url:
+        return AVATAR_PNG.exists()
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "dwgx-profile-render"})
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            blob = resp.read()
+        if blob:
+            AVATAR_PNG.write_bytes(blob)
+            return True
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, OSError):
+        return AVATAR_PNG.exists()
+    return AVATAR_PNG.exists()
+
+
+def discord_svg(host: str, presence: dict, has_avatar: bool) -> str:
+    width, height = 495, 110
+    status = str(presence.get("status") or "offline")
+    color = STATUS_COLOR.get(status, MUTED)
+    body: list[str] = []
+    if has_avatar:
+        href = "https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png"
+        body.append('<defs><clipPath id="av"><circle cx="42" cy="66" r="26"/></clipPath></defs>')
+        body.append(
+            f'<image href="{href}" x="16" y="40" width="52" height="52" clip-path="url(#av)"/>'
+        )
+        body.append(
+            f'<circle cx="68" cy="88" r="7" fill="{color}" stroke="#0d1117" stroke-width="3"/>'
+        )
+        tx = 84
+    else:
+        body.append(f'<circle cx="32" cy="70" r="8" fill="{color}"/>')
+        tx = 52
+    display = str(presence.get("display") or "dwgx")
+    username = str(presence.get("username") or "dwgx")
+    activity = str(presence.get("activity") or "")
+    body.append(
+        f'<text x="{tx}" y="62" font-size="15" font-weight="700" fill="{TEXT}">{esc(display)}</text>'
+    )
+    body.append(
+        f'<text x="{tx}" y="80" font-size="12" fill="{MUTED}">@{esc(username)} · {esc(status)}</text>'
+    )
+    body.append(
+        f'<text x="{tx}" y="98" font-size="12" fill="{PINK}">{esc(activity)}</text>'
+    )
+    return panel_frame(width, height, host, "discord.presence", body)
+
+
+def flagship_block(profile: dict) -> str:
+    flag = profile.get("flagship") or {}
+    name = str(flag.get("name") or "ORIGIN")
+    kicker = str(flag.get("kicker") or "Genesis Protocol")
+    title = str(flag.get("title") or "")
+    blurb = str(flag.get("blurb") or "")
+    url = str(flag.get("url") or "https://genesis.wiki")
+    facts = str(flag.get("facts") or "")
+    inner = 64
+    def line(s: str) -> str:
+        s = s[:inner]
+        return "║  " + s.ljust(inner) + "║"
+
+    def wrap(s: str) -> list[str]:
+        words = s.split()
+        out: list[str] = []
+        cur = ""
+        for w in words:
+            trial = (cur + " " + w).strip()
+            if len(trial) <= inner:
+                cur = trial
+            else:
+                if cur:
+                    out.append(cur)
+                cur = w
+        if cur:
+            out.append(cur)
+        return out or [""]
+
+    body_lines = [line(f"{name}  ·  {kicker}"), "╠" + "═" * (inner + 2) + "╣", line("")]
+    for chunk in wrap(title) + wrap(blurb):
+        body_lines.append(line(chunk))
+    body_lines.extend([line(""), line(facts), line(f"open →  {url}")])
+    box = "\n".join(
+        ["╔" + "═" * (inner + 2) + "╗", *body_lines, "╚" + "═" * (inner + 2) + "╝"]
+    )
+    return f"""### `origin.genesis`
+
+<div align="center">
+
+```
+{box}
+```
+
+[{url.replace('https://', '')} →]({url})
+
+</div>"""
 
 
 def shield_stars(n: int) -> str:
@@ -661,7 +839,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmenu;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmain;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
@@ -721,6 +899,10 @@ previous   = {ident['languages_previous']}
 
 ---
 
+{flagship_block(profile)}
+
+---
+
 <div align="center">
 
 ### `pinned`
@@ -752,7 +934,7 @@ previous   = {ident['languages_previous']}
 ### `discord.presence`
 
 <a href="{links['discord']}">
-  <img src="{links['lanyard']}" alt="discord presence" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
 </a>
 
 ---
@@ -761,7 +943,7 @@ previous   = {ident['languages_previous']}
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="assets/gensou.gif" width="640" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif" width="640" alt="幻想万華鏡" />
 
 <br/>
 
@@ -784,11 +966,11 @@ previous   = {ident['languages_previous']}
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v{profile.get('version','2.2')} · 2026  
+dwgx.menu · v{profile.get('version','2.3')} · 2026  
 scene release // jst+9 // solo crew
 
 **group** — dwgx  
-**host** — dwgx.menu  
+**host** — dwgx@main  
 **release** — personal-profile.v{profile.get('version','2.2')}  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
@@ -901,7 +1083,7 @@ to every kid who built something just to see if it could be done
 
 ```
  00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑....
- 00401010  64 77 67 78 40 6d 65 6e   75 3a 7e 2f 64 65 76 24   dwgx@menu:~/dev$
+ 00401010  64 77 67 78 40 6d 61 69   6e 3a 7e 2f 64 65 76 24   dwgx@main:~/dev$
  00401020  72 65 76 65 72 73 65 2e   65 6e 67 69 6e 65 65 72   reverse.engineer
  00401030  67 61 6d 65 20 68 61 63   6b 69 6e 67 20 73 79 73   game hacking sys
  00401040  62 65 20 77 61 74 65 72   20 6d 79 20 66 72 69 65   be water my frie
@@ -924,6 +1106,8 @@ to every kid who built something just to see if it could be done
 <kbd>F4</kbd> [Bilibili]({links['bilibili']})
 &nbsp;&nbsp;·&nbsp;&nbsp;
 <kbd>F5</kbd> [QQ]({links['qq']})
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<kbd>F6</kbd> [genesis.wiki]({links.get('genesis') or 'https://genesis.wiki'})
 
 </div>
 
@@ -958,6 +1142,9 @@ def main() -> int:
     SVG.write_text(process_svg(profile, by_name, tags), encoding="utf-8")
     STATS_SVG.write_text(stats_svg(host, user, stars, extra), encoding="utf-8")
     LANGS_SVG.write_text(langs_svg(host, extra.get("langs") or []), encoding="utf-8")
+    presence = fetch_presence(str((profile.get("links") or {}).get("discord_id") or ""))
+    has_avatar = save_avatar(presence.get("avatar"))
+    DISCORD_SVG.write_text(discord_svg(host, presence, has_avatar), encoding="utf-8")
     ctx = {
         "today": today,
         "uptime": days,
@@ -975,6 +1162,7 @@ def main() -> int:
     print(f"wrote {SVG.relative_to(ROOT)}")
     print(f"wrote {STATS_SVG.relative_to(ROOT)}")
     print(f"wrote {LANGS_SVG.relative_to(ROOT)}")
+    print(f"wrote {DISCORD_SVG.relative_to(ROOT)}")
     print(
         f"public_repos={public} stars={stars} uptime={days} "
         f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']}"

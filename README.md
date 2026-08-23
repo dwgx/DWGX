@@ -1,5 +1,6 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.1                                                 -->
+<!--  dwgx.menu  v2.2  ·  generated 2026-08-24 JST          -->
+<!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg" width="100%" alt="dwgx.menu · AMIBIOS POST" />
@@ -10,23 +11,25 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=600&lines=injected+into+process+%C2%B7+host%3Dkobe;Java+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dkobe;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
 
 <p>
-  <img src="https://komarev.com/ghpvc/?username=DWGX&style=flat-square&color=f2a6c4&label=visits" />
+  <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
   &nbsp;
-  <img src="https://img.shields.io/github/followers/DWGX?style=flat-square&color=f2a6c4&label=follow" />
+  <img src="https://img.shields.io/github/followers/dwgx?style=flat-square&color=f2a6c4&label=follow" />
   &nbsp;
-  <img src="https://img.shields.io/github/stars/DWGX?style=flat-square&color=c9a84c&label=stars" />
+  <img src="https://img.shields.io/github/stars/dwgx?style=flat-square&color=c9a84c&label=stars" />
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3k+-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3185-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-83-f2a6c4?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/public_repos-98-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
-  <img src="https://img.shields.io/badge/flagship-WindsurfAPI_★2889-2d1b69?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
+
+<p><code>now</code> · WindsurfAPI v3.9.28 · KiroStudio v1.2.1 · VRCSM v0.16.5</p>
 
 </div>
 
@@ -35,7 +38,7 @@
 ### `main.cfg`
 
 ```ini
-; dwgx.cfg  —  last modified 2026-07-14 JST
+; dwgx.cfg  —  last modified 2026-08-24 JST
 ; injection status: active  ·  process.count: 12
 
 [identity]
@@ -51,8 +54,9 @@ focus      = reverse-engineering, game-hacking, systems, backend, ai-tooling
 anti-focus = normal-human-activity
 
 [languages]
-active     = rust · java · cpp · csharp · swift · typescript · python · go
-previous   = js · php
+flagship   = javascript (WindsurfAPI) · rust (KiroStudio)
+active     = javascript · rust · java · cpp · csharp · swift · typescript · python · go
+previous   = php
 ```
 
 ---
@@ -76,18 +80,18 @@ previous   = js · php
 <td width="33%" valign="top">
 
 ```
-╔════════════════════════╗
-║ vrchat-il2cpp-re       ║
-╠════════════════════════╣
-║                        ║
-║ 64K classes            ║
-║ 570K methods · 188K fld║
-║ Unity 6 baseline RE    ║
-║                        ║
-║ lang  · C#             ║
-║ stage · live           ║
-║ diff  · ★★★★☆          ║
-╚════════════════════════╝
+╔══════════════════════════╗
+║ vrchat-il2cpp-re         ║
+╠══════════════════════════╣
+║                          ║
+║  64K classes             ║
+║  570K methods · 188K fld ║
+║  Unity 6 baseline RE     ║
+║                          ║
+║  lang  · C#              ║
+║  stage · live            ║
+║  diff  · ★★★★☆           ║
+╚══════════════════════════╝
 ```
 
 [open module →](https://github.com/dwgx/vrchat-il2cpp-re)
@@ -96,18 +100,18 @@ previous   = js · php
 <td width="33%" valign="top">
 
 ```
-╔════════════════════════╗
-║ KiroStudio             ║
-╠════════════════════════╣
-║                        ║
-║ Kiro unified gateway   ║
-║ proto-bridge + pool    ║
-║ Rust + SQLite + Docker ║
-║                        ║
-║ lang  · Rust           ║
-║ stage · active-dev     ║
-║ diff  · ★★★★☆          ║
-╚════════════════════════╝
+╔══════════════════════════╗
+║ KiroStudio               ║
+╠══════════════════════════╣
+║                          ║
+║  Kiro unified gateway    ║
+║  proto-bridge + pool     ║
+║  Rust + SQLite + Docker  ║
+║                          ║
+║  lang  · Rust            ║
+║  stage · shipping        ║
+║  diff  · ★★★★☆           ║
+╚══════════════════════════╝
 ```
 
 [open module →](https://github.com/dwgx/KiroStudio)
@@ -116,18 +120,18 @@ previous   = js · php
 <td width="33%" valign="top">
 
 ```
-╔════════════════════════╗
-║ WindsurfAPI            ║
-╠════════════════════════╣
-║                        ║
-║ Windsurf ⇄ OpenAI      ║
-║ 100+ models · 3 APIs   ║
-║ zero-dep self-host     ║
-║                        ║
-║ lang  · JavaScript     ║
-║ stage · flagship ★2889 ║
-║ diff  · ★★☆☆☆          ║
-╚════════════════════════╝
+╔══════════════════════════╗
+║ WindsurfAPI              ║
+╠══════════════════════════╣
+║                          ║
+║  Windsurf ⇄ OpenAI       ║
+║  100+ models · 3 APIs    ║
+║  zero-dep self-host      ║
+║                          ║
+║  lang  · JavaScript      ║
+║  stage · flagship ★2948  ║
+║  diff  · ★★☆☆☆           ║
+╚══════════════════════════╝
 ```
 
 [open module →](https://github.com/dwgx/WindsurfAPI)
@@ -138,18 +142,18 @@ previous   = js · php
 <td width="33%" valign="top">
 
 ```
-╔════════════════════════╗
-║ SmartCLI               ║
-╠════════════════════════╣
-║                        ║
-║ 3 agent skills · 1 PTY ║
-║ pyte cell-accurate TUI ║
-║ pip smartcli-toolkit   ║
-║                        ║
-║ lang  · Python         ║
-║ stage · shipped        ║
-║ diff  · ★★★☆☆          ║
-╚════════════════════════╝
+╔══════════════════════════╗
+║ SmartCLI                 ║
+╠══════════════════════════╣
+║                          ║
+║  3 agent skills · 1 PTY  ║
+║  pyte cell-accurate TUI  ║
+║  pip smartcli-toolkit    ║
+║                          ║
+║  lang  · Python          ║
+║  stage · shipped         ║
+║  diff  · ★★★☆☆           ║
+╚══════════════════════════╝
 ```
 
 [open module →](https://github.com/dwgx/SmartCLI)
@@ -158,38 +162,38 @@ previous   = js · php
 <td width="33%" valign="top">
 
 ```
-╔════════════════════════╗
-║ VRCSM                  ║
-╠════════════════════════╣
-║                        ║
-║ VRChat cache / config  ║
-║ Windows desktop app    ║
-║ C++20 + WebView2 + TS  ║
-║                        ║
-║ lang  · TypeScript     ║
-║ stage · active-dev     ║
-║ diff  · ★★★☆☆          ║
-╚════════════════════════╝
+╔══════════════════════════╗
+║ YuKiKo                   ║
+╠══════════════════════════╣
+║                          ║
+║  AI QQ bot · OneBot      ║
+║  NapCat + LLM routing    ║
+║  plugins + WebUI         ║
+║                          ║
+║  lang  · Python          ║
+║  stage · live            ║
+║  diff  · ★★★☆☆           ║
+╚══════════════════════════╝
 ```
 
-[open module →](https://github.com/dwgx/VRCSM)
+[open module →](https://github.com/dwgx/YuKiKo)
 
 </td>
 <td width="33%" valign="top">
 
 ```
-╔════════════════════════╗
-║ + 78 more modules      ║
-╠════════════════════════╣
-║                        ║
-║ 83 public repos        ║
-║ 3k+ total stars        ║
-║ solo crew · kobe       ║
-║                        ║
-║ lang  · polyglot       ║
-║ stage · always-on      ║
-║ diff  · ★★★★★          ║
-╚════════════════════════╝
+╔══════════════════════════╗
+║ + 93 more modules        ║
+╠══════════════════════════╣
+║                          ║
+║  98 public repos         ║
+║  3185 total stars        ║
+║  solo crew · kobe        ║
+║                          ║
+║  lang  · polyglot        ║
+║  stage · shipping        ║
+║  diff  · ★★★★★           ║
+╚══════════════════════════╝
 ```
 
 [browse all →](https://github.com/dwgx?tab=repositories)
@@ -205,50 +209,17 @@ previous   = js · php
 ### `recent.log`
 
 ```
- 2026-07-14 --:--   push  driver-vuln-research  ★0     asm    byovd kernel driver research
- 2026-07-14 --:--   push  SaoMoLa               ★0     c      vrchat avatar extract/upload
- 2026-07-14 --:--   push  KiroStudio            ★3     rust   kiro gateway · pool + inject
- 2026-07-13 --:--   push  SmartCLI              ★2     py     pty+pyte tui driver · pip pkg
- 2026-07-13 --:--   push  WindsurfAPI           ★2889  js     windsurf ⇄ openai/anthropic
- 2026-07-13 --:--   push  claude-code-fork      ★0     ts     cli fork · sourcemap restore
- 2026-07-12 --:--   push  beautify-console      ★1     js     vscode visual beautify panel
- 2026-07-11 --:--   push  MCPClient             ★0     java   mcp client experiment
- 2026-07-13 --:--   push  vrchat-il2cpp-re      ★19    c#     64k cls · unity 6 baseline
- 2026-07-10 --:--   push  VRCSM                 ★3     ts     vrchat cache/settings manager
+ 2026-08-23 --:--   push  WindsurfAPI            ★2948  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-23 --:--   push  KiroStudio             ★12    rust   Kiro API Gateway · Anthropic-compatible p…
+ 2026-08-22 --:--   push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
+ 2026-08-16 --:--   push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
+ 2026-08-15 --:--   push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
+ 2026-08-14 --:--   push  ReSplat_Editor         ★0     ts     A 3D Gaussian Splat Editor more akin to t…
+ 2026-08-13 --:--   push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
+ 2026-08-10 --:--   push  SmartCLI               ★3     py     Three Agent Skills over one pluggable PTY…
+ 2026-08-09 --:--   push  beautify-console       ★1     js     VS Code 一站式可视化美化面板:字体/布局/编辑器/动画/多区域背景图/圆角…
+ 2026-08-08 --:--   push  YuKiKo                 ★19    py     AI QQ bot with OneBot, NapCat, LLM routin…
 ```
-
-<details>
-<summary><code>archive.log  — +25 older entries</code></summary>
-
-```
- 2026-02-11 --:--   push  JSM                   ★12    swift  macos mc-server manager · java/paper/spigot
- 2026-01-17 --:--   push  RepoDLL               ★10    cpp    r.e.p.o. dx11/imgui overlay · unity/mono
- 2026-02-23 --:--   push  THIzaKaYaDEVCosole    ★8     cpp    東方雾雨居酒屋 il2cpp debug console
- 2025-04-06 --:--   push  NewAppleMusicPlayer   ★9     js     electron apple music · dynamic-island ui
- 2025-03-07 --:--   push  Lavender-rise-main    ★8     java   old dream mc client · republished w/ love
- 2026-06-16 --:--   push  bing-rewards-auto     ★5     py     ms rewards auto-farmer · playwright
- 2026-07-06 --:--   push  CEGM                  ★3     py     llm-driven cheat engine layer · mcp http
- 2026-07-10 --:--   push  VirtualDesktop        ★1     c#     离线串流补丁 + 汉化 · il 级二进制补丁工程
- 2026-07-06 --:--   push  debugger-workstation  ★1     py     portable re/security workstation skeleton
- 2026-07-06 --:--   push  AgentScope            ★1     ts     monitor codex/claude sessions · safety ctrl
- 2026-07-06 --:--   push  Quest-ADB-Dashboard   ★1     c#     meta quest adb diagnostics dashboard
- 2026-07-06 --:--   push  TH08-Platform         ★1     cpp    東方8 联机平台 · decomp + dll injection
- 2026-06-13 --:--   push  crash-sentinel        ★2     ps     windows thermal / power-loss crash monitor
- 2026-04-09 --:--   push  blender-copilot       ★1     py     blender mcp · ai 3d · vrchat pipeline
- 2026-07-10 --:--   push  vrc-mod-guide         ★1     js     改模资源库 · 拿 ai 跑了两天爬出来的
- 2026-01-10 --:--   push  PTTRDLL               ★1     c#     pttr dx11/imgui playground · that era's feel
- 2026-02-12 --:--   push  Rep0S2cLeak           ★1     c#     r.e.p.o. src snapshot · chaotic but historic
- 2025-08-10 --:--   push  Dustman               ★1     py     pyqt windows cleaner · preview-first
- 2024-11-24 --:--   push  KeyManagerApp         ★1     py     fbl 档案柜式本地加密密钥管理器 · pyside6
- 2024-09-01 --:--   push  OpenNative            ★1     -      old mc client · 狗屎实验
- 2025-01-25 --:--   push  Wechathacker          ★1     -      很邪恶的旧版微信内存研究
- 2025-04-22 --:--   push  MouseDash             ★1     py     老鼠大师
- 2023-11-11 --:--   push  Open-source-sharing   ★1     -      当年购入现在不用的 · 倒卖成分我不说
- 2024-11-08 --:--   push  GarlicKing            ★1     java   makes your intestines confuse and spin
- 2024-11-03 --:--   push  Example-Wasted1       ★2     java   like a man perfectly mating with a woman
-```
-
-</details>
 
 ---
 
@@ -263,22 +234,27 @@ previous   = js · php
                │  mem        32 GB DDR5                         │
                │  disp       18"  2.5K                          │
                │                                                │
- Desktop ══════╡  gpu        Colorful iGame RTX 3060 Ultra      │
-               │  mem        16 GB DDR4 3200                    │
+ Homecloud ════╡  host       Debian 13 worker  (LAN)            │
+               │  cpu        AMD R5-5600                        │
+               │  gpu        Colorful iGame RTX 3060 12GB       │
+               │  mem        16 GB DDR4                         │
+               │  role       compile · deploy · long jobs       │
                │                                                │
  MacBook ══════╡  host       MacBook Air M2 · A2681             │
                │  mem        8 GB · 256 GB SSD · 13.6" Retina   │
                │                                                │
  Mobile ═══════╡  phone      iPhone 17 · 256GB · JP-region      │
-               │  phone-2    Redmi K60 · 512GB                  │
+               │  phone-2    iPhone SE · 32GB · US origin       │
                │  wear       Apple Watch 1st · Stainless · 2015 │
+               │  ; stolen     Redmi K60 512GB · scratched      │
                │                                                │
- Peripheral ═══╡  kbd        VGN FLASH Ultra 太陽神 · mag-switch │
-               │  mouse      VGN Dragonfly 3 Master 超跑紅 · 56g │
+ Peripheral ═══╡  kbd        VGN FLASH Ultra 太陽神 · mag-switch│
+               │  mouse      VGN Dragonfly 3 Master 超跑紅 · 56g│
+               │  mouse-2    VGN Dragonfly King · 太空银        │
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
-               │  uptime     5853 days                          │
+               │  uptime     5894 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
 ```
@@ -322,17 +298,17 @@ previous   = js · php
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v2.1 · 2026  
+dwgx.menu · v2.2 · 2026  
 scene release // kobe, jp // solo crew
 
 **group** — dwgx  
 **location** — kobe · jp · jst+9  
-**release** — personal-profile.v2.1  
-**files** — 1 readme.md + 3 assets  
-**size** — ≈ 2.0 mb (gif-heavy)  
+**release** — personal-profile.v2.2  
+**files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  
-**date** — 2026.07.14
+**date** — 2026.08.24  
+**now** — WindsurfAPI v3.9.28 · KiroStudio v1.2.1 · VRCSM v0.16.5
 
 <div align="center">
 
@@ -351,49 +327,23 @@ to every kid who built something just to see if it could be done
 
 ---
 
-### `stats`
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/metrics.svg" width="80%" alt="metrics dashboard" />
-
-<br/><br/>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
-  <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api?username=DWGX&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
-</picture>
-&nbsp;&nbsp;
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com/?user=DWGX&hide_border=true&background=06020F&stroke=2d1b69&ring=f2a6c4&fire=c9a84c&currStreakLabel=f2a6c4&sideLabels=d4c8ef&currStreakNum=d4c8ef&sideNums=d4c8ef&dates=8a7aaa" />
-  <img height="170" src="https://streak-stats.demolab.com/?user=DWGX&hide_border=true&background=06020F&stroke=2d1b69&ring=f2a6c4&fire=c9a84c&currStreakLabel=f2a6c4&sideLabels=d4c8ef&currStreakNum=d4c8ef&sideNums=d4c8ef&dates=8a7aaa" />
-</picture>
-
-<br/>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-  <img height="160" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=DWGX&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
-</picture>
-&nbsp;&nbsp;
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
-  <img height="160" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=DWGX&theme=github_dark&utcOffset=9" />
-</picture>
-
-</div>
-
----
-
 ### `achievements`
 
 <div align="center">
 
 <img src="https://img.shields.io/badge/★-Solo_Crew-f2a6c4?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-IL2CPP_Diver-c9a84c?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Starstruck_2.8k-ed8b00?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Pull_Shark-3178c6?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Starstruck_x3-ed8b00?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Pull_Shark_x3-3178c6?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Pair_Extraordinaire_x4-f778ba?style=for-the-badge&labelColor=06020f" />
+
+<br/>
+
+<img src="https://img.shields.io/badge/★-Galaxy_Brain-6f42c1?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5894_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 <br/>
 
@@ -401,7 +351,7 @@ to every kid who built something just to see if it could be done
 <img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-ff66aa?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5853_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Flagship_2.9k-2d1b69?style=for-the-badge&labelColor=06020f" />
 
 </div>
 
@@ -421,30 +371,18 @@ to every kid who built something just to see if it could be done
 
 ---
 
-### `summary.cards`
+### `stats`
 
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=DWGX&theme=nord_dark" />
-  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=DWGX&theme=nord_dark" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=dwgx&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
+  <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api?username=dwgx&show_icons=true&hide_border=true&bg_color=06020f&title_color=f2a6c4&icon_color=c9a84c&text_color=d4c8ef&ring_color=f2a6c4" />
 </picture>
-&nbsp;
+&nbsp;&nbsp;
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=DWGX&theme=nord_dark" />
-  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=DWGX&theme=nord_dark" />
-</picture>
-
-<br/>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=DWGX&theme=nord_dark&exclude=html,css" />
-  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=DWGX&theme=nord_dark&exclude=html,css" />
-</picture>
-&nbsp;
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=DWGX&theme=nord_dark" />
-  <img height="175" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=DWGX&theme=nord_dark" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=dwgx&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
+  <img height="170" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=dwgx&layout=compact&hide_border=true&bg_color=06020f&title_color=f2a6c4&text_color=d4c8ef" />
 </picture>
 
 </div>
@@ -464,10 +402,6 @@ to every kid who built something just to see if it could be done
 </div>
 
 ---
-
-<!-- ════════════════════════════════════════════════════════════════ -->
-<!--  ledger — quote / motto fragment                                 -->
-<!-- ════════════════════════════════════════════════════════════════ -->
 
 <div align="center">
 
@@ -503,22 +437,16 @@ to every kid who built something just to see if it could be done
 
 <kbd>F1</kbd> [dwgx.github.io](https://dwgx.github.io)
 &nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F2</kbd> [YouTube](https://www.youtube.com/@dwgx1337)
+<kbd>F2</kbd> [blog.dwgx.top](https://blog.dwgx.top)
 &nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F3</kbd> [Bilibili](https://space.bilibili.com/1452905012)
+<kbd>F3</kbd> [YouTube](https://www.youtube.com/@dwgx1337)
 &nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F4</kbd> [QQ](https://user.qzone.qq.com/136666451/)
-
-</div>
-
----
-
-<div align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=DWGX&bg_color=06020f&color=f2a6c4&line=c9a84c&point=f2a6c4&area=true&area_color=2d1b69&hide_border=true&custom_title=archive.activity" width="95%" />
+<kbd>F4</kbd> [Bilibili](https://space.bilibili.com/1452905012)
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<kbd>F5</kbd> [QQ](https://user.qzone.qq.com/136666451/)
 
 </div>
 
 ```
- ─── dwgx@kobe ── JST+9 ── mode: archive ── uptime 5853d ── be water ───
+ ─── dwgx@kobe ── JST+9 ── mode: shipping ── uptime 5894d ── be water ───
 ```

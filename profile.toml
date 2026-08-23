@@ -1,0 +1,213 @@
+# dwgx.menu source of truth. scripts/render_profile.py reads this + GitHub
+# and writes README.md + assets/process-table.svg.
+# Edit this file; do not hand-patch generated numbers in README.
+
+login = "dwgx"
+version = "2.2"
+born = "2010-07-05"
+timezone = "Asia/Tokyo"
+
+[identity]
+alias = "dwgx · 帝王尬笑"
+location = "Kobe, Hyogo · JST+9"
+motto = "be water"
+bio = "也许我就是dwgx"
+role = "independent-developer"
+origin = "Minecraft cheat scene"
+focus = "reverse-engineering, game-hacking, systems, backend, ai-tooling"
+anti_focus = "normal-human-activity"
+languages_active = "javascript · rust · java · cpp · csharp · swift · typescript · python · go"
+languages_flagship = "javascript (WindsurfAPI) · rust (KiroStudio)"
+languages_previous = "php"
+
+[now]
+line = "WindsurfAPI {windsurf_tag} · KiroStudio {kiro_tag} · VRCSM {vrcsm_tag}"
+
+# GitHub native pins should match this order (6 max).
+pins = [
+  "WindsurfAPI",
+  "KiroStudio",
+  "vrchat-il2cpp-re",
+  "SmartCLI",
+  "YuKiKo",
+  "VRCSM",
+]
+
+[[process]]
+name = "WindsurfAPI"
+lang = "js"
+status = "LISTENING"
+status_color = "#7ee787"
+note_kind = "stars"
+fallback_note = "openai ⇄ anthropic"
+
+[[process]]
+name = "KiroStudio"
+lang = "rust"
+status = "GATEWAY"
+status_color = "#f2a6c4"
+note_kind = "release"
+fallback_note = "proto-bridge+pool"
+
+[[process]]
+name = "vrchat-il2cpp-re"
+lang = "c#"
+status = "DEOBF"
+status_color = "#c9a84c"
+kind = "bar"
+bar = 0.98
+note = "64k cls · unity6"
+
+[[process]]
+name = "SmartCLI"
+lang = "py"
+status = "PTY+pyte"
+status_color = "#7ee787"
+note = "tui.driver"
+
+[[process]]
+name = "VRCSM"
+lang = "ts"
+status = "CACHE"
+status_color = "#f2a6c4"
+kind = "bar"
+bar = 0.78
+note = "vrc.settings"
+
+[[process]]
+name = "YuKiKo"
+lang = "py"
+status = "QQ.BOT"
+status_color = "#79c0ff"
+note_kind = "stars"
+fallback_note = "onebot+napcat"
+
+[[process]]
+name = "cursorapi"
+lang = "js"
+status = "KEYPOOL"
+status_color = "#d2a8ff"
+note = "openai+anthropic"
+
+[[process]]
+name = "fuckopencode"
+lang = "ts"
+status = "PROTO"
+status_color = "#d2a8ff"
+note = "deepseek.bridge"
+
+[[process]]
+name = "SaoMoLa"
+lang = "c"
+status = "UPLOADING"
+status_color = "#f2a6c4"
+note = "vrc.avatar.pipe"
+
+[[process]]
+name = "origin"
+lang = "go"
+status = "PRIVATE"
+status_color = "#8b949e"
+note = "world.protocol"
+
+[[process]]
+name = "MCPClient"
+lang = "java"
+status = "PRIVATE"
+status_color = "#8b949e"
+note = "mcp.router"
+
+[[process]]
+name = "homecloud"
+lang = "sh"
+status = "WORKER"
+status_color = "#7ee787"
+note = "debian13 · rtx3060"
+
+[[pin]]
+name = "vrchat-il2cpp-re"
+blurb = "64K classes\n570K methods · 188K fld\nUnity 6 baseline RE"
+lang = "C#"
+stage = "live"
+diff = "★★★★☆"
+
+[[pin]]
+name = "KiroStudio"
+blurb = "Kiro unified gateway\nproto-bridge + pool\nRust + SQLite + Docker"
+lang = "Rust"
+stage = "shipping"
+diff = "★★★★☆"
+
+[[pin]]
+name = "WindsurfAPI"
+blurb = "Windsurf ⇄ OpenAI\n100+ models · 3 APIs\nzero-dep self-host"
+lang = "JavaScript"
+stage = "flagship"
+diff = "★★☆☆☆"
+star_in_stage = true
+
+[[pin]]
+name = "SmartCLI"
+blurb = "3 agent skills · 1 PTY\npyte cell-accurate TUI\npip smartcli-toolkit"
+lang = "Python"
+stage = "shipped"
+diff = "★★★☆☆"
+
+[[pin]]
+name = "YuKiKo"
+blurb = "AI QQ bot · OneBot\nNapCat + LLM routing\nplugins + WebUI"
+lang = "Python"
+stage = "live"
+diff = "★★★☆☆"
+
+[[pin]]
+name = "VRCSM"
+blurb = "VRChat cache / config\nWindows desktop app\nC++20 + WebView2 + TS"
+lang = "TypeScript"
+stage = "shipping"
+diff = "★★★☆☆"
+
+[links]
+site = "https://dwgx.github.io"
+blog = "https://blog.dwgx.top"
+youtube = "https://www.youtube.com/@dwgx1337"
+bilibili = "https://space.bilibili.com/1452905012"
+qq = "https://user.qzone.qq.com/136666451/"
+discord = "https://discord.com/users/1284670281926967336"
+lanyard = "https://lanyard.cnrad.dev/api/1284670281926967336?theme=dark&bg=06020f&borderRadius=10px&animated=true&idleMessage=AFK%20%C2%B7%20probably%20coding"
+qq_avatar = "https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640"
+
+[hardware]
+# Generated into hardware.dmp. Do not put secrets, IPs, or phone numbers here.
+header = "dwgx@kobe"
+rog = [
+  "host       ASUS ROG Strix G18  (primary)",
+  "cpu        Intel Ultra 9 275HX",
+  "gpu        NVIDIA RTX 5070 Ti",
+  "mem        32 GB DDR5",
+  "disp       18\"  2.5K",
+]
+homecloud = [
+  "host       Debian 13 worker  (LAN)",
+  "cpu        AMD R5-5600",
+  "gpu        Colorful iGame RTX 3060 12GB",
+  "mem        16 GB DDR4",
+  "role       compile · deploy · long jobs",
+]
+macbook = [
+  "host       MacBook Air M2 · A2681",
+  "mem        8 GB · 256 GB SSD · 13.6\" Retina",
+]
+mobile = [
+  "phone      iPhone 17 · 256GB · JP-region",
+  "phone-2    iPhone SE · 32GB · US origin",
+  "wear       Apple Watch 1st · Stainless · 2015",
+]
+mobile_comment = "stolen     Redmi K60 512GB · scratched"
+peripheral = [
+  "kbd        VGN FLASH Ultra 太陽神 · mag-switch",
+  "mouse      VGN Dragonfly 3 Master 超跑紅 · 56g",
+  "mouse-2    VGN Dragonfly King · 太空银",
+  "audio      AirPods Pro 3 · Panasonic SL-CT790",
+  "vr         Meta Quest 3",
+]

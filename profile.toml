@@ -4,25 +4,21 @@
 
 login = "dwgx"
 prompt = "dwgx@main"
-version = "2.7"
+version = "2.8"
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
 
 [identity]
 alias = "dwgx · 帝王尬笑"
-location = "Kobe, Hyogo · JST+9"
-motto = "maybe I'm dwgx"
-bio = "也许我就是dwgx"
-role = "independent-developer"
-origin = "Minecraft cheat scene"
-focus = "reverse-engineering, game-hacking, systems, backend, ai-tooling"
-anti_focus = "normal-human-activity"
-languages_active = "javascript · rust · java · cpp · csharp · swift · typescript · python · go"
-languages_flagship = "javascript (WindsurfAPI) · rust (KiroStudio)"
-languages_previous = "php"
+from = "Kobe"
+note = "也许我就是dwgx"
 
-[now]
-line = "ORIGIN · genesis.wiki · WindsurfAPI {windsurf_tag} · KiroStudio {kiro_tag}"
+[ship]
+origin = "genesis.wiki"
+windsurf = "js · openai/anthropic"
+kiro = "rust · kiro gateway"
+also = "VRChat RE · SmartCLI"
+came = "MC clients"
 
 # GitHub native pins should match this order (6 max).
 pins = [

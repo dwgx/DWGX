@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.7  ·  generated 2026-08-24 JST          -->
+<!--  dwgx.menu  v2.8  ·  generated 2026-08-24 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -11,7 +11,7 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmain;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
@@ -29,34 +29,29 @@
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
 
-<p><code>now</code> · labeled WindsurfAPI · 1d ago · droughtRestrictPremium blocks free-tier models (swe-1-7, swe-1-7-medium,</p>
-
 </div>
 
 ---
 
-### `main.cfg`
+### `dwgx.cfg`
 
 ```ini
-; dwgx.cfg  —  last modified 2026-08-24 JST
-; injection status: active  ·  process.count: 12
+; 2026-08-24
 
-[identity]
-alias      = dwgx · 帝王尬笑
-location   = Kobe, Hyogo · JST+9
-motto      = maybe I'm dwgx
-bio        = 也许我就是dwgx
+[who]
+name = dwgx
+aka  = 帝王尬笑
+from = Kobe
+note = 也许我就是dwgx
 
-[role]
-primary    = independent-developer
-origin     = Minecraft cheat scene
-focus      = reverse-engineering, game-hacking, systems, backend, ai-tooling
-anti-focus = normal-human-activity
+[ship]
+ORIGIN      = genesis.wiki
+WindsurfAPI = js · openai/anthropic · v3.9.28
+KiroStudio  = rust · kiro gateway · v1.2.1
 
-[languages]
-flagship   = javascript (WindsurfAPI) · rust (KiroStudio)
-active     = javascript · rust · java · cpp · csharp · swift · typescript · python · go
-previous   = php
+[also]
+other = VRChat RE · SmartCLI
+from  = MC clients
 ```
 
 ---
@@ -73,25 +68,45 @@ previous   = php
 
 ### `setup.utility`
 
-<div align="center">
+<details>
+<summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS SETUP UTILITY" />
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS Boot" />
+</p>
 
-</div>
+</details>
 
 ---
 
 ### `status.pages`
 
-<div align="center">
+<details>
+<summary>Main — last public work · release VRCSM · 1d ago · v0.16.5</summary>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main - System Overview" />
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
+</p>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg" width="100%" alt="AMIBIOS Advanced - IDE Devices" />
+</details>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg" width="100%" alt="AMIBIOS Log - Event Log" />
+<details>
+<summary>Advanced — git HEADs as IDE devices</summary>
 
-</div>
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg" width="100%" alt="AMIBIOS Advanced" />
+</p>
+
+</details>
+
+<details>
+<summary>Log — public events</summary>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg" width="100%" alt="AMIBIOS Log" />
+</p>
+
+</details>
 
 ---
 
@@ -356,33 +371,13 @@ previous   = php
 <!--  style switch: scene-nfo release note                            -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-. d w g x . p r e s e n t s .
-
-dwgx.menu · v2.7 · 2026  
-scene release // jst+9
-
-**group** — dwgx  
-**host** — dwgx@main  
-**release** — personal-profile.v2.7  
-**files** — profile.toml + renderer + bios assets  
-**target** — github.com/dwgx  
-**born** — 20100705  
-**date** — 2026.08.24  
-**now** — ORIGIN · genesis.wiki · WindsurfAPI v3.9.28 · KiroStudio v1.2.1
-
 <div align="center">
 
-### `━─·  [ stack.manifest ]  ·─━`
+### `stack`
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg" width="92%" alt="stack.manifest" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg" width="92%" alt="stack" />
 
 </div>
-
-. n o t e .
-
-帝王尬笑. maybe I'm dwgx.
-
-— dwgx
 
 ---
 

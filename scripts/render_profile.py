@@ -396,7 +396,10 @@ def latest_work(events: list[dict]) -> dict:
             rel = payload.get("release") or {}
             msg = str(rel.get("tag_name") or rel.get("name") or "")
         elif kind == "IssuesEvent":
-            verb = str(payload.get("action") or "issue")
+            action = str(payload.get("action") or "")
+            if action not in {"opened", "closed", "reopened"}:
+                continue
+            verb = {"opened": "open", "closed": "close", "reopened": "reopen"}[action]
             msg = ((payload.get("issue") or {}).get("title") or "")
         elif kind == "PullRequestEvent":
             verb = "pr"
@@ -1255,17 +1258,15 @@ def shield_stars(n: int) -> str:
 
 def render_readme(profile: dict, ctx: dict) -> str:
     ident = profile["identity"]
+    ship = profile.get("ship") or {}
     links = profile["links"]
     today = ctx["today"]
     n = ctx["process_count"]
     more = max(0, ctx["public_repos"] - 5)
     windsurf_stars = ctx["stars_map"].get("WindsurfAPI", 0)
-    now = (profile.get("now") or {}).get("line") or ""
-    now = now.format(
-        windsurf_tag=ctx["tags"].get("WindsurfAPI") or "v?",
-        kiro_tag=ctx["tags"].get("KiroStudio") or "v?",
-        vrcsm_tag=ctx["tags"].get("VRCSM") or "v?",
-    )
+    wtag = ctx["tags"].get("WindsurfAPI") or "v?"
+    ktag = ctx["tags"].get("KiroStudio") or "v?"
+    now = f"ORIGIN · WindsurfAPI {wtag} · KiroStudio {ktag}"
     return f"""<!-- ════════════════════════════════════════════════════════════════ -->
 <!--  dwgx.menu  v{profile.get('version','2.2')}  ·  generated {today} JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
@@ -1279,7 +1280,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=injected+into+process+%C2%B7+host%3Dmain;JavaScript+%C2%B7+Rust+%C2%B7+C%2B%2B+%C2%B7+C%23+%C2%B7+Swift+%C2%B7+TypeScript;Reverse+Engineering+%C2%B7+Game+Hacking+%C2%B7+Systems)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
@@ -1297,34 +1298,29 @@ def render_readme(profile: dict, ctx: dict) -> str:
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
 
-<p><code>now</code> · {ctx.get('doing_line') or now}</p>
-
 </div>
 
 ---
 
-### `main.cfg`
+### `dwgx.cfg`
 
 ```ini
-; dwgx.cfg  —  last modified {today} JST
-; injection status: active  ·  process.count: {n}
+; {today}
 
-[identity]
-alias      = {ident['alias']}
-location   = {ident['location']}
-motto      = {ident['motto']}
-bio        = {ident['bio']}
+[who]
+name = dwgx
+aka  = 帝王尬笑
+from = {ident.get('from', 'Kobe')}
+note = {ident.get('note', '也许我就是dwgx')}
 
-[role]
-primary    = {ident['role']}
-origin     = {ident['origin']}
-focus      = {ident['focus']}
-anti-focus = {ident['anti_focus']}
+[ship]
+ORIGIN      = {ship.get('origin', 'genesis.wiki')}
+WindsurfAPI = {ship.get('windsurf', 'js gateway')} · {wtag}
+KiroStudio  = {ship.get('kiro', 'rust gateway')} · {ktag}
 
-[languages]
-flagship   = {ident['languages_flagship']}
-active     = {ident['languages_active']}
-previous   = {ident['languages_previous']}
+[also]
+other = {ship.get('also', 'VRChat RE · SmartCLI')}
+from  = {ship.get('came', 'MC clients')}
 ```
 
 ---
@@ -1341,25 +1337,45 @@ previous   = {ident['languages_previous']}
 
 ### `setup.utility`
 
-<div align="center">
+<details>
+<summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS SETUP UTILITY" />
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS Boot" />
+</p>
 
-</div>
+</details>
 
 ---
 
 ### `status.pages`
 
-<div align="center">
+<details>
+<summary>Main — last public work · {ctx.get('doing_line') or now}</summary>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main - System Overview" />
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
+</p>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg" width="100%" alt="AMIBIOS Advanced - IDE Devices" />
+</details>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg" width="100%" alt="AMIBIOS Log - Event Log" />
+<details>
+<summary>Advanced — git HEADs as IDE devices</summary>
 
-</div>
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg" width="100%" alt="AMIBIOS Advanced" />
+</p>
+
+</details>
+
+<details>
+<summary>Log — public events</summary>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg" width="100%" alt="AMIBIOS Log" />
+</p>
+
+</details>
 
 ---
 
@@ -1438,33 +1454,13 @@ previous   = {ident['languages_previous']}
 <!--  style switch: scene-nfo release note                            -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-. d w g x . p r e s e n t s .
-
-dwgx.menu · v{profile.get('version','2.5')} · 2026  
-scene release // jst+9
-
-**group** — dwgx  
-**host** — dwgx@main  
-**release** — personal-profile.v{profile.get('version','2.5')}  
-**files** — profile.toml + renderer + bios assets  
-**target** — github.com/dwgx  
-**born** — 20100705  
-**date** — {today.replace('-', '.')}  
-**now** — {now}
-
 <div align="center">
 
-### `━─·  [ stack.manifest ]  ·─━`
+### `stack`
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg" width="92%" alt="stack.manifest" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg" width="92%" alt="stack" />
 
 </div>
-
-. n o t e .
-
-帝王尬笑. maybe I'm dwgx.
-
-— dwgx
 
 ---
 

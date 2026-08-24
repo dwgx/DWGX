@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3186-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3187-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/badge/public_repos-98-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
@@ -192,7 +192,7 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★2948  ║
+║  stage · flagship ★2949  ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
@@ -265,7 +265,7 @@ from  = MC clients
 </tr>
 </table>
 
-[98 public repos · 3186 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[98 public repos · 3187 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -277,7 +277,7 @@ from  = MC clients
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
  2026-08-24 06:33  push  driver-vuln-research   ★3     asm    Kernel driver vulnerability research - BY…
- 2026-08-24 05:36  push  WindsurfAPI            ★2948  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-24 05:36  push  WindsurfAPI            ★2949  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-16 09:08  push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
  2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
  2026-08-15 07:50  push  ReSplat_Editor         ★0     ts     A 3D Gaussian Splat Editor more akin to t…

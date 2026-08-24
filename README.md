@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.6  ·  generated 2026-08-24 JST          -->
+<!--  dwgx.menu  v2.7  ·  generated 2026-08-24 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -29,7 +29,7 @@
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
 
-<p><code>now</code> · comment WindsurfAPI · 17h ago · droughtRestrictPremium blocks free-tier models (swe-1-7, swe-1-7-medium,</p>
+<p><code>now</code> · labeled WindsurfAPI · 1d ago · droughtRestrictPremium blocks free-tier models (swe-1-7, swe-1-7-medium,</p>
 
 </div>
 
@@ -85,19 +85,11 @@ previous   = php
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/doing.svg" alt="now.work" />
-&nbsp;
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/today.svg" alt="today.work" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main - System Overview" />
 
-<br/>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg" width="100%" alt="AMIBIOS Advanced - IDE Devices" />
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/git.svg" alt="git.head" />
-&nbsp;
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/inbox.svg" alt="inbox.issues" />
-
-<br/>
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmesg.svg" alt="dmesg" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg" width="100%" alt="AMIBIOS Log - Event Log" />
 
 </div>
 
@@ -366,12 +358,12 @@ previous   = php
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v2.6 · 2026  
+dwgx.menu · v2.7 · 2026  
 scene release // jst+9
 
 **group** — dwgx  
 **host** — dwgx@main  
-**release** — personal-profile.v2.6  
+**release** — personal-profile.v2.7  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  

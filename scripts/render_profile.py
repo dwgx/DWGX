@@ -16,6 +16,9 @@ import xml.sax.saxutils
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ami  # noqa: E402
+
 JST = timezone(timedelta(hours=9))
 
 
@@ -32,11 +35,9 @@ DISCORD_SVG = ROOT / "assets" / "discord.svg"
 AVATAR_PNG = ROOT / "assets" / "discord-avatar.png"
 MEDIA_SVG = ROOT / "assets" / "media.svg"
 SETUP_SVG = ROOT / "assets" / "setup.svg"
-DOING_SVG = ROOT / "assets" / "doing.svg"
-GIT_SVG = ROOT / "assets" / "git.svg"
-DMESG_SVG = ROOT / "assets" / "dmesg.svg"
-INBOX_SVG = ROOT / "assets" / "inbox.svg"
-TODAY_SVG = ROOT / "assets" / "today.svg"
+STATUS_SVG = ROOT / "assets" / "status.svg"
+DEVICES_SVG = ROOT / "assets" / "devices.svg"
+EVENT_SVG = ROOT / "assets" / "eventlog.svg"
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
 
@@ -66,6 +67,15 @@ TEXT = "#e6edf3"
 MUTED = "#8b949e"
 BLUE = "#79c0ff"
 GREEN = "#7ee787"
+
+# VGA 16-color AMIBIOS 3.31a
+AMI_BLUE = "#0000AA"
+AMI_NAVY = "#000055"
+AMI_CYAN = "#55FFFF"
+AMI_WHITE = "#FFFFFF"
+AMI_YELLOW = "#FFFF55"
+AMI_GRAY = "#AAAAAA"
+AMI_W, AMI_H = 960, 500
 
 
 def load_profile() -> dict:
@@ -397,8 +407,7 @@ def latest_work(events: list[dict]) -> dict:
             verb = "tag"
             msg = str(payload.get("ref") or "")
         elif kind == "IssueCommentEvent":
-            verb = "comment"
-            msg = ((payload.get("issue") or {}).get("title") or "")
+            continue
         else:
             continue
         return {
@@ -977,7 +986,7 @@ def discord_svg(host: str, presence: dict) -> str:
     return panel_frame(width, height, host, "discord.presence", body)
 
 
-def setup_svg(repos: dict[str, dict], tags: dict[str, str]) -> str:
+def _removed_setup_svg(repos: dict[str, dict], tags: dict[str, str]) -> str:
     """Classic AMIBIOS CMOS Setup — blue VGA. Not a clock."""
     w, h = 920, 430
     blue, cyan, white, yellow, gray, navy = (
@@ -1092,7 +1101,7 @@ def media_svg(host: str, bili: dict) -> str:
     return panel_frame(280, 140, host, "bili.stat", body)
 
 
-def kv_svg(host: str, title: str, rows: list[tuple[str, str, str]], width: int = 495, height: int = 170) -> str:
+def _dead_kv_svg(host: str, title: str, rows: list[tuple[str, str, str]], width: int = 495, height: int = 170) -> str:
     body: list[str] = []
     y = 52
     for label, value, color in rows[:6]:
@@ -1344,19 +1353,11 @@ previous   = {ident['languages_previous']}
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/doing.svg" alt="now.work" />
-&nbsp;
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/today.svg" alt="today.work" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main - System Overview" />
 
-<br/>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg" width="100%" alt="AMIBIOS Advanced - IDE Devices" />
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/git.svg" alt="git.head" />
-&nbsp;
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/inbox.svg" alt="inbox.issues" />
-
-<br/>
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmesg.svg" alt="dmesg" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg" width="100%" alt="AMIBIOS Log - Event Log" />
 
 </div>
 
@@ -1587,7 +1588,6 @@ def main() -> int:
     DISCORD_SVG.write_text(discord_svg(host, presence), encoding="utf-8")
     bili = fetch_bili(str((profile.get("links") or {}).get("bili_mid") or ""))
     MEDIA_SVG.write_text(media_svg(host, bili), encoding="utf-8")
-    SETUP_SVG.write_text(setup_svg(by_name, tags), encoding="utf-8")
     work = latest_work(events)
     heads = fetch_heads(
         login,
@@ -1601,11 +1601,10 @@ def main() -> int:
                 work["sha"] = h["sha"]
                 break
     dmesg = dmesg_events(events)
-    DOING_SVG.write_text(doing_svg(host, work, extra), encoding="utf-8")
-    TODAY_SVG.write_text(today_svg(host, extra), encoding="utf-8")
-    GIT_SVG.write_text(git_svg(host, heads), encoding="utf-8")
-    INBOX_SVG.write_text(inbox_svg(host, by_name), encoding="utf-8")
-    DMESG_SVG.write_text(dmesg_svg(host, dmesg), encoding="utf-8")
+    SETUP_SVG.write_text(ami.setup_svg(by_name, tags), encoding="utf-8")
+    STATUS_SVG.write_text(ami.status_svg(work, extra, by_name, today), encoding="utf-8")
+    DEVICES_SVG.write_text(ami.devices_svg(heads), encoding="utf-8")
+    EVENT_SVG.write_text(ami.eventlog_svg(dmesg), encoding="utf-8")
     doing_line = ""
     if work:
         doing_line = (
@@ -1638,9 +1637,9 @@ def main() -> int:
     print(f"wrote {DISCORD_SVG.relative_to(ROOT)}")
     print(f"wrote {MEDIA_SVG.relative_to(ROOT)}")
     print(f"wrote {SETUP_SVG.relative_to(ROOT)}")
-    print(f"wrote {DOING_SVG.relative_to(ROOT)}")
-    print(f"wrote {GIT_SVG.relative_to(ROOT)}")
-    print(f"wrote {DMESG_SVG.relative_to(ROOT)}")
+    print(f"wrote {STATUS_SVG.relative_to(ROOT)}")
+    print(f"wrote {DEVICES_SVG.relative_to(ROOT)}")
+    print(f"wrote {EVENT_SVG.relative_to(ROOT)}")
     print(
         f"public_repos={public} stars={stars} uptime={days} "
         f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']}"

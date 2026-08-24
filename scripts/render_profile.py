@@ -2,7 +2,6 @@
 """Render dwgx.menu README + process-table.svg from profile.toml + GitHub."""
 from __future__ import annotations
 
-import hashlib
 import io
 import json
 import math
@@ -31,38 +30,8 @@ STATS_SVG = ROOT / "assets" / "stats.svg"
 LANGS_SVG = ROOT / "assets" / "langs.svg"
 DISCORD_SVG = ROOT / "assets" / "discord.svg"
 AVATAR_PNG = ROOT / "assets" / "discord-avatar.png"
-CLOCK_SVG = ROOT / "assets" / "clock.svg"
 MEDIA_SVG = ROOT / "assets" / "media.svg"
-
-MOTD = [
-    "be water my friend.",
-    "幻想即是現実。",
-    "the model is a resident, not the source of truth.",
-    "injected into process.",
-    "all change has its cause.",
-    "Press DEL to run Setup.",
-    "solo crew. still shipping.",
-    "zero watchers. kept pushing.",
-    "worlds stay potential until a cause demands fact.",
-    "滿福神社製作。",
-]
-
-RESIDENTS = [
-    "博麗霊夢",
-    "霧雨魔理沙",
-    "十六夜咲夜",
-    "西行寺幽々子",
-    "魂魄妖夢",
-    "フランドール・スカーレット",
-    "レミリア・スカーレット",
-    "八雲紫",
-    "藤原妹紅",
-    "蓬莱山輝夜",
-    "鈴仙・優曇華院・イナバ",
-    "古明地こいし",
-    "東風谷早苗",
-    "射命丸文",
-]
+SETUP_SVG = ROOT / "assets" / "setup.svg"
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
 
@@ -314,16 +283,38 @@ def lang_short(name: str | None) -> str:
     return table.get(name, name.lower()[:6])
 
 
-def fmt_recent_line(day: str, verb: str, name: str, repo: dict) -> str:
+def jst_stamp(iso: str) -> str:
+    raw = (iso or "").strip()
+    if not raw:
+        return "---- -- -- --:--"
+    try:
+        if raw.endswith("Z"):
+            raw = raw[:-1] + "+00:00"
+        dt = datetime.fromisoformat(raw.replace(" ", "T", 1))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        local = dt.astimezone(JST)
+        return local.strftime("%Y-%m-%d %H:%M")
+    except ValueError:
+        return (iso or "")[:16]
+
+
+def fmt_recent_line(iso: str, verb: str, name: str, repo: dict, overrides: dict[str, str]) -> str:
     stars = int(repo.get("stargazers_count") or 0)
     lang = lang_short(repo.get("language"))
-    desc = (repo.get("description") or "").replace("\n", " ").strip()
+    desc = overrides.get(name) or (repo.get("description") or "").replace("\n", " ").strip()
     if len(desc) > 42:
         desc = desc[:41] + "…"
-    return f" {day} --:--   {verb}  {name:<22} {f'★{stars}':<6} {lang:<6} {desc}"
+    stamp = jst_stamp(iso)
+    return f" {stamp}  {verb}  {name:<22} {f'★{stars}':<6} {lang:<6} {desc}"
 
 
-def recent_log(events: list[dict], repos: dict[str, dict], limit: int = 10) -> str:
+def recent_log(
+    events: list[dict],
+    repos: dict[str, dict],
+    overrides: dict[str, str],
+    limit: int = 10,
+) -> str:
     seen: set[str] = set()
     lines: list[str] = []
     for ev in events:
@@ -343,13 +334,12 @@ def recent_log(events: list[dict], repos: dict[str, dict], limit: int = 10) -> s
         if not r:
             continue
         seen.add(name)
-        created = str(ev.get("created_at") or "")[:10] or "----------"
         verb = "push"
         if kind == "ReleaseEvent":
             verb = "rel "
         elif kind == "CreateEvent":
             verb = "tag "
-        lines.append(fmt_recent_line(created, verb, name, r))
+        lines.append(fmt_recent_line(str(ev.get("created_at") or ""), verb, name, r, overrides))
         if len(lines) >= limit:
             break
     if len(lines) < limit:
@@ -363,8 +353,7 @@ def recent_log(events: list[dict], repos: dict[str, dict], limit: int = 10) -> s
             if not name or name in seen or r.get("fork") or name.lower() in {"dwgx"}:
                 continue
             seen.add(name)
-            day = str(r.get("pushed_at") or "")[:10] or "----------"
-            lines.append(fmt_recent_line(day, "push", name, r))
+            lines.append(fmt_recent_line(str(r.get("pushed_at") or ""), "push", name, r, overrides))
             if len(lines) >= limit:
                 break
     return "\n".join(lines) if lines else " (no public events)"
@@ -805,15 +794,86 @@ def discord_svg(host: str, presence: dict) -> str:
     return panel_frame(width, height, host, "discord.presence", body)
 
 
-def clock_svg(host: str, now: datetime, days: int) -> str:
-    stamp = now.strftime("%H:%M:%S")
-    day = now.strftime("%a %Y-%m-%d")
-    body = [
-        f'<text x="20" y="70" font-size="28" font-weight="700" fill="{GOLD}">{esc(stamp)}</text>',
-        f'<text x="20" y="96" font-size="13" fill="{TEXT}">{esc(day)} · JST+9</text>',
-        f'<text x="20" y="118" font-size="12" fill="{MUTED}">uptime {days}d · rtc.ok</text>',
+def setup_svg(repos: dict[str, dict], tags: dict[str, str]) -> str:
+    """Classic AMIBIOS CMOS Setup — blue VGA. Not a clock."""
+    w, h = 920, 430
+    blue, cyan, white, yellow, gray, navy = (
+        "#0000aa",
+        "#55ffff",
+        "#ffffff",
+        "#ffff55",
+        "#aaaaaa",
+        "#000055",
+    )
+    wapi = repos.get("WindsurfAPI") or {}
+    wstars = int(wapi.get("stargazers_count") or wapi.get("stargazerCount") or 0)
+    rows = [
+        ("#1", "ORIGIN", "genesis.wiki  world protocol", True),
+        ("#2", "WindsurfAPI", f"{tags.get('WindsurfAPI') or 'live'}  ★{wstars}", False),
+        ("#3", "KiroStudio", f"{tags.get('KiroStudio') or 'live'}  Anthropic gateway", False),
+        ("#4", "vrchat-il2cpp-re", "Unity 6  64K classes", False),
+        ("#5", "SmartCLI", "PTY + pyte  agent TUI", False),
+        ("#6", "YuKiKo / VRCSM", "QQ bot  VRChat cache", False),
     ]
-    return panel_frame(280, 140, host, "rtc.clock", body)
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
+        "font-family=\"'Lucida Console',Consolas,'Courier New',monospace\">",
+        f'<rect width="{w}" height="{h}" fill="{blue}"/>',
+        f'<rect x="8" y="8" width="{w-16}" height="32" fill="{navy}"/>',
+        f'<text x="460" y="30" text-anchor="middle" font-size="16" font-weight="700" fill="{white}">AMIBIOS SETUP UTILITY - COPYRIGHT (C) 2026 dwgx</text>',
+        f'<text x="24" y="62" font-size="14" fill="{yellow}">Main</text>',
+        f'<text x="88" y="62" font-size="14" fill="{cyan}">Advanced</text>',
+        f'<text x="188" y="62" font-size="14" fill="{white}">Boot</text>',
+        f'<text x="252" y="62" font-size="14" fill="{cyan}">Security</text>',
+        f'<text x="348" y="62" font-size="14" fill="{cyan}">Exit</text>',
+        f'<rect x="12" y="72" width="896" height="318" fill="{navy}" stroke="{cyan}" stroke-width="2"/>',
+        f'<text x="28" y="96" font-size="13" fill="{yellow}">Boot Settings</text>',
+        f'<text x="28" y="118" font-size="13" fill="{gray}">Quiet Boot                                 [Disabled]</text>',
+        f'<text x="28" y="138" font-size="13" fill="{gray}">Bootup Num-Lock                            [On]</text>',
+        f'<text x="28" y="168" font-size="13" fill="{yellow}">Boot Device Priority</text>',
+    ]
+    y = 194
+    for slot, name, note, selected in rows:
+        if selected:
+            parts.append(f'<rect x="22" y="{y-15}" width="876" height="20" fill="{gray}"/>')
+            fill = navy
+        else:
+            fill = white
+        label = f"{slot}  {name:<18} {note}"
+        parts.append(
+            f'<text x="32" y="{y}" font-size="13" fill="{fill}">{esc(label)}</text>'
+        )
+        y += 24
+    parts.extend(
+        [
+            f'<rect x="8" y="{h-36}" width="{w-16}" height="28" fill="{navy}"/>',
+            f'<text x="24" y="{h-16}" font-size="12" fill="{yellow}">↑↓ Select   Enter: Boot   F9: Setup Defaults   F10: Save &amp; Exit   ESC: Exit</text>',
+            "</svg>",
+        ]
+    )
+    return "".join(parts)
+
+
+def hex_dump_block() -> str:
+    payloads = [
+        "帝王尬笑",
+        "maybe I'm dwgx",
+        "genesis.wiki",
+        "幻想万華鏡",
+        "WindsurfAPI",
+        "indep.2010",
+    ]
+    lines = []
+    addr = 0x401000
+    for s in payloads:
+        raw = s.encode("utf-8")
+        padded = (raw + b"\x00" * 16)[:16]
+        left = " ".join(f"{b:02x}" for b in padded[:8])
+        right = " ".join(f"{b:02x}" for b in padded[8:])
+        vis = s if len(s) <= 16 else s[:16]
+        lines.append(f" {addr:08X}  {left}   {right}   {vis}")
+        addr += 16
+    return "\n".join(lines)
 
 
 def fetch_bili(mid: str) -> dict:
@@ -847,11 +907,6 @@ def media_svg(host: str, bili: dict) -> str:
         f'<text x="20" y="124" font-size="12" fill="{MUTED}">space.bilibili.com/1452905012</text>',
     ]
     return panel_frame(280, 140, host, "bili.stat", body)
-
-
-def daily_pick(items: list[str], salt: str, day: str) -> str:
-    digest = hashlib.sha256(f"{day}:{salt}".encode("utf-8")).hexdigest()
-    return items[int(digest[:8], 16) % len(items)]
 
 
 def flagship_block(profile: dict) -> str:
@@ -995,6 +1050,16 @@ previous   = {ident['languages_previous']}
 
 ---
 
+### `setup.utility`
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS SETUP UTILITY" />
+
+</div>
+
+---
+
 {flagship_block(profile)}
 
 ---
@@ -1037,21 +1102,11 @@ previous   = {ident['languages_previous']}
 
 <br/>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/clock.svg" alt="rtc.clock" />
-&nbsp;
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg" alt="bili.stat" />
 
 </div>
 
 ---
-
-### `motd`
-
-```
- motd[{today}]     {ctx['motd']}
- resident[{today}] {ctx['resident']}
- rtc               JST+9 · {ctx['clock_human']}
-```
 
 <div align="center">
 
@@ -1082,12 +1137,12 @@ previous   = {ident['languages_previous']}
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v{profile.get('version','2.3')} · 2026  
-scene release // jst+9 // solo crew
+dwgx.menu · v{profile.get('version','2.5')} · 2026  
+scene release // jst+9
 
 **group** — dwgx  
 **host** — dwgx@main  
-**release** — personal-profile.v{profile.get('version','2.2')}  
+**release** — personal-profile.v{profile.get('version','2.5')}  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  
@@ -1102,10 +1157,9 @@ scene release // jst+9 // solo crew
 
 </div>
 
-. s h o u t o u t s .
+. n o t e .
 
-to every anon who kept pushing commits with zero stars and zero watchers  
-to every kid who built something just to see if it could be done
+帝王尬笑. maybe I'm dwgx.
 
 — dwgx
 
@@ -1181,54 +1235,22 @@ to every kid who built something just to see if it could be done
 
 ---
 
-<div align="center">
-
-```
-    ╭───────────────────────────────────────────────────────────╮
-    │                                                           │
-    │                   be   water   my   friend.               │
-    │                                                           │
-    ╰───────────────────────────────────────────────────────────╯
-```
-
-</div>
-
----
-
 ### `hex.dump`
 
 ```
- 00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑....
- 00401010  64 77 67 78 40 6d 61 69   6e 3a 7e 2f 64 65 76 24   dwgx@main:~/dev$
- 00401020  72 65 76 65 72 73 65 2e   65 6e 67 69 6e 65 65 72   reverse.engineer
- 00401030  67 61 6d 65 20 68 61 63   6b 69 6e 67 20 73 79 73   game hacking sys
- 00401040  62 65 20 77 61 74 65 72   20 6d 79 20 66 72 69 65   be water my frie
- 00401050  6e 64 20 2f 2f 20 73 6f   6c 6f 20 20 63 72 65 77   nd // solo  crew
- 00401060  69 6e 64 65 70 20 73 69   6e 63 65 20 32 30 31 30   indep since 2010
+{ctx['hexdump']}
 ```
 
 ---
 
 ### `hotkeys`
 
-<div align="center">
-
-<kbd>F1</kbd> [dwgx.github.io]({links['site']})
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F2</kbd> [blog.dwgx.top]({links['blog']})
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F3</kbd> [YouTube]({links['youtube']})
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F4</kbd> [Bilibili]({links['bilibili']})
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F5</kbd> [QQ]({links['qq']})
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F6</kbd> [genesis.wiki]({links.get('genesis') or 'https://genesis.wiki'})
-
-</div>
-
 ```
- ─── {prompt_host(profile)} ── JST+9 ── mode: shipping ── uptime {ctx['uptime']}d ── be water ───
+ DEL   Setup            {links['site']}
+ F2    HDD-0 ORIGIN     {links.get('genesis') or 'https://genesis.wiki'}
+ F8    BBS Popup        {links['youtube']}
+ F9    BBS Popup        {links['bilibili']}
+ F10   Save & Exit      maybe I'm dwgx
 ```
 """
 
@@ -1261,24 +1283,25 @@ def main() -> int:
     presence = fetch_presence(str((profile.get("links") or {}).get("discord_id") or ""))
     save_avatar(presence.get("avatar"), str(presence.get("status") or "offline"))
     DISCORD_SVG.write_text(discord_svg(host, presence), encoding="utf-8")
-    now_jst = datetime.now(JST)
-    CLOCK_SVG.write_text(clock_svg(host, now_jst, days), encoding="utf-8")
     bili = fetch_bili(str((profile.get("links") or {}).get("bili_mid") or ""))
     MEDIA_SVG.write_text(media_svg(host, bili), encoding="utf-8")
+    SETUP_SVG.write_text(setup_svg(by_name, tags), encoding="utf-8")
+    overrides = {
+        str(k): str(v)
+        for k, v in (profile.get("log_desc") or {}).items()
+    }
     ctx = {
         "today": today,
         "uptime": days,
         "public_repos": public,
         "total_stars": stars,
         "process_count": len(profile.get("process") or []),
-        "recent": recent_log(events, by_name),
+        "recent": recent_log(events, by_name, overrides),
         "hardware": hardware_dump(profile, days),
         "pinned_table": pinned_table(profile, by_name, public, stars),
         "stars_map": {k: int(v.get("stargazers_count") or 0) for k, v in by_name.items()},
         "tags": tags,
-        "motd": daily_pick(MOTD, "motd", today),
-        "resident": daily_pick(RESIDENTS, "resident", today),
-        "clock_human": now_jst.strftime("%H:%M"),
+        "hexdump": hex_dump_block(),
     }
     README.write_text(render_readme(profile, ctx).rstrip() + "\n", encoding="utf-8")
     print(f"wrote {README.relative_to(ROOT)}")
@@ -1286,8 +1309,8 @@ def main() -> int:
     print(f"wrote {STATS_SVG.relative_to(ROOT)}")
     print(f"wrote {LANGS_SVG.relative_to(ROOT)}")
     print(f"wrote {DISCORD_SVG.relative_to(ROOT)}")
-    print(f"wrote {CLOCK_SVG.relative_to(ROOT)}")
     print(f"wrote {MEDIA_SVG.relative_to(ROOT)}")
+    print(f"wrote {SETUP_SVG.relative_to(ROOT)}")
     print(
         f"public_repos={public} stars={stars} uptime={days} "
         f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']}"

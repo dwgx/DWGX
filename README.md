@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.4  ·  generated 2026-08-24 JST          -->
+<!--  dwgx.menu  v2.5  ·  generated 2026-08-24 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -44,7 +44,7 @@
 [identity]
 alias      = dwgx · 帝王尬笑
 location   = Kobe, Hyogo · JST+9
-motto      = be water
+motto      = maybe I'm dwgx
 bio        = 也许我就是dwgx
 
 [role]
@@ -66,6 +66,16 @@ previous   = php
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg" width="88%" alt="process.table" />
+
+</div>
+
+---
+
+### `setup.utility`
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS SETUP UTILITY" />
 
 </div>
 
@@ -235,16 +245,16 @@ previous   = php
 ### `recent.log`
 
 ```
- 2026-08-24 --:--   push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
- 2026-08-24 --:--   push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
- 2026-08-23 --:--   push  driver-vuln-research   ★3     asm    Kernel driver vulnerability research - BY…
- 2026-08-23 --:--   push  WindsurfAPI            ★2948  js     Turn Windsurf / Devin Desktop's 100+ AI m…
- 2026-08-16 --:--   push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
- 2026-08-15 --:--   push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
- 2026-08-14 --:--   push  ReSplat_Editor         ★0     ts     A 3D Gaussian Splat Editor more akin to t…
- 2026-08-13 --:--   push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
- 2026-08-10 --:--   push  SmartCLI               ★3     py     Three Agent Skills over one pluggable PTY…
- 2026-08-09 --:--   push  beautify-console       ★1     js     VS Code 一站式可视化美化面板:字体/布局/编辑器/动画/多区域背景图/圆角…
+ 2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
+ 2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
+ 2026-08-24 06:33  push  driver-vuln-research   ★3     asm    Kernel driver vulnerability research - BY…
+ 2026-08-24 05:36  push  WindsurfAPI            ★2948  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-16 09:08  push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
+ 2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
+ 2026-08-15 07:50  push  ReSplat_Editor         ★0     ts     A 3D Gaussian Splat Editor more akin to t…
+ 2026-08-14 08:47  push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
+ 2026-08-10 23:09  push  SmartCLI               ★3     py     Three Agent Skills over one pluggable PTY…
+ 2026-08-10 05:51  push  beautify-console       ★1     js     VS Code / JetBrains style visual editor
 ```
 
 ---
@@ -299,21 +309,11 @@ previous   = php
 
 <br/>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/clock.svg" alt="rtc.clock" />
-&nbsp;
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg" alt="bili.stat" />
 
 </div>
 
 ---
-
-### `motd`
-
-```
- motd[2026-08-24]     滿福神社製作。
- resident[2026-08-24] 古明地こいし
- rtc               JST+9 · 20:20
-```
 
 <div align="center">
 
@@ -344,12 +344,12 @@ previous   = php
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v2.4 · 2026  
-scene release // jst+9 // solo crew
+dwgx.menu · v2.5 · 2026  
+scene release // jst+9
 
 **group** — dwgx  
 **host** — dwgx@main  
-**release** — personal-profile.v2.4  
+**release** — personal-profile.v2.5  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  
@@ -364,10 +364,9 @@ scene release // jst+9 // solo crew
 
 </div>
 
-. s h o u t o u t s .
+. n o t e .
 
-to every anon who kept pushing commits with zero stars and zero watchers  
-to every kid who built something just to see if it could be done
+帝王尬笑. maybe I'm dwgx.
 
 — dwgx
 
@@ -443,52 +442,25 @@ to every kid who built something just to see if it could be done
 
 ---
 
-<div align="center">
-
-```
-    ╭───────────────────────────────────────────────────────────╮
-    │                                                           │
-    │                   be   water   my   friend.               │
-    │                                                           │
-    ╰───────────────────────────────────────────────────────────╯
-```
-
-</div>
-
----
-
 ### `hex.dump`
 
 ```
- 00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑....
- 00401010  64 77 67 78 40 6d 61 69   6e 3a 7e 2f 64 65 76 24   dwgx@main:~/dev$
- 00401020  72 65 76 65 72 73 65 2e   65 6e 67 69 6e 65 65 72   reverse.engineer
- 00401030  67 61 6d 65 20 68 61 63   6b 69 6e 67 20 73 79 73   game hacking sys
- 00401040  62 65 20 77 61 74 65 72   20 6d 79 20 66 72 69 65   be water my frie
- 00401050  6e 64 20 2f 2f 20 73 6f   6c 6f 20 20 63 72 65 77   nd // solo  crew
- 00401060  69 6e 64 65 70 20 73 69   6e 63 65 20 32 30 31 30   indep since 2010
+ 00401000  e5 b8 9d e7 8e 8b e5 b0   ac e7 ac 91 00 00 00 00   帝王尬笑
+ 00401010  6d 61 79 62 65 20 49 27   6d 20 64 77 67 78 00 00   maybe I'm dwgx
+ 00401020  67 65 6e 65 73 69 73 2e   77 69 6b 69 00 00 00 00   genesis.wiki
+ 00401030  e5 b9 bb e6 83 b3 e4 b8   87 e8 8f af e9 8f a1 00   幻想万華鏡
+ 00401040  57 69 6e 64 73 75 72 66   41 50 49 00 00 00 00 00   WindsurfAPI
+ 00401050  69 6e 64 65 70 2e 32 30   31 30 00 00 00 00 00 00   indep.2010
 ```
 
 ---
 
 ### `hotkeys`
 
-<div align="center">
-
-<kbd>F1</kbd> [dwgx.github.io](https://dwgx.github.io)
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F2</kbd> [blog.dwgx.top](https://blog.dwgx.top)
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F3</kbd> [YouTube](https://www.youtube.com/@dwgx1337)
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F4</kbd> [Bilibili](https://space.bilibili.com/1452905012)
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F5</kbd> [QQ](https://user.qzone.qq.com/136666451/)
-&nbsp;&nbsp;·&nbsp;&nbsp;
-<kbd>F6</kbd> [genesis.wiki](https://genesis.wiki)
-
-</div>
-
 ```
- ─── dwgx@main ── JST+9 ── mode: shipping ── uptime 5894d ── be water ───
+ DEL   Setup            https://dwgx.github.io
+ F2    HDD-0 ORIGIN     https://genesis.wiki
+ F8    BBS Popup        https://www.youtube.com/@dwgx1337
+ F9    BBS Popup        https://space.bilibili.com/1452905012
+ F10   Save & Exit      maybe I'm dwgx
 ```

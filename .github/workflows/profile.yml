@@ -38,7 +38,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md assets/process-table.svg assets/stats.svg assets/langs.svg assets/discord.svg assets/discord-avatar.png assets/clock.svg assets/media.svg
+          git add README.md assets/process-table.svg assets/stats.svg assets/langs.svg assets/discord.svg assets/discord-avatar.png assets/media.svg assets/setup.svg
           git diff --cached --quiet && echo "no changes" && exit 0
           git commit -m "chore: refresh profile numbers"
           git pull --rebase origin main

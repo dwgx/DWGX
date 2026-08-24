@@ -4,14 +4,14 @@
 
 login = "dwgx"
 prompt = "dwgx@main"
-version = "2.4"
+version = "2.5"
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
 
 [identity]
 alias = "dwgx · 帝王尬笑"
 location = "Kobe, Hyogo · JST+9"
-motto = "be water"
+motto = "maybe I'm dwgx"
 bio = "也许我就是dwgx"
 role = "independent-developer"
 origin = "Minecraft cheat scene"
@@ -187,6 +187,9 @@ title = "A world with laws, so AI can live in it."
 blurb = "The model is a resident, not the source of truth. Every change has a cause."
 url = "https://genesis.wiki"
 facts = "9 layers · 6 promises · 200+ traditions"
+
+[log_desc]
+beautify-console = "VS Code / JetBrains style visual editor"
 
 [hardware]
 # Generated into hardware.dmp. Do not put secrets, IPs, or phone numbers here.

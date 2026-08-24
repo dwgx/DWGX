@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.5  ·  generated 2026-08-24 JST          -->
+<!--  dwgx.menu  v2.6  ·  generated 2026-08-24 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -29,7 +29,7 @@
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
 
-<p><code>now</code> · ORIGIN · genesis.wiki · WindsurfAPI v3.9.28 · KiroStudio v1.2.1</p>
+<p><code>now</code> · comment WindsurfAPI · 17h ago · droughtRestrictPremium blocks free-tier models (swe-1-7, swe-1-7-medium,</p>
 
 </div>
 
@@ -76,6 +76,28 @@ previous   = php
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS SETUP UTILITY" />
+
+</div>
+
+---
+
+### `status.pages`
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/doing.svg" alt="now.work" />
+&nbsp;
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/today.svg" alt="today.work" />
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/git.svg" alt="git.head" />
+&nbsp;
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/inbox.svg" alt="inbox.issues" />
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmesg.svg" alt="dmesg" />
 
 </div>
 
@@ -344,12 +366,12 @@ previous   = php
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v2.5 · 2026  
+dwgx.menu · v2.6 · 2026  
 scene release // jst+9
 
 **group** — dwgx  
 **host** — dwgx@main  
-**release** — personal-profile.v2.5  
+**release** — personal-profile.v2.6  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  

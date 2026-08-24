@@ -32,6 +32,11 @@ DISCORD_SVG = ROOT / "assets" / "discord.svg"
 AVATAR_PNG = ROOT / "assets" / "discord-avatar.png"
 MEDIA_SVG = ROOT / "assets" / "media.svg"
 SETUP_SVG = ROOT / "assets" / "setup.svg"
+DOING_SVG = ROOT / "assets" / "doing.svg"
+GIT_SVG = ROOT / "assets" / "git.svg"
+DMESG_SVG = ROOT / "assets" / "dmesg.svg"
+INBOX_SVG = ROOT / "assets" / "inbox.svg"
+TODAY_SVG = ROOT / "assets" / "today.svg"
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
 
@@ -125,13 +130,22 @@ def api_graphql(query: str, variables: dict, token: str) -> dict:
 
 
 STATS_QUERY = """
-query($login: String!) {
+query($login: String!, $from: DateTime) {
   user(login: $login) {
     followers { totalCount }
     issues { totalCount }
     pullRequests { totalCount }
-    contributionsCollection {
+    yearContrib: contributionsCollection {
       totalCommitContributions
+    }
+    todayContrib: contributionsCollection(from: $from) {
+      totalCommitContributions
+      totalPullRequestContributions
+      totalIssueContributions
+      commitContributionsByRepository(maxRepositories: 6) {
+        contributions { totalCount }
+        repository { name }
+      }
     }
     repositories(first: 100, ownerAffiliations: OWNER, isFork: false, orderBy: {field: STARGAZERS, direction: DESC}) {
       nodes {
@@ -151,18 +165,36 @@ def fetch_extra_stats(login: str, token: str, repos: list[dict]) -> dict:
         "issues": 0,
         "prs": 0,
         "commits_year": 0,
+        "commits_today": 0,
+        "prs_today": 0,
+        "issues_today": 0,
+        "today_repos": [],
         "langs": [],
     }
+    start = datetime.now(JST).replace(hour=0, minute=0, second=0, microsecond=0)
+    from_iso = start.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     if token:
         try:
-            data = api_graphql(STATS_QUERY, {"login": login}, token)
+            data = api_graphql(STATS_QUERY, {"login": login, "from": from_iso}, token)
             user = (data.get("user") or {}) if isinstance(data, dict) else {}
             extra["followers"] = int(((user.get("followers") or {}).get("totalCount")) or 0)
             extra["issues"] = int(((user.get("issues") or {}).get("totalCount")) or 0)
             extra["prs"] = int(((user.get("pullRequests") or {}).get("totalCount")) or 0)
             extra["commits_year"] = int(
-                ((user.get("contributionsCollection") or {}).get("totalCommitContributions")) or 0
+                ((user.get("yearContrib") or {}).get("totalCommitContributions")) or 0
             )
+            today = user.get("todayContrib") or {}
+            extra["commits_today"] = int(today.get("totalCommitContributions") or 0)
+            extra["prs_today"] = int(today.get("totalPullRequestContributions") or 0)
+            extra["issues_today"] = int(today.get("totalIssueContributions") or 0)
+            extra["today_repos"] = [
+                {
+                    "name": ((row.get("repository") or {}).get("name") or ""),
+                    "n": int(((row.get("contributions") or {}).get("totalCount")) or 0),
+                }
+                for row in (today.get("commitContributionsByRepository") or [])
+                if (row.get("repository") or {}).get("name")
+            ]
             sizes: dict[str, dict] = {}
             for node in ((user.get("repositories") or {}).get("nodes") or []):
                 for edge in ((node.get("languages") or {}).get("edges") or []):
@@ -297,6 +329,157 @@ def jst_stamp(iso: str) -> str:
         return local.strftime("%Y-%m-%d %H:%M")
     except ValueError:
         return (iso or "")[:16]
+
+
+def parse_dt(iso: str) -> datetime | None:
+    raw = (iso or "").strip()
+    if not raw:
+        return None
+    try:
+        if raw.endswith("Z"):
+            raw = raw[:-1] + "+00:00"
+        dt = datetime.fromisoformat(raw.replace(" ", "T", 1))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
+    except ValueError:
+        return None
+
+
+def ago_label(iso: str) -> str:
+    dt = parse_dt(iso)
+    if not dt:
+        return "?"
+    sec = int((datetime.now(timezone.utc) - dt.astimezone(timezone.utc)).total_seconds())
+    if sec < 0:
+        sec = 0
+    if sec < 90:
+        return f"{sec}s"
+    if sec < 3600:
+        return f"{sec // 60}m"
+    if sec < 86400:
+        return f"{sec // 3600}h"
+    return f"{sec // 86400}d"
+
+
+def latest_work(events: list[dict]) -> dict:
+    for ev in events:
+        kind = ev.get("type") or ""
+        name = ((ev.get("repo") or {}).get("name") or "").split("/")[-1]
+        if not name or name.lower() == "dwgx":
+            continue
+        payload = ev.get("payload") or {}
+        created = str(ev.get("created_at") or "")
+        msg = ""
+        sha = ""
+        verb = kind.replace("Event", "").lower()
+        if kind == "PushEvent":
+            verb = "push"
+            commits = payload.get("commits") or []
+            if not commits:
+                continue
+            last = commits[-1]
+            msg = (last.get("message") or "").split("\n")[0]
+            sha = (last.get("sha") or "")[:7]
+        elif kind == "ReleaseEvent":
+            verb = "release"
+            rel = payload.get("release") or {}
+            msg = str(rel.get("tag_name") or rel.get("name") or "")
+        elif kind == "IssuesEvent":
+            verb = str(payload.get("action") or "issue")
+            msg = ((payload.get("issue") or {}).get("title") or "")
+        elif kind == "PullRequestEvent":
+            verb = "pr"
+            msg = ((payload.get("pull_request") or {}).get("title") or "")
+        elif kind == "CreateEvent":
+            if payload.get("ref_type") != "tag":
+                continue
+            verb = "tag"
+            msg = str(payload.get("ref") or "")
+        elif kind == "IssueCommentEvent":
+            verb = "comment"
+            msg = ((payload.get("issue") or {}).get("title") or "")
+        else:
+            continue
+        return {
+            "repo": name,
+            "verb": verb,
+            "created": created,
+            "msg": msg[:72],
+            "sha": sha,
+            "ago": ago_label(created),
+        }
+    return {}
+
+
+def dmesg_events(events: list[dict], limit: int = 8) -> list[dict]:
+    out: list[dict] = []
+    for ev in events:
+        kind = ev.get("type")
+        name = ((ev.get("repo") or {}).get("name") or "").split("/")[-1]
+        if not name or name.lower() == "dwgx":
+            continue
+        payload = ev.get("payload") or {}
+        created = str(ev.get("created_at") or "")
+        line = ""
+        if kind == "PushEvent":
+            commits = payload.get("commits") or []
+            if not commits:
+                continue
+            last = commits[-1]
+            line = (last.get("message") or "").split("\n")[0]
+            verb = "push"
+        elif kind == "ReleaseEvent":
+            line = ((payload.get("release") or {}).get("tag_name") or "release")
+            verb = "rel"
+        elif kind == "IssuesEvent":
+            action = str(payload.get("action") or "issue")
+            if action in {"labeled", "unlabeled", "assigned", "unassigned", "milestoned"}:
+                continue
+            line = ((payload.get("issue") or {}).get("title") or "")
+            verb = {"opened": "open", "closed": "close", "reopened": "reopen"}.get(action, action[:6])
+        elif kind == "PullRequestEvent":
+            line = ((payload.get("pull_request") or {}).get("title") or "")
+            verb = "pr"
+        else:
+            continue
+        out.append(
+            {
+                "repo": name,
+                "verb": verb,
+                "msg": line[:58],
+                "stamp": jst_stamp(created)[11:],
+                "ago": ago_label(created),
+            }
+        )
+        if len(out) >= limit:
+            break
+    return out
+
+
+def fetch_heads(login: str, names: list[str], token: str) -> list[dict]:
+    rows: list[dict] = []
+    for name in names:
+        try:
+            data = api_get(f"/repos/{login}/{name}/commits", token, "per_page=1")
+            if not isinstance(data, list) or not data:
+                continue
+            c = data[0]
+            commit = c.get("commit") or {}
+            date = ((commit.get("committer") or {}).get("date")) or (
+                (commit.get("author") or {}).get("date") or ""
+            )
+            rows.append(
+                {
+                    "name": name,
+                    "sha": str(c.get("sha") or "")[:7],
+                    "msg": (commit.get("message") or "").split("\n")[0][:42],
+                    "ago": ago_label(date),
+                }
+            )
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError):
+            continue
+    return rows
 
 
 def fmt_recent_line(iso: str, verb: str, name: str, repo: dict, overrides: dict[str, str]) -> str:
@@ -909,6 +1092,103 @@ def media_svg(host: str, bili: dict) -> str:
     return panel_frame(280, 140, host, "bili.stat", body)
 
 
+def kv_svg(host: str, title: str, rows: list[tuple[str, str, str]], width: int = 495, height: int = 170) -> str:
+    body: list[str] = []
+    y = 52
+    for label, value, color in rows[:6]:
+        body.append(
+            f'<text x="18" y="{y}" font-size="12" fill="{MUTED}">{esc(label)}</text>'
+        )
+        body.append(
+            f'<text x="130" y="{y}" font-size="13" font-weight="700" fill="{color}">{esc(value)}</text>'
+        )
+        y += 20
+    return panel_frame(width, height, host, title, body)
+
+
+def doing_svg(host: str, work: dict, extra: dict) -> str:
+    if not work:
+        rows = [("task", "idle", MUTED), ("hint", "no public events", MUTED)]
+    else:
+        rows = [
+            ("task", f"{work.get('verb')}  {work.get('repo')}", GREEN),
+            ("when", f"{work.get('ago')} ago  {jst_stamp(str(work.get('created') or ''))}", GOLD),
+            ("head", work.get("sha") or "-", BLUE),
+            ("msg", (work.get("msg") or "-")[:46], TEXT),
+            ("today", f"{extra.get('commits_today') or 0} commits  {extra.get('prs_today') or 0} prs", PINK),
+        ]
+    return kv_svg(host, "now.work", rows)
+
+
+def git_svg(host: str, heads: list[dict]) -> str:
+    body: list[str] = []
+    y = 50
+    if not heads:
+        body.append(f'<text x="18" y="80" font-size="13" fill="{MUTED}">no heads</text>')
+    for row in heads[:6]:
+        body.append(
+            f'<text x="18" y="{y}" font-size="12" font-weight="700" fill="{TEXT}">{esc(str(row["name"]))}</text>'
+        )
+        body.append(
+            f'<text x="168" y="{y}" font-size="12" fill="{GOLD}">{esc(str(row["sha"]))}</text>'
+        )
+        body.append(
+            f'<text x="228" y="{y}" font-size="12" fill="{MUTED}">{esc(str(row["ago"]))}</text>'
+        )
+        body.append(
+            f'<text x="270" y="{y}" font-size="12" fill="{PINK}">{esc(str(row["msg"]))}</text>'
+        )
+        y += 20
+    return panel_frame(495, 170, host, "git.head", body)
+
+
+def dmesg_svg(host: str, lines: list[dict]) -> str:
+    body: list[str] = []
+    y = 48
+    if not lines:
+        body.append(f'<text x="18" y="80" font-size="13" fill="{MUTED}">quiet</text>')
+    for row in lines[:8]:
+        body.append(
+            f'<text x="16" y="{y}" font-size="12" fill="{MUTED}">[{esc(str(row["stamp"]))} {esc(str(row["ago"]))}]</text>'
+        )
+        body.append(
+            f'<text x="130" y="{y}" font-size="12" fill="{GOLD}">{esc(str(row["verb"]))}</text>'
+        )
+        body.append(
+            f'<text x="175" y="{y}" font-size="12" fill="{TEXT}">{esc(str(row["repo"]))}</text>'
+        )
+        body.append(
+            f'<text x="330" y="{y}" font-size="12" fill="{PINK}">{esc(str(row["msg"]))}</text>'
+        )
+        y += 18
+    return panel_frame(920, 200, host, "dmesg", body)
+
+
+def inbox_svg(host: str, repos: dict[str, dict]) -> str:
+    names = ["WindsurfAPI", "KiroStudio", "VRCSM", "SmartCLI", "YuKiKo", "cursorapi"]
+    rows: list[tuple[str, str, str]] = []
+    for name in names:
+        r = repos.get(name) or {}
+        n = int(r.get("open_issues_count") or 0)
+        color = PINK if n else GREEN
+        rows.append((name, f"{n} open", color))
+    return kv_svg(host, "inbox.issues", rows)
+
+
+def today_svg(host: str, extra: dict) -> str:
+    rows = [
+        ("commits", str(extra.get("commits_today") or 0), GOLD),
+        ("pull reqs", str(extra.get("prs_today") or 0), BLUE),
+        ("issues", str(extra.get("issues_today") or 0), PINK),
+        ("year cmt", str(extra.get("commits_year") or 0), TEXT),
+    ]
+    y_repos = extra.get("today_repos") or []
+    if y_repos:
+        top = y_repos[0]
+        rows.append(("hot repo", f"{top.get('name')} ×{top.get('n')}", GREEN))
+    return kv_svg(host, "today.work", rows)
+
+
 def flagship_block(profile: dict) -> str:
     flag = profile.get("flagship") or {}
     name = str(flag.get("name") or "ORIGIN")
@@ -1008,7 +1288,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
 
-<p><code>now</code> · {now}</p>
+<p><code>now</code> · {ctx.get('doing_line') or now}</p>
 
 </div>
 
@@ -1055,6 +1335,28 @@ previous   = {ident['languages_previous']}
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS SETUP UTILITY" />
+
+</div>
+
+---
+
+### `status.pages`
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/doing.svg" alt="now.work" />
+&nbsp;
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/today.svg" alt="today.work" />
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/git.svg" alt="git.head" />
+&nbsp;
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/inbox.svg" alt="inbox.issues" />
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmesg.svg" alt="dmesg" />
 
 </div>
 
@@ -1286,6 +1588,30 @@ def main() -> int:
     bili = fetch_bili(str((profile.get("links") or {}).get("bili_mid") or ""))
     MEDIA_SVG.write_text(media_svg(host, bili), encoding="utf-8")
     SETUP_SVG.write_text(setup_svg(by_name, tags), encoding="utf-8")
+    work = latest_work(events)
+    heads = fetch_heads(
+        login,
+        ["WindsurfAPI", "KiroStudio", "VRCSM", "SmartCLI", "YuKiKo", "cursorapi"],
+        token,
+    )
+    if work and not work.get("sha"):
+        for h in heads:
+            if h["name"] == work.get("repo"):
+                work["msg"] = work.get("msg") or h["msg"]
+                work["sha"] = h["sha"]
+                break
+    dmesg = dmesg_events(events)
+    DOING_SVG.write_text(doing_svg(host, work, extra), encoding="utf-8")
+    TODAY_SVG.write_text(today_svg(host, extra), encoding="utf-8")
+    GIT_SVG.write_text(git_svg(host, heads), encoding="utf-8")
+    INBOX_SVG.write_text(inbox_svg(host, by_name), encoding="utf-8")
+    DMESG_SVG.write_text(dmesg_svg(host, dmesg), encoding="utf-8")
+    doing_line = ""
+    if work:
+        doing_line = (
+            f"{work.get('verb')} {work.get('repo')} · {work.get('ago')} ago"
+            + (f" · {work.get('msg')}" if work.get("msg") else "")
+        )
     overrides = {
         str(k): str(v)
         for k, v in (profile.get("log_desc") or {}).items()
@@ -1302,6 +1628,7 @@ def main() -> int:
         "stars_map": {k: int(v.get("stargazers_count") or 0) for k, v in by_name.items()},
         "tags": tags,
         "hexdump": hex_dump_block(),
+        "doing_line": doing_line[:110],
     }
     README.write_text(render_readme(profile, ctx).rstrip() + "\n", encoding="utf-8")
     print(f"wrote {README.relative_to(ROOT)}")
@@ -1311,6 +1638,9 @@ def main() -> int:
     print(f"wrote {DISCORD_SVG.relative_to(ROOT)}")
     print(f"wrote {MEDIA_SVG.relative_to(ROOT)}")
     print(f"wrote {SETUP_SVG.relative_to(ROOT)}")
+    print(f"wrote {DOING_SVG.relative_to(ROOT)}")
+    print(f"wrote {GIT_SVG.relative_to(ROOT)}")
+    print(f"wrote {DMESG_SVG.relative_to(ROOT)}")
     print(
         f"public_repos={public} stars={stars} uptime={days} "
         f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']}"

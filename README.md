@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.8  ·  generated 2026-08-24 JST          -->
+<!--  dwgx.menu  v2.8  ·  generated 2026-08-25 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -36,7 +36,7 @@
 ### `dwgx.cfg`
 
 ```ini
-; 2026-08-24
+; 2026-08-25
 
 [who]
 name = dwgx
@@ -319,7 +319,7 @@ from  = MC clients
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
-               │  uptime     5894 days                          │
+               │  uptime     5895 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
 ```
@@ -397,7 +397,7 @@ from  = MC clients
 <img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5894_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5895_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 <br/>
 

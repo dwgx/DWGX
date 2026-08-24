@@ -4,7 +4,7 @@
 
 login = "dwgx"
 prompt = "dwgx@main"
-version = "2.3"
+version = "2.4"
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
 
@@ -173,6 +173,7 @@ site = "https://dwgx.github.io"
 blog = "https://blog.dwgx.top"
 youtube = "https://www.youtube.com/@dwgx1337"
 bilibili = "https://space.bilibili.com/1452905012"
+bili_mid = "1452905012"
 qq = "https://user.qzone.qq.com/136666451/"
 discord = "https://discord.com/users/1284670281926967336"
 discord_id = "1284670281926967336"

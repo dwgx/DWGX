@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.3  ·  generated 2026-08-24 JST          -->
+<!--  dwgx.menu  v2.4  ·  generated 2026-08-24 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -292,10 +292,30 @@ previous   = php
 ### `discord.presence`
 
 <a href="https://discord.com/users/1284670281926967336">
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png" width="80" height="80" alt="discord avatar" />
 </a>
 
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/clock.svg" alt="rtc.clock" />
+&nbsp;
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg" alt="bili.stat" />
+
+</div>
+
 ---
+
+### `motd`
+
+```
+ motd[2026-08-24]     滿福神社製作。
+ resident[2026-08-24] 古明地こいし
+ rtc               JST+9 · 20:16
+```
+
+<div align="center">
 
 ### `featured`
 
@@ -324,12 +344,12 @@ previous   = php
 
 . d w g x . p r e s e n t s .
 
-dwgx.menu · v2.3 · 2026  
+dwgx.menu · v2.4 · 2026  
 scene release // jst+9 // solo crew
 
 **group** — dwgx  
 **host** — dwgx@main  
-**release** — personal-profile.v2.3  
+**release** — personal-profile.v2.4  
 **files** — profile.toml + renderer + bios assets  
 **target** — github.com/dwgx  
 **born** — 20100705  

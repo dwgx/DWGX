@@ -2,6 +2,8 @@
 """Render dwgx.menu README + process-table.svg from profile.toml + GitHub."""
 from __future__ import annotations
 
+import hashlib
+import io
 import json
 import math
 import os
@@ -29,6 +31,38 @@ STATS_SVG = ROOT / "assets" / "stats.svg"
 LANGS_SVG = ROOT / "assets" / "langs.svg"
 DISCORD_SVG = ROOT / "assets" / "discord.svg"
 AVATAR_PNG = ROOT / "assets" / "discord-avatar.png"
+CLOCK_SVG = ROOT / "assets" / "clock.svg"
+MEDIA_SVG = ROOT / "assets" / "media.svg"
+
+MOTD = [
+    "be water my friend.",
+    "幻想即是現実。",
+    "the model is a resident, not the source of truth.",
+    "injected into process.",
+    "all change has its cause.",
+    "Press DEL to run Setup.",
+    "solo crew. still shipping.",
+    "zero watchers. kept pushing.",
+    "worlds stay potential until a cause demands fact.",
+    "滿福神社製作。",
+]
+
+RESIDENTS = [
+    "博麗霊夢",
+    "霧雨魔理沙",
+    "十六夜咲夜",
+    "西行寺幽々子",
+    "魂魄妖夢",
+    "フランドール・スカーレット",
+    "レミリア・スカーレット",
+    "八雲紫",
+    "藤原妹紅",
+    "蓬莱山輝夜",
+    "鈴仙・優曇華院・イナバ",
+    "古明地こいし",
+    "東風谷早苗",
+    "射命丸文",
+]
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
 
@@ -710,52 +744,114 @@ def fetch_presence(discord_id: str) -> dict:
         return empty
 
 
-def save_avatar(url: str | None) -> bool:
-    if not url:
-        return AVATAR_PNG.exists()
+def _hex_rgb(color: str) -> tuple[int, int, int]:
+    h = color.lstrip("#")
+    return int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+
+
+def circle_avatar(blob: bytes, status_color: str) -> bytes:
+    from PIL import Image, ImageDraw
+
+    im = Image.open(io.BytesIO(blob)).convert("RGBA").resize((128, 128), Image.Resampling.LANCZOS)
+    mask = Image.new("L", (128, 128), 0)
+    ImageDraw.Draw(mask).ellipse((1, 1, 126, 126), fill=255)
+    out = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
+    out.paste(im, (0, 0), mask)
+    draw = ImageDraw.Draw(out)
+    draw.ellipse((90, 90, 126, 126), fill=(13, 17, 23, 255))
+    draw.ellipse((96, 96, 120, 120), fill=_hex_rgb(status_color) + (255,))
+    buf = io.BytesIO()
+    out.save(buf, format="PNG")
+    return buf.getvalue()
+
+
+def save_avatar(url: str | None, status: str = "offline") -> bool:
+    color = STATUS_COLOR.get(status, MUTED)
+    blob = b""
+    if url:
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "dwgx-profile-render"})
+            with urllib.request.urlopen(req, timeout=12) as resp:
+                blob = resp.read()
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, OSError):
+            blob = b""
+    if not blob and AVATAR_PNG.exists():
+        blob = AVATAR_PNG.read_bytes()
+    if not blob:
+        return False
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "dwgx-profile-render"})
-        with urllib.request.urlopen(req, timeout=12) as resp:
-            blob = resp.read()
-        if blob:
+        AVATAR_PNG.write_bytes(circle_avatar(blob, color))
+        return True
+    except Exception:
+        if blob[:8] == b"\x89PNG\r\n\x1a\n":
             AVATAR_PNG.write_bytes(blob)
             return True
-    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, OSError):
         return AVATAR_PNG.exists()
-    return AVATAR_PNG.exists()
 
 
-def discord_svg(host: str, presence: dict, has_avatar: bool) -> str:
-    width, height = 495, 110
+def discord_svg(host: str, presence: dict) -> str:
+    width, height = 400, 110
     status = str(presence.get("status") or "offline")
     color = STATUS_COLOR.get(status, MUTED)
-    body: list[str] = []
-    if has_avatar:
-        href = "https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png"
-        body.append('<defs><clipPath id="av"><circle cx="42" cy="66" r="26"/></clipPath></defs>')
-        body.append(
-            f'<image href="{href}" x="16" y="40" width="52" height="52" clip-path="url(#av)"/>'
-        )
-        body.append(
-            f'<circle cx="68" cy="88" r="7" fill="{color}" stroke="#0d1117" stroke-width="3"/>'
-        )
-        tx = 84
-    else:
-        body.append(f'<circle cx="32" cy="70" r="8" fill="{color}"/>')
-        tx = 52
     display = str(presence.get("display") or "dwgx")
     username = str(presence.get("username") or "dwgx")
     activity = str(presence.get("activity") or "")
-    body.append(
-        f'<text x="{tx}" y="62" font-size="15" font-weight="700" fill="{TEXT}">{esc(display)}</text>'
-    )
-    body.append(
-        f'<text x="{tx}" y="80" font-size="12" fill="{MUTED}">@{esc(username)} · {esc(status)}</text>'
-    )
-    body.append(
-        f'<text x="{tx}" y="98" font-size="12" fill="{PINK}">{esc(activity)}</text>'
-    )
+    body = [
+        f'<circle cx="24" cy="68" r="7" fill="{color}"/>',
+        f'<text x="42" y="58" font-size="15" font-weight="700" fill="{TEXT}">{esc(display)}</text>',
+        f'<text x="42" y="76" font-size="12" fill="{MUTED}">@{esc(username)} · {esc(status)}</text>',
+        f'<text x="42" y="94" font-size="12" fill="{PINK}">{esc(activity)}</text>',
+    ]
     return panel_frame(width, height, host, "discord.presence", body)
+
+
+def clock_svg(host: str, now: datetime, days: int) -> str:
+    stamp = now.strftime("%H:%M:%S")
+    day = now.strftime("%a %Y-%m-%d")
+    body = [
+        f'<text x="20" y="70" font-size="28" font-weight="700" fill="{GOLD}">{esc(stamp)}</text>',
+        f'<text x="20" y="96" font-size="13" fill="{TEXT}">{esc(day)} · JST+9</text>',
+        f'<text x="20" y="118" font-size="12" fill="{MUTED}">uptime {days}d · rtc.ok</text>',
+    ]
+    return panel_frame(280, 140, host, "rtc.clock", body)
+
+
+def fetch_bili(mid: str) -> dict:
+    out = {"follower": 0, "following": 0}
+    if not mid:
+        return out
+    try:
+        req = urllib.request.Request(
+            f"https://api.bilibili.com/x/relation/stat?vmid={mid}",
+            headers={"User-Agent": "Mozilla/5.0 dwgx-profile-render"},
+        )
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            payload = json.loads(resp.read().decode("utf-8"))
+        data = payload.get("data") or {}
+        out["follower"] = int(data.get("follower") or 0)
+        out["following"] = int(data.get("following") or 0)
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError, OSError):
+        pass
+    return out
+
+
+def media_svg(host: str, bili: dict) -> str:
+    fans = fmt_num(int(bili.get("follower") or 0))
+    following = fmt_num(int(bili.get("following") or 0))
+    body = [
+        f'<text x="20" y="62" font-size="12" fill="{MUTED}">Bilibili</text>',
+        f'<text x="20" y="84" font-size="22" font-weight="700" fill="{PINK}">{esc(fans)}</text>',
+        f'<text x="20" y="104" font-size="12" fill="{TEXT}">fans</text>',
+        f'<text x="150" y="62" font-size="12" fill="{MUTED}">following</text>',
+        f'<text x="150" y="84" font-size="22" font-weight="700" fill="{GOLD}">{esc(following)}</text>',
+        f'<text x="20" y="124" font-size="12" fill="{MUTED}">space.bilibili.com/1452905012</text>',
+    ]
+    return panel_frame(280, 140, host, "bili.stat", body)
+
+
+def daily_pick(items: list[str], salt: str, day: str) -> str:
+    digest = hashlib.sha256(f"{day}:{salt}".encode("utf-8")).hexdigest()
+    return items[int(digest[:8], 16) % len(items)]
 
 
 def flagship_block(profile: dict) -> str:
@@ -934,10 +1030,30 @@ previous   = {ident['languages_previous']}
 ### `discord.presence`
 
 <a href="{links['discord']}">
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png" width="80" height="80" alt="discord avatar" />
 </a>
 
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/clock.svg" alt="rtc.clock" />
+&nbsp;
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg" alt="bili.stat" />
+
+</div>
+
 ---
+
+### `motd`
+
+```
+ motd[{today}]     {ctx['motd']}
+ resident[{today}] {ctx['resident']}
+ rtc               JST+9 · {ctx['clock_human']}
+```
+
+<div align="center">
 
 ### `featured`
 
@@ -1143,8 +1259,12 @@ def main() -> int:
     STATS_SVG.write_text(stats_svg(host, user, stars, extra), encoding="utf-8")
     LANGS_SVG.write_text(langs_svg(host, extra.get("langs") or []), encoding="utf-8")
     presence = fetch_presence(str((profile.get("links") or {}).get("discord_id") or ""))
-    has_avatar = save_avatar(presence.get("avatar"))
-    DISCORD_SVG.write_text(discord_svg(host, presence, has_avatar), encoding="utf-8")
+    save_avatar(presence.get("avatar"), str(presence.get("status") or "offline"))
+    DISCORD_SVG.write_text(discord_svg(host, presence), encoding="utf-8")
+    now_jst = datetime.now(JST)
+    CLOCK_SVG.write_text(clock_svg(host, now_jst, days), encoding="utf-8")
+    bili = fetch_bili(str((profile.get("links") or {}).get("bili_mid") or ""))
+    MEDIA_SVG.write_text(media_svg(host, bili), encoding="utf-8")
     ctx = {
         "today": today,
         "uptime": days,
@@ -1156,6 +1276,9 @@ def main() -> int:
         "pinned_table": pinned_table(profile, by_name, public, stars),
         "stars_map": {k: int(v.get("stargazers_count") or 0) for k, v in by_name.items()},
         "tags": tags,
+        "motd": daily_pick(MOTD, "motd", today),
+        "resident": daily_pick(RESIDENTS, "resident", today),
+        "clock_human": now_jst.strftime("%H:%M"),
     }
     README.write_text(render_readme(profile, ctx).rstrip() + "\n", encoding="utf-8")
     print(f"wrote {README.relative_to(ROOT)}")
@@ -1163,6 +1286,8 @@ def main() -> int:
     print(f"wrote {STATS_SVG.relative_to(ROOT)}")
     print(f"wrote {LANGS_SVG.relative_to(ROOT)}")
     print(f"wrote {DISCORD_SVG.relative_to(ROOT)}")
+    print(f"wrote {CLOCK_SVG.relative_to(ROOT)}")
+    print(f"wrote {MEDIA_SVG.relative_to(ROOT)}")
     print(
         f"public_repos={public} stars={stars} uptime={days} "
         f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']}"

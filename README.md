@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · pr awesome-mcp-servers · 4h ago</summary>
+<summary>Main — last public work · pr awesome-mcp-servers · 5h ago</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -288,7 +288,7 @@ from  = MC clients
 ### `recent.log`
 
 ```
- 2026-08-25 14:34  push  WindsurfAPI            ★2950  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-25 14:27  push  WindsurfAPI            ★2950  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
  2026-08-24 06:33  push  driver-vuln-research   ★4     asm    Kernel driver vulnerability research - BY…

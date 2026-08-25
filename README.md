@@ -24,7 +24,7 @@
 <p>
   <img src="https://img.shields.io/badge/total_stars-3188-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-98-f2a6c4?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/public_repos-99-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release VRCSM · 2d ago · v0.16.5</summary>
+<summary>Main — last public work · pr awesome-mcp-servers · 14m ago</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -265,7 +265,7 @@ from  = MC clients
 </tr>
 </table>
 
-[98 public repos · 3188 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[99 public repos · 3188 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 

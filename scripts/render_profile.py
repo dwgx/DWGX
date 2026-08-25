@@ -39,21 +39,7 @@ SETUP_SVG = ROOT / "assets" / "setup.svg"
 STATUS_SVG = ROOT / "assets" / "status.svg"
 DEVICES_SVG = ROOT / "assets" / "devices.svg"
 EVENT_SVG = ROOT / "assets" / "eventlog.svg"
-BOOK_NAMES = (
-    "post.svg",
-    "dmi.svg",
-    "irq.svg",
-    "pci.svg",
-    "smart.svg",
-    "usb.svg",
-    "raid.svg",
-    "chipset.svg",
-    "memmap.svg",
-    "optionrom.svg",
-    "dir.svg",
-    "nfo.svg",
-    "beep.svg",
-)
+BOOK_NAMES = ("post.svg", "dmi.svg")
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
 
@@ -1398,68 +1384,13 @@ from  = {ship.get('came', 'MC clients')}
 ### `cmos.book`
 
 <details>
-<summary>POST — memory test {ctx['total_stars']}K · detecting IDE</summary>
+<summary>POST — CPU cache · memory test · IDE auto-detect</summary>
 <p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg" width="100%" alt="POST" /></p>
 </details>
 
 <details>
-<summary>DMI — ROG G18 · Homecloud 3060 · M2 · phones</summary>
+<summary>DMI — SMBIOS Type 0 BIOS · Type 1 system · Type 2 ROG · Type 3 Homecloud</summary>
 <p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg" width="100%" alt="DMI" /></p>
-</details>
-
-<details>
-<summary>IRQ map — WindsurfAPI on IRQ 5</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/irq.svg" width="100%" alt="IRQ" /></p>
-</details>
-
-<details>
-<summary>PCI — ORIGIN host bridge · WindsurfAPI VGA</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/pci.svg" width="100%" alt="PCI" /></p>
-</details>
-
-<details>
-<summary>S.M.A.R.T. — WindsurfAPI as HDD 0</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/smart.svg" width="100%" alt="SMART" /></p>
-</details>
-
-<details>
-<summary>USB — FLASH Ultra · Dragonfly · Quest 3 · SE</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/usb.svg" width="100%" alt="USB" /></p>
-</details>
-
-<details>
-<summary>RAID — ORIGIN + WindsurfAPI + KiroStudio</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/raid.svg" width="100%" alt="RAID" /></p>
-</details>
-
-<details>
-<summary>Chipset — language northbridge</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/chipset.svg" width="100%" alt="Chipset" /></p>
-</details>
-
-<details>
-<summary>Memory map — C000 幻想万華鏡 option ROM</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/memmap.svg" width="100%" alt="Memory map" /></p>
-</details>
-
-<details>
-<summary>Option ROM — 滿福神社 18 話</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/optionrom.svg" width="100%" alt="Option ROM" /></p>
-</details>
-
-<details>
-<summary>C:/dwgx dir — flagship listing</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dir.svg" width="100%" alt="DIR" /></p>
-</details>
-
-<details>
-<summary>NFO — scene release</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/nfo.svg" width="100%" alt="NFO" /></p>
-</details>
-
-<details>
-<summary>Beep codes — 1 short POST OK</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/beep.svg" width="100%" alt="Beep" /></p>
 </details>
 
 ---

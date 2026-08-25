@@ -166,7 +166,7 @@ def status_svg(work: dict, extra: dict, repos: dict, today: str) -> str:
     lines = [
         (28, 82, "System Overview", AMI_YELLOW),
         (44, 104, "AMIBIOS", AMI_CYAN),
-        (60, 124, "Version                 : dwgx.menu 2.7", AMI_WHITE),
+        (60, 124, "Version                 : dwgx.menu 2.9", AMI_WHITE),
         (60, 144, f"Build Date              : {date_s}", AMI_WHITE),
         (44, 168, "Processor", AMI_CYAN),
         (60, 188, f"Type                    : {task}", AMI_WHITE),

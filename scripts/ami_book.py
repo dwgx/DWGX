@@ -14,8 +14,7 @@ from ami import (
     ami_row,
 )
 
-PNP_TABS = ("PnP", "PCI", "IRQ", "Chipset", "Health")
-SYS_TABS = ("DMI", "USB", "RAID", "Memory", "ROM")
+DMI_TABS = ("Main", "Advanced", "Boot", "Log", "DMI")
 
 
 def _stars(repos: dict, name: str) -> int:
@@ -27,31 +26,79 @@ def _open(repos: dict, name: str) -> int:
 
 
 def post_svg(repos: dict, extra: dict, public: int, stars: int, tags: dict) -> str:
-    kb = stars * 16
-    banks = public
+    """AMI POST: 80-col black screen, not a gadget list."""
     wtag = tags.get("WindsurfAPI") or "live"
-    lines = [
-        (AMI_YELLOW, "AMIBIOS (C)2026 dwgx, Kobe — dwgx.menu 2.9"),
-        (AMI_GRAY, "BIOS Date: 08/25/26  14:54:07  Ver: 08.00.xx"),
-        (AMI_WHITE, ""),
-        (AMI_CYAN, "Main Processor  : Intel Ultra 9 275HX @ ROG Strix G18"),
-        (AMI_CYAN, "Coprocessor     : AMD R5-5600 / RTX 3060  (Homecloud)"),
-        (AMI_WHITE, ""),
-        (AMI_WHITE, f"Memory Test     : {kb:,}K OK   ({stars} stars x 16)"),
-        (AMI_WHITE, f"Memory Banks    : {banks} public repos detected"),
-        (AMI_WHITE, ""),
-        (AMI_YELLOW, "Detecting IDE Primary Master   ... ORIGIN        genesis.wiki"),
-        (AMI_YELLOW, f"Detecting IDE Primary Slave    ... WindsurfAPI   {wtag}"),
-        (AMI_YELLOW, f"Detecting IDE Secondary Master ... KiroStudio    {tags.get('KiroStudio') or 'live'}"),
-        (AMI_YELLOW, "Detecting IDE Secondary Slave  ... vrchat-il2cpp-re"),
-        (AMI_WHITE, ""),
-        (AMI_GRAY, f"USB Devices     : 5    PCI Devices : 6    IRQ in use : {_open(repos,'WindsurfAPI')}"),
-        (AMI_GRAY, f"Today commits   : {extra.get('commits_today') or 0}    Year : {extra.get('commits_year') or 0}"),
-        (AMI_WHITE, ""),
-        (AMI_YELLOW, "Press DEL to run Setup          Press F8 for BBS Popup"),
-        (AMI_CYAN, "Booting from 1st device ORIGIN ..."),
+    ktag = tags.get("KiroStudio") or "live"
+    conv = 640
+    ext = max(1024, stars)
+    wstars = _stars(repos, "WindsurfAPI")
+    kstars = _stars(repos, "KiroStudio")
+    istars = _stars(repos, "vrchat-il2cpp-re")
+    w, h = 960, 520
+    green, gray, white, yellow, cyan = (
+        "#55FF55",
+        "#AAAAAA",
+        "#FFFFFF",
+        "#FFFF55",
+        "#55FFFF",
+    )
+    left = [
+        (yellow, "AMIBIOS (C)2026 American Megatrends, Inc."),
+        (gray, "ASUS ROG Strix G18 BIOS Date: 08/25/26  Ver: 08.00.xx"),
+        (white, ""),
+        (cyan, "CPU : Intel(R) Core Ultra 9 275HX"),
+        (white, "      Speed : 2.70 GHz   Count : 24T"),
+        (white, "L1 Cache :  Enabled     L2 : Enabled     L3 : Enabled"),
+        (white, ""),
+        (cyan, "Coprocessor : Homecloud  AMD Ryzen 5 5600  /  RTX 3060 12GB"),
+        (white, ""),
+        (white, f"Memory Test :  {conv:5d}K OK   Conventional"),
+        (green, f"              {ext:5d}K OK   Extended  ({stars} public stars)"),
+        (white, f"              {public:5d}  banks mapped to public repos"),
+        (white, ""),
+        (yellow, "Plug and Play BIOS Extension v1.0A"),
+        (gray, "   Checking NVRAM . . .                    Update OK"),
+        (gray, f"   PCI devices . . .                       {6} found"),
+        (white, ""),
+        (cyan, "IDE Channel 0 Master : ORIGIN           LBA  Mode  genesis.wiki"),
+        (cyan, f"IDE Channel 0 Slave  : WindsurfAPI      LBA  {wstars}MB  {wtag}"),
+        (cyan, f"IDE Channel 1 Master : KiroStudio       LBA  {kstars}MB  {ktag}"),
+        (cyan, f"IDE Channel 1 Slave  : vrchat-il2cpp-re LBA  {istars}MB  Unity6"),
+        (white, ""),
+        (gray, f"Today : {extra.get('commits_today') or 0} writes   Year : {extra.get('commits_year') or 0}   Issues(WAPI) : {_open(repos,'WindsurfAPI')}"),
+        (white, ""),
+        (yellow, "     Press DEL to enter SETUP          F8 = BBS Popup"),
+        (green, "Booting from IDE-0 ORIGIN . . ."),
     ]
-    return _black_screen("AMIBIOS POST", lines, "DEL = Setup   F8 = BBS   F10 = Save")
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
+        "font-family=\"'Lucida Console','Courier New',Consolas,monospace\">",
+        f'<rect width="{w}" height="{h}" fill="#000000"/>',
+        # Energy Star / AMI block on the right — classic POST chrome
+        f'<rect x="708" y="28" width="228" height="118" fill="none" stroke="{yellow}" stroke-width="2"/>',
+        f'<text x="822" y="58" text-anchor="middle" font-size="13" fill="{yellow}">AMIBIOS</text>',
+        f'<text x="822" y="80" text-anchor="middle" font-size="12" fill="{white}">SETUP UTILITY</text>',
+        f'<text x="822" y="102" text-anchor="middle" font-size="11" fill="{gray}">Version 3.31a</text>',
+        f'<text x="822" y="124" text-anchor="middle" font-size="11" fill="{cyan}">dwgx.menu 2.9</text>',
+        f'<rect x="708" y="160" width="228" height="86" fill="none" stroke="{gray}" stroke-width="1"/>',
+        f'<text x="822" y="184" text-anchor="middle" font-size="11" fill="{gray}">An Energy Star Ally</text>',
+        f'<text x="822" y="204" text-anchor="middle" font-size="11" fill="{white}">1st Boot : ORIGIN</text>',
+        f'<text x="822" y="224" text-anchor="middle" font-size="11" fill="{white}">2nd Boot : WindsurfAPI</text>',
+    ]
+    y = 28
+    for color, text in left:
+        parts.append(
+            f'<text x="20" y="{y}" font-size="13" fill="{color}">{_esc(text)}</text>'
+        )
+        y += 17
+    parts.append(f'<rect x="0" y="{h - 26}" width="{w}" height="26" fill="#0a0a0a"/>')
+    parts.append(
+        f'<text x="20" y="{h - 9}" font-size="12" fill="{gray}">'
+        "DEL = Setup   F1 = Help   F8 = BBS   F10 = Save &amp; Exit   Esc = Continue"
+        "</text>"
+    )
+    parts.append("</svg>")
+    return "".join(parts)
 
 
 def _black_screen(title: str, lines: list[tuple[str, str]], footer: str) -> str:
@@ -77,23 +124,43 @@ def _black_screen(title: str, lines: list[tuple[str, str]], footer: str) -> str:
 
 
 def dmi_svg(hw: dict) -> str:
+    """SMBIOS-style Type table. Hardware only, no USB gadget dump."""
     inner: list[str] = [
-        f'<text x="28" y="82" font-size="13" fill="{AMI_YELLOW}">DMI / SMBIOS — System Information</text>',
+        f'<text x="28" y="78" font-size="13" fill="{AMI_YELLOW}">SMBIOS 2.8  —  dmidecode</text>',
+        f'<text x="28" y="98" font-size="12" fill="{AMI_GRAY}"># dmidecode 2.12   SMBIOS 2.8 present.  Table at 0x000F0000</text>',
     ]
-    rows = [
-        ("Type 0  BIOS", "AMIBIOS 3.31a / dwgx.menu 2.9"),
-        ("Type 1  System", "dwgx@main · Kobe · 帝王尬笑"),
-        ("Type 2  Base Board", "ASUS ROG Strix G18  Ultra 9 275HX  RTX 5070 Ti"),
-        ("Type 3  Chassis", "Notebook / portable"),
-        ("Type 4  Processor", "Intel Ultra 9 275HX"),
-        ("Type 17 Memory", "32 GB DDR5 + Homecloud 16 GB DDR4"),
-        ("Type 16 Array", "MacBook Air M2 8 GB  ·  iPhone 17 / iPhone SE"),
-        ("OEM String", "Homecloud Debian 13 worker · RTX 3060"),
+    blocks = [
+        ("Handle 0x0000, DMI type 0, 24 bytes", False),
+        ("  BIOS Information", False),
+        ("        Vendor: American Megatrends / dwgx", False),
+        ("        Version: 3.31a   Release: 08/25/2026   ROM: 2048 kB", False),
+        ("Handle 0x0001, DMI type 1, 27 bytes", True),
+        ("  System Information", False),
+        ("        Manufacturer: dwgx     Product: dwgx.menu", False),
+        ("        Version: 2.9           Family: 帝王尬笑", False),
+        ("        Wake-up Type: Power Switch     SKU: Kobe", False),
+        ("Handle 0x0002, DMI type 2, 15 bytes", False),
+        ("  Base Board  —  daily driver", False),
+        ("        Manufacturer: ASUSTeK  Product: ROG Strix G18", False),
+        ("        CPU: Ultra 9 275HX     GPU: RTX 5070 Ti     MEM: 32 GB DDR5", False),
+        ("        Display: 18\" 2.5K", False),
+        ("Handle 0x0003, DMI type 3, 21 bytes", False),
+        ("  Chassis: Notebook    OEM: Homecloud Debian 13 worker", False),
+        ("        CPU: R5-5600   GPU: iGame RTX 3060 12GB   MEM: 16 GB DDR4", False),
+        ("Handle 0x0004, DMI type 4, 42 bytes", False),
+        ("  Processor: Central   Max: 5500 MHz   Status: Populated / Enabled", False),
+        ("Handle 0x0011, DMI type 17, 34 bytes", False),
+        ("  Memory Device: 32 GB DDR5  Locator DIMM A/B   Form: SODIMM", False),
     ]
-    y = 112
-    for i, (k, v) in enumerate(rows):
-        inner.extend(ami_row(20, y, 600, f"{k:<22} {v}"[:78], i == 1))
-        y += 22
+    y = 118
+    for text, selected in blocks:
+        if selected:
+            inner.extend(ami_row(16, y, 608, text, True))
+        else:
+            inner.append(
+                f'<text x="28" y="{y}" font-size="12" fill="{AMI_WHITE}">{_esc(text)}</text>'
+            )
+        y += 16
     inner.extend(
         ami_help_box(
             636,
@@ -101,16 +168,17 @@ def dmi_svg(hw: dict) -> str:
             308,
             360,
             ami_help_wrap(
-                "DMI table of the machines you actually sit at. "
-                "Type 1 is the identity string. Type 2 is the daily driver. "
-                "Homecloud is the LAN worker, not a desktop toy."
+                "Type 1 is the identity. Type 2 is the ROG you type on. "
+                "Type 3 OEM string is Homecloud — the compile box, not a second desktop. "
+                "No USB list here. Phones and mice live in hardware.dmp."
             ),
         )
     )
-    return ami_chrome("DMI", inner, tabs=SYS_TABS)
+    _ = hw
+    return ami_chrome("DMI", inner, tabs=DMI_TABS)
 
 
-def irq_svg(repos: dict) -> str:
+def _removed_irq_svg(repos: dict) -> str:
     mapping = [
         ("IRQ 0", "timer", "rtc.ok", "system"),
         ("IRQ 1", "keyboard", "VGN FLASH Ultra", "usb"),
@@ -497,18 +565,8 @@ def render_book(payload: dict) -> dict[str, str]:
     langs = payload.get("langs") or []
     public = payload["public"]
     stars = payload["stars"]
+    _ = langs
     return {
         "post.svg": post_svg(repos, extra, public, stars, tags),
         "dmi.svg": dmi_svg(hw),
-        "irq.svg": irq_svg(repos),
-        "pci.svg": pci_svg(repos, tags),
-        "smart.svg": smart_svg(repos, tags),
-        "usb.svg": usb_svg(hw),
-        "raid.svg": raid_svg(repos, tags),
-        "chipset.svg": chipset_svg(langs),
-        "memmap.svg": memmap_svg(repos),
-        "optionrom.svg": optionrom_svg(),
-        "dir.svg": dir_svg(repos),
-        "nfo.svg": nfo_svg(stars, public, tags),
-        "beep.svg": beep_svg(),
     }

@@ -62,18 +62,24 @@ def ami_help_box(x: float, y: float, width: float, height: float, lines: list[st
     return parts
 
 
-def ami_chrome(active: str, inner: list[str]) -> str:
+def ami_chrome(
+    active: str,
+    inner: list[str],
+    tabs: tuple[str, ...] | None = None,
+    title: str = "AMIBIOS SETUP UTILITY - VERSION 3.31a",
+) -> str:
     w, h = AMI_W, AMI_H
+    tab_row = tabs or ("Main", "Advanced", "Boot", "Log", "Exit")
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
         "font-family=\"'Lucida Console','Courier New',Consolas,monospace\">",
         f'<rect width="{w}" height="{h}" fill="{AMI_BLUE}"/>',
         f'<rect x="0" y="0" width="{w}" height="26" fill="{AMI_NAVY}"/>',
-        f'<text x="{w / 2:.0f}" y="18" text-anchor="middle" font-size="14" font-weight="700" fill="{AMI_WHITE}">AMIBIOS SETUP UTILITY - VERSION 3.31a</text>',
+        f'<text x="{w / 2:.0f}" y="18" text-anchor="middle" font-size="14" font-weight="700" fill="{AMI_WHITE}">{_esc(title)}</text>',
     ]
     x = 18
-    for tab in ("Main", "Advanced", "Boot", "Log", "Exit"):
-        tw = 12 * len(tab) + 18
+    for tab in tab_row:
+        tw = 10 * len(tab) + 16
         if tab == active:
             parts.append(
                 f'<rect x="{x - 6}" y="30" width="{tw}" height="20" fill="{AMI_GRAY}"/>'
@@ -81,8 +87,8 @@ def ami_chrome(active: str, inner: list[str]) -> str:
             fill = AMI_NAVY
         else:
             fill = AMI_CYAN
-        parts.append(f'<text x="{x}" y="45" font-size="14" fill="{fill}">{tab}</text>')
-        x += tw + 10
+        parts.append(f'<text x="{x}" y="45" font-size="14" fill="{fill}">{_esc(tab)}</text>')
+        x += tw + 8
     parts.append(
         f'<rect x="8" y="54" width="{w - 16}" height="{h - 90}" fill="{AMI_NAVY}" stroke="{AMI_CYAN}" stroke-width="2"/>'
     )

@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3190-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3191-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/badge/public_repos-100-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release VCC_I18N · 5h ago · v0.2.0</summary>
+<summary>Main — last public work · release VCC_I18N · 7h ago · v0.2.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[100 public repos · 3190 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[100 public repos · 3191 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -292,7 +292,7 @@ from  = MC clients
  2026-08-25 14:27  push  WindsurfAPI            ★2950  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
- 2026-08-24 06:33  push  driver-vuln-research   ★4     asm    Kernel driver vulnerability research - BY…
+ 2026-08-24 06:33  push  driver-vuln-research   ★5     asm    Kernel driver vulnerability research - BY…
  2026-08-16 09:08  push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
  2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
  2026-08-14 08:47  push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …

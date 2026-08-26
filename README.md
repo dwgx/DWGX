@@ -22,9 +22,9 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3190-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3189-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-99-f2a6c4?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/public_repos-100-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
@@ -206,7 +206,7 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★2951  ║
+║  stage · flagship ★2950  ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[99 public repos · 3190 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[100 public repos · 3189 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -288,16 +288,16 @@ from  = MC clients
 ### `recent.log`
 
 ```
- 2026-08-25 14:27  push  WindsurfAPI            ★2951  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-25 14:27  push  WindsurfAPI            ★2950  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
  2026-08-24 06:33  push  driver-vuln-research   ★4     asm    Kernel driver vulnerability research - BY…
  2026-08-16 09:08  push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
+ 2026-08-26 12:35  push  VCC_I18N               ★0     rust   Standalone Windows launcher that localize…
  2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
  2026-08-14 08:47  push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
  2026-08-10 23:09  push  SmartCLI               ★3     py     Three Agent Skills over one pluggable PTY…
  2026-08-10 05:51  push  beautify-console       ★1     js     VS Code / JetBrains style visual editor
- 2026-08-09 00:02  push  YuKiKo                 ★19    py     AI QQ bot with OneBot, NapCat, LLM routin…
 ```
 
 ---

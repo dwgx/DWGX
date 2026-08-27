@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3192-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3195-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/badge/public_repos-100-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release VCC_I18N · 13h ago · v0.2.0</summary>
+<summary>Main — last public work · release Quest-ADB-Dashboard · 5h ago · v0.3.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -206,7 +206,7 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★2950  ║
+║  stage · flagship ★2952  ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[100 public repos · 3192 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[100 public repos · 3195 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -288,8 +288,9 @@ from  = MC clients
 ### `recent.log`
 
 ```
+ 2026-08-27 13:29  rel   Quest-ADB-Dashboard    ★2     c#     Meta Quest ADB diagnostics dashboard and …
  2026-08-26 12:35  push  VCC_I18N               ★0     rust   Standalone Windows launcher that localize…
- 2026-08-25 14:27  push  WindsurfAPI            ★2950  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-25 14:27  push  WindsurfAPI            ★2952  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
  2026-08-24 06:33  push  driver-vuln-research   ★5     asm    Kernel driver vulnerability research - BY…
@@ -297,7 +298,6 @@ from  = MC clients
  2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
  2026-08-14 08:47  push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
  2026-08-10 23:09  push  SmartCLI               ★3     py     Three Agent Skills over one pluggable PTY…
- 2026-08-10 05:51  push  beautify-console       ★1     js     VS Code / JetBrains style visual editor
 ```
 
 ---

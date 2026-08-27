@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.9  ·  generated 2026-08-27 JST          -->
+<!--  dwgx.menu  v2.9  ·  generated 2026-08-28 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -36,7 +36,7 @@
 ### `dwgx.cfg`
 
 ```ini
-; 2026-08-27
+; 2026-08-28
 
 [who]
 name = dwgx
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release Quest-ADB-Dashboard · 5h ago · v0.3.0</summary>
+<summary>Main — last public work · release Quest-ADB-Dashboard · 16h ago · v0.3.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -206,7 +206,7 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★2952  ║
+║  stage · flagship ★2951  ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
@@ -290,10 +290,10 @@ from  = MC clients
 ```
  2026-08-27 13:29  rel   Quest-ADB-Dashboard    ★2     c#     Meta Quest ADB diagnostics dashboard and …
  2026-08-26 12:35  push  VCC_I18N               ★0     rust   Standalone Windows launcher that localize…
- 2026-08-25 14:27  push  WindsurfAPI            ★2952  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-25 14:27  push  WindsurfAPI            ★2951  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
- 2026-08-24 06:33  push  driver-vuln-research   ★5     asm    Kernel driver vulnerability research - BY…
+ 2026-08-24 06:33  push  driver-vuln-research   ★6     asm    Kernel driver vulnerability research - BY…
  2026-08-16 09:08  push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
  2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
  2026-08-14 08:47  push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
@@ -333,7 +333,7 @@ from  = MC clients
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
-               │  uptime     5897 days                          │
+               │  uptime     5898 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
 ```
@@ -411,7 +411,7 @@ from  = MC clients
 <img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5897_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5898_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 <br/>
 

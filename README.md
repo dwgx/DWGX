@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.9  ·  generated 2026-08-28 JST          -->
+<!--  dwgx.menu  v2.9  ·  generated 2026-08-29 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -22,9 +22,9 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3195-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3199-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-100-f2a6c4?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/public_repos-101-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
@@ -36,7 +36,7 @@
 ### `dwgx.cfg`
 
 ```ini
-; 2026-08-28
+; 2026-08-29
 
 [who]
 name = dwgx
@@ -46,7 +46,7 @@ note = 也许我就是dwgx
 
 [ship]
 ORIGIN      = genesis.wiki
-WindsurfAPI = js · openai/anthropic · v3.9.28
+WindsurfAPI = js · openai/anthropic · v3.9.29
 KiroStudio  = rust · kiro gateway · v1.2.1
 
 [also]
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release Quest-ADB-Dashboard · 1d ago · v0.3.0</summary>
+<summary>Main — last public work · release VirtualDesktopHelper · 8h ago · v0.4.7</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -206,7 +206,7 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★2951  ║
+║  stage · flagship ★2954  ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[100 public repos · 3195 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[101 public repos · 3199 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -288,16 +288,16 @@ from  = MC clients
 ### `recent.log`
 
 ```
- 2026-08-27 13:29  rel   Quest-ADB-Dashboard    ★2     c#     Meta Quest ADB diagnostics dashboard and …
+ 2026-08-28 19:07  push  VirtualDesktopHelper   ★0     c#     VirtualDesktopHelper (VDH) — C# WinForms …
+ 2026-08-28 17:25  push  WindsurfAPI            ★2954  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-27 13:28  push  Quest-ADB-Dashboard    ★2     c#     Meta Quest ADB diagnostics dashboard and …
  2026-08-26 12:35  push  VCC_I18N               ★0     rust   Standalone Windows launcher that localize…
- 2026-08-25 14:27  push  WindsurfAPI            ★2951  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
  2026-08-24 06:33  push  driver-vuln-research   ★6     asm    Kernel driver vulnerability research - BY…
  2026-08-16 09:08  push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
  2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
  2026-08-14 08:47  push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
- 2026-08-10 23:09  push  SmartCLI               ★3     py     Three Agent Skills over one pluggable PTY…
 ```
 
 ---
@@ -333,7 +333,7 @@ from  = MC clients
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
-               │  uptime     5898 days                          │
+               │  uptime     5899 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
 ```
@@ -411,7 +411,7 @@ from  = MC clients
 <img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5898_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5899_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 <br/>
 

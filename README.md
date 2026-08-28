@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release Quest-ADB-Dashboard · 16h ago · v0.3.0</summary>
+<summary>Main — last public work · release Quest-ADB-Dashboard · 1d ago · v0.3.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />

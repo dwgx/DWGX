@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release VirtualDesktopHelper · 8h ago · v0.4.7</summary>
+<summary>Main — last public work · release VirtualDesktopHelper · 16h ago · v0.4.7</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />

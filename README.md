@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3201-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3202-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/badge/public_repos-100-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
@@ -206,7 +206,7 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★2955  ║
+║  stage · flagship ★2956  ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[100 public repos · 3201 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[100 public repos · 3202 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -288,8 +288,8 @@ from  = MC clients
 ### `recent.log`
 
 ```
- 2026-08-28 17:41  push  VirtualDesktopHelper   ★0     c#     VirtualDesktopHelper (VDH) — C# WinForms …
- 2026-08-28 16:39  push  WindsurfAPI            ★2955  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-28 19:16  push  VirtualDesktopHelper   ★0     c#     VirtualDesktopHelper (VDH) — C# WinForms …
+ 2026-08-28 16:39  push  WindsurfAPI            ★2956  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-27 13:28  push  Quest-ADB-Dashboard    ★2     c#     Meta Quest ADB diagnostics dashboard and …
  2026-08-26 12:35  push  VCC_I18N               ★0     rust   Standalone Windows launcher that localize…
  2026-08-24 14:54  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…

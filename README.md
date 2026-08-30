@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · pr WindsurfAPI · 6h ago · chore(assets): 更新 star 历史图</summary>
+<summary>Main — last public work · pr WindsurfAPI · 9h ago · chore(assets): 更新 star 历史图</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />

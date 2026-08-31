@@ -24,7 +24,7 @@
 <p>
   <img src="https://img.shields.io/badge/total_stars-3206-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-100-f2a6c4?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/public_repos-101-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
 </p>
@@ -47,7 +47,7 @@ note = 也许我就是dwgx
 [ship]
 ORIGIN      = genesis.wiki
 WindsurfAPI = js · openai/anthropic · v3.9.29
-KiroStudio  = rust · kiro gateway · v1.2.1
+KiroStudio  = rust · kiro gateway · v1.2.3
 
 [also]
 other = VRChat RE · SmartCLI
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · pr WindsurfAPI · 1d ago · chore(assets): 更新 star 历史图</summary>
+<summary>Main — last public work · release vrc-dcc-workstation · 1h ago · v1.0.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[100 public repos · 3206 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[101 public repos · 3206 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -288,6 +288,8 @@ from  = MC clients
 ### `recent.log`
 
 ```
+ 2026-09-01 06:00  push  vrc-dcc-workstation    ★0     ps     Public VRChat DCC workflow template: Blen…
+ 2026-09-01 05:58  push  debugger-workstation   ★2     ps     Portable reverse-engineering / security-a…
  2026-08-30 23:34  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-28 19:16  push  VirtualDesktopHelper   ★0     c#     VirtualDesktopHelper (VDH) — C# WinForms …
  2026-08-28 16:39  push  WindsurfAPI            ★2959  js     Turn Windsurf / Devin Desktop's 100+ AI m…
@@ -296,8 +298,6 @@ from  = MC clients
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
  2026-08-24 06:33  push  driver-vuln-research   ★6     asm    Kernel driver vulnerability research - BY…
  2026-08-16 09:08  push  fuckopencode           ★2     ts     Zero-dependency OpenAI↔Anthropic protocol…
- 2026-08-15 10:51  push  skiapi-frontend        ★1     js     React admin console for NewAPI and SKIAPI…
- 2026-08-14 08:47  push  cursorapi              ★4     js     CursorAPI: Cursor API key pool gateway - …
 ```
 
 ---

@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3203-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3204-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/badge/public_repos-100-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · pr WindsurfAPI · 9h ago · chore(assets): 更新 star 历史图</summary>
+<summary>Main — last public work · pr WindsurfAPI · 15h ago · chore(assets): 更新 star 历史图</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[100 public repos · 3203 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[100 public repos · 3204 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 

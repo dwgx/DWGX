@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release vrc-dcc-workstation · 20h ago · v1.0.0</summary>
+<summary>Main — last public work · release vrc-dcc-workstation · 23h ago · v1.0.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -288,7 +288,7 @@ from  = MC clients
 ### `recent.log`
 
 ```
- 2026-09-01 06:56  push  vrc-dcc-workstation    ★2     ps     Public VRChat DCC workflow template: Blen…
+ 2026-09-02 02:38  push  vrc-dcc-workstation    ★2     ps     Public VRChat DCC workflow template: Blen…
  2026-09-01 06:56  push  debugger-workstation   ★2     ps     Portable reverse-engineering / security-a…
  2026-08-30 23:34  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-28 19:16  push  VirtualDesktopHelper   ★0     c#     VirtualDesktopHelper (VDH) — C# WinForms …

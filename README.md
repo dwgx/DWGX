@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.9  ·  generated 2026-09-01 JST          -->
+<!--  dwgx.menu  v2.9  ·  generated 2026-09-02 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3208-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3209-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/badge/public_repos-101-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
@@ -36,7 +36,7 @@
 ### `dwgx.cfg`
 
 ```ini
-; 2026-09-01
+; 2026-09-02
 
 [who]
 name = dwgx
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release vrc-dcc-workstation · 16h ago · v1.0.0</summary>
+<summary>Main — last public work · release vrc-dcc-workstation · 20h ago · v1.0.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[101 public repos · 3208 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[101 public repos · 3209 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -288,7 +288,7 @@ from  = MC clients
 ### `recent.log`
 
 ```
- 2026-09-01 06:56  push  vrc-dcc-workstation    ★1     ps     Public VRChat DCC workflow template: Blen…
+ 2026-09-01 06:56  push  vrc-dcc-workstation    ★2     ps     Public VRChat DCC workflow template: Blen…
  2026-09-01 06:56  push  debugger-workstation   ★2     ps     Portable reverse-engineering / security-a…
  2026-08-30 23:34  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-28 19:16  push  VirtualDesktopHelper   ★0     c#     VirtualDesktopHelper (VDH) — C# WinForms …
@@ -333,7 +333,7 @@ from  = MC clients
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
-               │  uptime     5902 days                          │
+               │  uptime     5903 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
 ```
@@ -411,7 +411,7 @@ from  = MC clients
 <img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5902_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5903_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 <br/>
 

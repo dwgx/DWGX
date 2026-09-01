@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release vrc-dcc-workstation · 12h ago · v1.0.0</summary>
+<summary>Main — last public work · release vrc-dcc-workstation · 16h ago · v1.0.0</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />

@@ -6,6 +6,7 @@ import io
 import json
 import math
 import os
+import re
 import subprocess
 import sys
 import time
@@ -49,6 +50,7 @@ SETUP_SVG = ROOT / "assets" / "setup.svg"
 STATUS_SVG = ROOT / "assets" / "status.svg"
 DEVICES_SVG = ROOT / "assets" / "devices.svg"
 EVENT_SVG = ROOT / "assets" / "eventlog.svg"
+GUESTBOOK_SVG = ROOT / "assets" / "guestbook.svg"
 BOOK_NAMES = ("post.svg", "dmi.svg")
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
@@ -337,6 +339,98 @@ def lang_short(name: str | None) -> str:
         "Astro": "astro",
     }
     return table.get(name, name.lower()[:6])
+
+
+def plain_comment(body: str, limit: int = 72) -> str:
+    text = (body or "").replace("\r", "\n")
+    text = re.sub(r"```[\s\S]*?```", " ", text)
+    text = re.sub(r"`([^`]*)`", r"\1", text)
+    text = re.sub(r"!\[.*?\]\(.*?\)", " ", text)
+    text = re.sub(r"\[([^\]]*)]\([^)]*\)", r"\1", text)
+    text = re.sub(r"[|*_`#<>{}\\]", " ", text)
+    text = " ".join(text.split())
+    if len(text) > limit:
+        text = text[: limit - 1] + "..."
+    return text or "(empty)"
+
+
+def fetch_event_log_rows(login: str, issue: int, token: str, limit: int = 5) -> list[tuple[str, str, str]]:
+    if issue <= 0:
+        return []
+    try:
+        data = api_get(
+            f"/repos/{login}/DWGX/issues/{issue}/comments",
+            token,
+            "per_page=100",
+        )
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError):
+        data = []
+    if not isinstance(data, list):
+        data = []
+    rows: list[tuple[str, str, str]] = []
+    for comment in data:
+        user = str((comment.get("user") or {}).get("login") or "?")
+        if user.endswith("[bot]"):
+            continue
+        body = plain_comment(str(comment.get("body") or ""), limit=48)
+        when = jst_stamp(str(comment.get("created_at") or ""))
+        rows.append((when, user, body))
+    rows = rows[-limit:]
+    rows.reverse()
+    return rows
+
+
+def guestbook_svg(rows: list[tuple[str, str, str]], issue: int) -> str:
+    esc = xml.sax.saxutils.escape
+    width = 900
+    col_when, col_who = 160, 150
+    head_h, row_h = 22, 24
+    show = rows or [
+        (
+            "empty",
+            "·",
+            f"comment Event Log #{issue} · last 5 shown, newest first",
+        )
+    ]
+    height = 4 + head_h + row_h * len(show)
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" font-family="\'Lucida Console\',\'Courier New\',Consolas,monospace">',
+        f'<rect width="{width}" height="{height}" fill="#000055" stroke="#55FFFF" stroke-width="2"/>',
+        f'<rect x="0" y="0" width="{width}" height="{head_h}" fill="#AAAAAA"/>',
+        '<text x="9" y="16" font-size="12" font-weight="700" fill="#000000">when (JST)</text>',
+        f'<text x="{col_when + 9}" y="16" font-size="12" font-weight="700" fill="#000000">who</text>',
+        f'<text x="{col_when + col_who + 9}" y="16" font-size="12" font-weight="700" fill="#000000">note</text>',
+        f'<line x1="{col_when}" y1="0" x2="{col_when}" y2="{head_h}" stroke="#000055" stroke-width="2"/>',
+        f'<line x1="{col_when + col_who}" y1="0" x2="{col_when + col_who}" y2="{head_h}" stroke="#000055" stroke-width="2"/>',
+    ]
+    y = head_h
+    for when, who, note in show:
+        who_fill = "#AAAAAA" if who in {".", "·", "--"} else "#FFFF55"
+        note_fit = note if len(note) <= 54 else note[:53] + "..."
+        parts.append(f'<text x="9" y="{y + 16}" font-size="12" fill="#FFFF55">{esc(when)}</text>')
+        parts.append(
+            f'<text x="{col_when + 9}" y="{y + 16}" font-size="12" fill="{who_fill}">{esc(who)}</text>'
+        )
+        parts.append(
+            f'<text x="{col_when + col_who + 9}" y="{y + 16}" font-size="12" fill="#FFFF55">{esc(note_fit)}</text>'
+        )
+        y += row_h
+    parts.append("</svg>")
+    return "\n".join(parts)
+
+
+def fetch_event_log(login: str, issue: int, token: str, limit: int = 5) -> str:
+    header = "| when (JST) | who | note |\n|---|---|---|"
+    rows = fetch_event_log_rows(login, issue, token, limit=limit)
+    if issue <= 0:
+        return header + "\n| ---- -- -- --:-- | -- | guestbook issue not wired |"
+    if not rows:
+        issue_url = f"https://github.com/{login}/DWGX/issues/{issue}"
+        return header + f"\n| empty | · | comment [Event Log #{issue}]({issue_url}) · last 5 shown |"
+    lines = [header]
+    for when, user, body in rows:
+        lines.append(f"| {when} | [{user}](https://github.com/{user}) | {body} |")
+    return "\n".join(lines)
 
 
 def jst_stamp(iso: str) -> str:
@@ -1347,6 +1441,13 @@ def render_readme(profile: dict, ctx: dict) -> str:
     wtag = ctx["tags"].get("WindsurfAPI") or "v?"
     ktag = ctx["tags"].get("KiroStudio") or "v?"
     now = f"ORIGIN · WindsurfAPI {wtag} · KiroStudio {ktag}"
+    gb = int((profile.get("guestbook") or {}).get("issue") or 0)
+    genesis = links.get("genesis") or "https://genesis.wiki"
+    sign_href = (
+        f"https://github.com/dwgx/DWGX/issues/{gb}#issuecomment-new"
+        if gb
+        else "https://github.com/dwgx/DWGX/issues"
+    )
     text = f"""<!-- ════════════════════════════════════════════════════════════════ -->
 <!--  dwgx.menu  v{profile.get('version','2.2')}  ·  generated {today} {stamp} JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
@@ -1638,13 +1739,29 @@ from  = {ship.get('came', 'MC clients')}
 
 ### `hotkeys`
 
-```
- DEL   Setup            {links['site']}
- F2    HDD-0 ORIGIN     {links.get('genesis') or 'https://genesis.wiki'}
- F8    BBS Popup        {links['youtube']}
- F9    BBS Popup        {links['bilibili']}
- F10   Save & Exit      maybe I'm dwgx
-```
+<p align="center">
+<a href="{links['site']}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg" height="48" alt="DEL Setup" /></a>
+<a href="{genesis}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg" height="48" alt="F2 HDD-0 ORIGIN" /></a>
+<a href="{links['youtube']}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg" height="48" alt="F8 BBS YouTube" /></a>
+<a href="{links['bilibili']}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg" height="48" alt="F9 BBS Bilibili" /></a>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg" height="48" alt="F10 maybe I'm dwgx" />
+</p>
+
+### `event.log`
+
+<p align="center">
+<a href="{sign_href}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg" height="30" alt="F1 Sign Event Log" /></a>
+</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg" width="100%" alt="event.log" />
+</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg" height="30" width="62%" alt="VGA marquee" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg" height="30" alt="Best viewed with AMIBIOS" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg" height="30" alt="80x25 VGA" />
+</p>
 """
     out: list[str] = []
     needle = "https://raw.githubusercontent.com/dwgx/DWGX/"
@@ -1745,6 +1862,9 @@ def main() -> int:
         str(k): str(v)
         for k, v in (profile.get("log_desc") or {}).items()
     }
+    gb_issue = int((profile.get("guestbook") or {}).get("issue") or 0)
+    gb_rows = fetch_event_log_rows(login, gb_issue, token)
+    GUESTBOOK_SVG.write_text(guestbook_svg(gb_rows, gb_issue or 5), encoding="utf-8")
     ctx = {
         "today": today,
         "stamp": stamp,
@@ -1760,6 +1880,7 @@ def main() -> int:
         "tags": tags,
         "hexdump": hex_dump_block(),
         "doing_line": doing_line[:110],
+        "event_log": fetch_event_log(login, gb_issue, token),
     }
     README.write_text(render_readme(profile, ctx).rstrip() + "\n", encoding="utf-8")
     print(f"wrote {README.relative_to(ROOT)}")
@@ -1772,6 +1893,7 @@ def main() -> int:
     print(f"wrote {STATUS_SVG.relative_to(ROOT)}")
     print(f"wrote {DEVICES_SVG.relative_to(ROOT)}")
     print(f"wrote {EVENT_SVG.relative_to(ROOT)}")
+    print(f"wrote {GUESTBOOK_SVG.relative_to(ROOT)}")
     print("wrote book", ", ".join(BOOK_NAMES))
     print(
         f"public_repos={public} stars={stars} uptime={days} "

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="168" height="50" viewBox="0 0 168 50" font-family="'Lucida Console','Courier New',Consolas,monospace">
+  <rect width="168" height="50" fill="#0000AA"/>
+  <rect x="1" y="1" width="166" height="48" fill="#0000AA" stroke="#55FFFF" stroke-width="2"/>
+  <rect x="1" y="1" width="166" height="18" fill="#AAAAAA"/>
+  <text x="8" y="14" font-size="13" font-weight="700" fill="#000055">F2</text>
+  <text x="8" y="38" font-size="13" font-weight="700" fill="#FFFF55">HDD-0 ORIGIN</text>
+</svg>

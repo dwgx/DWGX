@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="30" viewBox="0 0 240 30" font-family="'Lucida Console','Courier New',Consolas,monospace">
+  <rect width="240" height="30" fill="#0000AA" stroke="#55FFFF" stroke-width="2"/>
+  <rect x="0" y="0" width="40" height="30" fill="#AAAAAA"/>
+  <text x="20" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#000055">F1</text>
+  <text x="48" y="20" font-size="13" font-weight="700" fill="#FFFF55">Sign Event Log</text>
+</svg>

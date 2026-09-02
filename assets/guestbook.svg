@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="50" viewBox="0 0 900 50" font-family="'Lucida Console','Courier New',Consolas,monospace">
+<rect width="900" height="50" fill="#000055" stroke="#55FFFF" stroke-width="2"/>
+<rect x="0" y="0" width="900" height="22" fill="#AAAAAA"/>
+<text x="9" y="16" font-size="12" font-weight="700" fill="#000000">when (JST)</text>
+<text x="169" y="16" font-size="12" font-weight="700" fill="#000000">who</text>
+<text x="319" y="16" font-size="12" font-weight="700" fill="#000000">note</text>
+<line x1="160" y1="0" x2="160" y2="22" stroke="#000055" stroke-width="2"/>
+<line x1="310" y1="0" x2="310" y2="22" stroke="#000055" stroke-width="2"/>
+<text x="9" y="38" font-size="12" fill="#FFFF55">empty</text>
+<text x="169" y="38" font-size="12" fill="#AAAAAA">·</text>
+<text x="319" y="38" font-size="12" fill="#FFFF55">comment Event Log #5 · last 5 shown, newest first</text>
+</svg>

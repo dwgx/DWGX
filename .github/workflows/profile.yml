@@ -10,9 +10,12 @@ on:
       - "profile.toml"
       - "scripts/**"
       - ".github/workflows/profile.yml"
+  issue_comment:
+    types: [created, edited, deleted]
 
 permissions:
   contents: write
+  issues: read
 
 concurrency:
   group: dwgx-main-writers
@@ -20,6 +23,7 @@ concurrency:
 
 jobs:
   render:
+    if: github.event_name != 'issue_comment' || github.event.issue.title == 'Event Log'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

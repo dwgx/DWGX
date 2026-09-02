@@ -8,6 +8,7 @@ import math
 import os
 import subprocess
 import sys
+import time
 import tomllib
 import unicodedata
 import urllib.error
@@ -26,6 +27,14 @@ JST = timezone(timedelta(hours=9))
 def today_jst() -> date:
     return datetime.now(JST).date()
 
+
+def now_jst() -> datetime:
+    return datetime.now(JST)
+
+
+def hhmm_jst(dt: datetime | None = None) -> str:
+    return (dt or now_jst()).strftime("%H:%M")
+
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile.toml"
 README = ROOT / "README.md"
@@ -33,6 +42,7 @@ SVG = ROOT / "assets" / "process-table.svg"
 STATS_SVG = ROOT / "assets" / "stats.svg"
 LANGS_SVG = ROOT / "assets" / "langs.svg"
 DISCORD_SVG = ROOT / "assets" / "discord.svg"
+PRESENCE_JSON = ROOT / "assets" / "discord-presence.json"
 AVATAR_PNG = ROOT / "assets" / "discord-avatar.png"
 MEDIA_SVG = ROOT / "assets" / "media.svg"
 SETUP_SVG = ROOT / "assets" / "setup.svg"
@@ -69,6 +79,8 @@ TEXT = "#e6edf3"
 MUTED = "#8b949e"
 BLUE = "#79c0ff"
 GREEN = "#7ee787"
+PANEL_MARK = "live"
+PANEL_MARK_COLOR = GREEN
 
 # VGA 16-color AMIBIOS 3.31a
 AMI_BLUE = "#0000AA"
@@ -777,7 +789,7 @@ def panel_frame(width: int, height: int, host: str, title: str, body: list[str])
         f'<line x1="0" y1="26" x2="{width}" y2="26" stroke="#30363d" stroke-width="1"/>',
         f'<text x="16.0" y="18.0" font-size="13" font-weight="700" fill="{PINK}">{esc(host)}</text>',
         f'<text x="{16 + text_w(host, True) + 12:.1f}" y="18.0" font-size="13" font-weight="700" fill="{TEXT}">{esc(title)}</text>',
-        f'<text x="{width - 72}" y="18.0" font-size="13" font-weight="400" fill="{GREEN}">live</text>',
+        f'<text x="{width - 16}" y="18.0" text-anchor="end" font-size="13" font-weight="400" fill="{PANEL_MARK_COLOR}">{esc(PANEL_MARK)}</text>',
     ]
     parts.extend(body)
     parts.append("</svg>")
@@ -878,56 +890,116 @@ STATUS_COLOR = {
 }
 
 
+def http_json(url: str, timeout: int = 20, attempts: int = 3) -> dict | None:
+    for i in range(attempts):
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": "Mozilla/5.0 dwgx-profile-render"},
+            )
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                payload = json.loads(resp.read().decode("utf-8"))
+            return payload if isinstance(payload, dict) else None
+        except (
+            urllib.error.URLError,
+            urllib.error.HTTPError,
+            TimeoutError,
+            json.JSONDecodeError,
+            OSError,
+        ):
+            time.sleep(1.2 * (i + 1))
+    return None
+
+
 def fetch_presence(discord_id: str) -> dict:
     empty = {
         "status": "offline",
         "username": "dwgx",
         "display": "dwgx",
-        "activity": "AFK · probably coding",
+        "activity": "offline",
+        "platform": "",
         "avatar": None,
+        "stale": True,
     }
     if not discord_id:
         return empty
-    try:
-        req = urllib.request.Request(
-            f"https://api.lanyard.rest/v1/users/{discord_id}",
-            headers={"User-Agent": "dwgx-profile-render"},
-        )
-        with urllib.request.urlopen(req, timeout=12) as resp:
-            payload = json.loads(resp.read().decode("utf-8"))
+    for url in (
+        f"https://api.lanyard.rest/v1/users/{discord_id}",
+        f"https://lanyard.rest/v1/users/{discord_id}",
+    ):
+        payload = http_json(url)
+        if not payload or payload.get("success") is False:
+            continue
         data = payload.get("data") or {}
-        user = data.get("discord_user") or {}
-        acts = data.get("activities") or []
-        activity = "AFK · probably coding"
+        if not (data.get("discord_user") or data.get("discord_status")):
+            continue
+        parsed = presence_from_lanyard(discord_id, data)
+        parsed["stale"] = False
+        PRESENCE_JSON.write_text(
+            json.dumps(parsed, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        return parsed
+    cached = read_cached_presence()
+    return cached or empty
+
+
+def presence_from_lanyard(discord_id: str, data: dict) -> dict:
+    user = data.get("discord_user") or {}
+    status = str(data.get("discord_status") or "offline")
+    acts = data.get("activities") or []
+    activity = "idle" if status != "offline" else "offline"
+    spotify = data.get("spotify") or {}
+    if data.get("listening_to_spotify") and isinstance(spotify, dict):
+        song = str(spotify.get("song") or "").strip()
+        artist = str(spotify.get("artist") or "").strip()
+        bits = [x for x in (song, artist) if x]
+        activity = "Spotify · " + " — ".join(bits) if bits else "Spotify"
+    else:
         for act in acts:
             name = (act.get("name") or "").strip()
             details = (act.get("details") or "").strip()
             state = (act.get("state") or "").strip()
             if name and name.lower() != "custom status":
-                bits = [name]
-                if details:
-                    bits.append(details)
-                elif state:
-                    bits.append(state)
-                activity = " · ".join(bits)
+                extra = details or state
+                activity = f"{name} · {extra}" if extra else name
                 break
             if state:
                 activity = state
-        avatar_hash = user.get("avatar")
-        avatar_url = None
-        if avatar_hash:
-            avatar_url = (
-                f"https://cdn.discordapp.com/avatars/{discord_id}/{avatar_hash}.png?size=128"
-            )
-        return {
-            "status": str(data.get("discord_status") or "offline"),
-            "username": str(user.get("username") or "dwgx"),
-            "display": str(user.get("global_name") or user.get("username") or "dwgx"),
-            "activity": activity[:64],
-            "avatar": avatar_url,
-        }
-    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError):
-        return empty
+    platforms = []
+    if data.get("active_on_discord_desktop"):
+        platforms.append("desktop")
+    if data.get("active_on_discord_mobile"):
+        platforms.append("mobile")
+    if data.get("active_on_discord_web"):
+        platforms.append("web")
+    avatar_hash = user.get("avatar")
+    avatar_url = None
+    if avatar_hash:
+        avatar_url = (
+            f"https://cdn.discordapp.com/avatars/{discord_id}/{avatar_hash}.png?size=128"
+        )
+    return {
+        "status": status,
+        "username": str(user.get("username") or "dwgx"),
+        "display": str(user.get("global_name") or user.get("username") or "dwgx"),
+        "activity": activity[:64],
+        "platform": "+".join(platforms),
+        "avatar": avatar_url,
+    }
+
+
+def read_cached_presence() -> dict | None:
+    if not PRESENCE_JSON.exists():
+        return None
+    try:
+        blob = json.loads(PRESENCE_JSON.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(blob, dict):
+        return None
+    blob["stale"] = True
+    return blob
 
 
 def _hex_rgb(color: str) -> tuple[int, int, int]:
@@ -982,10 +1054,14 @@ def discord_svg(host: str, presence: dict) -> str:
     display = str(presence.get("display") or "dwgx")
     username = str(presence.get("username") or "dwgx")
     activity = str(presence.get("activity") or "")
+    platform = str(presence.get("platform") or "")
+    where = f"@{username} · {status}"
+    if platform:
+        where = f"{where} · {platform}"
     body = [
         f'<circle cx="24" cy="68" r="7" fill="{color}"/>',
         f'<text x="42" y="58" font-size="15" font-weight="700" fill="{TEXT}">{esc(display)}</text>',
-        f'<text x="42" y="76" font-size="12" fill="{MUTED}">@{esc(username)} · {esc(status)}</text>',
+        f'<text x="42" y="76" font-size="12" fill="{MUTED}">{esc(where)}</text>',
         f'<text x="42" y="94" font-size="12" fill="{PINK}">{esc(activity)}</text>',
     ]
     return panel_frame(width, height, host, "discord.presence", body)
@@ -1263,14 +1339,16 @@ def render_readme(profile: dict, ctx: dict) -> str:
     ship = profile.get("ship") or {}
     links = profile["links"]
     today = ctx["today"]
+    stamp = ctx.get("stamp") or "00:00"
+    bust = str(ctx.get("bust") or "0")
     n = ctx["process_count"]
     more = max(0, ctx["public_repos"] - 5)
     windsurf_stars = ctx["stars_map"].get("WindsurfAPI", 0)
     wtag = ctx["tags"].get("WindsurfAPI") or "v?"
     ktag = ctx["tags"].get("KiroStudio") or "v?"
     now = f"ORIGIN · WindsurfAPI {wtag} · KiroStudio {ktag}"
-    return f"""<!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v{profile.get('version','2.2')}  ·  generated {today} JST          -->
+    text = f"""<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  dwgx.menu  v{profile.get('version','2.2')}  ·  generated {today} {stamp} JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
@@ -1307,7 +1385,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 ### `dwgx.cfg`
 
 ```ini
-; {today}
+; {today} {stamp} JST
 
 [who]
 name = dwgx
@@ -1568,9 +1646,28 @@ from  = {ship.get('came', 'MC clients')}
  F10   Save & Exit      maybe I'm dwgx
 ```
 """
+    out: list[str] = []
+    needle = "https://raw.githubusercontent.com/dwgx/DWGX/"
+    i = 0
+    while True:
+        j = text.find(needle, i)
+        if j < 0:
+            out.append(text[i:])
+            break
+        out.append(text[i:j])
+        k = j
+        while k < len(text) and text[k] not in '" >':
+            k += 1
+        url = text[j:k]
+        if "?t=" not in url:
+            url += f"?t={bust}"
+        out.append(url)
+        i = k
+    return "".join(out)
 
 
 def main() -> int:
+    global PANEL_MARK, PANEL_MARK_COLOR
     profile = load_profile()
     login = str(profile.get("login") or "dwgx")
     token = gh_token()
@@ -1590,12 +1687,20 @@ def main() -> int:
         extra["followers"] = int(user.get("followers") or 0)
     days = uptime_days(str(profile.get("born") or "2010-07-05"))
     today = today_jst().isoformat()
+    stamp = hhmm_jst()
+    bust = str(int(now_jst().timestamp()))
     host = prompt_host(profile)
+    presence = fetch_presence(str((profile.get("links") or {}).get("discord_id") or ""))
+    if presence.get("stale"):
+        PANEL_MARK = "cached"
+        PANEL_MARK_COLOR = MUTED
+    else:
+        PANEL_MARK = stamp
+        PANEL_MARK_COLOR = GREEN
     SVG.parent.mkdir(parents=True, exist_ok=True)
     SVG.write_text(process_svg(profile, by_name, tags), encoding="utf-8")
     STATS_SVG.write_text(stats_svg(host, user, stars, extra), encoding="utf-8")
     LANGS_SVG.write_text(langs_svg(host, extra.get("langs") or []), encoding="utf-8")
-    presence = fetch_presence(str((profile.get("links") or {}).get("discord_id") or ""))
     save_avatar(presence.get("avatar"), str(presence.get("status") or "offline"))
     DISCORD_SVG.write_text(discord_svg(host, presence), encoding="utf-8")
     bili = fetch_bili(str((profile.get("links") or {}).get("bili_mid") or ""))
@@ -1642,6 +1747,8 @@ def main() -> int:
     }
     ctx = {
         "today": today,
+        "stamp": stamp,
+        "bust": bust,
         "uptime": days,
         "public_repos": public,
         "total_stars": stars,
@@ -1668,7 +1775,9 @@ def main() -> int:
     print("wrote book", ", ".join(BOOK_NAMES))
     print(
         f"public_repos={public} stars={stars} uptime={days} "
-        f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']}"
+        f"windsurf={tags['WindsurfAPI']} kiro={tags['KiroStudio']} "
+        f"discord={presence.get('status')} stale={presence.get('stale')} "
+        f"activity={presence.get('activity')}"
     )
     return 0
 

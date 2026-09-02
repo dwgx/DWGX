@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3210-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3211-c9a84c?style=flat-square&labelColor=06020f" />
   &nbsp;
   <img src="https://img.shields.io/badge/public_repos-101-f2a6c4?style=flat-square&labelColor=06020f" />
   &nbsp;
@@ -82,7 +82,7 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · release vrc-dcc-workstation · 1d ago · v1.0.0</summary>
+<summary>Main — last public work · open MyTest · 3h ago · 奇怪的爬虫账户？</summary>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
@@ -206,7 +206,7 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★2961  ║
+║  stage · flagship ★2962  ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
@@ -279,7 +279,7 @@ from  = MC clients
 </tr>
 </table>
 
-[101 public repos · 3210 stars · browse all →](https://github.com/dwgx?tab=repositories)
+[101 public repos · 3211 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
 </div>
 
@@ -292,7 +292,7 @@ from  = MC clients
  2026-09-02 04:36  push  debugger-workstation   ★2     ps     Portable reverse-engineering / security-a…
  2026-08-30 23:34  push  KiroStudio             ★13    rust   Kiro API Gateway · Anthropic-compatible p…
  2026-08-28 19:16  push  VirtualDesktopHelper   ★0     c#     VirtualDesktopHelper (VDH) — C# WinForms …
- 2026-08-28 16:39  push  WindsurfAPI            ★2961  js     Turn Windsurf / Devin Desktop's 100+ AI m…
+ 2026-08-28 16:39  push  WindsurfAPI            ★2962  js     Turn Windsurf / Devin Desktop's 100+ AI m…
  2026-08-27 13:28  push  Quest-ADB-Dashboard    ★2     c#     Meta Quest ADB diagnostics dashboard and …
  2026-08-26 12:35  push  VCC_I18N               ★0     rust   Standalone Windows launcher that localize…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…

@@ -1,9 +1,9 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.9  ·  generated 2026-09-03 JST          -->
+<!--  dwgx.menu  v2.10  ·  generated 2026-09-03 06:30 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg?t=1788384626" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <div align="center">
 
@@ -36,7 +36,7 @@
 ### `dwgx.cfg`
 
 ```ini
-; 2026-09-03
+; 2026-09-03 06:30 JST
 
 [who]
 name = dwgx
@@ -60,7 +60,7 @@ from  = MC clients
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg" width="88%" alt="process.table" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1788384626" width="88%" alt="process.table" />
 
 </div>
 
@@ -72,7 +72,7 @@ from  = MC clients
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg" width="100%" alt="AMIBIOS Boot" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1788384626" width="100%" alt="AMIBIOS Boot" />
 </p>
 
 </details>
@@ -82,10 +82,10 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · open MyTest · 8h ago · 奇怪的爬虫账户？</summary>
+<summary>Main — last public work · open MyTest · 10h ago · 奇怪的爬虫账户？</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg" width="100%" alt="AMIBIOS Main" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1788384626" width="100%" alt="AMIBIOS Main" />
 </p>
 
 </details>
@@ -94,7 +94,7 @@ from  = MC clients
 <summary>Advanced — git HEADs as IDE devices</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg" width="100%" alt="AMIBIOS Advanced" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1788384626" width="100%" alt="AMIBIOS Advanced" />
 </p>
 
 </details>
@@ -103,7 +103,7 @@ from  = MC clients
 <summary>Log — public events</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg" width="100%" alt="AMIBIOS Log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1788384626" width="100%" alt="AMIBIOS Log" />
 </p>
 
 </details>
@@ -114,12 +114,12 @@ from  = MC clients
 
 <details>
 <summary>POST — CPU cache · memory test · IDE auto-detect</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg" width="100%" alt="POST" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1788384626" width="100%" alt="POST" /></p>
 </details>
 
 <details>
 <summary>DMI — SMBIOS Type 0 BIOS · Type 1 system · Type 2 ROG · Type 3 Homecloud</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg" width="100%" alt="DMI" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1788384626" width="100%" alt="DMI" /></p>
 </details>
 
 ---
@@ -297,7 +297,7 @@ from  = MC clients
  2026-08-26 12:35  push  VCC_I18N               ★0     rust   Standalone Windows launcher that localize…
  2026-08-24 14:52  push  VRCSM                  ★3     ts     VRChat Settings Manager for Windows cache…
  2026-08-24 06:33  push  driver-vuln-research   ★6     asm    Kernel driver vulnerability research - BY…
- 2026-09-03 05:07  push  windsurf-ls-release    ★2     py     Maintained public release mirror for Wind…
+ 2026-09-03 05:36  push  blog                   ★1     -      DWGX Blog — Markdown articles
 ```
 
 ---
@@ -345,14 +345,14 @@ from  = MC clients
 ### `discord.presence`
 
 <a href="https://discord.com/users/1284670281926967336">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png" width="80" height="80" alt="discord avatar" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png?t=1788384626" width="80" height="80" alt="discord avatar" />
 </a>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1788384626" alt="discord presence" />
 
 <br/>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg" alt="bili.stat" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1788384626" alt="bili.stat" />
 
 </div>
 
@@ -364,7 +364,7 @@ from  = MC clients
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif" width="640" alt="幻想万華鏡" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1788384626" width="640" alt="幻想万華鏡" />
 
 <br/>
 
@@ -389,7 +389,7 @@ from  = MC clients
 
 ### `stack`
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg" width="92%" alt="stack" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1788384626" width="92%" alt="stack" />
 
 </div>
 
@@ -430,9 +430,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" />
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" width="100%" alt="3d contribution" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg?t=1788384626" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1788384626" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1788384626" width="100%" alt="3d contribution" />
 </picture>
 
 </div>
@@ -443,9 +443,9 @@ from  = MC clients
 
 <div align="center">
 
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1788384626" alt="stats.panel" />
 &nbsp;&nbsp;
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1788384626" alt="langs.panel" />
 
 </div>
 
@@ -456,9 +456,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" />
-  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg?t=1788384626" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1788384626" />
+  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1788384626" width="100%" />
 </picture>
 
 </div>

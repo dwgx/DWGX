@@ -1,9 +1,9 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.11  ·  generated 2026-09-03 10:30 JST          -->
+<!--  dwgx.menu  v2.11  ·  generated 2026-09-03 14:50 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg?t=1788399001" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg?t=1788414621" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <div align="center">
 
@@ -36,7 +36,7 @@
 ### `dwgx.cfg`
 
 ```ini
-; 2026-09-03 10:30 JST
+; 2026-09-03 14:50 JST
 
 [who]
 name = dwgx
@@ -60,7 +60,7 @@ from  = MC clients
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1788399001" width="88%" alt="process.table" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1788414621" width="88%" alt="process.table" />
 
 </div>
 
@@ -72,7 +72,7 @@ from  = MC clients
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1788399001" width="100%" alt="AMIBIOS Boot" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1788414621" width="100%" alt="AMIBIOS Boot" />
 </p>
 
 </details>
@@ -82,10 +82,10 @@ from  = MC clients
 ### `status.pages`
 
 <details>
-<summary>Main — last public work · open MyTest · 14h ago · 奇怪的爬虫账户？</summary>
+<summary>Main — last public work · open MyTest · 18h ago · 奇怪的爬虫账户？</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1788399001" width="100%" alt="AMIBIOS Main" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1788414621" width="100%" alt="AMIBIOS Main" />
 </p>
 
 </details>
@@ -94,7 +94,7 @@ from  = MC clients
 <summary>Advanced — git HEADs as IDE devices</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1788399001" width="100%" alt="AMIBIOS Advanced" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1788414621" width="100%" alt="AMIBIOS Advanced" />
 </p>
 
 </details>
@@ -103,7 +103,7 @@ from  = MC clients
 <summary>Log — public events</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1788399001" width="100%" alt="AMIBIOS Log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1788414621" width="100%" alt="AMIBIOS Log" />
 </p>
 
 </details>
@@ -114,12 +114,12 @@ from  = MC clients
 
 <details>
 <summary>POST — CPU cache · memory test · IDE auto-detect</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1788399001" width="100%" alt="POST" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1788414621" width="100%" alt="POST" /></p>
 </details>
 
 <details>
 <summary>DMI — SMBIOS Type 0 BIOS · Type 1 system · Type 2 ROG · Type 3 Homecloud</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1788399001" width="100%" alt="DMI" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1788414621" width="100%" alt="DMI" /></p>
 </details>
 
 ---
@@ -345,14 +345,14 @@ from  = MC clients
 ### `discord.presence`
 
 <a href="https://discord.com/users/1284670281926967336">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png?t=1788399001" width="80" height="80" alt="discord avatar" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png?t=1788414621" width="80" height="80" alt="discord avatar" />
 </a>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1788399001" alt="discord presence" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1788414621" alt="discord presence" />
 
 <br/>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1788399001" alt="bili.stat" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1788414621" alt="bili.stat" />
 
 </div>
 
@@ -364,7 +364,7 @@ from  = MC clients
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1788399001" width="640" alt="幻想万華鏡" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1788414621" width="640" alt="幻想万華鏡" />
 
 <br/>
 
@@ -389,7 +389,7 @@ from  = MC clients
 
 ### `stack`
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1788399001" width="92%" alt="stack" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1788414621" width="92%" alt="stack" />
 
 </div>
 
@@ -430,9 +430,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg?t=1788399001" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1788399001" />
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1788399001" width="100%" alt="3d contribution" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg?t=1788414621" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1788414621" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1788414621" width="100%" alt="3d contribution" />
 </picture>
 
 </div>
@@ -443,9 +443,9 @@ from  = MC clients
 
 <div align="center">
 
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1788399001" alt="stats.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1788414621" alt="stats.panel" />
 &nbsp;&nbsp;
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1788399001" alt="langs.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1788414621" alt="langs.panel" />
 
 </div>
 
@@ -456,9 +456,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg?t=1788399001" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1788399001" />
-  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1788399001" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg?t=1788414621" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1788414621" />
+  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1788414621" width="100%" />
 </picture>
 
 </div>
@@ -481,25 +481,25 @@ from  = MC clients
 ### `hotkeys`
 
 <p align="center">
-<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=1788399001" height="48" alt="DEL Setup" /></a>
-<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=1788399001" height="48" alt="F2 HDD-0 ORIGIN" /></a>
-<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=1788399001" height="48" alt="F8 BBS YouTube" /></a>
-<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=1788399001" height="48" alt="F9 BBS Bilibili" /></a>
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=1788399001" height="48" alt="F10 maybe I'm dwgx" />
+<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=1788414621" height="48" alt="DEL Setup" /></a>
+<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=1788414621" height="48" alt="F2 HDD-0 ORIGIN" /></a>
+<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=1788414621" height="48" alt="F8 BBS YouTube" /></a>
+<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=1788414621" height="48" alt="F9 BBS Bilibili" /></a>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=1788414621" height="48" alt="F10 maybe I'm dwgx" />
 </p>
 
 ### `event.log`
 
 <p align="center">
-<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=1788399001" height="30" alt="F1 Sign Event Log" /></a>
+<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=1788414621" height="30" alt="F1 Sign Event Log" /></a>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=1788399001" width="100%" alt="event.log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=1788414621" width="100%" alt="event.log" />
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=1788399001" height="30" width="62%" alt="VGA marquee" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=1788399001" height="30" alt="Best viewed with AMIBIOS" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=1788399001" height="30" alt="80x25 VGA" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=1788414621" height="30" width="62%" alt="VGA marquee" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=1788414621" height="30" alt="Best viewed with AMIBIOS" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=1788414621" height="30" alt="80x25 VGA" />
 </p>

@@ -2,6 +2,7 @@
 """Render dwgx.menu README + process-table.svg from profile.toml + GitHub."""
 from __future__ import annotations
 
+import base64
 import io
 import json
 import math
@@ -1141,23 +1142,47 @@ def save_avatar(url: str | None, status: str = "offline") -> bool:
         return AVATAR_PNG.exists()
 
 
+def discord_activity_line(presence: dict) -> str:
+    status = str(presence.get("status") or "offline")
+    activity = str(presence.get("activity") or "").strip()
+    platform = str(presence.get("platform") or "").strip()
+    if activity.lower() in {"", status, "offline", "idle"}:
+        line = status
+        if platform and status != "offline":
+            line = f"{status} · {platform}"
+        return line
+    return activity
+
+
 def discord_svg(host: str, presence: dict) -> str:
     width, height = 400, 110
     status = str(presence.get("status") or "offline")
     color = STATUS_COLOR.get(status, MUTED)
     display = str(presence.get("display") or "dwgx")
     username = str(presence.get("username") or "dwgx")
-    activity = str(presence.get("activity") or "")
     platform = str(presence.get("platform") or "")
     where = f"@{username} · {status}"
     if platform:
         where = f"{where} · {platform}"
-    body = [
-        f'<circle cx="24" cy="68" r="7" fill="{color}"/>',
-        f'<text x="42" y="58" font-size="15" font-weight="700" fill="{TEXT}">{esc(display)}</text>',
-        f'<text x="42" y="76" font-size="12" fill="{MUTED}">{esc(where)}</text>',
-        f'<text x="42" y="94" font-size="12" fill="{PINK}">{esc(activity)}</text>',
-    ]
+    line = discord_activity_line(presence)
+    body: list[str] = []
+    if AVATAR_PNG.exists():
+        b64 = base64.b64encode(AVATAR_PNG.read_bytes()).decode("ascii")
+        href = f"data:image/png;base64,{b64}"
+        body.append(
+            f'<image href="{href}" x="12" y="38" width="56" height="56"/>'
+        )
+        tx = 80
+    else:
+        body.append(f'<circle cx="24" cy="68" r="7" fill="{color}"/>')
+        tx = 42
+    body.extend(
+        [
+            f'<text x="{tx}" y="58" font-size="15" font-weight="700" fill="{TEXT}">{esc(display)}</text>',
+            f'<text x="{tx}" y="76" font-size="12" fill="{MUTED}">{esc(where)}</text>',
+            f'<text x="{tx}" y="94" font-size="12" fill="{PINK}">{esc(line)}</text>',
+        ]
+    )
     return panel_frame(width, height, host, "discord.presence", body)
 
 
@@ -1609,10 +1634,8 @@ from  = {ship.get('came', 'MC clients')}
 ### `discord.presence`
 
 <a href="{links['discord']}">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord-avatar.png" width="80" height="80" alt="discord avatar" />
-</a>
-
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg" alt="discord presence" />
+</a>
 
 <br/>
 

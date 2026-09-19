@@ -1581,16 +1581,17 @@ def render_origin_section(profile: dict) -> str:
 
 def render_bbs_entry(gb: int, sign_href: str) -> str:
     """BBS entry block, placed inside the existing `event.log` section."""
-    reply = f"{sign_href}" if gb else "https://github.com/dwgx/DWGX/issues"
+    reply = sign_href if gb else "https://github.com/dwgx/DWGX/issues"
     thread = f"https://github.com/dwgx/DWGX/issues/{gb}" if gb else reply
-    devlog = "列表未接入 · 先发在 Issues 里"
+    guest_label = f"回复 #{gb}" if gb else "打开 Issues"
+    tail = f"[打开 Event Log #{gb}]({thread})" if gb else "[打开 Issues]({})".format(thread)
     return f"""留言，讨论，还有边做边写的记录。
 
 | 频道 | 放什么 | 入口 |
 | :-- | :-- | :-- |
-| `GUESTBOOK` | 留一句话 | [回复 #{gb or '·'}]({reply}) |
+| `GUESTBOOK` | 留一句话 | [{guest_label}]({reply}) |
 | `TALK` | 聊问题、交换想法 | [打开 Issues](https://github.com/dwgx/DWGX/issues) |
-| `DEVLOG` | 记录一次有意义的推进 | {devlog} |
+| `DEVLOG` | 记录一次有意义的推进 | 列表未接入 · 先发在 Issues 里 |
 | `PATCHES` | 真实的文件变更与审阅 | [主页仓库的 PR](https://github.com/dwgx/DWGX/pulls) |
 
 <details>
@@ -1602,7 +1603,7 @@ def render_bbs_entry(gb: int, sign_href: str) -> str:
 
 </details>
 
-没有接入的频道会直接写未接入，不用“0 条”代替未知。→ [打开 Event Log #{gb or ''}]({thread})"""
+没有接入的频道会直接写未接入，不用“0 条”代替未知。→ {tail}"""
 
 
 def shield_stars(n: int) -> str:

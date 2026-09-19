@@ -27,7 +27,7 @@ pins = [
   "KiroStudio",
   "WindsurfAPI",
   "SmartCLI",
-  "YuKiKo",
+  "MCPClient",
   "VRCSM",
 ]
 
@@ -133,6 +133,7 @@ role = "整理 VRChat 的 IL2CPP 结构，让类、方法与字段成为可以�
 items = ["classes", "methods", "fields"]
 tech = "Unity / IL2CPP"
 lang = "C#"
+accent = "#C9A84C"
 legacy = { blurb = "64K classes\n570K methods · 188K fld\nUnity 6 baseline RE", stage = "live", diff = "★★★★☆" }
 
 [[pin]]
@@ -143,6 +144,7 @@ role = "把 Anthropic Messages 请求转接到 Kiro / AWS Q，配合凭据调度
 items = ["Messages", "Gateway", "Kiro"]
 tech = "proto-bridge + pool"
 lang = "Rust"
+accent = "#F2A6C4"
 legacy = { blurb = "Kiro unified gateway\nproto-bridge + pool\nRust + SQLite + Docker", stage = "shipping", diff = "★★★★☆" }
 
 [[pin]]
@@ -153,6 +155,7 @@ role = "为 Windsurf / Devin 接入提供多协议接口，把兼容边界、部
 items = ["Chat", "Responses", "Messages", "Gemini"]
 tech = "multi-protocol · zero-dep"
 lang = "JavaScript"
+accent = "#56D8E0"
 legacy = { blurb = "Windsurf ⇄ OpenAI\n100+ models · 3 APIs\nzero-dep self-host", stage = "flagship", diff = "★★☆☆☆" }
 
 [[pin]]
@@ -163,17 +166,19 @@ role = "读取真实终端的屏幕状态，再操作、等待并确认结果；
 items = ["read", "act", "confirm"]
 tech = "PTY + pyte"
 lang = "Python"
+accent = "#ACC4A5"
 legacy = { blurb = "3 agent skills · 1 PTY\npyte cell-accurate TUI\npip smartcli-toolkit", stage = "shipped", diff = "★★★☆☆" }
 
 [[pin]]
-name = "YuKiKo"
-tag = "05 / 聊天与工具"
-form = "link"
-role = "连接 QQ 对话、模型与工具，配合插件和 Web 管理界面。"
-items = ["QQ", "OneBot", "Tools"]
-tech = "NoneBot2 / OneBot V11"
-lang = "Python"
-legacy = { blurb = "AI QQ bot · OneBot\nNapCat + LLM routing\nplugins + WebUI", stage = "live", diff = "★★★☆☆" }
+name = "MCPClient"
+tag = "05 / 内核门控"
+form = "layers"
+role = "把 Minecraft 1.8.9 客户端经 MCP 暴露给 LLM，用 7 层 NT 风格内核做权限门控。"
+items = ["mc.1.8.9 client", "mcp.server", "nt.kernel 7L"]
+tech = "MCP · Java"
+lang = "Java"
+accent = "#B4A5C8"
+legacy = { blurb = "Live MC 1.8.9 client\nMCP surface for LLMs\n7-layer NT kernel", stage = "public", diff = "★★☆☆☆" }
 
 [[pin]]
 name = "VRCSM"
@@ -183,6 +188,7 @@ role = "面向 VRChat 的 Windows 桌面工具，把缓存和配置放进可操�
 items = ["cache", "config", "desktop"]
 tech = "VRChat / Windows"
 lang = "C++ / TypeScript"
+accent = "#98B8DC"
 legacy = { blurb = "VRChat cache / config\nWindows desktop app\nC++20 + WebView2 + TS", stage = "shipping", diff = "★★★☆☆" }
 
 [guestbook]

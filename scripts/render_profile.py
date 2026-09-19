@@ -1976,6 +1976,8 @@ from  = {ship.get('came', 'MC clients')}
 
 <div align="center">
 
+### `media.aux`
+
 {ornament('media-aux', 'NewAppleMusicPlayer — project link, decorative equalizer', '640', 'https://github.com/dwgx/NewAppleMusicPlayer')}
 
 </div>

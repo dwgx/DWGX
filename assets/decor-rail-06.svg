@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="42" viewBox="0 0 960 42" role="img" aria-labelledby="title desc" font-family="'Lucida Console',Consolas,'Courier New',monospace">
+<title id="title">PHANTASM ARCHIVE</title>
+<desc id="desc">Decorative dwgx.menu panel; not live telemetry.</desc>
+
+<rect x="0" y="0" width="960" height="42" fill="#06020f" stroke="none"/>
+<rect x="0" y="0" width="960" height="42" fill="#0d081b" stroke="none"/><path d="M1 1 H959 V41 H1 Z" fill="none" stroke="#322846" stroke-width="1"/><rect x="1" y="1" width="44" height="40" fill="#000055" stroke="none"/><text x="12" y="28" font-size="19" fill="#55ffff">06</text><text x="61" y="27" font-size="14" fill="#f2a6c4" letter-spacing="1">PHANTASM ARCHIVE</text><path d="M370 21 H535 L543 13 H575 L583 21 H626" fill="none" stroke="#322846" stroke-width="1"/><circle cx="370" cy="21" r="3" fill="#06020f" stroke="#f2a6c4"/><circle cx="626" cy="21" r="3" fill="#06020f" stroke="#f2a6c4"/><text x="937" y="26" font-size="11" fill="#b4a5c8" text-anchor="end">TOUHOU PROJECT</text><path d="M657 17 l4 4 l-4 4" fill="none" stroke="#f2a6c4" stroke-width="1"/><path d="M665 17 l4 4 l-4 4" fill="none" stroke="#f2a6c4" stroke-width="1"/><path d="M673 17 l4 4 l-4 4" fill="none" stroke="#f2a6c4" stroke-width="1"/>
+</svg>

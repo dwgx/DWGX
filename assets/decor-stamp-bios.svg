@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="62" viewBox="0 0 176 62" role="img" aria-labelledby="title desc" font-family="'Lucida Console',Consolas,'Courier New',monospace">
+<title id="title">BIOS decorative web button</title>
+<desc id="desc">Decorative dwgx.menu panel; not live telemetry.</desc>
+
+<rect x="0" y="0" width="176" height="62" fill="#06020f" stroke="none"/>
+<rect x="1" y="1" width="174" height="60" fill="#0d081b" stroke="#b4a5c8"/><rect x="5" y="5" width="166" height="52" fill="#06020f" stroke="#322846"/><rect x="8" y="8" width="7" height="46" fill="#55ffff" stroke="none"/><text x="90" y="28" font-size="15" fill="#55ffff" text-anchor="middle" font-weight="bold">BIOS</text><text x="92" y="47" font-size="9" fill="#e6edf3" text-anchor="middle" letter-spacing="1">SETUP UTILITY</text>
+</svg>

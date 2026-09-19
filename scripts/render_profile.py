@@ -1541,6 +1541,44 @@ def render_profile_nav() -> str:
     return f'<p align="center"><samp>〔 {links} 〕</samp></p>'
 
 
+# UI-04 网页里的装饰资产（Owner 2026-09-19：全部纳入）。这些是设计原件，静态 SVG。
+ORNAMENTS = {
+    "faceplate": "decor-faceplate.svg",
+    "key-01": "decor-key-01.svg",
+    "key-02": "decor-key-02.svg",
+    "key-03": "decor-key-03.svg",
+    "key-04": "decor-key-04.svg",
+    "key-05": "decor-key-05.svg",
+    "key-06": "decor-key-06.svg",
+    "rail-01": "decor-rail-01.svg",
+    "rail-02": "decor-rail-02.svg",
+    "rail-03": "decor-rail-03.svg",
+    "rail-04": "decor-rail-04.svg",
+    "rail-05": "decor-rail-05.svg",
+    "rail-06": "decor-rail-06.svg",
+    "rail-07": "decor-rail-07.svg",
+    "rail-08": "decor-rail-08.svg",
+    "io-panel": "decor-io.svg",
+    "phantasm": "decor-phantasm.svg",
+    "eof": "decor-eof.svg",
+    "stamp-bios": "decor-stamp-bios.svg",
+    "stamp-ascii": "decor-stamp-ascii.svg",
+    "stamp-touhou": "decor-stamp-touhou.svg",
+    "stamp-dwgx": "decor-stamp-dwgx.svg",
+    "media-aux": "exp-media-aux.svg",
+}
+
+
+def ornament(key: str, alt: str, width: str = "100%", href: str = "", outer: bool = True) -> str:
+    """One static design asset, wrapped in machine-readable DWGX-ORNAMENT markers."""
+    src = f"https://raw.githubusercontent.com/dwgx/DWGX/main/assets/{ORNAMENTS[key]}"
+    img = f'<img src="{src}" width="{width}" alt="{esc(alt)}" />'
+    if href:
+        img = f'<a href="{href}">{img}</a>'
+    block = f"<!-- DWGX-ORNAMENT:{key}:BEGIN -->\n<p align=\"center\">\n{img}\n</p>\n<!-- DWGX-ORNAMENT:{key}:END -->"
+    return block if outer else img
+
+
 def origin_panel_svg(profile: dict) -> str:
     """ORIGIN protocol plate — warm paper, gold rules. Deterministic: profile.toml only."""
     flag = profile.get("flagship") or {}
@@ -1593,6 +1631,26 @@ def origin_panel_svg(profile: dict) -> str:
     )
     parts.append("</svg>")
     return "".join(parts)
+
+
+def boot_menu_keys() -> str:
+    keys = [
+        ("key-01", "#dwgxcfg", "MAIN — jump to section"),
+        ("key-02", "#processtable", "PROCESS — jump to section"),
+        ("key-03", "#origingenesis", "ORIGIN — jump to section"),
+        ("key-04", "#pinned", "MODULES — jump to section"),
+        ("key-05", "#featured", "PHANTASM — jump to section"),
+        ("key-06", "#eventlog", "GUESTBOOK — jump to section"),
+    ]
+    imgs = "\n".join(
+        f'<a href="{href}">{ornament(key, alt, "124", outer=False)}</a>' for key, href, alt in keys
+    )
+    return (
+        '<a name="dwgx-boot-menu"></a>\n'
+        "<!-- DWGX-ORNAMENT:boot-menu:BEGIN -->\n"
+        f'<p align="center">\n{imgs}\n</p>\n'
+        "<!-- DWGX-ORNAMENT:boot-menu:END -->"
+    )
 
 
 def render_origin_section(profile: dict) -> str:
@@ -1703,6 +1761,8 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
+{ornament('faceplate', 'dwgx.menu / personal-machine faceplate')}
+
 <div align="center">
 
 <img src="{links['qq_avatar']}" width="128" style="border-radius:50%;" />
@@ -1729,9 +1789,13 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 </div>
 
+{boot_menu_keys()}
+
 {render_profile_nav()}
 
 ---
+
+{ornament('rail-01', 'SYSTEM CONFIGURATION')}
 
 ### `dwgx.cfg`
 
@@ -1755,6 +1819,8 @@ from  = {ship.get('came', 'MC clients')}
 ```
 
 ---
+
+{ornament('rail-02', 'PROCESS MEMORY')}
 
 ### `process.table`
 
@@ -1824,9 +1890,13 @@ from  = {ship.get('came', 'MC clients')}
 
 ---
 
+{ornament('rail-03', 'GENESIS CHAMBER')}
+
 {render_origin_section(profile)}
 
 ---
+
+{ornament('rail-04', 'EXPANSION SLOTS')}
 
 <div align="center">
 
@@ -1844,6 +1914,30 @@ from  = {ship.get('came', 'MC clients')}
 
 ---
 
+### `release.disks`
+
+<p align="center">
+<a href="https://github.com/dwgx/WindsurfAPI/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-windsurf.svg" width="260" alt="WindsurfAPI — release archive" /></a>
+<a href="https://github.com/dwgx/KiroStudio/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-kiro.svg" width="260" alt="KiroStudio — release archive" /></a>
+<a href="https://github.com/dwgx/SmartCLI/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-smartcli.svg" width="260" alt="SmartCLI — release archive" /></a>
+</p>
+<p align="center"><sub>发布档案入口 · 点开查看版本与说明</sub></p>
+
+### `demo.deck`
+
+<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-demo-deck.svg" width="100%" alt="SmartCLI — open the existing project demonstration" /></a></p>
+
+<details>
+<summary>PLAY 01 · 看 SmartCLI 已有的 lazygit 演示</summary>
+
+<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/SmartCLI/main/showcase/drive-lazygit.gif" width="700" alt="SmartCLI 项目已有的 lazygit TUI 演示；这是录制画面，不是实时终端" /></a></p>
+
+演示来自 SmartCLI 仓库；这里没有新执行一次测试，也不把装饰图当成运行证据。
+
+</details>
+
+---
+
 ### `recent.log`
 
 ```
@@ -1851,6 +1945,10 @@ from  = {ship.get('came', 'MC clients')}
 ```
 
 ---
+
+{ornament('rail-05', 'MACHINE INVENTORY')}
+
+{ornament('io-panel', 'Decorative rear I/O panel')}
 
 ### `hardware.dmp`
 
@@ -1875,6 +1973,18 @@ from  = {ship.get('came', 'MC clients')}
 </div>
 
 ---
+
+<div align="center">
+
+{ornament('media-aux', 'NewAppleMusicPlayer — project link, decorative equalizer', '640', 'https://github.com/dwgx/NewAppleMusicPlayer')}
+
+</div>
+
+---
+
+{ornament('rail-06', 'PHANTASM ARCHIVE')}
+
+{ornament('phantasm', 'Touhou / The Memories of Phantasm danmaku ornament')}
 
 <div align="center">
 
@@ -1947,6 +2057,8 @@ from  = {ship.get('came', 'MC clients')}
 
 ---
 
+{ornament('rail-07', 'ACTIVITY MEMORY')}
+
 ### `3d.contrib`
 
 <div align="center">
@@ -2005,7 +2117,29 @@ from  = {ship.get('came', 'MC clients')}
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg" height="48" alt="F10 maybe I'm dwgx" />
 </p>
 
+### `field.notes`
+
+<p align="center">
+<a href="{links['blog']}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-blog.svg" width="260" alt="工程笔记 — public reading destination" /></a>
+<a href="https://dwgx.github.io/WindsurfAPI/HISTORY-LEDGER-VIZ.html"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-ledger.svg" width="260" alt="WindsurfAPI 开发账本 — public reading destination" /></a>
+<a href="{genesis}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-genesis.svg" width="260" alt="ORIGIN 文档 — public reading destination" /></a>
+</p>
+<p align="center"><sub>笔记 · 开发记录 · 世界文档</sub></p>
+
+{ornament('rail-08', 'BBS GUESTBOOK')}
+
 ### `event.log`
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-header.svg" width="100%" alt="DWGX BBS · 留言／讨论／DEVLOG／PR" />
+</p>
+
+<p align="center">
+<a href="{sign_href}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-guest.svg" width="210" alt="留言大厅" /></a>
+<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-talk.svg" width="210" alt="讨论话题" /></a>
+<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-devlog.svg" width="210" alt="我的 DEVLOG" /></a>
+<a href="https://github.com/dwgx/DWGX/pulls"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-patch.svg" width="210" alt="改动与 PR" /></a>
+</p>
 
 {render_bbs_entry(gb, sign_href)}
 
@@ -2021,6 +2155,16 @@ from  = {ship.get('came', 'MC clients')}
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg" height="30" width="62%" alt="VGA marquee" />
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg" height="30" alt="Best viewed with AMIBIOS" />
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg" height="30" alt="80x25 VGA" />
+</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-bios.svg" width="88" alt="BIOS decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-ascii.svg" width="88" alt="ASCII decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-touhou.svg" width="88" alt="TOUHOU decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-dwgx.svg" width="88" alt="DWGX decorative web button" />
+</p>
+<p align="center">
+<a href="#dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-eof.svg" width="100%" alt="End of file — return to boot.menu" /></a>
 </p>
 """
     out: list[str] = []

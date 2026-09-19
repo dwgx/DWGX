@@ -867,7 +867,7 @@ def pin_box(pin: dict, repos: dict[str, dict]) -> str:
 
 
 def facet_html(form: str, items: list) -> str:
-    """One distinguishing structure per card: index / route / protocol / loop / link / settings."""
+    """One distinguishing structure per card: index / route / protocol / loop / link / layers / settings."""
     vals = [esc(str(x)) for x in items]
     if not vals:
         return ""
@@ -877,6 +877,8 @@ def facet_html(form: str, items: list) -> str:
         return "<samp>$ " + " → ".join(vals) + "</samp>"
     if form == "link":
         return " ⇄ ".join(f"<code>{v}</code>" for v in vals)
+    if form == "layers":
+        return "<br />".join(f"<code>{v}</code>" for v in vals)
     if form == "settings":
         return "<samp>" + " / ".join(vals) + "</samp>"
     if form == "index":
@@ -920,6 +922,68 @@ def render_project_cards(
         "(https://github.com/dwgx?tab=repositories)"
     )
     return "<table>\n" + "\n".join(rows) + "\n</table>" + foot
+
+
+def disk_svg(pin: dict, stars: int, tag: str, index: int) -> str:
+    """Floppy-disk card for one project (Expansion-02 look, 288x270). Data-driven: name/tech/stars/tag."""
+    name = str(pin.get("name") or "")
+    tech = str(pin.get("tech") or "")
+    accent = str(pin.get("accent") or UI_SAKURA)
+    size = 21
+    while size > 12 and len(name) * 0.62 * size > 207:
+        size -= 1
+    stat = f"★{fmt_num(stars)}" if stars else "no stars"
+    if tag:
+        stat += f"  ·  {tag}"
+    writing = "".join(f'<path d="M92 {220 + i * 4} H196" fill="none" stroke="#322846" stroke-width="1"/>' for i in range(6))
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="288" height="270" viewBox="0 0 288 270" '
+        'role="img" aria-label="' + esc(f"{name} release archive") + '" '
+        "font-family=\"'Lucida Console',Consolas,'Courier New',monospace\">"
+        '<rect x="9" y="8" width="270" height="252" fill="#21162F" stroke="#322846" stroke-width="2"/>'
+        '<path d="M10 260 V9 H249 L278 38 V260" fill="none" stroke="#796080" stroke-width="1"/>'
+        '<rect x="64" y="9" width="139" height="61" fill="#534658" stroke="#B4A5C8" stroke-width="1"/>'
+        '<rect x="81" y="9" width="40" height="46" fill="#06020F"/>'
+        '<rect x="134" y="17" width="55" height="40" fill="#837987" stroke="#322846" stroke-width="1"/>'
+        '<rect x="26" y="89" width="233" height="115" fill="#EEE6D5" stroke="#241C2E" stroke-width="1"/>'
+        f'<rect x="26" y="89" width="233" height="25" fill="{accent}"/>'
+        f'<text x="37" y="106" font-size="9" fill="#241C2E">{esc(f"DISK {index:02d}  /  RELEASE ARCHIVE")}</text>'
+        f'<text x="39" y="140" font-size="{size}" font-weight="700" fill="#241C2E">{esc(name)}</text>'
+        f'<text x="39" y="164" font-size="12" fill="#51465B">{esc(tech[:30])}</text>'
+        '<path d="M39 177 H245" fill="none" stroke="#9A8D83" stroke-width="1"/>'
+        f'<text x="39" y="194" font-size="10" fill="#665567">{esc(stat)}</text>'
+        f"{writing}"
+        '<rect x="25" y="231" width="15" height="15" fill="#06020F" stroke="#322846" stroke-width="1"/>'
+        '<rect x="248" y="231" width="15" height="15" fill="#06020F" stroke="#322846" stroke-width="1"/>'
+        '<path d="M20.5 20.5 l3 3" fill="none" stroke="#B4A5C8" stroke-width="1"/>'
+        '<path d="M261.5 245.5 l3 3" fill="none" stroke="#B4A5C8" stroke-width="1"/>'
+        f'<text x="144" y="258" font-size="12" fill="{accent}" text-anchor="middle">[ OPEN REPO ]</text>'
+        "</svg>"
+    )
+
+
+def disk_slug(name: str) -> str:
+    return "disk-" + name.lower() + ".svg"
+
+
+def render_project_disks(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> str:
+    pins = list(profile.get("pin") or [])[:6]
+    cells: list[str] = []
+    for i, pin in enumerate(pins, 1):
+        name = str(pin.get("name") or "")
+        stars = int((repos.get(name) or {}).get("stargazers_count") or 0)
+        tag = str(tags.get(name) or "")
+        img = f"https://raw.githubusercontent.com/dwgx/DWGX/main/assets/{disk_slug(name)}"
+        cells.append(
+            '<td width="33%" valign="top" align="center">\n'
+            f'<a href="https://github.com/dwgx/{name}">'
+            f'<img src="{img}" width="100%" alt="{esc(name)} release archive" /></a>\n'
+            "</td>"
+        )
+    rows: list[str] = []
+    for i in range(0, len(cells), 3):
+        rows.append("<tr>\n" + "\n".join(cells[i : i + 3]) + "\n</tr>")
+    return "<table>\n" + "\n".join(rows) + "\n</table>"
 
 
 def render_legacy_pins(profile: dict, repos: dict[str, dict]) -> str:
@@ -1768,9 +1832,11 @@ from  = {ship.get('came', 'MC clients')}
 
 ### `pinned`
 
+{ctx['project_disks']}
+
 {ctx['project_cards']}
 
-<sub>六个项目，保留原名单与原顺序；内部结构按接口 / 路由 / 索引 / 终端 / 对话 / 设置分开。</sub>
+<sub>六个项目，保留原名单与原顺序；磁盘卡是入口，文字卡给细节。</sub>
 
 </div>
 
@@ -2011,6 +2077,14 @@ def main() -> int:
     SVG.parent.mkdir(parents=True, exist_ok=True)
     SVG.write_text(process_svg(profile, by_name, tags), encoding="utf-8")
     ORIGIN_SVG.write_text(origin_panel_svg(profile), encoding="utf-8")
+    disk_files: list[str] = []
+    for i, pin in enumerate((profile.get("pin") or [])[:6], 1):
+        name = str(pin.get("name") or "")
+        pin_stars = int((by_name.get(name) or {}).get("stargazers_count") or 0)
+        tag = str(tags.get(name) or "")
+        disk = ROOT / "assets" / disk_slug(name)
+        disk.write_text(disk_svg(pin, pin_stars, tag, i), encoding="utf-8")
+        disk_files.append(disk.name)
     STATS_SVG.write_text(stats_svg(host, user, stars, extra), encoding="utf-8")
     LANGS_SVG.write_text(langs_svg(host, extra.get("langs") or []), encoding="utf-8")
     save_avatar(presence.get("avatar"), str(presence.get("status") or "offline"))
@@ -2071,6 +2145,7 @@ def main() -> int:
         "recent": recent_log(events, by_name, overrides),
         "hardware": hardware_dump(profile, days),
         "project_cards": render_project_cards(profile, by_name, tags, public, stars),
+        "project_disks": render_project_disks(profile, by_name, tags),
         "legacy_pins": render_legacy_pins(profile, by_name),
         "stars_map": {k: int(v.get("stargazers_count") or 0) for k, v in by_name.items()},
         "tags": tags,
@@ -2082,6 +2157,7 @@ def main() -> int:
     print(f"wrote {README.relative_to(ROOT)}")
     print(f"wrote {SVG.relative_to(ROOT)}")
     print(f"wrote {ORIGIN_SVG.relative_to(ROOT)}")
+    print("wrote disks", ", ".join(disk_files))
     print(f"wrote {STATS_SVG.relative_to(ROOT)}")
     print(f"wrote {LANGS_SVG.relative_to(ROOT)}")
     print(f"wrote {DISCORD_SVG.relative_to(ROOT)}")

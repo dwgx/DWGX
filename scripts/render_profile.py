@@ -52,6 +52,7 @@ STATUS_SVG = ROOT / "assets" / "status.svg"
 DEVICES_SVG = ROOT / "assets" / "devices.svg"
 EVENT_SVG = ROOT / "assets" / "eventlog.svg"
 GUESTBOOK_SVG = ROOT / "assets" / "guestbook.svg"
+ORIGIN_SVG = ROOT / "assets" / "origin-panel.svg"
 BOOK_NAMES = ("post.svg", "dmi.svg")
 API = "https://api.github.com"
 GQL = "https://api.github.com/graphql"
@@ -93,6 +94,20 @@ AMI_WHITE = "#FFFFFF"
 AMI_YELLOW = "#FFFF55"
 AMI_GRAY = "#AAAAAA"
 AMI_W, AMI_H = 960, 500
+
+# UI-04 palette (2026-09-18). New components use these; AMIBIOS assets migrate later.
+UI_INK = "#0F131B"          # shell background
+UI_PANEL = "#161C27"        # card / panel surface
+UI_TEXT = "#EBE4D8"         # warm body text
+UI_MUTED = "#A5AFBF"        # secondary text
+UI_SAKURA = "#D6A0AC"       # signature / guestbook accent
+UI_GOLD = "#CEB27C"         # ORIGIN accent
+UI_BLUE = "#98B8DC"         # link / focus
+UI_TERM = "#ACC4A5"         # terminal accent
+UI_PAPER = "#E9DECA"        # ORIGIN plate paper
+UI_PAPER_LINE = "#CEB27C"   # ORIGIN plate rule
+UI_PAPER_TEXT = "#282A2F"   # ORIGIN plate body
+UI_PAPER_INDEX = "#735A31"  # ORIGIN plate index
 
 
 def load_profile() -> dict:
@@ -821,15 +836,16 @@ def hardware_dump(profile: dict, days: int) -> str:
 
 
 def pin_box(pin: dict, repos: dict[str, dict]) -> str:
+    """Legacy ASCII card. Reads pin["legacy"] — a labeled design snapshot, not live data."""
     name = str(pin["name"])
-    r = repos.get(name, {})
-    stars = int(r.get("stargazers_count") or 0)
-    blurb = str(pin.get("blurb") or "")
+    legacy = pin.get("legacy") or {}
+    stars = int((repos.get(name) or {}).get("stargazers_count") or 0)
+    blurb = str(legacy.get("blurb") or "")
     lang = str(pin.get("lang") or "")
-    stage = str(pin.get("stage") or "")
-    if pin.get("star_in_stage"):
+    stage = str(legacy.get("stage") or "")
+    if legacy.get("star_in_stage"):
         stage = f"{stage} ★{stars}"
-    diff = str(pin.get("diff") or "")
+    diff = str(legacy.get("diff") or "")
     inner_w = 24
     def box_line(s: str) -> str:
         s = s[:inner_w]
@@ -850,24 +866,75 @@ def pin_box(pin: dict, repos: dict[str, dict]) -> str:
     return "```\n" + "\n".join(body) + "\n```"
 
 
-def pinned_table(profile: dict, repos: dict[str, dict], public_count: int, stars: int) -> str:
-    pins = list(profile.get("pin") or [])
-    cells: list[str] = []
-    for pin in pins[:6]:
-        name = pin["name"]
-        box = pin_box(pin, repos)
-        cells.append(
-            f'<td width="33%" valign="top">\n\n{box}\n\n'
-            f'[open module →](https://github.com/dwgx/{name})\n\n</td>'
-        )
+def facet_html(form: str, items: list) -> str:
+    """One distinguishing structure per card: index / route / protocol / loop / link / settings."""
+    vals = [esc(str(x)) for x in items]
+    if not vals:
+        return ""
+    if form == "route":
+        return "<samp>" + " → ".join(vals) + "</samp>"
+    if form == "loop":
+        return "<samp>$ " + " → ".join(vals) + "</samp>"
+    if form == "link":
+        return " ⇄ ".join(f"<code>{v}</code>" for v in vals)
+    if form == "settings":
+        return "<samp>" + " / ".join(vals) + "</samp>"
+    if form == "index":
+        return " ".join(f"<code>{v}</code>" for v in vals)
+    return " · ".join(f"<code>{v}</code>" for v in vals)
+
+
+def project_card(pin: dict, repos: dict[str, dict], tags: dict[str, str]) -> str:
+    name = str(pin.get("name") or "")
+    url = f"https://github.com/dwgx/{name}"
+    stars = int((repos.get(name) or {}).get("stargazers_count") or 0)
+    tag = str(tags.get(name) or "")
+    meta = [str(pin.get("tech") or ""), str(pin.get("lang") or "")]
+    line = " · ".join(m for m in meta if m)
+    if stars:
+        line += f" · ★{fmt_num(stars)}"
+    if tag:
+        line += f" · {esc(tag)}"
+    return (
+        '<td width="50%" valign="top" align="left">\n'
+        f'<p><samp>{esc(str(pin.get("tag") or ""))}</samp></p>\n'
+        f'<h4><a href="{url}">{esc(name)}</a></h4>\n'
+        f'<p>{esc(str(pin.get("role") or ""))}</p>\n'
+        f'<p>{facet_html(str(pin.get("form") or ""), list(pin.get("items") or []))}'
+        f"<br /><sub>{line}</sub></p>\n"
+        f'<p><a href="{url}">打开项目 →</a></p>\n'
+        "</td>"
+    )
+
+
+def render_project_cards(
+    profile: dict, repos: dict[str, dict], tags: dict[str, str], public_count: int, stars: int
+) -> str:
+    pins = list(profile.get("pin") or [])[:6]
+    cells = [project_card(p, repos, tags) for p in pins]
     rows: list[str] = []
-    for i in range(0, len(cells), 3):
-        rows.append("<tr>\n" + "\n".join(cells[i : i + 3]) + "\n</tr>")
+    for i in range(0, len(cells), 2):
+        rows.append("<tr>\n" + "\n".join(cells[i : i + 2]) + "\n</tr>")
     foot = (
-        f"\n\n[{public_count} public repos · {stars} stars · browse all →]"
+        f"\n\n[{public_count} public repos · {fmt_num(stars)} stars · browse all →]"
         "(https://github.com/dwgx?tab=repositories)"
     )
     return "<table>\n" + "\n".join(rows) + "\n</table>" + foot
+
+
+def render_legacy_pins(profile: dict, repos: dict[str, dict]) -> str:
+    pins = list(profile.get("pin") or [])[:6]
+    cells = [f'<td width="33%" valign="top">\n\n{pin_box(p, repos)}\n\n</td>' for p in pins]
+    rows: list[str] = []
+    for i in range(0, len(cells), 3):
+        rows.append("<tr>\n" + "\n".join(cells[i : i + 3]) + "\n</tr>")
+    table = "<table>\n" + "\n".join(rows) + "\n</table>"
+    return (
+        "<details>\n"
+        "<summary>原版 ASCII 卡片 / 设计快照（数字与阶段不是实时数据）</summary>\n\n"
+        f"{table}\n\n"
+        "</details>"
+    )
 
 
 def fmt_num(n: int) -> str:
@@ -1398,53 +1465,145 @@ def today_svg(host: str, extra: dict) -> str:
     return kv_svg(host, "today.work", rows)
 
 
-def flagship_block(profile: dict) -> str:
+def render_profile_nav() -> str:
+    items = [
+        ("#dwgxcfg", "配置"),
+        ("#origingenesis", "ORIGIN"),
+        ("#pinned", "项目"),
+        ("#featured", "幻想万華鏡"),
+        ("#eventlog", "留言"),
+    ]
+    links = " / ".join(f'<a href="{href}">{label}</a>' for href, label in items)
+    return f'<p align="center"><samp>〔 {links} 〕</samp></p>'
+
+
+def origin_panel_svg(profile: dict) -> str:
+    """ORIGIN protocol plate — warm paper, gold rules. Deterministic: profile.toml only."""
     flag = profile.get("flagship") or {}
+    concepts = list(profile.get("origin_concept") or [])[:4]
     name = str(flag.get("name") or "ORIGIN")
-    kicker = str(flag.get("kicker") or "Genesis Protocol")
+    kicker = str(flag.get("kicker") or "The Root Source")
+    tagline = str(flag.get("zh_tagline") or "")
+    host = str(flag.get("url") or "https://genesis.wiki").replace("https://", "")
+    width, height = 920, 300
+    serif = "'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif"
+    mono = "ui-monospace,'Cascadia Mono',Consolas,'SF Mono',monospace"
+    parts: list[str] = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+        f'viewBox="0 0 {width} {height}">',
+        f'<rect width="{width}" height="{height}" rx="2" fill="{UI_PAPER}" '
+        f'stroke="{UI_PAPER_LINE}" stroke-width="1"/>',
+        f'<text x="44" y="52" font-family="{mono}" font-size="14" font-weight="700" '
+        f'fill="{UI_PAPER_INDEX}" letter-spacing="2">{esc(name)} · {esc(kicker)}</text>',
+        f'<text x="{width - 44}" y="52" font-family="{mono}" font-size="11" '
+        f'fill="{UI_PAPER_INDEX}" text-anchor="end" letter-spacing="1">WORK IN PROGRESS</text>',
+        f'<line x1="44" y1="72" x2="{width - 44}" y2="72" stroke="{UI_PAPER_LINE}" stroke-width="1"/>',
+        f'<text x="44" y="132" font-family="{serif}" font-size="34" fill="{UI_PAPER_TEXT}">'
+        f"{esc(tagline)}</text>",
+        f'<line x1="44" y1="164" x2="{width - 44}" y2="164" stroke="{UI_PAPER_LINE}" stroke-width="1"/>',
+    ]
+    for i, concept in enumerate(concepts):
+        x = 44 + i * 210
+        parts.append(
+            f'<text x="{x}" y="200" font-family="{mono}" font-size="12" '
+            f'fill="{UI_PAPER_INDEX}">{i + 1:02d}</text>'
+        )
+        parts.append(
+            f'<text x="{x + 30}" y="200" font-family="{mono}" font-size="15" font-weight="700" '
+            f'fill="{UI_PAPER_TEXT}" letter-spacing="2">{esc(str(concept.get("key") or ""))}</text>'
+        )
+        parts.append(
+            f'<text x="{x}" y="228" font-family="{serif}" font-size="13" fill="{UI_PAPER_TEXT}">'
+            f'{esc(str(concept.get("desc") or ""))}</text>'
+        )
+    parts.append(
+        f'<line x1="44" y1="252" x2="{width - 44}" y2="252" stroke="{UI_PAPER_LINE}" stroke-width="1"/>'
+    )
+    parts.append(
+        f'<text x="44" y="276" font-family="{serif}" font-size="12" fill="{UI_PAPER_INDEX}">'
+        "概念索引，不是四个同名 API。</text>"
+    )
+    parts.append(
+        f'<text x="{width - 44}" y="276" font-family="{mono}" font-size="12" '
+        f'fill="{UI_PAPER_INDEX}" text-anchor="end">{esc(host)}</text>'
+    )
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def render_origin_section(profile: dict) -> str:
+    flag = profile.get("flagship") or {}
+    concepts = list(profile.get("origin_concept") or [])
+    name = str(flag.get("name") or "ORIGIN")
     title = str(flag.get("title") or "")
     blurb = str(flag.get("blurb") or "")
     url = str(flag.get("url") or "https://genesis.wiki")
-    facts = str(flag.get("facts") or "")
-    inner = 64
-    def line(s: str) -> str:
-        s = s[:inner]
-        return "║  " + s.ljust(inner) + "║"
-
-    def wrap(s: str) -> list[str]:
-        words = s.split()
-        out: list[str] = []
-        cur = ""
-        for w in words:
-            trial = (cur + " " + w).strip()
-            if len(trial) <= inner:
-                cur = trial
-            else:
-                if cur:
-                    out.append(cur)
-                cur = w
-        if cur:
-            out.append(cur)
-        return out or [""]
-
-    body_lines = [line(f"{name}  ·  {kicker}"), "╠" + "═" * (inner + 2) + "╣", line("")]
-    for chunk in wrap(title) + wrap(blurb):
-        body_lines.append(line(chunk))
-    body_lines.extend([line(""), line(facts), line(f"open →  {url}")])
-    box = "\n".join(
-        ["╔" + "═" * (inner + 2) + "╗", *body_lines, "╚" + "═" * (inner + 2) + "╝"]
+    tagline = str(flag.get("zh_tagline") or "")
+    intro = "\n\n".join(str(p) for p in (flag.get("zh_intro") or []))
+    now = str(flag.get("zh_now") or "")
+    far = str(flag.get("zh_far") or "")
+    rows = "\n".join(
+        f"| `{esc(str(c.get('key') or ''))}` | {esc(str(c.get('desc') or ''))} |" for c in concepts
     )
+    img = "https://raw.githubusercontent.com/dwgx/DWGX/main/assets/origin-panel.svg"
+    alt = f"{name} — {title}: {blurb}"
     return f"""### `origin.genesis`
 
 <div align="center">
 
-```
-{box}
-```
+<img src="{img}" width="92%" alt="{esc(alt)}" />
 
-[{url.replace('https://', '')} →]({url})
+<sub>{esc(title)}</sub>
 
-</div>"""
+*{esc(tagline)}*
+
+</div>
+
+{intro}
+
+| 概念索引 | 含义 |
+| :-- | :-- |
+{rows}
+
+这四项是介绍用的概念索引，不是四个同名 API，也不是固定调用顺序。
+
+<details>
+<summary>当前在推进什么 / 更远的方向</summary>
+
+{now}
+
+{far}
+
+</details>
+
+[打开 genesis.wiki →]({url})"""
+
+
+def render_bbs_entry(gb: int, sign_href: str) -> str:
+    """BBS entry block, placed inside the existing `event.log` section."""
+    reply = sign_href if gb else "https://github.com/dwgx/DWGX/issues"
+    thread = f"https://github.com/dwgx/DWGX/issues/{gb}" if gb else reply
+    guest_label = f"回复 #{gb}" if gb else "打开 Issues"
+    tail = f"[打开 Event Log #{gb}]({thread})" if gb else "[打开 Issues]({})".format(thread)
+    return f"""留言，讨论，还有边做边写的记录。
+
+| 频道 | 放什么 | 入口 |
+| :-- | :-- | :-- |
+| `GUESTBOOK` | 留一句话 | [{guest_label}]({reply}) |
+| `TALK` | 聊问题、交换想法 | [打开 Issues](https://github.com/dwgx/DWGX/issues) |
+| `DEVLOG` | 记录一次有意义的推进 | 列表未接入 · 先发在 Issues 里 |
+| `PATCHES` | 真实的文件变更与审阅 | [主页仓库的 PR](https://github.com/dwgx/DWGX/pulls) |
+
+<details>
+<summary>写 DEVLOG / 使用约定</summary>
+
+一个问题或一个阶段开一篇：写清这次想解决什么、改了什么、看到了什么结果、还不确定什么。代码改动留在所属项目仓库，这里链接原 PR 或做复盘。
+
+留言正文在 GitHub 原帖阅读，首页不自动搬运每一条。所有内容公开，请不要贴密钥与私人资料。
+
+</details>
+
+没有接入的频道会直接写未接入，不用“0 条”代替未知。→ {tail}"""
 
 
 def shield_stars(n: int) -> str:
@@ -1486,25 +1645,27 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color={UI_SAKURA.lstrip('#')}&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
 
 <p>
-  <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
+  <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color={UI_SAKURA.lstrip('#')}&label=visits" />
   &nbsp;
-  <img src="https://img.shields.io/github/followers/dwgx?style=flat-square&color=f2a6c4&label=follow" />
+  <img src="https://img.shields.io/github/followers/dwgx?style=flat-square&color={UI_SAKURA.lstrip('#')}&label=follow" />
   &nbsp;
-  <img src="https://img.shields.io/github/stars/dwgx?style=flat-square&color=c9a84c&label=stars" />
+  <img src="https://img.shields.io/github/stars/dwgx?style=flat-square&color={UI_GOLD.lstrip('#')}&label=stars" />
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-{ctx['total_stars']}-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-{ctx['total_stars']}-{UI_GOLD.lstrip('#')}?style=flat-square&labelColor={UI_INK.lstrip('#')}" />
   &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-{ctx['public_repos']}-f2a6c4?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/public_repos-{ctx['public_repos']}-{UI_SAKURA.lstrip('#')}?style=flat-square&labelColor={UI_INK.lstrip('#')}" />
   &nbsp;
-  <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
+  <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color={UI_INK.lstrip('#')}&label=flagship%20WindsurfAPI" />
 </p>
 
 </div>
+
+{render_profile_nav()}
 
 ---
 
@@ -1599,7 +1760,7 @@ from  = {ship.get('came', 'MC clients')}
 
 ---
 
-{flagship_block(profile)}
+{render_origin_section(profile)}
 
 ---
 
@@ -1607,9 +1768,13 @@ from  = {ship.get('came', 'MC clients')}
 
 ### `pinned`
 
-{ctx['pinned_table']}
+{ctx['project_cards']}
+
+<sub>六个项目，保留原名单与原顺序；内部结构按接口 / 路由 / 索引 / 终端 / 对话 / 设置分开。</sub>
 
 </div>
+
+{ctx['legacy_pins']}
 
 ---
 
@@ -1663,6 +1828,10 @@ from  = {ship.get('came', 'MC clients')}
 <img src="https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=06020f" />
 <img src="https://img.shields.io/badge/Episodes-18-d4c8ef?style=flat-square&labelColor=06020f" />
 <img src="https://img.shields.io/badge/Format-BDRip-2d1b69?style=flat-square&labelColor=06020f" />
+
+<br/><br/>
+
+[影像 / 作品 →]({links['bilibili']}) · [演示 / 留档 →]({links['youtube']})
 
 </div>
 
@@ -1772,6 +1941,8 @@ from  = {ship.get('came', 'MC clients')}
 
 ### `event.log`
 
+{render_bbs_entry(gb, sign_href)}
+
 <p align="center">
 <a href="{sign_href}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg" height="30" alt="F1 Sign Event Log" /></a>
 </p>
@@ -1839,6 +2010,7 @@ def main() -> int:
         PANEL_MARK_COLOR = GREEN
     SVG.parent.mkdir(parents=True, exist_ok=True)
     SVG.write_text(process_svg(profile, by_name, tags), encoding="utf-8")
+    ORIGIN_SVG.write_text(origin_panel_svg(profile), encoding="utf-8")
     STATS_SVG.write_text(stats_svg(host, user, stars, extra), encoding="utf-8")
     LANGS_SVG.write_text(langs_svg(host, extra.get("langs") or []), encoding="utf-8")
     save_avatar(presence.get("avatar"), str(presence.get("status") or "offline"))
@@ -1898,7 +2070,8 @@ def main() -> int:
         "process_count": len(profile.get("process") or []),
         "recent": recent_log(events, by_name, overrides),
         "hardware": hardware_dump(profile, days),
-        "pinned_table": pinned_table(profile, by_name, public, stars),
+        "project_cards": render_project_cards(profile, by_name, tags, public, stars),
+        "legacy_pins": render_legacy_pins(profile, by_name),
         "stars_map": {k: int(v.get("stargazers_count") or 0) for k, v in by_name.items()},
         "tags": tags,
         "hexdump": hex_dump_block(),
@@ -1908,6 +2081,7 @@ def main() -> int:
     README.write_text(render_readme(profile, ctx).rstrip() + "\n", encoding="utf-8")
     print(f"wrote {README.relative_to(ROOT)}")
     print(f"wrote {SVG.relative_to(ROOT)}")
+    print(f"wrote {ORIGIN_SVG.relative_to(ROOT)}")
     print(f"wrote {STATS_SVG.relative_to(ROOT)}")
     print(f"wrote {LANGS_SVG.relative_to(ROOT)}")
     print(f"wrote {DISCORD_SVG.relative_to(ROOT)}")

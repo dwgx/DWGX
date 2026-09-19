@@ -40,6 +40,10 @@ jobs:
           python scripts/render_profile.py
 
       - name: commit
+        # Only the main branch is written by the bot. On PR branches this job still
+        # renders (validation); the commit step is skipped because the old form
+        # rebased onto main in a shallow checkout and conflicted on every commit.
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

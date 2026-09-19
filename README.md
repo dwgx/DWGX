@@ -1,9 +1,9 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.11  ·  generated 2026-09-19 19:50 JST          -->
+<!--  dwgx.menu  v2.12  ·  generated 2026-09-19 20:05 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg?t=1789815047" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg?t=1789815952" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <div align="center">
 
@@ -11,32 +11,34 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=F2A6C4&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=D6A0AC&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
 
 <p>
-  <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=f2a6c4&label=visits" />
+  <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=D6A0AC&label=visits" />
   &nbsp;
-  <img src="https://img.shields.io/github/followers/dwgx?style=flat-square&color=f2a6c4&label=follow" />
+  <img src="https://img.shields.io/github/followers/dwgx?style=flat-square&color=D6A0AC&label=follow" />
   &nbsp;
-  <img src="https://img.shields.io/github/stars/dwgx?style=flat-square&color=c9a84c&label=stars" />
+  <img src="https://img.shields.io/github/stars/dwgx?style=flat-square&color=CEB27C&label=stars" />
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/total_stars-3286-c9a84c?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/total_stars-3286-CEB27C?style=flat-square&labelColor=0F131B" />
   &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-105-f2a6c4?style=flat-square&labelColor=06020f" />
+  <img src="https://img.shields.io/badge/public_repos-105-D6A0AC?style=flat-square&labelColor=0F131B" />
   &nbsp;
-  <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2d1b69&label=flagship%20WindsurfAPI" />
+  <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=0F131B&label=flagship%20WindsurfAPI" />
 </p>
 
 </div>
+
+<p align="center"><samp>〔 <a href="#dwgxcfg">配置</a> / <a href="#origingenesis">ORIGIN</a> / <a href="#pinned">项目</a> / <a href="#featured">幻想万華鏡</a> / <a href="#eventlog">留言</a> 〕</samp></p>
 
 ---
 
 ### `dwgx.cfg`
 
 ```ini
-; 2026-09-19 19:50 JST
+; 2026-09-19 20:05 JST
 
 [who]
 name = dwgx
@@ -60,7 +62,7 @@ from  = MC clients
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1789815047" width="88%" alt="process.table" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1789815952" width="88%" alt="process.table" />
 
 </div>
 
@@ -72,7 +74,7 @@ from  = MC clients
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1789815047" width="100%" alt="AMIBIOS Boot" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1789815952" width="100%" alt="AMIBIOS Boot" />
 </p>
 
 </details>
@@ -85,7 +87,7 @@ from  = MC clients
 <summary>Main — last public work · open oh-my-pi · 2d ago · bug(compaction): first context_notes write of a fresh session is always </summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1789815047" width="100%" alt="AMIBIOS Main" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1789815952" width="100%" alt="AMIBIOS Main" />
 </p>
 
 </details>
@@ -94,7 +96,7 @@ from  = MC clients
 <summary>Advanced — git HEADs as IDE devices</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1789815047" width="100%" alt="AMIBIOS Advanced" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1789815952" width="100%" alt="AMIBIOS Advanced" />
 </p>
 
 </details>
@@ -103,7 +105,7 @@ from  = MC clients
 <summary>Log — public events</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1789815047" width="100%" alt="AMIBIOS Log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1789815952" width="100%" alt="AMIBIOS Log" />
 </p>
 
 </details>
@@ -114,12 +116,12 @@ from  = MC clients
 
 <details>
 <summary>POST — CPU cache · memory test · IDE auto-detect</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1789815047" width="100%" alt="POST" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1789815952" width="100%" alt="POST" /></p>
 </details>
 
 <details>
 <summary>DMI — SMBIOS Type 0 BIOS · Type 1 system · Type 2 ROG · Type 3 Homecloud</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1789815047" width="100%" alt="DMI" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1789815952" width="100%" alt="DMI" /></p>
 </details>
 
 ---
@@ -128,29 +130,103 @@ from  = MC clients
 
 <div align="center">
 
-```
-╔══════════════════════════════════════════════════════════════════╗
-║  ORIGIN  ·  Genesis Protocol                                     ║
-╠══════════════════════════════════════════════════════════════════╣
-║                                                                  ║
-║  A world with laws, so AI can live in it.                        ║
-║  The model is a resident, not the source of truth. Every change  ║
-║  has a cause.                                                    ║
-║                                                                  ║
-║  9 layers · 6 promises · 200+ traditions                         ║
-║  open →  https://genesis.wiki                                    ║
-╚══════════════════════════════════════════════════════════════════╝
-```
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/origin-panel.svg?t=1789815952" width="92%" alt="ORIGIN — World protocol · causal history · replay: Declare a world, let change happen under its laws, and preserve cause and result in replayable history." />
 
-[genesis.wiki →](https://genesis.wiki)
+<sub>World protocol · causal history · replay</sub>
+
+*万物有其源。变化有其因。*
 
 </div>
+
+我正在构建一套世界协议与参考运行时。先声明法则、时间和初始条件，再让变化在这些约束里发生，留下原因、依据与结果。
+
+模型可以参与观察和决策，但输出本身不是世界事实。叙事应该解释发生过的事情，而不是反过来改写它。
+
+| 概念索引 | 含义 |
+| :-- | :-- |
+| `DECLARE` | 定义世界可以发生什么 |
+| `RESOLVE` | 在约束内处理变化 |
+| `RECORD` | 保留变化的原因与结果 |
+| `REPLAY` | 对保留的历史进行一致性核验 |
+
+这四项是介绍用的概念索引，不是四个同名 API，也不是固定调用顺序。
+
+<details>
+<summary>当前在推进什么 / 更远的方向</summary>
+
+当前围绕世界声明、执行内核、因果记录和重放核验推进。更完整的生命、生态、社会与文明演化，是继续研究的方向，不是已完成的功能清单。
+
+我希望历史来自规则、资源、时间与相互作用，而不是预先写好的剧情。重放核验能检查执行一致性，本身不证明世界模型符合现实。
+
+</details>
+
+[打开 genesis.wiki →](https://genesis.wiki)
 
 ---
 
 <div align="center">
 
 ### `pinned`
+
+<table>
+<tr>
+<td width="50%" valign="top" align="left">
+<p><samp>01 / 逆向笔记</samp></p>
+<h4><a href="https://github.com/dwgx/vrchat-il2cpp-re">vrchat-il2cpp-re</a></h4>
+<p>整理 VRChat 的 IL2CPP 结构，让类、方法与字段成为可以继续查阅的研究材料。</p>
+<p><code>classes</code> <code>methods</code> <code>fields</code><br /><sub>Unity / IL2CPP · C# · ★29</sub></p>
+<p><a href="https://github.com/dwgx/vrchat-il2cpp-re">打开项目 →</a></p>
+</td>
+<td width="50%" valign="top" align="left">
+<p><samp>02 / 协议网关</samp></p>
+<h4><a href="https://github.com/dwgx/KiroStudio">KiroStudio</a></h4>
+<p>把 Anthropic Messages 请求转接到 Kiro / AWS Q，配合凭据调度和内置管理面板。</p>
+<p><samp>Messages → Gateway → Kiro</samp><br /><sub>proto-bridge + pool · Rust · ★14 · v1.2.4</sub></p>
+<p><a href="https://github.com/dwgx/KiroStudio">打开项目 →</a></p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top" align="left">
+<p><samp>03 / 接口适配</samp></p>
+<h4><a href="https://github.com/dwgx/WindsurfAPI">WindsurfAPI</a></h4>
+<p>为 Windsurf / Devin 接入提供多协议接口，把兼容边界、部署和更新留在项目文档里。</p>
+<p><code>Chat</code> · <code>Responses</code> · <code>Messages</code> · <code>Gemini</code><br /><sub>multi-protocol · zero-dep · JavaScript · ★3,023 · v3.9.37</sub></p>
+<p><a href="https://github.com/dwgx/WindsurfAPI">打开项目 →</a></p>
+</td>
+<td width="50%" valign="top" align="left">
+<p><samp>04 / 终端工具</samp></p>
+<h4><a href="https://github.com/dwgx/SmartCLI">SmartCLI</a></h4>
+<p>读取真实终端的屏幕状态，再操作、等待并确认结果；不只是把命令塞进字节流。</p>
+<p><samp>$ read → act → confirm</samp><br /><sub>PTY + pyte · Python · ★3</sub></p>
+<p><a href="https://github.com/dwgx/SmartCLI">打开项目 →</a></p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top" align="left">
+<p><samp>05 / 聊天与工具</samp></p>
+<h4><a href="https://github.com/dwgx/YuKiKo">YuKiKo</a></h4>
+<p>连接 QQ 对话、模型与工具，配合插件和 Web 管理界面。</p>
+<p><code>QQ</code> ⇄ <code>OneBot</code> ⇄ <code>Tools</code><br /><sub>NoneBot2 / OneBot V11 · Python · ★20</sub></p>
+<p><a href="https://github.com/dwgx/YuKiKo">打开项目 →</a></p>
+</td>
+<td width="50%" valign="top" align="left">
+<p><samp>06 / 桌面工具</samp></p>
+<h4><a href="https://github.com/dwgx/VRCSM">VRCSM</a></h4>
+<p>面向 VRChat 的 Windows 桌面工具，把缓存和配置放进可操作的界面。</p>
+<p><samp>cache / config / desktop</samp><br /><sub>VRChat / Windows · C++ / TypeScript · ★3 · v0.16.5</sub></p>
+<p><a href="https://github.com/dwgx/VRCSM">打开项目 →</a></p>
+</td>
+</tr>
+</table>
+
+[105 public repos · 3,286 stars · browse all →](https://github.com/dwgx?tab=repositories)
+
+<sub>六个项目，保留原名单与原顺序；内部结构按接口 / 路由 / 索引 / 终端 / 对话 / 设置分开。</sub>
+
+</div>
+
+<details>
+<summary>原版 ASCII 卡片 / 设计快照（数字与阶段不是实时数据）</summary>
 
 <table>
 <tr>
@@ -171,8 +247,6 @@ from  = MC clients
 ╚══════════════════════════╝
 ```
 
-[open module →](https://github.com/dwgx/vrchat-il2cpp-re)
-
 </td>
 <td width="33%" valign="top">
 
@@ -191,8 +265,6 @@ from  = MC clients
 ╚══════════════════════════╝
 ```
 
-[open module →](https://github.com/dwgx/KiroStudio)
-
 </td>
 <td width="33%" valign="top">
 
@@ -206,12 +278,10 @@ from  = MC clients
 ║  zero-dep self-host      ║
 ║                          ║
 ║  lang  · JavaScript      ║
-║  stage · flagship ★3023  ║
+║  stage · flagship        ║
 ║  diff  · ★★☆☆☆           ║
 ╚══════════════════════════╝
 ```
-
-[open module →](https://github.com/dwgx/WindsurfAPI)
 
 </td>
 </tr>
@@ -233,8 +303,6 @@ from  = MC clients
 ╚══════════════════════════╝
 ```
 
-[open module →](https://github.com/dwgx/SmartCLI)
-
 </td>
 <td width="33%" valign="top">
 
@@ -253,8 +321,6 @@ from  = MC clients
 ╚══════════════════════════╝
 ```
 
-[open module →](https://github.com/dwgx/YuKiKo)
-
 </td>
 <td width="33%" valign="top">
 
@@ -267,21 +333,17 @@ from  = MC clients
 ║  Windows desktop app     ║
 ║  C++20 + WebView2 + TS   ║
 ║                          ║
-║  lang  · TypeScript      ║
+║  lang  · C++ / TypeScript║
 ║  stage · shipping        ║
 ║  diff  · ★★★☆☆           ║
 ╚══════════════════════════╝
 ```
 
-[open module →](https://github.com/dwgx/VRCSM)
-
 </td>
 </tr>
 </table>
 
-[105 public repos · 3286 stars · browse all →](https://github.com/dwgx?tab=repositories)
-
-</div>
+</details>
 
 ---
 
@@ -345,12 +407,12 @@ from  = MC clients
 ### `discord.presence`
 
 <a href="https://discord.com/users/1284670281926967336">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1789815047" alt="discord presence" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1789815952" alt="discord presence" />
 </a>
 
 <br/>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1789815047" alt="bili.stat" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1789815952" alt="bili.stat" />
 
 </div>
 
@@ -362,7 +424,7 @@ from  = MC clients
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1789815047" width="640" alt="幻想万華鏡" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1789815952" width="640" alt="幻想万華鏡" />
 
 <br/>
 
@@ -374,6 +436,10 @@ from  = MC clients
 <img src="https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=06020f" />
 <img src="https://img.shields.io/badge/Episodes-18-d4c8ef?style=flat-square&labelColor=06020f" />
 <img src="https://img.shields.io/badge/Format-BDRip-2d1b69?style=flat-square&labelColor=06020f" />
+
+<br/><br/>
+
+[影像 / 作品 →](https://space.bilibili.com/1452905012) · [演示 / 留档 →](https://www.youtube.com/@dwgx1337)
 
 </div>
 
@@ -387,7 +453,7 @@ from  = MC clients
 
 ### `stack`
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1789815047" width="92%" alt="stack" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1789815952" width="92%" alt="stack" />
 
 </div>
 
@@ -428,9 +494,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg?t=1789815047" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1789815047" />
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1789815047" width="100%" alt="3d contribution" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg?t=1789815952" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1789815952" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1789815952" width="100%" alt="3d contribution" />
 </picture>
 
 </div>
@@ -441,9 +507,9 @@ from  = MC clients
 
 <div align="center">
 
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1789815047" alt="stats.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1789815952" alt="stats.panel" />
 &nbsp;&nbsp;
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1789815047" alt="langs.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1789815952" alt="langs.panel" />
 
 </div>
 
@@ -454,9 +520,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg?t=1789815047" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1789815047" />
-  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1789815047" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg?t=1789815952" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1789815952" />
+  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1789815952" width="100%" />
 </picture>
 
 </div>
@@ -479,25 +545,45 @@ from  = MC clients
 ### `hotkeys`
 
 <p align="center">
-<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=1789815047" height="48" alt="DEL Setup" /></a>
-<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=1789815047" height="48" alt="F2 HDD-0 ORIGIN" /></a>
-<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=1789815047" height="48" alt="F8 BBS YouTube" /></a>
-<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=1789815047" height="48" alt="F9 BBS Bilibili" /></a>
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=1789815047" height="48" alt="F10 maybe I'm dwgx" />
+<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=1789815952" height="48" alt="DEL Setup" /></a>
+<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=1789815952" height="48" alt="F2 HDD-0 ORIGIN" /></a>
+<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=1789815952" height="48" alt="F8 BBS YouTube" /></a>
+<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=1789815952" height="48" alt="F9 BBS Bilibili" /></a>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=1789815952" height="48" alt="F10 maybe I'm dwgx" />
 </p>
 
 ### `event.log`
 
+留言，讨论，还有边做边写的记录。
+
+| 频道 | 放什么 | 入口 |
+| :-- | :-- | :-- |
+| `GUESTBOOK` | 留一句话 | [回复 #5](https://github.com/dwgx/DWGX/issues/5#issuecomment-new) |
+| `TALK` | 聊问题、交换想法 | [打开 Issues](https://github.com/dwgx/DWGX/issues) |
+| `DEVLOG` | 记录一次有意义的推进 | 列表未接入 · 先发在 Issues 里 |
+| `PATCHES` | 真实的文件变更与审阅 | [主页仓库的 PR](https://github.com/dwgx/DWGX/pulls) |
+
+<details>
+<summary>写 DEVLOG / 使用约定</summary>
+
+一个问题或一个阶段开一篇：写清这次想解决什么、改了什么、看到了什么结果、还不确定什么。代码改动留在所属项目仓库，这里链接原 PR 或做复盘。
+
+留言正文在 GitHub 原帖阅读，首页不自动搬运每一条。所有内容公开，请不要贴密钥与私人资料。
+
+</details>
+
+没有接入的频道会直接写未接入，不用“0 条”代替未知。→ [打开 Event Log #5](https://github.com/dwgx/DWGX/issues/5)
+
 <p align="center">
-<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=1789815047" height="30" alt="F1 Sign Event Log" /></a>
+<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=1789815952" height="30" alt="F1 Sign Event Log" /></a>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=1789815047" width="100%" alt="event.log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=1789815952" width="100%" alt="event.log" />
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=1789815047" height="30" width="62%" alt="VGA marquee" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=1789815047" height="30" alt="Best viewed with AMIBIOS" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=1789815047" height="30" alt="80x25 VGA" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=1789815952" height="30" width="62%" alt="VGA marquee" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=1789815952" height="30" alt="Best viewed with AMIBIOS" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=1789815952" height="30" alt="80x25 VGA" />
 </p>

@@ -4,7 +4,7 @@
 
 login = "dwgx"
 prompt = "dwgx@main"
-version = "2.11"
+version = "2.12"
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
 
@@ -20,11 +20,12 @@ kiro = "rust · kiro gateway"
 also = "VRChat RE · SmartCLI"
 came = "MC clients"
 
-# GitHub native pins should match this order (6 max).
+# GitHub native pins should match the [[pin]] order below (6 max).
+# [[pin]] is the source of truth for the profile cards; keep this list identical.
 pins = [
-  "WindsurfAPI",
-  "KiroStudio",
   "vrchat-il2cpp-re",
+  "KiroStudio",
+  "WindsurfAPI",
   "SmartCLI",
   "YuKiKo",
   "VRCSM",
@@ -110,9 +111,9 @@ note = "genesis.wiki"
 [[process]]
 name = "MCPClient"
 lang = "java"
-status = "PRIVATE"
-status_color = "#8b949e"
-note = "mcp.router"
+status = "PUBLIC"
+status_color = "#7ee787"
+note = "mcp.router · mc1.8.9"
 
 [[process]]
 name = "homecloud"
@@ -121,48 +122,68 @@ status = "WORKER"
 status_color = "#7ee787"
 note = "debian13 · rtx3060"
 
+# 项目卡。结构由 form 决定：index 分类索引 / route 文字路由 / protocol 协议字段 /
+# loop 读取-行动-确认 / link 对话与工具 / settings 设置字段。
+# stars、release、时间一律由生成器从 GitHub 读，禁止写死。legacy 是旧 ASCII 快照，不是实时数据。
 [[pin]]
 name = "vrchat-il2cpp-re"
-blurb = "64K classes\n570K methods · 188K fld\nUnity 6 baseline RE"
+tag = "01 / 逆向笔记"
+form = "index"
+role = "整理 VRChat 的 IL2CPP 结构，让类、方法与字段成为可以继续查阅的研究材料。"
+items = ["classes", "methods", "fields"]
+tech = "Unity / IL2CPP"
 lang = "C#"
-stage = "live"
-diff = "★★★★☆"
+legacy = { blurb = "64K classes\n570K methods · 188K fld\nUnity 6 baseline RE", stage = "live", diff = "★★★★☆" }
 
 [[pin]]
 name = "KiroStudio"
-blurb = "Kiro unified gateway\nproto-bridge + pool\nRust + SQLite + Docker"
+tag = "02 / 协议网关"
+form = "route"
+role = "把 Anthropic Messages 请求转接到 Kiro / AWS Q，配合凭据调度和内置管理面板。"
+items = ["Messages", "Gateway", "Kiro"]
+tech = "proto-bridge + pool"
 lang = "Rust"
-stage = "shipping"
-diff = "★★★★☆"
+legacy = { blurb = "Kiro unified gateway\nproto-bridge + pool\nRust + SQLite + Docker", stage = "shipping", diff = "★★★★☆" }
 
 [[pin]]
 name = "WindsurfAPI"
-blurb = "Windsurf ⇄ OpenAI\n100+ models · 3 APIs\nzero-dep self-host"
+tag = "03 / 接口适配"
+form = "protocol"
+role = "为 Windsurf / Devin 接入提供多协议接口，把兼容边界、部署和更新留在项目文档里。"
+items = ["Chat", "Responses", "Messages", "Gemini"]
+tech = "multi-protocol · zero-dep"
 lang = "JavaScript"
-stage = "flagship"
-diff = "★★☆☆☆"
-star_in_stage = true
+legacy = { blurb = "Windsurf ⇄ OpenAI\n100+ models · 3 APIs\nzero-dep self-host", stage = "flagship", diff = "★★☆☆☆" }
 
 [[pin]]
 name = "SmartCLI"
-blurb = "3 agent skills · 1 PTY\npyte cell-accurate TUI\npip smartcli-toolkit"
+tag = "04 / 终端工具"
+form = "loop"
+role = "读取真实终端的屏幕状态，再操作、等待并确认结果；不只是把命令塞进字节流。"
+items = ["read", "act", "confirm"]
+tech = "PTY + pyte"
 lang = "Python"
-stage = "shipped"
-diff = "★★★☆☆"
+legacy = { blurb = "3 agent skills · 1 PTY\npyte cell-accurate TUI\npip smartcli-toolkit", stage = "shipped", diff = "★★★☆☆" }
 
 [[pin]]
 name = "YuKiKo"
-blurb = "AI QQ bot · OneBot\nNapCat + LLM routing\nplugins + WebUI"
+tag = "05 / 聊天与工具"
+form = "link"
+role = "连接 QQ 对话、模型与工具，配合插件和 Web 管理界面。"
+items = ["QQ", "OneBot", "Tools"]
+tech = "NoneBot2 / OneBot V11"
 lang = "Python"
-stage = "live"
-diff = "★★★☆☆"
+legacy = { blurb = "AI QQ bot · OneBot\nNapCat + LLM routing\nplugins + WebUI", stage = "live", diff = "★★★☆☆" }
 
 [[pin]]
 name = "VRCSM"
-blurb = "VRChat cache / config\nWindows desktop app\nC++20 + WebView2 + TS"
-lang = "TypeScript"
-stage = "shipping"
-diff = "★★★☆☆"
+tag = "06 / 桌面工具"
+form = "settings"
+role = "面向 VRChat 的 Windows 桌面工具，把缓存和配置放进可操作的界面。"
+items = ["cache", "config", "desktop"]
+tech = "VRChat / Windows"
+lang = "C++ / TypeScript"
+legacy = { blurb = "VRChat cache / config\nWindows desktop app\nC++20 + WebView2 + TS", stage = "shipping", diff = "★★★☆☆" }
 
 [guestbook]
 issue = 5
@@ -179,13 +200,38 @@ discord_id = "1284670281926967336"
 qq_avatar = "https://q1.qlogo.cn/g?b=qq&nk=136666451&s=640"
 genesis = "https://genesis.wiki"
 
+# ORIGIN 公共文案：世界协议 / 法则 / 因果记录 / 历史回放。
+# 中文正文由渲染器集中取用，不要把这些句子散进多个模板里。
 [flagship]
 name = "ORIGIN"
-kicker = "Genesis Protocol"
-title = "A world with laws, so AI can live in it."
-blurb = "The model is a resident, not the source of truth. Every change has a cause."
+kicker = "The Root Source"
+title = "World protocol · causal history · replay"
+blurb = "Declare a world, let change happen under its laws, and preserve cause and result in replayable history."
 url = "https://genesis.wiki"
-facts = "9 layers · 6 promises · 200+ traditions"
+zh_tagline = "万物有其源。变化有其因。"
+zh_intro = [
+  "我正在构建一套世界协议与参考运行时。先声明法则、时间和初始条件，再让变化在这些约束里发生，留下原因、依据与结果。",
+  "模型可以参与观察和决策，但输出本身不是世界事实。叙事应该解释发生过的事情，而不是反过来改写它。",
+]
+zh_now = "当前围绕世界声明、执行内核、因果记录和重放核验推进。更完整的生命、生态、社会与文明演化，是继续研究的方向，不是已完成的功能清单。"
+zh_far = "我希望历史来自规则、资源、时间与相互作用，而不是预先写好的剧情。重放核验能检查执行一致性，本身不证明世界模型符合现实。"
+
+# 概念索引，不是四个同名 API。
+[[origin_concept]]
+key = "DECLARE"
+desc = "定义世界可以发生什么"
+
+[[origin_concept]]
+key = "RESOLVE"
+desc = "在约束内处理变化"
+
+[[origin_concept]]
+key = "RECORD"
+desc = "保留变化的原因与结果"
+
+[[origin_concept]]
+key = "REPLAY"
+desc = "对保留的历史进行一致性核验"
 
 [log_desc]
 beautify-console = "VS Code / JetBrains style visual editor"

@@ -1,13 +1,13 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.12  ·  generated 2026-09-23 23:52 JST          -->
+<!--  dwgx.menu  v2.12  ·  generated 2026-09-24 00:28 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg?t=1790175134" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg?t=1790177297" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <!-- DWGX-ORNAMENT:faceplate:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-faceplate.svg?t=1790175134" width="100%" alt="dwgx.menu / personal-machine faceplate" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-faceplate.svg?t=1790177297" width="100%" alt="dwgx.menu / personal-machine faceplate" />
 </p>
 <!-- DWGX-ORNAMENT:faceplate:END -->
 
@@ -40,12 +40,12 @@
 <a name="dwgx-boot-menu"></a>
 <!-- DWGX-ORNAMENT:boot-menu:BEGIN -->
 <p align="center">
-<a href="#dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-01.svg?t=1790175134" width="124" alt="MAIN — jump to section" /></a>
-<a href="#processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-02.svg?t=1790175134" width="124" alt="PROCESS — jump to section" /></a>
-<a href="#origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-03.svg?t=1790175134" width="124" alt="ORIGIN — jump to section" /></a>
-<a href="#pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-04.svg?t=1790175134" width="124" alt="MODULES — jump to section" /></a>
-<a href="#featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-05.svg?t=1790175134" width="124" alt="PHANTASM — jump to section" /></a>
-<a href="#eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-06.svg?t=1790175134" width="124" alt="GUESTBOOK — jump to section" /></a>
+<a href="#dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-01.svg?t=1790177297" width="124" alt="MAIN — jump to section" /></a>
+<a href="#processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-02.svg?t=1790177297" width="124" alt="PROCESS — jump to section" /></a>
+<a href="#origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-03.svg?t=1790177297" width="124" alt="ORIGIN — jump to section" /></a>
+<a href="#pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-04.svg?t=1790177297" width="124" alt="MODULES — jump to section" /></a>
+<a href="#featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-05.svg?t=1790177297" width="124" alt="PHANTASM — jump to section" /></a>
+<a href="#eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-key-06.svg?t=1790177297" width="124" alt="GUESTBOOK — jump to section" /></a>
 </p>
 <!-- DWGX-ORNAMENT:boot-menu:END -->
 
@@ -55,14 +55,14 @@
 
 <!-- DWGX-ORNAMENT:rail-01:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-01.svg?t=1790175134" width="100%" alt="SYSTEM CONFIGURATION" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-01.svg?t=1790177297" width="100%" alt="SYSTEM CONFIGURATION" />
 </p>
 <!-- DWGX-ORNAMENT:rail-01:END -->
 
 ### `dwgx.cfg`
 
 ```ini
-; 2026-09-23 23:52 JST
+; 2026-09-24 00:28 JST
 
 [who]
 name = dwgx
@@ -84,7 +84,7 @@ from  = MC clients
 
 <!-- DWGX-ORNAMENT:rail-02:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-02.svg?t=1790175134" width="100%" alt="PROCESS MEMORY" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-02.svg?t=1790177297" width="100%" alt="PROCESS MEMORY" />
 </p>
 <!-- DWGX-ORNAMENT:rail-02:END -->
 
@@ -92,7 +92,7 @@ from  = MC clients
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1790175134" width="88%" alt="process.table" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1790177297" width="88%" alt="process.table" />
 
 </div>
 
@@ -104,7 +104,7 @@ from  = MC clients
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1790175134" width="100%" alt="AMIBIOS Boot" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1790177297" width="100%" alt="AMIBIOS Boot" />
 </p>
 
 </details>
@@ -117,7 +117,7 @@ from  = MC clients
 <summary>Main — last public work · open oh-my-pi · 6d ago · bug(compaction): first context_notes write of a fresh session is always </summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1790175134" width="100%" alt="AMIBIOS Main" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1790177297" width="100%" alt="AMIBIOS Main" />
 </p>
 
 </details>
@@ -126,7 +126,7 @@ from  = MC clients
 <summary>Advanced — git HEADs as IDE devices</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1790175134" width="100%" alt="AMIBIOS Advanced" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1790177297" width="100%" alt="AMIBIOS Advanced" />
 </p>
 
 </details>
@@ -135,7 +135,7 @@ from  = MC clients
 <summary>Log — public events</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1790175134" width="100%" alt="AMIBIOS Log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1790177297" width="100%" alt="AMIBIOS Log" />
 </p>
 
 </details>
@@ -146,19 +146,19 @@ from  = MC clients
 
 <details>
 <summary>POST — CPU cache · memory test · IDE auto-detect</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1790175134" width="100%" alt="POST" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1790177297" width="100%" alt="POST" /></p>
 </details>
 
 <details>
 <summary>DMI — SMBIOS Type 0 BIOS · Type 1 system · Type 2 ROG · Type 3 Homecloud</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1790175134" width="100%" alt="DMI" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1790177297" width="100%" alt="DMI" /></p>
 </details>
 
 ---
 
 <!-- DWGX-ORNAMENT:rail-03:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-03.svg?t=1790175134" width="100%" alt="GENESIS CHAMBER" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-03.svg?t=1790177297" width="100%" alt="GENESIS CHAMBER" />
 </p>
 <!-- DWGX-ORNAMENT:rail-03:END -->
 
@@ -166,7 +166,7 @@ from  = MC clients
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/origin-panel.svg?t=1790175134" width="92%" alt="ORIGIN — World protocol · causal history · replay: Declare a world, let change happen under its laws, and preserve cause and result in replayable history." />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/origin-panel.svg?t=1790177297" width="92%" alt="ORIGIN — World protocol · causal history · replay: Declare a world, let change happen under its laws, and preserve cause and result in replayable history." />
 
 <sub>World protocol · causal history · replay</sub>
 
@@ -202,7 +202,7 @@ from  = MC clients
 
 <!-- DWGX-ORNAMENT:rail-04:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-04.svg?t=1790175134" width="100%" alt="EXPANSION SLOTS" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-04.svg?t=1790177297" width="100%" alt="EXPANSION SLOTS" />
 </p>
 <!-- DWGX-ORNAMENT:rail-04:END -->
 
@@ -213,24 +213,24 @@ from  = MC clients
 <table>
 <tr>
 <td width="33%" valign="top" align="center">
-<a href="https://github.com/dwgx/vrchat-il2cpp-re"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-vrchat-il2cpp-re.svg?t=1790175134" width="100%" alt="vrchat-il2cpp-re release archive" /></a>
+<a href="https://github.com/dwgx/vrchat-il2cpp-re"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-vrchat-il2cpp-re.svg?t=1790177297" width="100%" alt="vrchat-il2cpp-re release archive" /></a>
 </td>
 <td width="33%" valign="top" align="center">
-<a href="https://github.com/dwgx/KiroStudio"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-kirostudio.svg?t=1790175134" width="100%" alt="KiroStudio release archive" /></a>
+<a href="https://github.com/dwgx/KiroStudio"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-kirostudio.svg?t=1790177297" width="100%" alt="KiroStudio release archive" /></a>
 </td>
 <td width="33%" valign="top" align="center">
-<a href="https://github.com/dwgx/WindsurfAPI"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-windsurfapi.svg?t=1790175134" width="100%" alt="WindsurfAPI release archive" /></a>
+<a href="https://github.com/dwgx/WindsurfAPI"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-windsurfapi.svg?t=1790177297" width="100%" alt="WindsurfAPI release archive" /></a>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top" align="center">
-<a href="https://github.com/dwgx/SmartCLI"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-smartcli.svg?t=1790175134" width="100%" alt="SmartCLI release archive" /></a>
+<a href="https://github.com/dwgx/SmartCLI"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-smartcli.svg?t=1790177297" width="100%" alt="SmartCLI release archive" /></a>
 </td>
 <td width="33%" valign="top" align="center">
-<a href="https://github.com/dwgx/MCPClient"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-mcpclient.svg?t=1790175134" width="100%" alt="MCPClient release archive" /></a>
+<a href="https://github.com/dwgx/MCPClient"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-mcpclient.svg?t=1790177297" width="100%" alt="MCPClient release archive" /></a>
 </td>
 <td width="33%" valign="top" align="center">
-<a href="https://github.com/dwgx/VRCSM"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-vrcsm.svg?t=1790175134" width="100%" alt="VRCSM release archive" /></a>
+<a href="https://github.com/dwgx/VRCSM"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/disk-vrcsm.svg?t=1790177297" width="100%" alt="VRCSM release archive" /></a>
 </td>
 </tr>
 </table>
@@ -417,15 +417,15 @@ from  = MC clients
 ### `release.disks`
 
 <p align="center">
-<a href="https://github.com/dwgx/WindsurfAPI/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-windsurf.svg?t=1790175134" width="260" alt="WindsurfAPI — release archive" /></a>
-<a href="https://github.com/dwgx/KiroStudio/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-kiro.svg?t=1790175134" width="260" alt="KiroStudio — release archive" /></a>
-<a href="https://github.com/dwgx/SmartCLI/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-smartcli.svg?t=1790175134" width="260" alt="SmartCLI — release archive" /></a>
+<a href="https://github.com/dwgx/WindsurfAPI/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-windsurf.svg?t=1790177297" width="260" alt="WindsurfAPI — release archive" /></a>
+<a href="https://github.com/dwgx/KiroStudio/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-kiro.svg?t=1790177297" width="260" alt="KiroStudio — release archive" /></a>
+<a href="https://github.com/dwgx/SmartCLI/releases"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-disk-smartcli.svg?t=1790177297" width="260" alt="SmartCLI — release archive" /></a>
 </p>
 <p align="center"><sub>发布档案入口 · 点开查看版本与说明</sub></p>
 
 ### `demo.deck`
 
-<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-demo-deck.svg?t=1790175134" width="100%" alt="SmartCLI — open the existing project demonstration" /></a></p>
+<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-demo-deck.svg?t=1790177297" width="100%" alt="SmartCLI — open the existing project demonstration" /></a></p>
 
 <details>
 <summary>PLAY 01 · 看 SmartCLI 已有的 lazygit 演示</summary>
@@ -457,13 +457,13 @@ from  = MC clients
 
 <!-- DWGX-ORNAMENT:rail-05:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-05.svg?t=1790175134" width="100%" alt="MACHINE INVENTORY" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-05.svg?t=1790177297" width="100%" alt="MACHINE INVENTORY" />
 </p>
 <!-- DWGX-ORNAMENT:rail-05:END -->
 
 <!-- DWGX-ORNAMENT:io-panel:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-io.svg?t=1790175134" width="100%" alt="Decorative rear I/O panel" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-io.svg?t=1790177297" width="100%" alt="Decorative rear I/O panel" />
 </p>
 <!-- DWGX-ORNAMENT:io-panel:END -->
 
@@ -498,7 +498,7 @@ from  = MC clients
                │  audio      AirPods Pro 3 · Panasonic SL-CT790 │
                │  vr         Meta Quest 3                       │
                │                                                │
-               │  uptime     5924 days                          │
+               │  uptime     5925 days                          │
                │  status     online · JST+9                     │
                ╰────────────────────────────────────────────────╯
 ```
@@ -510,12 +510,12 @@ from  = MC clients
 ### `discord.presence`
 
 <a href="https://discord.com/users/1284670281926967336">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1790175134" alt="discord presence" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1790177297" alt="discord presence" />
 </a>
 
 <br/>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1790175134" alt="bili.stat" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1790177297" alt="bili.stat" />
 
 </div>
 
@@ -527,7 +527,7 @@ from  = MC clients
 
 <!-- DWGX-ORNAMENT:media-aux:BEGIN -->
 <p align="center">
-<a href="https://github.com/dwgx/NewAppleMusicPlayer"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-media-aux.svg?t=1790175134" width="640" alt="NewAppleMusicPlayer — project link, decorative equalizer" /></a>
+<a href="https://github.com/dwgx/NewAppleMusicPlayer"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-media-aux.svg?t=1790177297" width="640" alt="NewAppleMusicPlayer — project link, decorative equalizer" /></a>
 </p>
 <!-- DWGX-ORNAMENT:media-aux:END -->
 
@@ -537,13 +537,13 @@ from  = MC clients
 
 <!-- DWGX-ORNAMENT:rail-06:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-06.svg?t=1790175134" width="100%" alt="PHANTASM ARCHIVE" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-06.svg?t=1790177297" width="100%" alt="PHANTASM ARCHIVE" />
 </p>
 <!-- DWGX-ORNAMENT:rail-06:END -->
 
 <!-- DWGX-ORNAMENT:phantasm:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-phantasm.svg?t=1790175134" width="100%" alt="Touhou / The Memories of Phantasm danmaku ornament" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-phantasm.svg?t=1790177297" width="100%" alt="Touhou / The Memories of Phantasm danmaku ornament" />
 </p>
 <!-- DWGX-ORNAMENT:phantasm:END -->
 
@@ -553,7 +553,7 @@ from  = MC clients
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1790175134" width="640" alt="幻想万華鏡" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1790177297" width="640" alt="幻想万華鏡" />
 
 <br/>
 
@@ -582,7 +582,7 @@ from  = MC clients
 
 ### `stack`
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1790175134" width="92%" alt="stack" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1790177297" width="92%" alt="stack" />
 
 </div>
 
@@ -604,7 +604,7 @@ from  = MC clients
 <img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
 <img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5924_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-5925_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
 
 <br/>
 
@@ -620,7 +620,7 @@ from  = MC clients
 
 <!-- DWGX-ORNAMENT:rail-07:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-07.svg?t=1790175134" width="100%" alt="ACTIVITY MEMORY" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-07.svg?t=1790177297" width="100%" alt="ACTIVITY MEMORY" />
 </p>
 <!-- DWGX-ORNAMENT:rail-07:END -->
 
@@ -629,9 +629,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg?t=1790175134" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1790175134" />
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1790175134" width="100%" alt="3d contribution" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg?t=1790177297" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1790177297" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=1790177297" width="100%" alt="3d contribution" />
 </picture>
 
 </div>
@@ -642,9 +642,9 @@ from  = MC clients
 
 <div align="center">
 
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1790175134" alt="stats.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1790177297" alt="stats.panel" />
 &nbsp;&nbsp;
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1790175134" alt="langs.panel" />
+<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1790177297" alt="langs.panel" />
 
 </div>
 
@@ -655,9 +655,9 @@ from  = MC clients
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg?t=1790175134" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1790175134" />
-  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1790175134" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg?t=1790177297" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1790177297" />
+  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg?t=1790177297" width="100%" />
 </picture>
 
 </div>
@@ -680,39 +680,39 @@ from  = MC clients
 ### `hotkeys`
 
 <p align="center">
-<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=1790175134" height="48" alt="DEL Setup" /></a>
-<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=1790175134" height="48" alt="F2 HDD-0 ORIGIN" /></a>
-<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=1790175134" height="48" alt="F8 BBS YouTube" /></a>
-<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=1790175134" height="48" alt="F9 BBS Bilibili" /></a>
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=1790175134" height="48" alt="F10 maybe I'm dwgx" />
+<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=1790177297" height="48" alt="DEL Setup" /></a>
+<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=1790177297" height="48" alt="F2 HDD-0 ORIGIN" /></a>
+<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=1790177297" height="48" alt="F8 BBS YouTube" /></a>
+<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=1790177297" height="48" alt="F9 BBS Bilibili" /></a>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=1790177297" height="48" alt="F10 maybe I'm dwgx" />
 </p>
 
 ### `field.notes`
 
 <p align="center">
-<a href="https://blog.dwgx.top"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-blog.svg?t=1790175134" width="260" alt="工程笔记 — public reading destination" /></a>
-<a href="https://dwgx.github.io/WindsurfAPI/HISTORY-LEDGER-VIZ.html"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-ledger.svg?t=1790175134" width="260" alt="WindsurfAPI 开发账本 — public reading destination" /></a>
-<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-genesis.svg?t=1790175134" width="260" alt="ORIGIN 文档 — public reading destination" /></a>
+<a href="https://blog.dwgx.top"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-blog.svg?t=1790177297" width="260" alt="工程笔记 — public reading destination" /></a>
+<a href="https://dwgx.github.io/WindsurfAPI/HISTORY-LEDGER-VIZ.html"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-ledger.svg?t=1790177297" width="260" alt="WindsurfAPI 开发账本 — public reading destination" /></a>
+<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-genesis.svg?t=1790177297" width="260" alt="ORIGIN 文档 — public reading destination" /></a>
 </p>
 <p align="center"><sub>笔记 · 开发记录 · 世界文档</sub></p>
 
 <!-- DWGX-ORNAMENT:rail-08:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-08.svg?t=1790175134" width="100%" alt="BBS GUESTBOOK" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-rail-08.svg?t=1790177297" width="100%" alt="BBS GUESTBOOK" />
 </p>
 <!-- DWGX-ORNAMENT:rail-08:END -->
 
 ### `event.log`
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-header.svg?t=1790175134" width="100%" alt="DWGX BBS · 留言／讨论／DEVLOG／PR" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-header.svg?t=1790177297" width="100%" alt="DWGX BBS · 留言／讨论／DEVLOG／PR" />
 </p>
 
 <p align="center">
-<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-guest.svg?t=1790175134" width="210" alt="留言大厅" /></a>
-<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-talk.svg?t=1790175134" width="210" alt="讨论话题" /></a>
-<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-devlog.svg?t=1790175134" width="210" alt="我的 DEVLOG" /></a>
-<a href="https://github.com/dwgx/DWGX/pulls"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-patch.svg?t=1790175134" width="210" alt="改动与 PR" /></a>
+<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-guest.svg?t=1790177297" width="210" alt="留言大厅" /></a>
+<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-talk.svg?t=1790177297" width="210" alt="讨论话题" /></a>
+<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-devlog.svg?t=1790177297" width="210" alt="我的 DEVLOG" /></a>
+<a href="https://github.com/dwgx/DWGX/pulls"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-patch.svg?t=1790177297" width="210" alt="改动与 PR" /></a>
 </p>
 
 留言，讨论，还有边做边写的记录。
@@ -736,25 +736,25 @@ from  = MC clients
 没有接入的频道会直接写未接入，不用“0 条”代替未知。→ [打开 Event Log #5](https://github.com/dwgx/DWGX/issues/5)
 
 <p align="center">
-<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=1790175134" height="30" alt="F1 Sign Event Log" /></a>
+<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=1790177297" height="30" alt="F1 Sign Event Log" /></a>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=1790175134" width="100%" alt="event.log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=1790177297" width="100%" alt="event.log" />
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=1790175134" height="30" width="62%" alt="VGA marquee" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=1790175134" height="30" alt="Best viewed with AMIBIOS" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=1790175134" height="30" alt="80x25 VGA" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=1790177297" height="30" width="62%" alt="VGA marquee" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=1790177297" height="30" alt="Best viewed with AMIBIOS" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=1790177297" height="30" alt="80x25 VGA" />
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-bios.svg?t=1790175134" width="88" alt="BIOS decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-ascii.svg?t=1790175134" width="88" alt="ASCII decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-touhou.svg?t=1790175134" width="88" alt="TOUHOU decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-dwgx.svg?t=1790175134" width="88" alt="DWGX decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-bios.svg?t=1790177297" width="88" alt="BIOS decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-ascii.svg?t=1790177297" width="88" alt="ASCII decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-touhou.svg?t=1790177297" width="88" alt="TOUHOU decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-dwgx.svg?t=1790177297" width="88" alt="DWGX decorative web button" />
 </p>
 <p align="center">
-<a href="#dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-eof.svg?t=1790175134" width="100%" alt="End of file — return to boot.menu" /></a>
+<a href="#dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-eof.svg?t=1790177297" width="100%" alt="End of file — return to boot.menu" /></a>
 </p>

@@ -1854,6 +1854,16 @@ def shield_stars(n: int) -> str:
     return str(n)
 
 
+def stamp_row() -> str:
+    """Four rubber stamps, straight from ORNAMENTS so the ink set stays the one source."""
+    return "\n".join(
+        f'<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/'
+        f'{ORNAMENTS[key]}" width="88" alt="{word} decorative web button" />'
+        for key, word in (("stamp-bios", "BIOS"), ("stamp-ascii", "ASCII"),
+                          ("stamp-touhou", "TOUHOU"), ("stamp-dwgx", "DWGX"))
+    )
+
+
 def render_readme(profile: dict, ctx: dict) -> str:
     ident = profile["identity"]
     ship = profile.get("ship") or {}
@@ -2281,6 +2291,7 @@ from  = {ship.get('came', 'MC clients')}
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg" width="100%" alt="event.log" />
 </p>
 
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg" height="30" width="62%" alt="VGA marquee" />
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg" height="30" alt="Best viewed with AMIBIOS" />
@@ -2288,13 +2299,10 @@ from  = {ship.get('came', 'MC clients')}
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-bios.svg" width="88" alt="BIOS decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-ascii.svg" width="88" alt="ASCII decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-touhou.svg" width="88" alt="TOUHOU decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-stamp-dwgx.svg" width="88" alt="DWGX decorative web button" />
+{stamp_row()}
 </p>
 <p align="center">
-<a href="#dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/decor-eof.svg" width="100%" alt="End of file — return to boot.menu" /></a>
+<a href="#dwgx-boot-menu">{ornament('eof', 'End of file — return to boot.menu', '100%', outer=False)}</a>
 </p>
 """
     out: list[str] = []

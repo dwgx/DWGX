@@ -132,9 +132,10 @@ class Sheet:
         if not ctx.get("install"):
             return
         self.label(x, y, "$", 15, colour=self.accent, tracking=0)
-        body = ctx["install"]
-        if len(body) > 58:
-            body = body[:57] + "…"
+        body = str(ctx["install"])
+        if len(body) > 62:
+            # keep both ends: the head says what to type, the tail says what runs
+            body = f"{body[:36]} … {body[-24:]}"
         self.label(x + 18, y, body, 14, colour=self.ink, tracking=0)
 
     def count_block(self, x=None, y=250) -> None:

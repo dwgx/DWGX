@@ -1,7 +1,22 @@
-# Only these repositories may be pushed without --dry-run.
 JSM
 vrchat-il2cpp-re
 cursorapi
 WindsurfAPI
 SmartCLI
 MCPClient
+KiroStudio
+YuKiKo
+blender-copilot
+driver-vuln-research
+RepoDLL
+VRCSM
+THIzaKaYaDEVCosole
+DXSense
+vrc-dcc-workstation
+Lavender-rise-main
+cs2-walkbot-ext
+Quest-ADB-Dashboard
+vrc-mod-guide
+FlipperZeroTeacher
+bing-rewards-auto
+Flipper-zero-on-dwgx

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>dwgx · sign here</title>
+<style>
+  :root { --ground:#06020f; --ink:#f0eee6; --gold:#e5c07b; --rose:#c07060; --muted:#8A8F98; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: var(--ground); color: var(--ink);
+    font: 13px/1.5 ui-monospace, Consolas, monospace; overflow: hidden; }
+  #stage { position: absolute; inset: 0; touch-action: none; cursor: crosshair; }
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #bar { position: fixed; left: 0; right: 0; top: 0; display: flex; gap: 10px; align-items: center;
+    padding: 10px 14px; background: linear-gradient(#06020ff2, #06020f00); z-index: 5; }
+  #bar .sp { flex: 1; }
+  button { background: #14101f; color: var(--ink); border: 1px solid #3a3350; border-radius: 3px;
+    padding: 6px 12px; font: inherit; cursor: pointer; }
+  button:hover { border-color: var(--gold); color: var(--gold); }
+  button[disabled] { opacity: .35; cursor: default; }
+  #hint { position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 14px; z-index: 5;
+    background: linear-gradient(#06020f00, #06020ff2); color: var(--muted); }
+  #hint b { color: var(--gold); font-weight: 600; }
+  .chip { border: 1px solid #3a3350; border-radius: 3px; padding: 2px 8px; color: var(--muted); }
+  #toast { position: fixed; left: 50%; top: 64px; transform: translateX(-50%); z-index: 9;
+    background: var(--gold); color: #20160a; padding: 6px 14px; border-radius: 3px;
+    opacity: 0; transition: opacity .18s; pointer-events: none; }
+  #toast.on { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <span class="chip">dwgx · SIGN · 09 crayon</span>
+  <button id="undo">撤销 ⌫</button>
+  <button id="clear">清空</button>
+  <button id="width">笔宽 <span id="wv">14</span></button>
+  <button id="grid">辅助线</button>
+  <button id="preview">看签名在 hero 上的样子</button>
+  <span class="sp"></span>
+  <button id="save">导出 signature.svg</button>
+  <button id="copypath">复制路径 JSON</button>
+</div>
+
+<div id="stage">
+  <svg id="pad" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <pattern id="gridp" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".05" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect id="guides" width="1600" height="900" fill="url(#gridp)" opacity="0"/>
+    <line x1="120" y1="640" x2="1480" y2="640" stroke="#e5c07b" stroke-opacity=".22"
+          stroke-width="1" stroke-dasharray="6 8"/>
+    <text x="120" y="668" fill="#8A8F98" fill-opacity=".7" font-size="20"
+          font-family="ui-monospace,Consolas,monospace">baseline · 签在这里</text>
+    <g id="inklayer" fill="none" stroke="#f0eee6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<div id="previewBox" style="position:fixed;inset:0;background:#010409;z-index:8;display:none;
+     align-items:center;justify-content:center;flex-direction:column;gap:18px">
+  <div id="previewHost"></div>
+  <div style="color:#8A8F98">这就是它放进 hero 之后的样子 · 按 <b style="color:#e5c07b">Esc</b> 回去继续签</div>
+</div>
+
+<div id="hint">
+  鼠标 / 触屏 / 手写笔直接画 —— <b>按住拖快一点线条会变细</b>，压感笔会跟着笔压变粗。
+  签完点 <b>导出 signature.svg</b>，文件会落到 <b>下载</b> 目录。
+</div>
+<div id="toast"></div>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const pad = document.getElementById("pad");
+const inkLayer = document.getElementById("inklayer");
+const stage = document.getElementById("stage");
+const guides = document.getElementById("guides");
+
+// one polyline per stroke; each point keeps pressure so the width can vary
+let strokes = [];
+let current = null;
+let penWidth = 14;
+
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("on");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove("on"), 1600);
+}
+
+function pointFrom(ev) {
+  const r = pad.getBoundingClientRect();
+  // viewBox is 1600x900 with xMidYMid meet: scale to the smaller axis, then centre
+  const scale = Math.min(r.width / 1600, r.height / 900);
+  const ox = (r.width - 1600 * scale) / 2;
+  const oy = (r.height - 900 * scale) / 2;
+  return {
+    x: (ev.clientX - r.left - ox) / scale,
+    y: (ev.clientY - r.top - oy) / scale,
+    p: ev.pressure && ev.pressure > 0 ? ev.pressure : 0.5,
+  };
+}
+
+
+function widths() {
+  return strokes.map(s => {
+    let dist = 0;
+    for (let i = 1; i < s.length; i++) dist += Math.hypot(s[i].x - s[i-1].x, s[i].y - s[i-1].y);
+    const avg = s.length ? s.reduce((a, p) => a + p.p, 0) / s.length : 0.5;
+    const speed = s.length > 1 ? Math.min(1, dist / (26 * Math.max(1, s.length - 1))) : 0;
+    return +(penWidth * (0.55 + 0.75 * avg) * (1 - 0.42 * speed)).toFixed(2);
+  });
+}
+
+function paint() {
+  // rebuild: one element per stroke so each can carry its own stroke-width
+  [...inkLayer.querySelectorAll(".s")].forEach(n => n.remove());
+  const ws = widths();
+  strokes.forEach((s, i) => {
+    if (s.length === 1) {
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("cx", s[0].x); c.setAttribute("cy", s[0].y);
+      c.setAttribute("r", ws[i] / 2); c.setAttribute("fill", "#f0eee6");
+      c.setAttribute("class", "s"); inkLayer.appendChild(c);
+      return;
+    }
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("class", "s");
+    p.setAttribute("d", s.map((q, j) => (j ? "L" : "M") + q.x.toFixed(1) + " " + q.y.toFixed(1)).join(""));
+    p.setAttribute("stroke-width", ws[i]);
+    inkLayer.appendChild(p);
+  });
+}
+
+stage.addEventListener("pointerdown", (ev) => {
+  stage.setPointerCapture(ev.pointerId);
+  current = [pointFrom(ev)];
+  strokes.push(current);
+  paint();
+});
+stage.addEventListener("pointermove", (ev) => {
+  if (!current) return;
+  const evs = (ev.getCoalescedEvents && ev.getCoalescedEvents()) || [];
+  for (const e of (evs.length ? evs : [ev])) current.push(pointFrom(e));
+  paint();
+});
+const end = () => { current = null; paint(); };
+stage.addEventListener("pointerup", end);
+stage.addEventListener("pointercancel", end);
+stage.addEventListener("pointerleave", end);
+
+addEventListener("keydown", (ev) => {
+  if (ev.key === "Escape") { document.getElementById("previewBox").style.display = "none"; return; }
+  if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "z") { ev.preventDefault(); undo(); }
+});
+function undo() { strokes.pop(); paint(); toast("撤销"); }
+
+document.getElementById("undo").onclick = undo;
+document.getElementById("clear").onclick = () => { strokes = []; paint(); toast("清空"); };
+document.getElementById("width").onclick = () => {
+  penWidth = penWidth >= 28 ? 8 : penWidth + 4;
+  document.getElementById("wv").textContent = penWidth;
+  paint();
+};
+document.getElementById("grid").onclick = () => {
+  guides.style.opacity = guides.style.opacity === "1" ? "0" : "1";
+};
+
+// ── export ────────────────────────────────────────────────────────────────────
+function pathData() {
+  return strokes.map(s => s.map((q, j) => (j ? "L" : "M") + q.x.toFixed(1) + " " + q.y.toFixed(1)).join("")).join(" ");
+}
+function signatureSvg() {
+  const ws = widths();
+  let body = "";
+  strokes.forEach((s, i) => {
+    if (s.length === 1) {
+      body += `<circle cx="${s[0].x.toFixed(1)}" cy="${s[0].y.toFixed(1)}" r="${(ws[i] / 2).toFixed(1)}" fill="#f0eee6"/>`;
+      return;
+    }
+    const d = s.map((q, j) => (j ? "L" : "M") + q.x.toFixed(1) + " " + q.y.toFixed(1)).join("");
+    body += `<path d="${d}" stroke-width="${ws[i]}"/>`;
+  });
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none" ` +
+         `stroke="#f0eee6" stroke-linecap="round" stroke-linejoin="round">\n${body}\n</svg>\n`;
+}
+document.getElementById("save").onclick = () => {
+  if (!strokes.length) return toast("还没签名");
+  const blob = new Blob([signatureSvg()], { type: "image/svg+xml" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "dwgx-signature.svg";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("已导出到 下载 目录");
+};
+document.getElementById("copypath").onclick = async () => {
+  if (!strokes.length) return toast("还没签名");
+  const json = JSON.stringify({ viewBox: [1600, 900], widths: widths(), d: pathData() });
+  try { await navigator.clipboard.writeText(json); toast("路径 JSON 已复制"); }
+  catch { prompt("复制这段：", json); }
+};
+
+// ── preview: the signature inside the hero ───────────────────────────────────
+document.getElementById("preview").onclick = () => {
+  const box = document.getElementById("previewBox");
+  if (!strokes.length) return toast("还没签名");
+  document.getElementById("previewHost").innerHTML = `
+    <svg width="820" viewBox="0 0 960 300" style="background:#06020f;border:1px solid #3a3350">
+      <text x="38" y="44" fill="#8A8F98" font-size="12" letter-spacing="2"
+            font-family="ui-monospace,Consolas,monospace">dwgx · PROFILE · 09 · crayon</text>
+      <line x1="38" y1="58" x2="922" y2="58" stroke="#f0eee6" stroke-opacity=".4"/>
+      <g transform="translate(300 42) scale(0.42)" fill="none" stroke="#f0eee6"
+         stroke-linecap="round" stroke-linejoin="round">${signatureSvg().replace(/^[\s\S]*?<svg[^>]*>|<\/svg>\s*$/g, "")}</g>
+      <text x="38" y="264" fill="#e5c07b" font-size="13" font-family="Georgia,serif"
+            font-style="italic">万物有其源。变化有其因。</text>
+    </svg>`;
+  box.style.display = "flex";
+};
+</script>
+</body>
+</html>

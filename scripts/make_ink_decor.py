@@ -16,8 +16,10 @@ from __future__ import annotations
 import argparse
 import math
 import pathlib
+import re
 import sys
 import tomllib
+import xml.etree.ElementTree as ElementTree
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "repo-kit"))
@@ -78,40 +80,89 @@ def root_motif(cx: float, cy: float, r: float, seed: int) -> list[str]:
     return [o if o.startswith("<") else ink.path(o, GOLD, 1.4, 0.55) for o in out]
 
 
-# ── hero: the voice fingerprint ───────────────────────────────────────────────
+# ── hero: the signature ───────────────────────────────────────────────────────
+SIGNATURE = ASSETS / "dwgx-signature.svg"
+_PT = re.compile(r"[ML](-?[\d.]+) (-?[\d.]+)")
+
+
+def signature_layer(x: float, y: float, width: float, colour: str,
+                    opacity: float = 1.0, scale_width: float = 1.0) -> tuple[str, tuple]:
+    """Drop the Owner's own hand into the composition at a known width.
+
+    Reads assets/dwgx-signature.svg — the file sign/index.html exports — and
+    normalises its ink bounding box, so a signature drawn on any canvas size
+    lands at the same place in the hero. Returns the markup and the box it drew.
+    """
+    root = ElementTree.fromstring(SIGNATURE.read_text("utf-8"))
+    ns = "{http://www.w3.org/2000/svg}"
+    parts, xs, ys = [], [], []
+    for el in root:
+        if el.tag == f"{ns}path":
+            d = el.get("d", "")
+            for px, py in _PT.findall(d):
+                xs.append(float(px))
+                ys.append(float(py))
+            parts.append((d, float(el.get("stroke-width") or 4)))
+        elif el.tag == f"{ns}circle":
+            xs.append(float(el.get("cx")))
+            ys.append(float(el.get("cy")))
+            parts.append((f'circle:{el.get("cx")}:{el.get("cy")}', float(el.get("r") or 2)))
+    if not parts:
+        raise SystemExit("assets/dwgx-signature.svg has no ink in it")
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = width / (x1 - x0)
+    body = []
+    for d, w in parts:
+        if d.startswith("circle:"):          # a dot stroke, not a path
+            _, cx, cy = d.split(":")
+            body.append(f'<circle cx="{cx}" cy="{cy}" r="{w * k * scale_width:.2f}" '
+                        f'fill="{colour}" stroke="none"/>')
+            continue
+        body.append(f'<path d="{d}" stroke-width="{w * k * scale_width:.2f}"/>')
+    box = (x, y, (x1 - x0) * k, (y1 - y0) * k)
+    return (f'<g transform="translate({ink.fmt(x - x0 * k)} {ink.fmt(y - y0 * k)}) '
+            f'scale({ink.fmt(k)})" fill="none" stroke="{colour}" stroke-linecap="round" '
+            f'stroke-linejoin="round" opacity="{ink.fmt(opacity)}">'
+            + "".join(body) + "</g>", box)
+
+
 def hero(profile: dict) -> str:
     w, h = 960, 300
-    voice = [str(v) for v in (profile.get("voice", {}).get("lines") or [])][:4]
     ident = profile.get("identity", {})
     flag = profile.get("flagship", {})
-    alias, note = str(ident.get("alias", "")), str(ident.get("note", ""))
     host = str(flag.get("url", "")).replace("https://", "")
+    alias = str(ident.get("alias", ""))
+
     b: list[str] = []
-    b.append(ink.path(ink.rect_path(10, 10, w - 20, h - 20, seed=3, wobble=0.03), INK, 1.6, 0.55))
+    b.append(ink.path(ink.rect_path(10, 10, w - 20, h - 20, seed=3, wobble=0.03), INK, 1.6, 0.5))
     b += chrome(38, 44, "dwgx · PROFILE · 09 · crayon", f"{ident.get('from', '')} · {host}")
-    b.append(ink.path(ink.hand_line(38, 58, w - 38, 58, seed=5, bend=0.01), INK, 1.2, 0.5))
+    b.append(ink.path(ink.hand_line(38, 58, w - 38, 58, seed=5, bend=0.01), INK, 1.2, 0.45))
 
-    # name, set large: this is the one thing allowed to exceed 40 viewBox px
-    b.append(ink.text(38, 122, str(profile.get("login", "dwgx")), 62, INK,
-                      ink.SERIF, weight="600"))
-    b.append(ink.path(ink.hand_line(38, 138, 38 + ink.text_width("dwgx", 62) * 1.02, 134,
-                                    seed=9, bend=0.06), AURORA, 2.6))
+    # aerosol behind the hand, then the hand twice: once as a misregistered
+    # print in rose, once on top in cream. Nothing is drawn over the signature.
+    sig_x, sig_y, sig_w = 92.0, 78.0, 580.0
+    b += ink.spray(470, 165, 290, n=54, seed=131, colour=ROSE, density=0.55)
+    # printed twice, the way a second pull sits off register — same size, so it
+    # reads as misregistration and not as a drop shadow
+    echo_svg, box = signature_layer(sig_x + 7, sig_y - 5, sig_w, ROSE, opacity=0.3)
+    b.append(echo_svg)
+    main_svg, _ = signature_layer(sig_x, sig_y, sig_w, INK)
+    b.append(main_svg)
+
+    # swash under the hand, overshooting both ways, with one run of paint
+    under = box[1] + box[3] + 11
+    b += ink.tag_underline(box[0] - 16, box[0] + box[2] + 20, under, seed=137,
+                           colour=GOLD, weight=3.4)
+    b += ink.drip(box[0] + box[2] * 0.72, under + 4, 22, seed=139, w=2.4, colour=GOLD)
+    b += ink.drip(box[0] + box[2] * 0.2, under + 3, 13, seed=149, w=1.8, colour=ROSE)
+
+    # the Owner asked for the signature, not for a manifesto: the voice block
+    # lives in README `operator.voice`, the hero only signs.
     if alias:
-        b.append(ink.text(38, 164, alias, 15, GOLD, ink.MONO, tracking="1"))
-    if note:
-        b.append(ink.text(38, 186, note, 14, MUTED, ink.SERIF, italic=True))
-
-    # the fingerprint: his own lines, verbatim, one tick each
-    y = 216
-    for i, line in enumerate(voice):
-        b += tick(40, y - 8, AURORA, 31 + i * 4)
-        b.append(ink.text(62, y, line, 16, INK, ink.SERIF, italic=True, opacity=0.95))
-        y += 22
-
-    b += root_motif(812, 150, 66, 101)
-    b.append(ink.text(812, 274, str(flag.get("zh_tagline", "")), 13, GOLD, ink.SERIF,
-                      anchor="middle", italic=True))
-    return doc(w, h, f"{TITLE} · voice fingerprint", "".join(b))
+        b.append(ink.text(38, 278, alias, 13, MUTED, ink.MONO, tracking="1"))
+    b.append(ink.text(w - 38, 278, str(flag.get("zh_tagline", "")), 13, GOLD, ink.SERIF,
+                      anchor="end", italic=True))
+    return doc(w, h, f"{TITLE} · signature", "".join(b))
 
 
 

@@ -379,6 +379,75 @@ def text(x, y, body, size, colour, family=SERIF, weight="400", anchor="start",
             f'{esc(body)}</text>')
 
 
+# ── graffiti layer ────────────────────────────────────────────────────────────
+# Marker and aerosol vocabulary, used where a hand is meant to be loud rather
+# than neat. Every function here is new surface: nothing above this line calls
+# them, so the 22 shipped banners render byte-identical.
+
+
+def overshoot(x1: float, y1: float, x2: float, y2: float, frac: float = 0.06,
+              seed: int = 61, bend: float = 0.04) -> str:
+    """A marker stroke that runs past both of its endpoints — the thing that
+    separates a signature from a line."""
+    dx, dy = x2 - x1, y2 - y1
+    length = math.hypot(dx, dy) or 1.0
+    ux, uy = dx / length, dy / length
+    return hand_line(x1 - ux * length * frac, y1 - uy * length * frac,
+                      x2 + ux * length * frac, y2 + uy * length * frac,
+                      seed=seed, bend=bend)
+
+
+def spray(cx: float, cy: float, r: float, n: int = 26, seed: int = 67,
+          colour: str = "currentColor", density: float = 1.0) -> list[str]:
+    """Aerosol: dots scattered on a radius-weighted disc, denser at the centre."""
+    rnd = rng(seed)
+    out = []
+    for i in range(n):
+        a = rnd() * TAU
+        # sqrt keeps the disc even instead of piling everything at the middle
+        d = r * math.sqrt(rnd()) * (0.55 + 0.45 * density)
+        rad = 0.5 + rnd() * 1.9
+        out_op = 0.25 + 0.5 * (1 - d / max(r, 0.001)) * density
+        out.append(f'<circle cx="{fmt(cx + math.cos(a) * d)}" cy="{fmt(cy + math.sin(a) * d)}" '
+                   f'r="{fmt(rad)}" fill="{colour}" opacity="{fmt(out_op)}"/>')
+    return out
+
+
+def drip(x: float, y: float, length: float, seed: int = 71, w: float = 2.4,
+         colour: str = "currentColor", opacity: float = 1.0) -> list[str]:
+    """One paint run: a tapering stroke that ends in a bead."""
+    rnd = rng(seed)
+    x0 = x + (rnd() - 0.5) * 2.0
+    lean = (rnd() - 0.5) * 0.24
+    pts = [(x0, y), (x0 + lean * length * 0.35, y + length * 0.45),
+           (x0 + lean * length, y + length)]
+    body = polyline(pts, seed=seed, close=False, roughness=0.5)
+    bead = (f'<circle cx="{fmt(pts[-1][0])}" cy="{fmt(pts[-1][1] + w * 0.9)}" '
+            f'r="{fmt(w * 0.85)}" fill="{colour}"/>')
+    return [path(body, colour, w, opacity), bead]
+
+
+def tag_underline(x1: float, x2: float, y: float, seed: int = 79,
+                  colour: str = "currentColor", weight: float = 3.2) -> list[str]:
+    """Two crossing strokes under a tag: the swash, then the strike."""
+    mid = (x1 + x2) / 2
+    sag = (x2 - x1) * 0.035
+    return [
+        path(smooth([(x1, y), (mid, y + sag), (x2, y - sag * 0.6)], seed=seed),
+             colour, weight),
+        path(overshoot(x1 + (x2 - x1) * 0.18, y + 7, x2 - (x2 - x1) * 0.06, y - 6,
+                       frac=0.05, seed=seed + 3, bend=0.06), colour, weight * 0.7),
+    ]
+
+
+def echo(d: str, colour: str, width: float, dx: float = 2.4, dy: float = -2.0,
+         factor: float = 0.35) -> str:
+    """The same shape again, offset the other way — a misregistered print."""
+    return (f'<path d="{d}" transform="translate({fmt(dx)} {fmt(dy)})" fill="none" '
+            f'stroke="{colour}" stroke-width="{fmt(width * 0.8)}" stroke-linecap="round" '
+            f'stroke-linejoin="round" opacity="{factor}"/>')
+
+
 def esc(value) -> str:
     return (str(value).replace("&", "&amp;").replace("<", "&lt;")
             .replace(">", "&gt;").replace('"', "&quot;"))

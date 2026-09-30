@@ -42,6 +42,7 @@ PROFILE = ROOT / "profile.toml"
 README = ROOT / "README.md"
 SVG = ROOT / "assets" / "process-table.svg"
 STATS_SVG = ROOT / "assets" / "stats.svg"
+HEATMAP_SVG = ROOT / "assets" / "heatmap.svg"
 LANGS_SVG = ROOT / "assets" / "langs.svg"
 DISCORD_SVG = ROOT / "assets" / "discord.svg"
 PRESENCE_JSON = ROOT / "assets" / "discord-presence.json"
@@ -169,6 +170,38 @@ def api_graphql(query: str, variables: dict, token: str) -> dict:
     if payload.get("errors"):
         raise RuntimeError(payload["errors"][0].get("message") or "graphql error")
     return payload.get("data") or {}
+
+
+CALENDAR_QUERY = """
+query($login: String!) {
+  user(login: $login) {
+    contributionsCollection {
+      contributionCalendar {
+        totalContributions
+        weeks { contributionDays { date contributionCount contributionLevel } }
+      }
+    }
+  }
+}
+"""
+
+
+def fetch_contribution_calendar(login: str, token: str) -> dict:
+    """Own GraphQL POST on purpose: one bad field here must not zero the other panels."""
+    if not token:
+        return {}
+    try:
+        data = api_graphql(CALENDAR_QUERY, {"login": login}, token)
+    except (
+        urllib.error.URLError,
+        urllib.error.HTTPError,
+        TimeoutError,
+        RuntimeError,
+        json.JSONDecodeError,
+    ):
+        return {}
+    collection = (data.get("user") or {}).get("contributionsCollection") or {}
+    return collection.get("contributionCalendar") or {}
 
 
 STATS_QUERY = """
@@ -1005,6 +1038,80 @@ def fmt_num(n: int) -> str:
     return f"{int(n):,}"
 
 
+HEAT_RAMP = ("#1B1226", "#3A2440", "#6D3A55", "#B0567F", PINK)
+MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+HEAT_LEVELS = {
+    "NONE": 0,
+    "FIRST_QUARTILE": 1,
+    "SECOND_QUARTILE": 2,
+    "THIRD_QUARTILE": 3,
+    "FOURTH_QUARTILE": 4,
+}
+
+
+def heatmap_svg(host: str, cal: dict) -> str:
+    """53-week contribution grid in the page palette. Empty string when unavailable."""
+    weeks = (cal or {}).get("weeks") or []
+    if not weeks:
+        return ""
+    cell, gap, left, top = 9, 3, 46, 40
+    width = left + len(weeks) * (cell + gap) + 10
+    height = top + 7 * (cell + gap) + 28
+    total = fmt_num(int((cal or {}).get("totalContributions") or 0))
+    body: list[str] = []
+    last_month = -1
+    for col, week in enumerate(weeks):
+        days = week.get("contributionDays") or []
+        if not days:
+            continue
+        x = left + col * (cell + gap)
+        month = int(str(days[0].get("date") or "")[5:7] or 0)
+        if month and month != last_month:
+            last_month = month
+            body.append(
+                f'<text x="{x}" y="{top - 8}" font-size="9" fill="{MUTED}">'
+                f"{MONTHS[month - 1]}</text>"
+            )
+        for row, day in enumerate(days[:7]):
+            level = HEAT_LEVELS.get(str(day.get("contributionLevel") or "NONE"), 0)
+            body.append(
+                f'<rect x="{x}" y="{top + row * (cell + gap)}" width="{cell}" '
+                f'height="{cell}" rx="1.5" fill="{HEAT_RAMP[level]}"/>'
+            )
+    for row, name in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
+        body.append(
+            f'<text x="{left - 8}" y="{top + row * (cell + gap) + cell - 1}" '
+            f'text-anchor="end" font-size="9" fill="{MUTED}">{name}</text>'
+        )
+    ly = height - 12
+    body.append(f'<text x="{left}" y="{ly + 3}" font-size="9" fill="{MUTED}">less</text>')
+    for i, color in enumerate(HEAT_RAMP):
+        body.append(
+            f'<rect x="{left + 26 + i * (cell + gap)}" y="{ly - 5}" width="{cell}" '
+            f'height="{cell}" rx="1.5" fill="{color}"/>'
+        )
+    body.append(
+        f'<text x="{left + 26 + 5 * (cell + gap) + 4}" y="{ly + 3}" font-size="9" '
+        f'fill="{MUTED}">more</text>'
+    )
+    return "".join(
+        [
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}" role="img" '
+            f'aria-label="dwgx contribution calendar, {esc(total)} contributions in 53 weeks" '
+            f"font-family=\"ui-monospace,'Cascadia Mono',Consolas,'SF Mono',monospace\">",
+            f'<rect width="{width}" height="{height}" rx="4" fill="#0d1117" stroke="#30363d"/>',
+            f'<rect x="1" y="1" width="{width-2}" height="22" rx="3" fill="#161b22"/>',
+            f'<line x1="0" y1="22" x2="{width}" y2="22" stroke="#30363d"/>',
+            f'<text x="12" y="16" font-size="11" font-weight="700" fill="{PINK}">{esc(host)}</text>',
+            f'<text x="{12 + text_w(host, True) + 26:.1f}" y="16" font-size="11" fill="{TEXT}">contribution.memory</text>',
+            f'<text x="{width - 12}" y="16" text-anchor="end" font-size="11" fill="{GOLD}">{esc(total)} TOTAL</text>',
+            *body,
+            "</svg>",
+        ]
+    )
+
+
 def panel_frame(width: int, height: int, host: str, title: str, body: list[str]) -> str:
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
@@ -1765,6 +1872,17 @@ def render_readme(profile: dict, ctx: dict) -> str:
         else "https://github.com/dwgx/DWGX/issues"
     )
     voice_block = render_voice_block(profile)
+    if (ctx.get("calendar") or {}).get("weeks"):
+        contrib_block = (
+            '<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/heatmap.svg" '
+            'width="100%" alt="dwgx · 53-week contribution memory" />'
+        )
+    else:
+        contrib_block = """<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" />
+  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" width="100%" />
+</picture>"""
     text = f"""<!-- ════════════════════════════════════════════════════════════════ -->
 <!--  dwgx.menu  v{profile.get('version','2.2')}  ·  generated {today} {stamp} JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
@@ -2099,15 +2217,11 @@ from  = {ship.get('came', 'MC clients')}
 
 ---
 
-### `contribution.snake`
+### `contribution.memory`
 
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" />
-  <img alt="dwgx contribution snake" src="https://raw.githubusercontent.com/dwgx/DWGX/output/github-contribution-grid-snake.svg" width="100%" />
-</picture>
+{contrib_block}
 
 </div>
 
@@ -2245,6 +2359,9 @@ def main() -> int:
         disk_files.append(disk.name)
     STATS_SVG.write_text(stats_svg(host, user, stars, extra), encoding="utf-8")
     LANGS_SVG.write_text(langs_svg(host, extra.get("langs") or []), encoding="utf-8")
+    calendar = fetch_contribution_calendar(login, token)
+    if (calendar.get("weeks") or []):
+        HEATMAP_SVG.write_text(heatmap_svg(host, calendar), encoding="utf-8")
     save_avatar(presence.get("avatar"), str(presence.get("status") or "offline"))
     DISCORD_SVG.write_text(discord_svg(host, presence), encoding="utf-8")
     bili = fetch_bili(str((profile.get("links") or {}).get("bili_mid") or ""))
@@ -2302,6 +2419,7 @@ def main() -> int:
         "process_count": len(profile.get("process") or []),
         "recent": recent_log(events, by_name, overrides),
         "hardware": hardware_dump(profile, days),
+        "calendar": calendar,
         "project_cards": render_project_cards(profile, by_name, tags, public, stars),
         "project_disks": render_project_disks(profile, by_name, tags),
         "legacy_pins": render_legacy_pins(profile, by_name),

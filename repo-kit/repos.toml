@@ -1,16 +1,26 @@
-# repo-kit · 跨仓库页头/背景图生成器的事实来源
-# 每个仓库一份；build.py <name> 生成 docs/assets/banner.svg 并打印 README 注入块。
-# 只改这个文件，不手改生成出来的图。
+# repo-kit · 每个仓库一份。style 决定视觉母题，accent 不再决定外观。
+# 只改这个文件；图是生成物，不要手改。
+#
+# style 速查（motif）：
+#   post   BIOS 自检屏 · 点线引导 · 适合设备/服务清单类
+#   vt100  终端窗口 · 扫描线 + 块光标 · 适合 TUI/PTY 类
+#   seq    协议时序图 · 实线请求/虚线响应 · 适合网关/协议桥
+#   tree   模块结构树 · 肘形连接 · 适合内核/分层类
+#   iso    等距块城市 · 三面着色 · 适合工具集/插件集
+#   scope  示波器 · 荧光曲线 · 适合持续采样的研究/网关
+#   card   档案卡 · 纸面 + 骑缝章 · 适合可查阅的资料/笔记
+#   pipe   流水线 · 分段块条 · 适合多阶段处理/调度
 
 owner = "dwgx"
 
 [[repo]]
 name = "WindsurfAPI"
+style = "pipe"
 tagline = "Windsurf / Devin 100+ 模型 · 多协议 · zero-dep 自托管"
 install = "git clone https://github.com/dwgx/WindsurfAPI && cd WindsurfAPI && node server.js"
 lang = "JavaScript"
 license = "MIT"
-accent = "sakura"
+stages = ["ingest", "auth", "route", "adapt", "serve"]
 topics = ["ai", "api-gateway", "anthropic", "openai", "gemini", "self-hosted"]
 links = [
   { label = "docs", url = "https://github.com/dwgx/WindsurfAPI#readme" },
@@ -20,52 +30,92 @@ links = [
 
 [[repo]]
 name = "SmartCLI"
+style = "vt100"
 tagline = "三个 Agent Skill 架在一个 PTY + pyte 上：读真实终端、操作、确认"
 install = "pip install smartcli-toolkit"
 lang = "Python"
 license = "MIT"
-accent = "cyan"
-topics = ["tui", "agent", "pty", "automation"]
+topics = ["tui", "agent", "pty", "automation", "pyte"]
 links = [
-  { label = "docs", url = "https://github.com/dwgx/SmartCLI#readme" },
   { label = "PyPI", url = "https://pypi.org/project/smartcli-toolkit/" },
   { label = "issues", url = "https://github.com/dwgx/SmartCLI/issues" },
 ]
 
 [[repo]]
-name = "KiroStudio"
-tagline = "Kiro / AWS Q 网关 · Anthropic Messages 兼容 · 凭据调度"
-install = "docker compose up -d"
-lang = "Rust"
+name = "cursorapi"
+style = "seq"
+role = "GATEWAY"
+tagline = "Cursor API key pool gateway · OpenAI / Anthropic 双协议"
+install = "node server.js"
+lang = "JavaScript"
 license = "MIT"
-accent = "gold"
-topics = ["gateway", "anthropic", "kiro", "rust"]
+messages = [
+  ["chat.completions", "request"],
+  ["200 · openai", "reply"],
+  ["messages", "request"],
+  ["200 · anthropic", "reply"],
+  ["stream · sse", "request"],
+]
+topics = ["cursor", "openai", "anthropic", "gateway", "key-pool"]
 links = [
-  { label = "docs", url = "https://github.com/dwgx/KiroStudio#readme" },
-  { label = "releases", url = "https://github.com/dwgx/KiroStudio/releases" },
+  { label = "releases", url = "https://github.com/dwgx/cursorapi/releases" },
+  { label = "issues", url = "https://github.com/dwgx/cursorapi/issues" },
 ]
 
 [[repo]]
 name = "MCPClient"
+style = "tree"
 tagline = "把 Minecraft 1.8.9 客户端经 MCP 暴露给 LLM · 7 层内核做权限门控"
 install = "./mvnw -q clean package && ./mvnw -q exec:java"
 lang = "Java"
 license = "MIT"
-accent = "green"
-topics = ["mcp", "minecraft", "llm", "java"]
+topics = ["mcp", "kernel", "gating", "client", "lwjgl", "minecraft"]
 links = [
-  { label = "docs", url = "https://github.com/dwgx/MCPClient#readme" },
   { label = "issues", url = "https://github.com/dwgx/MCPClient/issues" },
 ]
 
 [[repo]]
+name = "blender-copilot"
+style = "iso"
+tagline = "Blender MCP server · 308 个工具跨 25 个模块"
+install = "blender --python addon.py"
+lang = "Python"
+license = "MIT"
+topics = ["blender", "mcp", "addons", "automation", "3d"]
+links = [
+  { label = "issues", url = "https://github.com/dwgx/blender-copilot/issues" },
+]
+
+[[repo]]
+name = "driver-vuln-research"
+style = "scope"
+tagline = "内核驱动漏洞研究 · BYOVD · CAPABILITY_MATRIX 的持续采样"
+install = "git clone https://github.com/dwgx/driver-vuln-research"
+lang = "Assembly"
+topics = ["reverse-engineering", "kernel", "vulnerability", "byovd"]
+links = [
+  { label = "matrix", url = "https://github.com/dwgx/driver-vuln-research/blob/master/CAPABILITY_MATRIX.md" },
+]
+
+[[repo]]
+name = "JSM"
+style = "post"
+tagline = "Swift 编写的 Java / Paper / Spigot 服务器管理器"
+install = "brew install --cask jsm"
+lang = "Swift"
+license = "MIT"
+topics = ["minecraft", "server", "manager", "swift", "macos"]
+links = [
+  { label = "issues", url = "https://github.com/dwgx/JSM/issues" },
+]
+
+[[repo]]
 name = "vrchat-il2cpp-re"
+style = "card"
 tagline = "VRChat IL2CPP 结构整理：类 / 方法 / 字段成为可继续查阅的研究材料"
 install = "git clone https://github.com/dwgx/vrchat-il2cpp-re"
 lang = "C#"
-accent = "gold"
-topics = ["reverse-engineering", "il2cpp", "unity", "vrchat"]
+topics = ["reverse-engineering", "il2cpp", "unity", "vrchat", "research"]
 links = [
-  { label = "readme", url = "https://github.com/dwgx/vrchat-il2cpp-re#readme" },
   { label = "releases", url = "https://github.com/dwgx/vrchat-il2cpp-re/releases" },
 ]

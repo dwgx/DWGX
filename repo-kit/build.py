@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""repo-kit · build one repository's hero banner + README header block.
+"""repo-kit · build a repository banner in its own style.
 
-    python build.py <repo> [--out <dir>] [--no-write]
+    python build.py <repo> [--out <dir>] [--preview] [--no-write]
 
-repos.toml is the only source of truth. Fetches live GitHub numbers when a token
-is available, writes <out>/assets/banner.svg, and prints the README block that
-belongs between the dwgx-banner markers. Stdlib only.
+repos.toml is the only source of truth for the copy. Live GitHub numbers are
+fetched when a token is available; without one the banner still renders, just
+with the counters at zero. Output: assets/banner.svg, plus assets/banner-light.svg
+for the styles that ship a light variant, plus the README block to paste.
 """
 from __future__ import annotations
 
@@ -20,29 +21,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-INK = "#0F131B"
-PANEL = "#161C27"
-LINE = "#2A3240"
-TEXT = "#EBE4D8"
-MUTED = "#A5AFBF"
-SAKURA = "#D6A0AC"
-GOLD = "#CEB27C"
-CYAN = "#79C0FF"
-GREEN = "#7EE787"
-ACCENTS = {"sakura": SAKURA, "gold": GOLD, "cyan": CYAN, "green": GREEN}
-
-W, H = 1200, 320
-FONT = "ui-monospace,'Cascadia Mono',Consolas,'SF Mono',monospace"
-
-
-def esc(value: object) -> str:
-    return (
-        str(value)
-        .replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-        .replace('"', "&quot;")
-    )
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import styles as S  # noqa: E402
 
 
 def gh_token() -> str:
@@ -70,7 +50,6 @@ def api_get(path: str, token: str, accept: str = "application/vnd.github+json") 
 
 
 def count_commits(owner: str, repo: str, token: str) -> int:
-    """per_page=1 plus the Link header: rel="last" is the exact commit count."""
     req = urllib.request.Request(
         f"https://api.github.com/repos/{owner}/{repo}/commits?per_page=1",
         headers={
@@ -85,8 +64,18 @@ def count_commits(owner: str, repo: str, token: str) -> int:
     return int(found.group(1)) if found else 0
 
 
+def latest_release(owner: str, repo: str, token: str) -> tuple[int, str]:
+    try:
+        rows = api_get(f"/repos/{owner}/{repo}/releases?per_page=100", token)
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError):
+        return 0, ""
+    if not isinstance(rows, list) or not rows:
+        return 0, ""
+    head = rows[0]
+    return len(rows), str(head.get("tag_name") or "")
+
+
 def star_history(owner: str, repo: str, token: str) -> list[int]:
-    """Star counts sampled to at most 24 points, oldest first."""
     stamps: list[str] = []
     page = 1
     while page <= 200:
@@ -112,158 +101,182 @@ def star_history(owner: str, repo: str, token: str) -> list[int]:
     return points[::step][:24]
 
 
-def sparkline(points: list[int], x: float, y: float, w: float, h: float, color: str) -> str:
-    if len(points) < 2:
-        return (
-            f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="3" '
-            f'fill="none" stroke="{LINE}"/>'
-        )
-    lo, hi = min(points), max(points)
-    span = max(1, hi - lo)
-    step = w / (len(points) - 1)
-    coords = " ".join(
-        f"{x + i * step:.1f},{y + h - (v - lo) / span * h:.1f}" for i, v in enumerate(points)
-    )
-    return (
-        f'<polygon points="{x:.1f},{y + h:.1f} {coords} {x + w:.1f},{y + h:.1f}" '
-        f'fill="{color}" fill-opacity="0.12"/>'
-        f'<polyline points="{coords}" fill="none" stroke="{color}" stroke-width="2"/>'
-    )
+def fmt(n: int) -> str:
+    return f"{int(n):,}"
 
 
-def banner(spec: dict, owner: str, meta: dict, history: list[int]) -> str:
-    accent = ACCENTS.get(str(spec.get("accent") or "sakura"), SAKURA)
-    name = str(spec.get("name") or "")
-    tagline = str(spec.get("tagline") or "")
-    install = str(spec.get("install") or "")
+def build_ctx(spec: dict, meta: dict, history: list[int]) -> dict:
+    """Generic repo fields plus whatever the chosen style needs to plot."""
+    topics = [str(t) for t in (spec.get("topics") or [])]
+    lang = str(spec.get("lang") or "-")
+    license_ = str(spec.get("license") or "-")
     stars = int(meta.get("stars") or 0)
     commits = int(meta.get("commits") or 0)
-    pushed = str(meta.get("pushed") or "")
+    releases = int(meta.get("releases") or 0)
+    ctx = {
+        "name": str(spec.get("name") or ""),
+        "tagline": str(spec.get("tagline") or ""),
+        "install": str(spec.get("install") or ""),
+        "lang": lang,
+        "license": license_,
+        "topics": topics,
+        "links": [dict(l) for l in (spec.get("links") or [])],
+        "stars": stars,
+        "commits": commits,
+        "releases": releases,
+        "stamp": str(meta.get("tag") or ""),
+        "pushed": str(meta.get("pushed") or "1970-01-01T00:00:00Z"),
+    }
 
-    parts: list[str] = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
-        f'viewBox="0 0 {W} {H}" role="img" aria-label="{esc(name)} — {esc(tagline)}" '
-        f'font-family="{FONT}">',
-        f'<rect width="{W}" height="{H}" fill="{INK}"/>',
-        f'<rect x="8" y="8" width="{W-16}" height="{H-16}" fill="none" stroke="{LINE}"/>',
-        f'<rect x="12" y="12" width="{W-24}" height="{H-24}" fill="none" stroke="{PANEL}"/>',
-        f'<text x="34" y="50" font-size="15" fill="{MUTED}">{esc(owner)}//{esc(name)}</text>',
-        f'<line x1="34" y1="62" x2="{W-34}" y2="62" stroke="{LINE}"/>',
-        f'<text x="34" y="118" font-size="46" font-weight="700" fill="{accent}">{esc(name)}</text>',
-        f'<text x="34" y="152" font-size="17" fill="{TEXT}">{esc(tagline)}</text>',
+    ctx["post_rows"] = spec.get("post_rows") or [
+        [lang, "OK", True],
+        [license_, "OK", True],
+        *[[t, "OK", True] for t in topics[:4]],
+        ["STARS", fmt(stars) if stars else "NP", bool(stars)],
+        ["COMMITS", fmt(commits) if commits else "NP", bool(commits)],
     ]
-
-    if install:
-        box_w = min(780, 48 + len(install) * 9.0)
-        parts += [
-            f'<rect x="34" y="176" width="{box_w:.0f}" height="38" rx="4" '
-            f'fill="{PANEL}" stroke="{LINE}"/>',
-            f'<text x="50" y="201" font-size="14" fill="{accent}">$</text>',
-            f'<text x="72" y="201" font-size="14" fill="{TEXT}">{esc(install)}</text>',
-        ]
-
-    topics = [str(t) for t in (spec.get("topics") or [])][:8]
-    if topics:
-        parts.append(
-            f'<text x="34" y="244" font-size="13" fill="{MUTED}">'
-            f'{"  ".join("#" + esc(t) for t in topics)}</text>'
-        )
-
-    bits = [
-        str(spec.get("lang") or "-"),
-        str(spec.get("license") or "-"),
-        f"★{stars:,}" if stars else "",
-        f"{commits:,} commits" if commits else "",
-        pushed[:10] if pushed else "",
+    ctx["memory"] = max(1024, min(32768, commits * 64 or 4096))
+    ctx["term_lines"] = [
+        ["$ " + S.clip(ctx["install"] or "./run", 74), "#79C0FF", "700"],
+        [f"# {S.clip(ctx['tagline'], 74)}", "#A5AFBF", "400"],
+        [f"stars {fmt(stars)}   commits {fmt(commits)}   releases {releases}", "#CEB27C", "400"],
+        [" ".join("#" + t for t in topics[:6]), "#A5AFBF", "400"],
+        [f"{lang} · {license_} · last push {ctx['pushed'][:10]}", "#A5AFBF", "400"],
+        ["ready.", "#D6A0AC", "400"],
     ]
-    parts += [
-        f'<text x="{W-34}" y="50" text-anchor="end" font-size="13" fill="{MUTED}">'
-        f'{"  ·  ".join(b for b in bits if b)}</text>',
-        sparkline(history, W - 434, 96, 400, 92, accent),
-        f'<text x="{W-34}" y="206" text-anchor="end" font-size="12" fill="{MUTED}">'
-        f"star history</text>",
+    ctx["role"] = str(spec.get("role") or "SERVER")
+    ctx["messages"] = spec.get("messages") or [
+        [t, "request" if i % 2 == 0 else "reply"] for i, t in enumerate(topics[:5])
+    ] or [[ctx["tagline"], "request"], ["response", "reply"]]
+    ctx["children"] = topics[:6] or [lang, license_, "src", "docs", "tests", "build"]
+    ctx["stats"] = [
+        ["stars", fmt(stars) or "0"],
+        ["commits", fmt(commits) or "0"],
+        ["releases", str(releases)],
+        ["lang", lang],
     ]
+    hero_h = min(140, 40 + commits // 9) if commits else 32
+    side_h = min(120, 24 + int(stars * 0.8)) if stars else 32
+    ctx["blocks"] = [
+        (660, hero_h, True), (740, side_h, False), (820, hero_h, False),
+        (900, side_h, False), (980, hero_h, False), (1060, side_h, False),
+        (1140, hero_h, False),
+    ]
+    ctx["trace"] = history
+    stages = spec.get("stages") or topics[:5] or ["ingest", "route", "adapt", "serve", "log"]
+    ctx["stages"] = stages
+    total = max(1, stars + commits + releases)
+    ctx["stage_progress"] = [
+        max(1, min(9, round((stars if i == 0 else commits if i == 1 else releases + topics.__len__()) * 9 / total)))
+        for i in range(len(stages))
+    ]
+    return ctx
 
-    x = 34.0
-    for link in list(spec.get("links") or [])[:4]:
-        label = str(link.get("label") or "")
-        pill_w = 18 + len(label) * 9.6
-        parts += [
-            f'<rect x="{x:.0f}" y="{H-48}" width="{pill_w:.0f}" height="26" rx="13" '
-            f'fill="{PANEL}" stroke="{LINE}"/>',
-            f'<text x="{x + pill_w / 2:.0f}" y="{H-31}" text-anchor="middle" font-size="12" '
-            f'fill="{TEXT}">{esc(label)}</text>',
-        ]
-        x += pill_w + 10
 
-    parts.append("</svg>")
-    return "".join(parts)
+def render(style: str, ctx: dict, light: bool) -> str:
+    return S.STYLES[style](ctx, light)
 
 
-def readme_block(spec: dict, meta: dict) -> str:
-    name = str(spec.get("name") or "")
-    tagline = str(spec.get("tagline") or "")
-    stars = int(meta.get("stars") or 0)
-    meta_bits = " · ".join(
-        b for b in (str(spec.get("lang") or "-"), str(spec.get("license") or "-")) if b != "-"
-    )
-    if stars:
-        meta_bits += f" · ★{stars:,}"
-    topics = " ".join(f"`{t}`" for t in (spec.get("topics") or [])[:6])
+def readme_block(spec: dict, style: str, ctx: dict) -> str:
+    name = ctx["name"]
+    meta_bits = " · ".join(b for b in (ctx["lang"], ctx["license"]) if b != "-")
+    if ctx["stars"]:
+        meta_bits += f" · ★{fmt(ctx['stars'])}"
     badges = " ".join(
-        f"[![{esc(l.get('label'))}]({esc(l.get('url'))})]({esc(l.get('url'))})"
-        for l in (spec.get("links") or [])
+        f"[![{S.esc(l.get('label'))}]({S.esc(l.get('url'))})]({S.esc(l.get('url'))})"
+        for l in ctx["links"]
     )
+    if style in S.DARK_ONLY:
+        img = f'<img src="docs/assets/banner.svg" width="100%" alt="{name} — {ctx["tagline"]}" />'
+    else:
+        img = (
+            "<picture>\n"
+            '  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner.svg" />\n'
+            '  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg" />\n'
+            f'  <img src="docs/assets/banner.svg" width="100%" alt="{name} — {ctx["tagline"]}" />\n'
+            "</picture>"
+        )
+    body = f"{meta_bits}\n\n{badges}" if badges else meta_bits
     return f"""<!-- dwgx-banner:BEGIN -->
 <div align="center">
 
-<img src="docs/assets/banner.svg" width="100%" alt="{name} — {tagline}" />
+{img}
 
 <br/>
 
-{meta_bits} · {topics}
-
-{badges}
+{body}
 
 </div>
 <!-- dwgx-banner:END -->"""
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="build one repo banner")
+    ap = argparse.ArgumentParser(description="build one repo banner in its own style")
     ap.add_argument("repo")
     ap.add_argument("--toml", default=str(Path(__file__).with_name("repos.toml")))
     ap.add_argument("--out", default=".")
+    ap.add_argument("--all", action="store_true", help="build every repo in the toml")
+    ap.add_argument("--preview", action="store_true", help="also write preview.html")
     ap.add_argument("--no-write", action="store_true")
     args = ap.parse_args()
 
     with open(args.toml, "rb") as fh:
         conf = tomllib.load(fh)
     owner = str(conf.get("owner") or "dwgx")
-    spec = next((r for r in conf.get("repo") or [] if str(r.get("name")) == args.repo), None)
-    if spec is None:
+    all_specs = [r for r in (conf.get("repo") or [])]
+    specs = all_specs if args.all else [r for r in all_specs if str(r.get("name")) == args.repo]
+    if not specs:
         print(f"no such repo in {args.toml}: {args.repo}", file=sys.stderr)
         return 2
 
     token = gh_token()
-    meta: dict = {}
-    history: list[int] = []
-    if token:
-        try:
-            info = api_get(f"/repos/{owner}/{args.repo}", token)
-            meta = {"stars": info.get("stargazers_count"), "pushed": info.get("pushed_at")}
-            meta["commits"] = count_commits(owner, args.repo, token)
-            history = star_history(owner, args.repo, token)
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError) as exc:
-            print(f"live data unavailable ({exc}); drawing without it", file=sys.stderr)
+    cards: list[str] = []
+    for spec in specs:
+        style = str(spec.get("style") or "pipe")
+        if style not in S.STYLES:
+            print(f"{spec.get('name')}: unknown style {style!r}", file=sys.stderr)
+            return 2
+        meta: dict = {}
+        history: list[int] = []
+        if token:
+            try:
+                info = api_get(f"/repos/{owner}/{spec['name']}", token)
+                meta = {"stars": info.get("stargazers_count"), "pushed": info.get("pushed_at")}
+                meta["commits"] = count_commits(owner, str(spec["name"]), token)
+                meta["releases"], meta["tag"] = latest_release(owner, str(spec["name"]), token)
+                history = star_history(owner, str(spec["name"]), token)
+            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError) as exc:
+                print(f"{spec['name']}: live data unavailable ({exc})", file=sys.stderr)
+        ctx = build_ctx(spec, meta, history)
+        dark = render(style, ctx, False)
+        target_dir = Path(args.out) / str(spec["name"])
+        if not args.no_write:
+            (target_dir / "assets").mkdir(parents=True, exist_ok=True)
+            (target_dir / "assets" / "banner.svg").write_text(dark, encoding="utf-8")
+            size = len(dark.encode())
+            if style not in S.DARK_ONLY:
+                light_svg = render(style, ctx, True)
+                (target_dir / "assets" / "banner-light.svg").write_text(light_svg, encoding="utf-8")
+                size += len(light_svg.encode())
+            print(f"{spec['name']:<24} {style:<7} {size:>7,} B  -> {target_dir}")
+        cards.append(
+            f'<figure><figcaption>{S.esc(spec["name"])} · {style}</figcaption>'
+            f'<img src="{S.esc(str(spec["name"]))}/assets/banner.svg" width="100%"></figure>'
+        )
 
-    svg = banner(spec, owner, meta, history)
-    if not args.no_write:
-        target = Path(args.out) / "assets" / "banner.svg"
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(svg, encoding="utf-8")
-        print(f"wrote {target} ({len(svg.encode())} bytes)")
-    print(readme_block(spec, meta))
+    if args.preview and not args.no_write:
+        page = (
+            "<!doctype html><meta charset=utf-8><title>repo-kit preview</title>"
+            "<style>body{background:#010409;color:#8b949e;font:13px ui-monospace,monospace;"
+            "margin:0;padding:24px}figure{margin:0 0 28px}figcaption{padding:6px 0}</style>"
+            + "".join(cards)
+        )
+        Path(args.out, "preview.html").write_text(page, encoding="utf-8")
+        print(f"preview: {Path(args.out, 'preview.html')}")
+
+    if not args.all:
+        print(readme_block(specs[0], str(specs[0].get("style") or "pipe"),
+                           build_ctx(specs[0], {}, [])))
     return 0
 
 

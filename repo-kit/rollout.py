@@ -123,11 +123,12 @@ def main(argv: list[str]) -> int:
         style = str(spec.get("style") or "pipe")
         assets = stage / "docs/assets"
         assets.mkdir(parents=True, exist_ok=True)
-        dark = B.S.STYLES[style](ctx, False)
+        mod = B.THEMES[B.THEME]
+        dark = mod.STYLES[style](ctx, False)
         (assets / "banner.svg").write_text(dark, encoding="utf-8")
         size = len(dark.encode())
-        if style not in B.S.DARK_ONLY:
-            light = B.S.STYLES[style](ctx, True)
+        if style not in mod.DARK_ONLY:
+            light = mod.STYLES[style](ctx, True)
             (assets / "banner-light.svg").write_text(light, encoding="utf-8")
             size += len(light.encode())
         (stage / "repo-kit.toml").write_text(B.export_spec(spec, OWNER), encoding="utf-8")

@@ -11,7 +11,6 @@ fetched when a token is available; without one the banner still renders with the
 counters at zero. Stdlib only.
 """
 from __future__ import annotations
-
 import argparse
 import json
 import os
@@ -25,6 +24,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import styles as S  # noqa: E402
+import styles_ink as INK  # noqa: E402
+
+THEME = os.environ.get("REPO_KIT_THEME", "ink")
+THEMES = {"ink": INK, "system": S}
 
 BEGIN, END = "<!-- dwgx-banner:BEGIN -->", "<!-- dwgx-banner:END -->"
 
@@ -128,6 +131,8 @@ def build_ctx(spec: dict, meta: dict, history: list[int]) -> dict:
         "install": str(spec.get("install") or ""),
         "lang": lang,
         "license": license_,
+        "family": str(spec.get("family") or ""),
+        "accent_role": str(spec.get("accent_role") or "gold"),
         "topics": topics,
         "links": [dict(l) for l in (spec.get("links") or [])],
         "stars": stars,
@@ -193,7 +198,7 @@ def readme_block(spec: dict, style: str, ctx: dict) -> str:
         f"[![{S.esc(l.get('label'))}]({S.esc(l.get('url'))})]({S.esc(l.get('url'))})"
         for l in ctx["links"]
     )
-    if style in S.DARK_ONLY:
+    if style in THEMES[THEME].DARK_ONLY:
         img = f'<img src="docs/assets/banner.svg" width="100%" alt="{name} — {ctx["tagline"]}" />'
     else:
         img = (
@@ -303,7 +308,7 @@ def main() -> int:
     cards: list[str] = []
     for spec in specs:
         style = str(spec.get("style") or "pipe")
-        if style not in S.STYLES:
+        if style not in THEMES[THEME].STYLES:
             print(f"{spec.get('name')}: unknown style {style!r}", file=sys.stderr)
             return 2
         meta: dict = {}
@@ -322,11 +327,11 @@ def main() -> int:
         if not args.no_write:
             assets = target / "docs" / "assets"
             assets.mkdir(parents=True, exist_ok=True)
-            dark = S.STYLES[style](ctx, False)
+            dark = THEMES[THEME].STYLES[style](ctx, False)
             (assets / "banner.svg").write_text(dark, encoding="utf-8")
             size = len(dark.encode())
-            if style not in S.DARK_ONLY:
-                light = S.STYLES[style](ctx, True)
+            if style not in THEMES[THEME].DARK_ONLY:
+                light = THEMES[THEME].STYLES[style](ctx, True)
                 (assets / "banner-light.svg").write_text(light, encoding="utf-8")
                 size += len(light.encode())
             print(f"{str(spec['name']):<24} {style:<7} {size:>7,} B")

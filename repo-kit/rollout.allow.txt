@@ -1,0 +1,5 @@
+# Only these repositories may be pushed without --dry-run.
+# One line per repo name. Remove a line to freeze that repository.
+JSM
+vrchat-il2cpp-re
+cursorapi

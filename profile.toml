@@ -13,6 +13,16 @@ alias = "dwgx · 帝王尬笑"
 from = "Kobe"
 note = "也许我就是dwgx"
 
+# Owner 本人的话，短句、中英混排、不加标点。这一块直接印在 README 上。
+# 逐行都是他自己的说法；改文案只改这里，不动生成器。
+[voice]
+lines = [
+  "IT 开发者 · 熟练运用 AGENT",
+  "执行交给 harness 判断留给自己 跑出来的才算",
+  "我要的是真的写出来文本",
+  "不要大炮打蚊子 全面推进不是一个问题一个问题攻克",
+]
+
 [ship]
 origin = "genesis.wiki"
 windsurf = "js · openai/anthropic"

@@ -1,0 +1,71 @@
+# repo-kit · 跨仓库页头/背景图生成器的事实来源
+# 每个仓库一份；build.py <name> 生成 docs/assets/banner.svg 并打印 README 注入块。
+# 只改这个文件，不手改生成出来的图。
+
+owner = "dwgx"
+
+[[repo]]
+name = "WindsurfAPI"
+tagline = "Windsurf / Devin 100+ 模型 · 多协议 · zero-dep 自托管"
+install = "git clone https://github.com/dwgx/WindsurfAPI && cd WindsurfAPI && node server.js"
+lang = "JavaScript"
+license = "MIT"
+accent = "sakura"
+topics = ["ai", "api-gateway", "anthropic", "openai", "gemini", "self-hosted"]
+links = [
+  { label = "docs", url = "https://github.com/dwgx/WindsurfAPI#readme" },
+  { label = "releases", url = "https://github.com/dwgx/WindsurfAPI/releases" },
+  { label = "issues", url = "https://github.com/dwgx/WindsurfAPI/issues" },
+]
+
+[[repo]]
+name = "SmartCLI"
+tagline = "三个 Agent Skill 架在一个 PTY + pyte 上：读真实终端、操作、确认"
+install = "pip install smartcli-toolkit"
+lang = "Python"
+license = "MIT"
+accent = "cyan"
+topics = ["tui", "agent", "pty", "automation"]
+links = [
+  { label = "docs", url = "https://github.com/dwgx/SmartCLI#readme" },
+  { label = "PyPI", url = "https://pypi.org/project/smartcli-toolkit/" },
+  { label = "issues", url = "https://github.com/dwgx/SmartCLI/issues" },
+]
+
+[[repo]]
+name = "KiroStudio"
+tagline = "Kiro / AWS Q 网关 · Anthropic Messages 兼容 · 凭据调度"
+install = "docker compose up -d"
+lang = "Rust"
+license = "MIT"
+accent = "gold"
+topics = ["gateway", "anthropic", "kiro", "rust"]
+links = [
+  { label = "docs", url = "https://github.com/dwgx/KiroStudio#readme" },
+  { label = "releases", url = "https://github.com/dwgx/KiroStudio/releases" },
+]
+
+[[repo]]
+name = "MCPClient"
+tagline = "把 Minecraft 1.8.9 客户端经 MCP 暴露给 LLM · 7 层内核做权限门控"
+install = "./mvnw -q clean package && ./mvnw -q exec:java"
+lang = "Java"
+license = "MIT"
+accent = "green"
+topics = ["mcp", "minecraft", "llm", "java"]
+links = [
+  { label = "docs", url = "https://github.com/dwgx/MCPClient#readme" },
+  { label = "issues", url = "https://github.com/dwgx/MCPClient/issues" },
+]
+
+[[repo]]
+name = "vrchat-il2cpp-re"
+tagline = "VRChat IL2CPP 结构整理：类 / 方法 / 字段成为可继续查阅的研究材料"
+install = "git clone https://github.com/dwgx/vrchat-il2cpp-re"
+lang = "C#"
+accent = "gold"
+topics = ["reverse-engineering", "il2cpp", "unity", "vrchat"]
+links = [
+  { label = "readme", url = "https://github.com/dwgx/vrchat-il2cpp-re#readme" },
+  { label = "releases", url = "https://github.com/dwgx/vrchat-il2cpp-re/releases" },
+]

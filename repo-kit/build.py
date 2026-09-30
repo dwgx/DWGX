@@ -189,26 +189,36 @@ def build_ctx(spec: dict, meta: dict, history: list[int]) -> dict:
 # ------------------------------------------------------------------- output
 
 
-def readme_block(spec: dict, style: str, ctx: dict) -> str:
+def blob_bust(path: Path) -> str:
+    """Git blob id of a file: a content hash we know before the commit exists.
+    Used as the ?t= cache-buster so a refreshed banner is not served from camo."""
+    import hashlib
+    data = path.read_bytes()
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()[:12]
+
+
+def readme_block(spec: dict, style: str, ctx: dict, bust: str = "") -> str:
     name = ctx["name"]
     meta_bits = " · ".join(b for b in (ctx["lang"], ctx["license"]) if b != "-")
     if ctx["stars"]:
         meta_bits += f" · ★{fmt(ctx['stars'])}"
-    badges = " ".join(
-        f"[![{S.esc(l.get('label'))}]({S.esc(l.get('url'))})]({S.esc(l.get('url'))})"
-        for l in ctx["links"]
-    )
+    # plain links, not image syntax: ![docs](https://github.com/.../releases) renders
+    # as a broken image because the target is a page, not a picture
+    links = " · ".join(f"[{S.esc(l.get('label'))}]({S.esc(l.get('url'))})"
+                       for l in ctx["links"])
+    q = f"?t={bust}" if bust else ""
     if style in THEMES[THEME].DARK_ONLY:
-        img = f'<img src="docs/assets/banner.svg" width="100%" alt="{name} — {ctx["tagline"]}" />'
+        img = (f'<img src="docs/assets/banner.svg{q}" width="100%" '
+               f'alt="{name} — {ctx["tagline"]}" />')
     else:
         img = (
             "<picture>\n"
-            '  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner.svg" />\n'
-            '  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg" />\n'
-            f'  <img src="docs/assets/banner.svg" width="100%" alt="{name} — {ctx["tagline"]}" />\n'
+            f'  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner.svg{q}" />\n'
+            f'  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg{q}" />\n'
+            f'  <img src="docs/assets/banner.svg{q}" width="100%" alt="{name} — {ctx["tagline"]}" />\n'
             "</picture>"
         )
-    body = f"{meta_bits}\n\n{badges}" if badges else meta_bits
+    body = f"{meta_bits}\n\n{links}" if links else meta_bits
     return f"""{BEGIN}
 <div align="center">
 
@@ -336,7 +346,9 @@ def main() -> int:
                 size += len(light.encode())
             print(f"{str(spec['name']):<24} {style:<7} {size:>7,} B")
         if args.inject and not args.no_write:
-            changed = inject_readme(target / "README.md", readme_block(spec, style, ctx))
+            changed = inject_readme(target / "README.md",
+                                    readme_block(spec, style, ctx,
+                                                 blob_bust(assets / "banner.svg")))
             print(f"{str(spec['name']):<24} README {'patched' if changed else 'already current'}")
         if args.export and not args.all:
             out = Path(args.export)

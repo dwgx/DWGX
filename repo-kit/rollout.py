@@ -70,6 +70,8 @@ def main(argv: list[str]) -> int:
     if not dry and len(names) > MAX_PER_RUN:
         print(f"refusing {len(names)} repositories in one run; the cap is {MAX_PER_RUN}. "
               "Run them in smaller batches.")
+        return 2
+    permit = allowed()
     if not dry:
         blocked = [r for r in names if r not in permit]
         if blocked:
@@ -133,7 +135,9 @@ def main(argv: list[str]) -> int:
             size += len(light.encode())
         (stage / "repo-kit.toml").write_text(B.export_spec(spec, OWNER), encoding="utf-8")
         shutil.copyfile(KIT / "templates/banner.yml", stage / ".github/workflows/banner.yml")
-        patched = B.inject_readme(stage / "README.md", B.readme_block(spec, style, ctx))
+        patched = B.inject_readme(stage / "README.md",
+                                  B.readme_block(spec, style, ctx,
+                                                 B.blob_bust(assets / "banner.svg")))
         print(f"{repo:<24} {style:<7} {size:>7,} B  readme={'patched' if patched else 'unchanged'}")
 
         if dry:

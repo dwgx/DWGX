@@ -353,9 +353,9 @@ def pipe(ctx: dict, light: bool) -> str:
         x += w + 30
     sheet.install_line(x=34, y=292)
     if ctx.get("releases"):
-        note = f"{ctx['releases']} releases on record"
-        sheet.label(1166, 180, note, 12, anchor="end", tracking=0)
-        sheet.add(ink.path(ink.hand_line(1030, 172, 1166, 172, seed=sheet.seed + 77,
+        note = f"{ctx['releases']} releases"
+        sheet.label(1126, 118, note, 12, anchor="end", tracking=0)
+        sheet.add(ink.path(ink.hand_line(1020, 112, 1126, 112, seed=sheet.seed + 77,
                                          bend=0.05), sheet.accent, 1.8))
     return sheet.plate()
 

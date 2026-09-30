@@ -33,22 +33,24 @@ class Sheet:
         self.ctx = ctx
         self.style = style
         self.light = light
-        self.palette = ink.PALETTES.get(str(ctx.get("family") or ""))
-        if self.palette is None:
+        self.family = str(ctx.get("family") or "")
+        if self.family not in ink.PALETTES:
             # No family named in the spec: derive one from the repository name so
             # every project gets its own tint without 25 hand edits, and the same
             # repository always comes back the same colour.
             names = tuple(ink.PALETTES)
             roles = ("gold", "aurora", "rose", "violet", "lapis")
-            self.palette = ink.PALETTES[names[ink.seed_of(ctx["name"]) % len(names)]]
+            self.family = names[ink.seed_of(ctx["name"]) % len(names)]
             self.derived_role = roles[ink.seed_of(ctx["name"]) % len(roles)]
         else:
             self.derived_role = str(ctx.get("accent_role") or "gold")
+        # the Art Lab palettes are ink-on-slate; on paper the whole role table
+        # flips to pigment, otherwise the name and the frame render at 1.01:1
+        self.palette = ink.palette_for(self.family, light)
         self.ground = ink.GROUND["light" if light else "dark"]
         self.ink = self.palette["ink"]
-        self.muted = self.palette["lapis"]
+        self.muted = self.palette["muted"]
         self.accent = self.palette.get(self.derived_role) or self.palette["gold"]
-        self.family = next(k for k, v in ink.PALETTES.items() if v is self.palette)
         self.seed = ink.seed_of(ctx["name"])
         self.parts: list[str] = [
             f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
@@ -97,10 +99,15 @@ class Sheet:
                            self.ink, 1.6, 0.22))
         return "".join(self.parts) + "</svg>"
 
-    def title_block(self, x=34, y=150, name_size=48) -> None:
+    def title_block(self, x=34, y=150, name_size=48, limit=520) -> None:
         ctx = self.ctx
-        self.serif(x, y, ctx["name"], name_size)
-        width = len(ctx["name"]) * name_size * 0.52
+        name = str(ctx["name"])
+        # GitHub allows 100-character repository names; shrink rather than let the
+        # title walk off the plate, and keep the underline under the drawn text
+        if len(name) * name_size * 0.5 > limit:
+            name_size = max(20, int(limit / (len(name) * 0.5)))
+        self.serif(x, y, name, name_size)
+        width = ink.text_width(name, name_size)
         self.add(ink.path(ink.hand_line(x, y + 12, x + width, y + 12, seed=self.seed + 3,
                                         bend=0.05), self.accent, 2.4))
         words = (ctx["tagline"] or "").split(" ")
@@ -118,10 +125,7 @@ class Sheet:
             self.serif(x, y + 40 + i * 26, text, 17, colour=self.ink, italic=True,
                        opacity=0.92)
 
-    def serif(self, x, y, body, size=46, colour=None, anchor="start", italic=False,
-              weight="400", opacity=1.0) -> None:
-        self.add(ink.text(x, y, body, size, colour or self.ink, family=SERIF,
-                          weight=weight, anchor=anchor, italic=italic, opacity=opacity))
+
 
     def install_line(self, x=34, y=250) -> None:
         ctx = self.ctx
@@ -197,7 +201,7 @@ def vt100(ctx: dict, light: bool) -> str:
     sheet.add(ink.path(ink.hand_line(cursor_x, y + 196, cursor_x + 11, y + 196,
                                      seed=sheet.seed + 6), sheet.palette["aurora"], 2.4))
     sheet.title_block(x=600, y=150, name_size=44)
-    sheet.install_line(x=600, y=232)
+    sheet.install_line(x=600, y=252)
     return sheet.plate()
 
 
@@ -321,7 +325,8 @@ def card(ctx: dict, light: bool) -> str:
     stamp_x, stamp_y = 900, 150
     sheet.add(ink.ghost(ink.circle(stamp_x, stamp_y, 62, seed=sheet.seed + 12), sheet.accent, 2.0))
     sheet.add(ink.path(ink.circle(stamp_x, stamp_y, 56, seed=sheet.seed + 13), sheet.accent, 1.2))
-    sheet.add(ink.path(ink.spark(stamp_x, stamp_y, 26, seed=sheet.seed + 14)[0], sheet.accent, 2.0))
+    for arm in ink.spark(stamp_x, stamp_y, 26, seed=sheet.seed + 14, colour=sheet.accent):
+        sheet.add(arm if arm.startswith("<circle") else ink.path(arm, sheet.accent, 2.0))
     sheet.label(stamp_x, stamp_y + 84, "dwgx archive", 11, anchor="middle")
     sheet.count_block(x=1166, y=252)
     return sheet.plate()

@@ -76,13 +76,36 @@ def count_commits(owner: str, repo: str, token: str) -> int:
 
 
 def latest_release(owner: str, repo: str, token: str) -> tuple[int, str]:
+    """Exact release count plus the newest tag.
+
+    The count comes from the Link header with per_page=1 (rel="last" is the total),
+    not from len(rows): a repository with 190 releases must not be drawn as 100.
+    """
     try:
-        rows = api_get(f"/repos/{owner}/{repo}/releases?per_page=100", token)
+        rows = api_get(f"/repos/{owner}/{repo}/releases?per_page=1", token)
     except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError):
         return 0, ""
     if not isinstance(rows, list) or not rows:
         return 0, ""
-    return len(rows), str(rows[0].get("tag_name") or "")
+    return _last_page(f"/repos/{owner}/{repo}/releases?per_page=1", token), \
+        str(rows[0].get("tag_name") or "")
+
+
+def _last_page(path: str, token: str) -> int:
+    """Page number of rel="last" for a per_page=1 listing: that is the row count."""
+    req = urllib.request.Request(
+        f"https://api.github.com{path}",
+        headers={"Accept": "application/vnd.github+json",
+                 "User-Agent": "dwgx-repo-kit",
+                 "Authorization": f"Bearer {token}"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            link = resp.headers.get("Link") or ""
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError):
+        return 0
+    found = re.search(r'page=(\d+)>;\s*rel="last"', link)
+    return int(found.group(1)) if found else 0
 
 
 def star_history(owner: str, repo: str, token: str) -> list[int]:
@@ -207,15 +230,15 @@ def readme_block(spec: dict, style: str, ctx: dict, bust: str = "") -> str:
     links = " · ".join(f"[{S.esc(l.get('label'))}]({S.esc(l.get('url'))})"
                        for l in ctx["links"])
     q = f"?t={bust}" if bust else ""
+    alt = S.esc(f'{name} — {ctx["tagline"]}')   # a quote in the tagline would break the markup
     if style in THEMES[THEME].DARK_ONLY:
-        img = (f'<img src="docs/assets/banner.svg{q}" width="100%" '
-               f'alt="{name} — {ctx["tagline"]}" />')
+        img = (f'<img src="docs/assets/banner.svg{q}" width="100%" alt="{alt}" />')
     else:
         img = (
             "<picture>\n"
             f'  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner.svg{q}" />\n'
             f'  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg{q}" />\n'
-            f'  <img src="docs/assets/banner.svg{q}" width="100%" alt="{name} — {ctx["tagline"]}" />\n'
+            f'  <img src="docs/assets/banner.svg{q}" width="100%" alt="{alt}" />\n'
             "</picture>"
         )
     body = f"{meta_bits}\n\n{links}" if links else meta_bits

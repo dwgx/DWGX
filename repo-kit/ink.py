@@ -22,18 +22,72 @@ MASK32 = 0xFFFFFFFF
 # palettes.ts, verbatim role names
 PALETTES = {
     "cosmic": {"ink": "#f0eee6", "gold": "#e5c07b", "aurora": "#1fa27d",
-               "violet": "#8b7fd4", "lapis": "#638aaf", "rose": "#d97757"},
+               "violet": "#8b7fd4", "lapis": "#638aaf", "rose": "#d97757",
+               "muted": "#7E9AB8"},
     "crayon": {"ink": "#f0eee6", "gold": "#e5c07b", "aurora": "#d97757",
-               "violet": "#8a7060", "lapis": "#6b7280", "rose": "#c07060"},
-    "science": {"ink": "#e8dcc8", "gold": "#c45c26", "aurora": "#2f6b4f",
-                "violet": "#3d4a7a", "lapis": "#4a5a8a", "rose": "#b85c38"},
+               "violet": "#9c8272", "lapis": "#7d8590", "rose": "#c07060",
+               "muted": "#8A8F98"},
+    "science": {"ink": "#e8dcc8", "gold": "#e08a4c", "aurora": "#57a98a",
+                "violet": "#8e9cd0", "lapis": "#7a8ab8", "rose": "#e08a63",
+                "muted": "#8A97B8"},
     "sigil": {"ink": "#f0eee6", "gold": "#e5c07b", "aurora": "#1fa27d",
-              "violet": "#d97757", "lapis": "#638aaf", "rose": "#e5c07b"},
+              "violet": "#d97757", "lapis": "#638aaf", "rose": "#e5c07b",
+              "muted": "#7E9AB8"},
 }
 GROUND = {"dark": "#0B0A0C", "light": "#F4EFE6"}
 
 SERIF = "Georgia,'Iowan Old Style','Times New Roman',Times,serif"
 MONO = "ui-monospace,'Cascadia Mono',Consolas,'SF Mono',monospace"
+
+# The four Art Lab palettes are tuned for a near-black ground: every "ink" role in
+# them is a paper cream, which measures 1.01:1 to 1.18:1 on the light ground. These
+# are the same six roles restated as pigment on paper, verified for contrast in
+# styles_ink (>=4.5:1 for text roles, >=3:1 for strokes).
+PAPER_PALETTES = {
+    "cosmic": {"ink": "#1C2430", "gold": "#7A5D18", "aurora": "#17715A",
+               "violet": "#4B4391", "lapis": "#3F6280", "rose": "#A8452C",
+               "muted": "#41586B"},
+    "crayon": {"ink": "#2A2320", "gold": "#7A5D18", "aurora": "#A8452C",
+               "violet": "#6B5647", "lapis": "#4A5158", "rose": "#93422F",
+               "muted": "#4A5158"},
+    "science": {"ink": "#26221A", "gold": "#8A4A1E", "aurora": "#2F6B4F",
+                "violet": "#3D4A7A", "lapis": "#4A5A8A", "rose": "#A64E2E",
+                "muted": "#4A5A8A"},
+    "sigil": {"ink": "#1C2430", "gold": "#7A5D18", "aurora": "#17715A",
+              "violet": "#A8452C", "lapis": "#3F6280", "rose": "#7A5D18",
+              "muted": "#41586B"},
+}
+
+
+def palette_for(family: str, light: bool) -> dict:
+    table = PAPER_PALETTES if light else PALETTES
+    return table.get(family) or table["cosmic"]
+
+
+# Georgia-class advance widths in em. A flat 0.5em per character is wrong in both
+# directions: all-caps short names get a rule that stops short, long lowercase
+# names get one that dangles into empty space (measured -22% to +16%).
+_WIDE = set("MWmw@%")
+_NARROW = set("iljtfrI.,;:'|!()[]{}-")
+
+
+def text_width(body: str, size: float) -> float:
+    """Approximate advance width of `body` in a Georgia-class serif at `size`."""
+    total = 0.0
+    for ch in str(body):
+        if ord(ch) > 0x2E7F:
+            total += 1.0            # CJK glyphs are full width
+        elif ch in _WIDE:
+            total += 0.86
+        elif ch in _NARROW:
+            total += 0.31
+        elif ch.isupper():
+            total += 0.68
+        elif ch.isdigit():
+            total += 0.55
+        else:
+            total += 0.50
+    return total * size
 
 
 def seed_of(key: str | int) -> int:
@@ -52,7 +106,9 @@ def rng(seed: int):
         a = (a + 0x6D2B79F5) & MASK32
         t = a
         t = ((t ^ (t >> 15)) * (1 | t)) & MASK32
-        t = (t + ((t ^ (t >> 7)) * (61 | t)) & MASK32) & MASK32
+        # the closing `^ t` is what makes this mulberry32 rather than a lookalike;
+        # without it the second mixing step loses its feedback
+        t = ((t + ((t ^ (t >> 7)) * (61 | t))) & MASK32) ^ t
         t ^= (t >> 14)
         return (t & MASK32) / 4294967296.0
 
@@ -122,18 +178,23 @@ def hand_line(x1: float, y1: float, x2: float, y2: float, seed: int = 11,
 
 
 def smooth(points, seed: int = 5, close: bool = False) -> str:
-    """handgen.ts smoothPoly: quadratic segments through every anchor."""
+    """handgen.ts smoothPoly: quadratic segments that pass through every anchor.
+
+    The last segment stops at the midpoint of the final span, exactly like the
+    reference, and the anchor jitter is half a unit rather than one.
+    """
     rnd = rng(seed)
-    pts = [(x + (rnd() - 0.5) * 0.5, y + (rnd() - 0.5) * 0.5) for x, y in points]
+    pts = [(x + (rnd() - 0.5) * 0.25, y + (rnd() - 0.5) * 0.25) for x, y in points]
     if len(pts) < 3:
         return _d(pts, close)
-    mid = lambda a, b: ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)  # noqa: E731
     out = [f"M{fmt(pts[0][0])} {fmt(pts[0][1])}"]
     span = list(zip(pts, pts[1:] + ([pts[0]] if close else [])))
     for i, (a, b) in enumerate(span):
-        nxt_pt = span[(i + 1) % len(span)][0] if close or i + 1 < len(span) else b
-        c = mid(a, b)
-        e = mid(b, nxt_pt)
+        if not close and i == len(span) - 1:
+            break
+        nxt_pt = span[(i + 1) % len(span)][0]
+        c = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
+        e = ((b[0] + nxt_pt[0]) / 2, (b[1] + nxt_pt[1]) / 2)
         out.append(f"Q{fmt(c[0])} {fmt(c[1])} {fmt(e[0])} {fmt(e[1])}")
     if close:
         out.append("Z")
@@ -141,26 +202,44 @@ def smooth(points, seed: int = 5, close: bool = False) -> str:
 
 
 def hachure(points, angle_deg: float = -41.0, gap: float = 4.5, seed: int = 13) -> list[str]:
-    """handgen.ts hachure: parallel pen strokes clipped to a polygon's extent."""
+    """Parallel pen strokes at `angle_deg`, clipped to the polygon by a scanline.
+
+    Every hatch line is the set of points with a constant projection onto the
+    hatch normal, so the offset advances by `gap` in that coordinate and the
+    line is intersected with the polygon edge list. Clipping to the bounding box
+    would spill outside an oblique shape, which is what the polygons here are.
+    """
+    if gap <= 0:
+        return []
     rnd = rng(seed)
     rad = math.radians(angle_deg)
-    dx, dy = math.cos(rad), math.sin(rad)
-    nx, ny = -dy, dx
-    xs = [p[0] for p in points]
-    ys = [p[1] for p in points]
-    min_x, max_x, min_y, max_y = min(xs), max(xs), min(ys), max(ys)
-    diag = (max_x - min_x) + (max_y - min_y)
-    c = (min_x + max_x) / 2 * dy - (min_y + max_y) / 2 * dx
+    dx, dy = math.cos(rad), math.sin(rad)      # along the stroke
+    nx, ny = -dy, dx                            # across the strokes
+    poly = list(points)
+    if len(poly) < 3:
+        return []
+    lo = min(nx * x + ny * y for x, y in poly)
+    hi = max(nx * x + ny * y for x, y in poly)
+
     lines: list[str] = []
     i = 0
-    while c < diag:
-        px, py = -dy * c + dx * (min_x + max_x) / 2, dx * c + dy * (min_y + max_y) / 2
-        seg = _clip_line((px - nx * diag, py - ny * diag), (px + nx * diag, py + ny * diag),
-                         (min_x - 2, min_y - 2, max_x + 2, max_y + 2))
-        if seg:
-            jitter = gap * 0.4 * (rnd() - 0.5)
-            lines.append(hand_line(seg[0][0] + dx * jitter, seg[0][1] + dy * jitter,
-                                   seg[1][0] + dx * jitter, seg[1][1] + dy * jitter,
+    c = lo + gap * 0.5
+    while c < hi:
+        hits: list[float] = []
+        for k in range(len(poly)):
+            ax, ay = poly[k]
+            bx, by = poly[(k + 1) % len(poly)]
+            a, b = nx * ax + ny * ay, nx * bx + ny * by
+            if (a - c) * (b - c) <= 0 and a != b:
+                t = (c - a) / (b - a)
+                hits.append(ax + (bx - ax) * t)
+                hits.append(ay + (by - ay) * t)
+        if len(hits) >= 4:
+            # the two crossings are the ends of the stroke; drawing a fixed reach
+            # from their midpoint is what sent lines flying off the shape
+            jx, jy = dx * gap * 0.18 * (rnd() - 0.5), dy * gap * 0.18 * (rnd() - 0.5)
+            lines.append(hand_line(hits[0] + jx, hits[1] + jy,
+                                   hits[2] - jx, hits[3] - jy,
                                    seed=seed + i, bend=0.02))
         c += gap
         i += 1
@@ -232,14 +311,19 @@ def rays(cx, cy, r0, r1, n, seed=29, bend=0.06) -> list[str]:
     return out
 
 
-def spark(cx, cy, r, seed=31) -> list[str]:
-    """Four-point star: two crossed strokes, each overshooting the centre."""
+def spark(cx, cy, r, seed=31, colour: str = "currentColor") -> list[str]:
+    """Four arms swept around the centre plus the dot in the middle, like the
+    reference: five elements, not two crossed strokes. The centre dot carries an
+    explicit colour because `currentColor` inside an SVG rendered as an <img>
+    resolves to the document default, not to the caller's palette."""
+    rnd = rng(seed)
     out = []
-    for i in range(2):
-        a = math.radians(45) + i * math.pi / 2
-        dx, dy = math.cos(a) * r, math.sin(a) * r
-        out.append(hand_line(cx - dx, cy - dy, cx + dx * 1.12, cy + dy * 1.12,
-                             seed=seed + i, bend=0.08))
+    for i in range(4):
+        a = math.radians(90) + i * math.pi / 2 + (rnd() - 0.5) * 0.24
+        reach = r * (0.86 + 0.28 * rnd())
+        out.append(hand_line(cx, cy, cx + math.cos(a) * reach, cy + math.sin(a) * reach,
+                             seed=seed + i, bend=0.1))
+    out.append(f'<circle cx="{fmt(cx)}" cy="{fmt(cy)}" r="{fmt(r * 0.16)}" fill="{colour}"/>')
     return out
 
 

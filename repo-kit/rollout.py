@@ -10,11 +10,13 @@ No local clone, no new credential, no shell.
 """
 from __future__ import annotations
 
-import base64
 import json
 import shutil
 import sys
+import re
+import time
 import urllib.error
+import urllib.request
 import shutil
 import time
 from pathlib import Path
@@ -88,9 +90,14 @@ def main(argv: list[str]) -> int:
     specs = {str(r["name"]): r for r in conf.get("repo") or []}
     WORK.mkdir(parents=True, exist_ok=True)
     status = 0
-    pushed_count = 0
+    pushed = 0
 
     for repo in names:
+        # the staging path is built from argv and rmtree'd below; a traversal
+        # string must never reach shutil, in dry mode or otherwise
+        if not re.fullmatch(r"[A-Za-z0-9._-]{1,100}", repo):
+            print(f"BAD-NAME {repo!r}")
+            return 2
         if repo == "DWGX":
             print("skip DWGX (profile repository; its README is generated)")
             continue
@@ -103,6 +110,17 @@ def main(argv: list[str]) -> int:
         if stage.exists():
             shutil.rmtree(stage)
         (stage / ".github/workflows").mkdir(parents=True)
+        # read the branch head BEFORE the README: if somebody pushes while this
+        # repository is being rendered, the later comparison aborts instead of
+        # silently reverting their commit
+        try:
+            branch = B.api_get(f"/repos/{OWNER}/{repo}", token).get("default_branch") or "main"
+            head_before = (P.call("GET", f"/repos/{OWNER}/{repo}/git/ref/heads/{branch}", token)
+                           .get("object") or {}).get("sha")
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
+            print(f"HEAD-FAIL {repo}: {exc}")
+            status = 1
+            continue
         readme = fetch_readme(repo, token)
         if readme is None:
             print(f"READ-FAIL {repo}")
@@ -147,9 +165,12 @@ def main(argv: list[str]) -> int:
             print(f"NOTHING-TO-PUSH {repo}")
             continue
         try:
-            branch = B.api_get(f"/repos/{OWNER}/{repo}", token).get("default_branch") or "main"
             head = (P.call("GET", f"/repos/{OWNER}/{repo}/git/ref/heads/{branch}", token)
                     .get("object") or {}).get("sha")
+            if head != head_before:
+                print(f"SKIP {repo}: the branch moved while rendering (someone else pushed)")
+                status = 1
+                continue
             entries = [{"path": p, "mode": "100644", "type": "blob",
                         "content": (stage / p).read_text(encoding="utf-8")} for p in files]
             tree = P.call("POST", f"/repos/{OWNER}/{repo}/git/trees", token,
@@ -160,6 +181,9 @@ def main(argv: list[str]) -> int:
             P.call("PATCH", f"/repos/{OWNER}/{repo}/git/refs/heads/{branch}", token,
                    {"sha": commit.get("sha"), "force": False})
             print(f"{repo:<24} pushed {str(commit.get('sha'))[:8]} on {branch}")
+            if pushed:
+                time.sleep(PAUSE_BETWEEN)
+            pushed += 1
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, KeyError) as exc:
             print(f"PUSH-FAIL {repo}: {exc}")
             status = 1
@@ -168,6 +192,3 @@ def main(argv: list[str]) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv[1:]))
-
-
-_ = base64  # imported for parity with the other scripts; unused here

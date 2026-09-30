@@ -1,54 +1,62 @@
-# repo-kit · 每个仓库一份。style 决定视觉母题，accent 不再决定外观。
+# repo-kit · 每个仓库一份。style 决定视觉母题。
+# 数据来源：api.github.com + 各仓库 README 原文（2026-10-01 采集）。
 # 只改这个文件；图是生成物，不要手改。
 #
 # style 速查（motif）：
-#   post   BIOS 自检屏 · 点线引导 · 适合设备/服务清单类
-#   vt100  终端窗口 · 扫描线 + 块光标 · 适合 TUI/PTY 类
-#   seq    协议时序图 · 实线请求/虚线响应 · 适合网关/协议桥
-#   tree   模块结构树 · 肘形连接 · 适合内核/分层类
-#   iso    等距块城市 · 三面着色 · 适合工具集/插件集
-#   scope  示波器 · 荧光曲线 · 适合持续采样的研究/网关
-#   card   档案卡 · 纸面 + 骑缝章 · 适合可查阅的资料/笔记
-#   pipe   流水线 · 分段块条 · 适合多阶段处理/调度
+#   post   BIOS 自检屏 · 点线引导 · 设备/服务清单、仪表盘
+#   vt100  终端窗口 · 扫描线 + 块光标 · TUI / PTY
+#   seq    协议时序图 · 实线请求 / 虚线响应 · 网关、握手、工作流
+#   tree   模块结构树 · 肘形连接 · 分层内核、模块树
+#   iso    等距块城市 · 三面着色 · 工具集、应用包
+#   scope  示波器 · 荧光曲线 · 持续采样、池化调度
+#   card   档案卡 · 纸面 + 骑缝章 · 可查阅的资料、文档库
+#   pipe   流水线 · 分段块条 · 多阶段处理、路由
+#
+# license 取 api.github.com 的 license.spdx_id 原值；"none" = API 里没有 license 对象。
+# install 为空的仓库，banner 里就不出现这一行 —— 不拿猜的填。
 
 owner = "dwgx"
+
+# ── 旗舰 ────────────────────────────────────────────────────────────────
 
 [[repo]]
 name = "WindsurfAPI"
 style = "pipe"
-tagline = "Windsurf / Devin 100+ 模型 · 多协议 · zero-dep 自托管"
-install = "git clone https://github.com/dwgx/WindsurfAPI && cd WindsurfAPI && node server.js"
+tagline = "把 Windsurf/Devin 云端 100+ 模型变成 OpenAI / Anthropic / Gemini 三套兼容 API"
+install = "git clone https://github.com/dwgx/WindsurfAPI.git && cd WindsurfAPI && bash setup.sh && node src/index.js"
 lang = "JavaScript"
 license = "MIT"
 stages = ["ingest", "auth", "route", "adapt", "serve"]
-topics = ["ai", "api-gateway", "anthropic", "openai", "gemini", "self-hosted"]
+topics = ["anthropic-compatible", "api-gateway", "claude", "self-hosted"]
 links = [
-  { label = "docs", url = "https://github.com/dwgx/WindsurfAPI#readme" },
+  { label = "docs", url = "https://dwgx.github.io/WindsurfAPI/" },
   { label = "releases", url = "https://github.com/dwgx/WindsurfAPI/releases" },
   { label = "issues", url = "https://github.com/dwgx/WindsurfAPI/issues" },
 ]
 
+# ── 网关与协议 ────────────────────────────────────────────────────────────
+
 [[repo]]
-name = "SmartCLI"
-style = "vt100"
-tagline = "三个 Agent Skill 架在一个 PTY + pyte 上：读真实终端、操作、确认"
-install = "pip install smartcli-toolkit"
-lang = "Python"
-license = "MIT"
-topics = ["tui", "agent", "pty", "automation", "pyte"]
+name = "KiroStudio"
+style = "scope"
+tagline = "Kiro / AWS Q 网关 · Anthropic Messages 兼容 · 多账号池 · 管理面板"
+install = "git clone https://github.com/dwgx/KiroStudio.git && cd KiroStudio && bash install.sh"
+lang = "Rust"
+license = "NOASSERTION"
+topics = ["ai-gateway", "anthropic", "kiro"]
 links = [
-  { label = "PyPI", url = "https://pypi.org/project/smartcli-toolkit/" },
-  { label = "issues", url = "https://github.com/dwgx/SmartCLI/issues" },
+  { label = "releases", url = "https://github.com/dwgx/KiroStudio/releases" },
+  { label = "issues", url = "https://github.com/dwgx/KiroStudio/issues" },
 ]
 
 [[repo]]
 name = "cursorapi"
 style = "seq"
 role = "GATEWAY"
-tagline = "Cursor API key pool gateway · OpenAI / Anthropic 双协议"
-install = "node server.js"
+tagline = "Cursor API key pool 网关 · OpenAI / Anthropic 双协议 · 热配置 · OTA"
+install = "git clone https://github.com/dwgx/cursorapi.git && cd cursorapi && npm install && node boot.mjs"
 lang = "JavaScript"
-license = "MIT"
+license = "none"
 messages = [
   ["chat.completions", "request"],
   ["200 · openai", "reply"],
@@ -56,11 +64,48 @@ messages = [
   ["200 · anthropic", "reply"],
   ["stream · sse", "request"],
 ]
-topics = ["cursor", "openai", "anthropic", "gateway", "key-pool"]
+topics = ["anthropic", "api-proxy", "cursor", "key-pool", "llm-gateway"]
 links = [
+  { label = "docs", url = "https://github.com/dwgx/cursorapi/tree/main/docs" },
   { label = "releases", url = "https://github.com/dwgx/cursorapi/releases" },
-  { label = "issues", url = "https://github.com/dwgx/cursorapi/issues" },
 ]
+
+[[repo]]
+name = "YuKiKo"
+style = "pipe"
+tagline = "AI QQ bot · OneBot + NapCat + LLM 路由 + 插件 + WebUI"
+install = "bash <(curl -fsSL https://raw.githubusercontent.com/dwgx/YuKiKo/main/bootstrap.sh)"
+lang = "Python"
+license = "MIT"
+stages = ["onebot", "route", "llm", "plugin", "webui"]
+topics = ["ai-gateway", "chatbot", "llm-agent", "onebot", "qq-bot"]
+links = [
+  { label = "guide", url = "https://github.com/dwgx/YuKiKo/blob/main/docs/en/GUIDE.md" },
+  { label = "issues", url = "https://github.com/dwgx/YuKiKo/issues" },
+]
+
+[[repo]]
+name = "vrc-dcc-workstation"
+style = "seq"
+role = "BLENDER"
+tagline = "VRChat DCC 工作流模板 · Blender 5.2 LTS + Unity 2022.3 · clone, handshake, bootstrap"
+install = "git clone https://github.com/dwgx/vrc-dcc-workstation.git && cd vrc-dcc-workstation && ./bootstrap.ps1"
+lang = "Python"
+license = "NOASSERTION"
+messages = [
+  ["clone templates", "request"],
+  ["INIT_QUESTIONNAIRE", "reply"],
+  ["bootstrap.ps1", "request"],
+  ["Modular Avatar ready", "reply"],
+  ["commit", "request"],
+]
+topics = ["ai-agents", "blender", "mcp", "unity", "vrchat"]
+links = [
+  { label = "DROP_ON_AGENT", url = "https://github.com/dwgx/vrc-dcc-workstation/blob/main/docs/DROP_ON_AGENT.md" },
+  { label = "releases", url = "https://github.com/dwgx/vrc-dcc-workstation/releases" },
+]
+
+# ── 内核与结构 ────────────────────────────────────────────────────────────
 
 [[repo]]
 name = "MCPClient"
@@ -69,53 +114,249 @@ tagline = "把 Minecraft 1.8.9 客户端经 MCP 暴露给 LLM · 7 层内核做�
 install = "./mvnw -q clean package && ./mvnw -q exec:java"
 lang = "Java"
 license = "MIT"
-topics = ["mcp", "kernel", "gating", "client", "lwjgl", "minecraft"]
+topics = ["mcp", "kernel", "gating", "lwjgl", "minecraft"]
 links = [
   { label = "issues", url = "https://github.com/dwgx/MCPClient/issues" },
 ]
 
 [[repo]]
+name = "RepoDLL"
+style = "tree"
+tagline = "REPO DX11/ImGui overlay DLL · 早期 Unity/Mono 游戏实验"
+install = "msbuild RepoDLL.slnx /p:Configuration=Release /p:Platform=x64"
+lang = "C++"
+license = "MIT"
+topics = ["cpp", "directx11", "imgui", "unity", "mono"]
+links = [
+  { label = "releases", url = "https://github.com/dwgx/RepoDLL/releases" },
+]
+
+[[repo]]
+name = "Lavender-rise-main"
+style = "tree"
+tagline = "很久以前做梦做的 Minecraft 客户端 · 早已停更，为了当年造它的人重新发布"
+install = ""
+lang = "Java"
+license = "AGPL-3.0"
+topics = ["java", "legacy-project", "minecraft-client"]
+links = [
+  { label = "issues", url = "https://github.com/dwgx/Lavender-rise-main/issues" },
+]
+
+[[repo]]
+name = "THIzaKaYaDEVCosole"
+style = "tree"
+tagline = "东方 Mystia 酒馆 Unity IL2CPP 调试台 · DX11/ImGui 实验"
+install = "msbuild THIzaKaYaDEVCosole.slnx /p:Configuration=Release /p:Platform=x64"
+lang = "C++"
+license = "NOASSERTION"
+topics = ["debug-console", "il2cpp", "imgui", "touhou", "unity"]
+links = [
+  { label = "releases", url = "https://github.com/dwgx/THIzaKaYaDEVCosole/releases" },
+]
+
+[[repo]]
+name = "DXSense"
+style = "tree"
+tagline = "第五人格 DX11/ImGui 歪瓜式早期实验记录"
+install = "cmake -S . -B build -A x64 && cmake --build build --config Release --parallel"
+lang = "C++"
+license = "NOASSERTION"
+topics = ["cpp", "directx11", "imgui", "legacy-project"]
+links = [
+  { label = "docs", url = "https://github.com/dwgx/DXSense/tree/main/docs" },
+  { label = "releases", url = "https://github.com/dwgx/DXSense/releases" },
+]
+
+[[repo]]
+name = "VRCSM"
+style = "tree"
+tagline = "VRChat Settings Manager · Windows 缓存清理 / 配置备份 / 迁移 / 诊断"
+install = "cd web && pnpm install && pnpm build && cmake --preset x64-release && cmake --build --preset x64-release"
+lang = "TypeScript"
+license = "NOASSERTION"
+topics = ["cache-cleaner", "desktop-app", "electron", "vr"]
+links = [
+  { label = "docs", url = "https://dwgx.github.io/VRCSM/" },
+  { label = "releases", url = "https://github.com/dwgx/VRCSM/releases" },
+]
+
+# ── 工具集与应用包 ────────────────────────────────────────────────────────
+
+[[repo]]
 name = "blender-copilot"
 style = "iso"
-tagline = "Blender MCP server · 308 个工具跨 25 个模块"
-install = "blender --python addon.py"
+tagline = "Blender MCP server · AI 3D 创作、自动化与 VRChat 形象流程"
+install = "uv pip install -e ."
 lang = "Python"
 license = "MIT"
-topics = ["blender", "mcp", "addons", "automation", "3d"]
+topics = ["3d-modeling", "ai-agents", "automation", "blender", "blender-addon"]
 links = [
+  { label = "docs", url = "https://github.com/dwgx/blender-copilot/tree/master/docs" },
   { label = "issues", url = "https://github.com/dwgx/blender-copilot/issues" },
 ]
 
 [[repo]]
+name = "Flipper-zero-on-dwgx"
+style = "iso"
+tagline = "Flipper Zero OFW 应用包 · x_ble_spam + 精选 SD 卡资源"
+install = "python -m pip install --user ufbt && cd custom_apps/x_ble_spam && ufbt launch"
+lang = "JavaScript"
+license = "NOASSERTION"
+topics = ["flipper-zero", "ofw", "ble-spam", "sd-card"]
+links = [
+  { label = "issues", url = "https://github.com/dwgx/Flipper-zero-on-dwgx/issues" },
+]
+
+[[repo]]
+name = "flipper-custom-apps"
+style = "iso"
+tagline = "自写的 Flipper Zero 应用 · BLE spam 与 ESP32 加速"
+install = "pip install ufbt && cd x_ble_spam && ufbt launch"
+lang = "C"
+license = "NOASSERTION"
+topics = ["ble-spam", "esp32", "flipper-zero"]
+links = [
+  { label = "issues", url = "https://github.com/dwgx/flipper-custom-apps/issues" },
+]
+
+[[repo]]
+name = "ble-spam-esp32-boost"
+style = "iso"
+tagline = "Flipper BLE spam 配 ESP32 双无线电加速 · Ghost ESP UART · OFW 1.4.3"
+install = "ufbt"
+lang = "C"
+license = "GPL-3.0"
+topics = ["ble-spam", "bluetooth-testing", "esp32", "ghost-esp", "ufbt"]
+links = [
+  { label = "issues", url = "https://github.com/dwgx/ble-spam-esp32-boost/issues" },
+]
+
+[[repo]]
+name = "NewAppleMusicPlayer"
+style = "iso"
+tagline = "Electron Apple Music 桌面伴侣 · 本地播放 · 灵动岛式界面"
+install = "git clone https://github.com/dwgx/NewAppleMusicPlayer.git && cd NewAppleMusicPlayer && npm install && npm start"
+lang = "JavaScript"
+license = "MIT"
+topics = ["apple-music", "desktop-app", "dynamic-island", "electron"]
+links = [
+  { label = "releases", url = "https://github.com/dwgx/NewAppleMusicPlayer/releases" },
+]
+
+[[repo]]
+name = "SmartCLI"
+style = "vt100"
+tagline = "三个 Agent Skill 架在一个 PTY + pyte 核心上：驱动 TUI、渲染 cell 级界面"
+install = "pip install smartcli-toolkit"
+lang = "Python"
+license = "MIT"
+topics = ["agent-skills", "ai-agents", "ansi", "cli", "conpty"]
+links = [
+  { label = "docs", url = "https://dwgx.github.io/SmartCLI/" },
+  { label = "PyPI", url = "https://pypi.org/project/smartcli-toolkit/" },
+]
+
+[[repo]]
+name = "bing-rewards-auto"
+style = "pipe"
+tagline = "Playwright + Edge/Chrome 驱动的 Microsoft Rewards 自动农场"
+install = "python bing_rewards.py --browser msedge"
+lang = "Python"
+license = "NOASSERTION"
+stages = ["launch", "signin", "search", "quiz", "claim"]
+topics = []
+links = [
+  { label = "docs", url = "https://github.com/dwgx/bing-rewards-auto/tree/main/docs" },
+  { label = "releases", url = "https://github.com/dwgx/bing-rewards-auto/releases" },
+]
+
+# ── 研究与资料 ────────────────────────────────────────────────────────────
+
+[[repo]]
 name = "driver-vuln-research"
 style = "scope"
-tagline = "内核驱动漏洞研究 · BYOVD · CAPABILITY_MATRIX 的持续采样"
-install = "git clone https://github.com/dwgx/driver-vuln-research"
+tagline = "内核驱动漏洞研究 · BYOVD：SIVX64 / AsIO3 / ASTRA64 / ArgusMonitor"
+install = ""
 lang = "Assembly"
-topics = ["reverse-engineering", "kernel", "vulnerability", "byovd"]
+license = "none"
+topics = []
 links = [
   { label = "matrix", url = "https://github.com/dwgx/driver-vuln-research/blob/master/CAPABILITY_MATRIX.md" },
 ]
 
 [[repo]]
-name = "JSM"
-style = "post"
-tagline = "Swift 编写的 Java / Paper / Spigot 服务器管理器"
-install = "brew install --cask jsm"
-lang = "Swift"
-license = "MIT"
-topics = ["minecraft", "server", "manager", "swift", "macos"]
+name = "vrchat-il2cpp-re"
+style = "card"
+tagline = "VRChat IL2CPP 去混淆流水线 · Unity 6 基线 · 64K 类 / 570K 方法 / 188K 字段"
+install = ""
+lang = "C#"
+license = "NOASSERTION"
+topics = ["deobfuscation", "il2cpp", "reverse-engineering", "unity6", "vrchat"]
 links = [
-  { label = "issues", url = "https://github.com/dwgx/JSM/issues" },
+  { label = "docs", url = "https://dwgx.github.io/vrchat-il2cpp-re/" },
+  { label = "releases", url = "https://github.com/dwgx/vrchat-il2cpp-re/releases" },
 ]
 
 [[repo]]
-name = "vrchat-il2cpp-re"
+name = "vrc-mod-guide"
 style = "card"
-tagline = "VRChat IL2CPP 结构整理：类 / 方法 / 字段成为可继续查阅的研究材料"
-install = "git clone https://github.com/dwgx/vrchat-il2cpp-re"
-lang = "C#"
-topics = ["reverse-engineering", "il2cpp", "unity", "vrchat", "research"]
+tagline = "VRChat 改模资源库 · 中文教程 / 素体衣装 / 视频，含 B站与 reddit 本地存档"
+install = "python -m http.server 8000"
+lang = "JavaScript"
+license = "none"
+topics = []
 links = [
-  { label = "releases", url = "https://github.com/dwgx/vrchat-il2cpp-re/releases" },
+  { label = "issues", url = "https://github.com/dwgx/vrc-mod-guide/issues" },
+]
+
+[[repo]]
+name = "FlipperZeroTeacher"
+style = "card"
+tagline = "Flipper Zero 双语文档、学习路径与可直接喂给 AI 的参考包"
+install = ""
+lang = "HTML"
+license = "MIT"
+topics = ["bilingual", "documentation", "flipper-zero", "knowledge-base"]
+links = [
+  { label = "docs", url = "https://dwgx.github.io/FlipperZeroTeacher/" },
+]
+
+# ── 仪表盘 ────────────────────────────────────────────────────────────────
+
+[[repo]]
+name = "JSM"
+style = "post"
+tagline = "Swift 编写的 macOS Java / Paper / Spigot 服务器管理器"
+install = "xcodebuild -project JSM.xcodeproj -scheme JSM -configuration Debug build"
+lang = "Swift"
+license = "MIT"
+topics = ["desktop-app", "java-server-manager", "macos"]
+links = [
+  { label = "releases", url = "https://github.com/dwgx/JSM/releases" },
+]
+
+[[repo]]
+name = "Quest-ADB-Dashboard"
+style = "post"
+tagline = "Meta Quest ADB 诊断仪表盘 · 可分享的 HTML 报告导出"
+install = ""
+lang = "C#"
+license = "MIT"
+topics = ["adb", "android", "device-audit", "meta-quest"]
+links = [
+  { label = "docs", url = "https://github.com/dwgx/Quest-ADB-Dashboard/tree/main/docs" },
+  { label = "releases", url = "https://github.com/dwgx/Quest-ADB-Dashboard/releases" },
+]
+
+[[repo]]
+name = "cs2-walkbot-ext"
+style = "post"
+tagline = "CS2 外部走路机器人 · WindMouse + Fitts 人性化瞄准 · ImGui/DX11 叠加层"
+install = ""
+lang = "C"
+license = "none"
+topics = ["cs2", "directx11", "imgui"]
+links = [
+  { label = "issues", url = "https://github.com/dwgx/cs2-walkbot-ext/issues" },
 ]

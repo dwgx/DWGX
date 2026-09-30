@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """repo-kit · build a repository banner in its own style.
 
-    python build.py <repo> [--out <dir>] [--preview] [--no-write]
+    python build.py <repo>                       # render into ./<repo>/assets
+    python build.py <repo> --flat --inject       # render into ./assets and patch README.md
+    python build.py <repo> --export DIR          # write a standalone repo-kit.toml
+    python build.py x --all --preview --out DIR  # every repo plus a contact sheet
 
 repos.toml is the only source of truth for the copy. Live GitHub numbers are
-fetched when a token is available; without one the banner still renders, just
-with the counters at zero. Output: assets/banner.svg, plus assets/banner-light.svg
-for the styles that ship a light variant, plus the README block to paste.
+fetched when a token is available; without one the banner still renders with the
+counters at zero. Stdlib only.
 """
 from __future__ import annotations
 
@@ -23,6 +25,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import styles as S  # noqa: E402
+
+BEGIN, END = "<!-- dwgx-banner:BEGIN -->", "<!-- dwgx-banner:END -->"
+
+
+# --------------------------------------------------------------------- data
 
 
 def gh_token() -> str:
@@ -50,6 +57,7 @@ def api_get(path: str, token: str, accept: str = "application/vnd.github+json") 
 
 
 def count_commits(owner: str, repo: str, token: str) -> int:
+    """per_page=1 plus the Link header: rel="last" is the exact commit count."""
     req = urllib.request.Request(
         f"https://api.github.com/repos/{owner}/{repo}/commits?per_page=1",
         headers={
@@ -71,8 +79,7 @@ def latest_release(owner: str, repo: str, token: str) -> tuple[int, str]:
         return 0, ""
     if not isinstance(rows, list) or not rows:
         return 0, ""
-    head = rows[0]
-    return len(rows), str(head.get("tag_name") or "")
+    return len(rows), str(rows[0].get("tag_name") or "")
 
 
 def star_history(owner: str, repo: str, token: str) -> list[int]:
@@ -101,12 +108,14 @@ def star_history(owner: str, repo: str, token: str) -> list[int]:
     return points[::step][:24]
 
 
+# ------------------------------------------------------------------ context
+
+
 def fmt(n: int) -> str:
     return f"{int(n):,}"
 
 
 def build_ctx(spec: dict, meta: dict, history: list[int]) -> dict:
-    """Generic repo fields plus whatever the chosen style needs to plot."""
     topics = [str(t) for t in (spec.get("topics") or [])]
     lang = str(spec.get("lang") or "-")
     license_ = str(spec.get("license") or "-")
@@ -127,7 +136,6 @@ def build_ctx(spec: dict, meta: dict, history: list[int]) -> dict:
         "stamp": str(meta.get("tag") or ""),
         "pushed": str(meta.get("pushed") or "1970-01-01T00:00:00Z"),
     }
-
     ctx["post_rows"] = spec.get("post_rows") or [
         [lang, "OK", True],
         [license_, "OK", True],
@@ -167,14 +175,13 @@ def build_ctx(spec: dict, meta: dict, history: list[int]) -> dict:
     ctx["stages"] = stages
     total = max(1, stars + commits + releases)
     ctx["stage_progress"] = [
-        max(1, min(9, round((stars if i == 0 else commits if i == 1 else releases + topics.__len__()) * 9 / total)))
+        max(1, min(9, round((stars if i == 0 else commits if i == 1 else releases + len(topics)) * 9 / total)))
         for i in range(len(stages))
     ]
     return ctx
 
 
-def render(style: str, ctx: dict, light: bool) -> str:
-    return S.STYLES[style](ctx, light)
+# ------------------------------------------------------------------- output
 
 
 def readme_block(spec: dict, style: str, ctx: dict) -> str:
@@ -197,7 +204,7 @@ def readme_block(spec: dict, style: str, ctx: dict) -> str:
             "</picture>"
         )
     body = f"{meta_bits}\n\n{badges}" if badges else meta_bits
-    return f"""<!-- dwgx-banner:BEGIN -->
+    return f"""{BEGIN}
 <div align="center">
 
 {img}
@@ -207,16 +214,79 @@ def readme_block(spec: dict, style: str, ctx: dict) -> str:
 {body}
 
 </div>
-<!-- dwgx-banner:END -->"""
+{END}"""
+
+
+def inject_readme(path: Path, block: str) -> bool:
+    """Replace the block between the markers, else insert it under the H1."""
+    if not path.exists():
+        return False
+    text = path.read_text(encoding="utf-8")
+    if BEGIN in text and END in text:
+        head, rest = text.split(BEGIN, 1)
+        _, tail = rest.split(END, 1)
+        new = f"{head}{block}{tail}"
+    else:
+        lines = text.split("\n")
+        at = next((i + 1 for i, line in enumerate(lines[:6]) if line.startswith("# ")), 1)
+        new = "\n".join(lines[:at] + ["", block, ""] + lines[at:])
+    if new == text:
+        return False
+    path.write_text(new, encoding="utf-8")
+    return True
+
+
+def q(value: object) -> str:
+    return '"' + str(value).replace('"', "'") + '"'
+
+
+def export_spec(spec: dict, owner: str) -> str:
+    """A single-repo repo-kit.toml so each repo can regenerate its own banner."""
+    lines = [
+        "# repo-kit · 本仓库的 banner 规格",
+        "# 改这个文件，workflow 会重新渲染 docs/assets/banner*.svg 与 README 区块",
+        "# 生成器：https://github.com/dwgx/DWGX/tree/main/repo-kit",
+        f"owner = {q(owner)}",
+        "",
+        "[[repo]]",
+        f"name = {q(spec['name'])}",
+        f"style = {q(spec.get('style', 'pipe'))}",
+        f"tagline = {q(spec.get('tagline', ''))}",
+        f"install = {q(spec.get('install', ''))}",
+        f"lang = {q(spec.get('lang', ''))}",
+        f"license = {q(spec.get('license', 'none'))}",
+    ]
+    if spec.get("role"):
+        lines.append(f"role = {q(spec['role'])}")
+    for key in ("stages", "topics"):
+        values = [str(v) for v in (spec.get(key) or [])]
+        if values:
+            lines.append(f"{key} = [{', '.join(q(v) for v in values)}]")
+    for key in ("messages", "post_rows"):
+        rows = spec.get(key) or []
+        if rows:
+            lines.append(f"{key} = ["
+                         + ", ".join("[" + ", ".join(q(c) for c in row) + "]" for row in rows)
+                         + "]")
+    links = spec.get("links") or []
+    if links:
+        lines.append("links = ["
+                     + ", ".join("{ label = %s, url = %s }" % (q(l.get("label", "")), q(l.get("url", "")))
+                                 for l in links)
+                     + "]")
+    return "\n".join(lines) + "\n"
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="build one repo banner in its own style")
+    ap = argparse.ArgumentParser(description="build a repo banner in its own style")
     ap.add_argument("repo")
     ap.add_argument("--toml", default=str(Path(__file__).with_name("repos.toml")))
     ap.add_argument("--out", default=".")
-    ap.add_argument("--all", action="store_true", help="build every repo in the toml")
-    ap.add_argument("--preview", action="store_true", help="also write preview.html")
+    ap.add_argument("--all", action="store_true")
+    ap.add_argument("--preview", action="store_true")
+    ap.add_argument("--inject", action="store_true")
+    ap.add_argument("--flat", action="store_true")
+    ap.add_argument("--export")
     ap.add_argument("--no-write", action="store_true")
     args = ap.parse_args()
 
@@ -248,20 +318,29 @@ def main() -> int:
             except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError) as exc:
                 print(f"{spec['name']}: live data unavailable ({exc})", file=sys.stderr)
         ctx = build_ctx(spec, meta, history)
-        dark = render(style, ctx, False)
-        target_dir = Path(args.out) / str(spec["name"])
+        target = Path(args.out) if args.flat else Path(args.out) / str(spec["name"])
         if not args.no_write:
-            (target_dir / "assets").mkdir(parents=True, exist_ok=True)
-            (target_dir / "assets" / "banner.svg").write_text(dark, encoding="utf-8")
+            assets = target / "docs" / "assets"
+            assets.mkdir(parents=True, exist_ok=True)
+            dark = S.STYLES[style](ctx, False)
+            (assets / "banner.svg").write_text(dark, encoding="utf-8")
             size = len(dark.encode())
             if style not in S.DARK_ONLY:
-                light_svg = render(style, ctx, True)
-                (target_dir / "assets" / "banner-light.svg").write_text(light_svg, encoding="utf-8")
-                size += len(light_svg.encode())
-            print(f"{spec['name']:<24} {style:<7} {size:>7,} B  -> {target_dir}")
+                light = S.STYLES[style](ctx, True)
+                (assets / "banner-light.svg").write_text(light, encoding="utf-8")
+                size += len(light.encode())
+            print(f"{str(spec['name']):<24} {style:<7} {size:>7,} B")
+        if args.inject and not args.no_write:
+            changed = inject_readme(target / "README.md", readme_block(spec, style, ctx))
+            print(f"{str(spec['name']):<24} README {'patched' if changed else 'already current'}")
+        if args.export and not args.all:
+            out = Path(args.export)
+            out.mkdir(parents=True, exist_ok=True)
+            (out / "repo-kit.toml").write_text(export_spec(spec, owner), encoding="utf-8")
+            print(f"{str(spec['name']):<24} spec -> {out / 'repo-kit.toml'}")
         cards.append(
             f'<figure><figcaption>{S.esc(spec["name"])} · {style}</figcaption>'
-            f'<img src="{S.esc(str(spec["name"]))}/assets/banner.svg" width="100%"></figure>'
+            f'<img src="{S.esc(str(spec["name"]))}/docs/assets/banner.svg" width="100%"></figure>'
         )
 
     if args.preview and not args.no_write:
@@ -272,9 +351,9 @@ def main() -> int:
             + "".join(cards)
         )
         Path(args.out, "preview.html").write_text(page, encoding="utf-8")
-        print(f"preview: {Path(args.out, 'preview.html')}")
+        print(f"preview -> {Path(args.out, 'preview.html')}")
 
-    if not args.all:
+    if not args.all and not args.inject and not args.export:
         print(readme_block(specs[0], str(specs[0].get("style") or "pipe"),
                            build_ctx(specs[0], {}, [])))
     return 0

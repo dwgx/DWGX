@@ -37,6 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python -m pip install --quiet pillow
+          python scripts/make_ink_decor.py      # 手绘装饰：profile.toml → assets/ink-*.svg
           python scripts/render_profile.py
 
       - name: commit

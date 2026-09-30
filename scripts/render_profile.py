@@ -1649,30 +1649,33 @@ def render_profile_nav() -> str:
 
 
 # UI-04 网页里的装饰资产（Owner 2026-09-19：全部纳入）。这些是设计原件，静态 SVG。
+# 2026-10-01 起这组改由 scripts/make_ink_decor.py 生成：同一支 ink 画笔
+# （repo-kit/ink.py），所以主页和 22 个仓库横幅是同一套手绘语言。
+# 旧的 decor-*.svg 仍在 assets/ 里留档，未删。
 ORNAMENTS = {
-    "faceplate": "decor-faceplate.svg",
-    "key-01": "decor-key-01.svg",
-    "key-02": "decor-key-02.svg",
-    "key-03": "decor-key-03.svg",
-    "key-04": "decor-key-04.svg",
-    "key-05": "decor-key-05.svg",
-    "key-06": "decor-key-06.svg",
-    "rail-01": "decor-rail-01.svg",
-    "rail-02": "decor-rail-02.svg",
-    "rail-03": "decor-rail-03.svg",
-    "rail-04": "decor-rail-04.svg",
-    "rail-05": "decor-rail-05.svg",
-    "rail-06": "decor-rail-06.svg",
-    "rail-07": "decor-rail-07.svg",
-    "rail-08": "decor-rail-08.svg",
-    "io-panel": "decor-io.svg",
-    "phantasm": "decor-phantasm.svg",
-    "eof": "decor-eof.svg",
-    "stamp-bios": "decor-stamp-bios.svg",
-    "stamp-ascii": "decor-stamp-ascii.svg",
-    "stamp-touhou": "decor-stamp-touhou.svg",
-    "stamp-dwgx": "decor-stamp-dwgx.svg",
-    "media-aux": "exp-media-aux.svg",
+    "hero": "ink-hero.svg",   # 顶栏；旧 faceplate 的位置由它接管
+    "key-01": "ink-key-01.svg",
+    "key-02": "ink-key-02.svg",
+    "key-03": "ink-key-03.svg",
+    "key-04": "ink-key-04.svg",
+    "key-05": "ink-key-05.svg",
+    "key-06": "ink-key-06.svg",
+    "rail-01": "ink-rail-01.svg",
+    "rail-02": "ink-rail-02.svg",
+    "rail-03": "ink-rail-03.svg",
+    "rail-04": "ink-rail-04.svg",
+    "rail-05": "ink-rail-05.svg",
+    "rail-06": "ink-rail-06.svg",
+    "rail-07": "ink-rail-07.svg",
+    "rail-08": "ink-rail-08.svg",
+    "io-panel": "ink-io.svg",
+    "phantasm": "ink-phantasm.svg",
+    "eof": "ink-eof.svg",
+    "stamp-bios": "ink-stamp-bios.svg",
+    "stamp-ascii": "ink-stamp-ascii.svg",
+    "stamp-touhou": "ink-stamp-touhou.svg",
+    "stamp-dwgx": "ink-stamp-dwgx.svg",
+    "media-aux": "exp-media-aux.svg",   # 外部素材，不是 ink 生成的
 }
 
 
@@ -1887,10 +1890,9 @@ def render_readme(profile: dict, ctx: dict) -> str:
 <!--  dwgx.menu  v{profile.get('version','2.2')}  ·  generated {today} {stamp} JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
+{ornament('hero', 'dwgx · profile · voice fingerprint')}
 
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg" width="100%" alt="dwgx.menu · AMIBIOS POST" />
-
-{ornament('faceplate', 'dwgx.menu / personal-machine faceplate')}
 
 <div align="center">
 

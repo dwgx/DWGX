@@ -51,5 +51,8 @@ jobs:
           git add README.md assets/*.svg assets/discord-avatar.png assets/discord-presence.json scripts/ami.py scripts/ami_book.py
           git diff --cached --quiet && echo "no changes" && exit 0
           git commit -m "chore: refresh profile numbers"
-          git pull --rebase origin main
+          # A push landing between `git add` and here leaves the tree dirty, and a
+          # plain `pull --rebase` then aborts with exit 128. autoStash keeps the
+          # hourly refresh alive when the Owner pushes during a run.
+          git -c rebase.autoStash=true pull --rebase origin main
           git push

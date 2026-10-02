@@ -190,19 +190,21 @@ def heatmap_panel(host: str, weeks: list, total: int, ramp: list, months: list) 
     out = [panel_doc(w, h, "contribution.memory", "")]
     out.append(type_line(w - 26, 46, f"{total:,} TOTAL", TYPE["micro"], GOLD, ink.MONO,
                          anchor="end", tracking="2"))
-    last_month, last_label_x = -1, -1e9
+    last_month = -1
+    last_label_end = -1e9
     for col, week in enumerate(weeks):
         days = week.get("contributionDays") or []
         if not days:
             continue
         x = left + col * (cell + gap)
         month = int(str(days[0].get("date") or "")[5:7] or 0)
-        # month labels collided ("SepOct") because nothing measured the previous
-        # one; keep them apart by their own rendered width
+        # a month boundary can fall between adjacent weeks, so the label is
+        # drawn once per month and only when the previous one has cleared it
         name = months[month - 1] if month else ""
         need = mono_width(name, TYPE["micro"] - 4, 1) if name else 0
-        if month and (month != last_month or x - last_label_x > need + 24):
-            last_month, last_label_x = month, x
+        if month and month != last_month and x >= last_label_end + 20:
+            last_month = month
+            last_label_end = x + need
             out.append(type_line(x, top - 18, name, TYPE["micro"] - 4,
                                  MUTED, ink.MONO, tracking="1"))
         for row, day in enumerate(days[:7]):

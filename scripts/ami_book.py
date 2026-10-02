@@ -1,5 +1,10 @@
 """Extra AMIBIOS / POST / DOS / NFO screens. Same VGA family, more pages."""
 from __future__ import annotations
+import pathlib
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import ink_panels_book  # noqa: E402  (INK LAB panels for post / dmi)
 
 from ami import (
     AMI_CYAN,
@@ -567,6 +572,6 @@ def render_book(payload: dict) -> dict[str, str]:
     stars = payload["stars"]
     _ = langs
     return {
-        "post.svg": post_svg(repos, extra, public, stars, tags),
-        "dmi.svg": dmi_svg(hw),
+        "post.svg": ink_panels_book.post_panel(repos, extra, public, stars, tags),
+        "dmi.svg": ink_panels_book.dmi_panel(hw),
     }

@@ -22,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ami  # noqa: E402
 import ami_book  # noqa: E402
+import ink_panels_deep  # noqa: E402  (INK LAB panels)
 
 JST = timezone(timedelta(hours=9))
 
@@ -972,29 +973,7 @@ def panel_frame(width: int, height: int, host: str, title: str, body: list[str])
 
 
 def stats_svg(host: str, user: dict, stars: int, extra: dict) -> str:
-    rows = [
-        ("Total Stars", fmt_num(stars), GOLD),
-        ("Public Repos", fmt_num(int(user.get("public_repos") or 0)), PINK),
-        ("Followers", fmt_num(int(extra.get("followers") or user.get("followers") or 0)), TEXT),
-        ("Pull Requests", fmt_num(int(extra.get("prs") or 0)), BLUE),
-        ("Commits (year)", fmt_num(int(extra.get("commits_year") or 0)), GREEN),
-        ("Issues", fmt_num(int(extra.get("issues") or 0)), MUTED),
-    ]
-    width, height = 495, 170
-    body: list[str] = []
-    col_w = 230
-    for i, (label, value, color) in enumerate(rows):
-        col = i % 2
-        row = i // 2
-        x = 20 + col * col_w
-        y = 58 + row * 34
-        body.append(
-            f'<text x="{x}" y="{y}" font-size="12" font-weight="400" fill="{MUTED}">{esc(label)}</text>'
-        )
-        body.append(
-            f'<text x="{x}" y="{y + 16}" font-size="16" font-weight="700" fill="{color}">{esc(value)}</text>'
-        )
-    return panel_frame(width, height, host, "stats.panel", body)
+    return ink_panels_deep.stats_panel(host, user, stars, extra)
 
 
 def _pt(cx: float, cy: float, r: float, deg: float) -> tuple[float, float]:
@@ -1020,43 +999,11 @@ def donut_slice(cx: float, cy: float, r_out: float, r_in: float, a0: float, a1: 
 
 
 def langs_svg(host: str, langs: list[dict]) -> str:
-    width, height = 495, 170
-    body: list[str] = []
-    total = sum(int(x.get("size") or 0) for x in langs) or 1
-    if not langs:
-        body.append(
-            f'<text x="20" y="80" font-size="13" fill="{MUTED}">no language data</text>'
-        )
-        return panel_frame(width, height, host, "langs.panel", body)
-    cx, cy, r_out, r_in = 92.0, 100.0, 58.0, 32.0
-    angle = 0.0
-    for lang in langs[:6]:
-        pct = int(lang["size"]) / total
-        sweep = max(1.2, pct * 360.0)
-        color = str(lang.get("color") or GOLD)
-        path = donut_slice(cx, cy, r_out, r_in, angle, angle + sweep)
-        if path:
-            body.append(f'<path d="{path}" fill="{esc(color)}" />')
-        angle += sweep
-    body.append(f'<circle cx="{cx}" cy="{cy}" r="{r_in - 1}" fill="#0d1117"/>')
-    body.append(
-        f'<text x="{cx}" y="{cy + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="{PINK}">langs</text>'
-    )
-    for i, lang in enumerate(langs[:6]):
-        y = 52 + i * 18
-        pct = int(lang["size"]) / total * 100
-        color = str(lang.get("color") or GOLD)
-        name = str(lang["name"])
-        body.append(f'<rect x="170" y="{y - 8}" width="10" height="10" rx="2" fill="{esc(color)}"/>')
-        body.append(
-            f'<text x="186" y="{y + 1}" font-size="12" fill="{TEXT}">{esc(name)}</text>'
-        )
-        body.append(
-            f'<text x="455" y="{y + 1}" text-anchor="end" font-size="12" fill="{MUTED}">{pct:.0f}%</text>'
-        )
-    return panel_frame(width, height, host, "langs.panel", body)
+    metric = 'repos' if langs and 'repos' in langs[0] else 'bytes'
+    return ink_panels_deep.langs_panel(host, langs, metric=metric)
 
 
+# still used by the activity and guestbook panels after discord moved to ink
 STATUS_COLOR = {
     "online": GREEN,
     "idle": GOLD,
@@ -1235,35 +1182,7 @@ def discord_activity_line(presence: dict) -> str:
 
 
 def discord_svg(host: str, presence: dict) -> str:
-    width, height = 400, 110
-    status = str(presence.get("status") or "offline")
-    color = STATUS_COLOR.get(status, MUTED)
-    display = str(presence.get("display") or "dwgx")
-    username = str(presence.get("username") or "dwgx")
-    platform = str(presence.get("platform") or "")
-    where = f"@{username} · {status}"
-    if platform:
-        where = f"{where} · {platform}"
-    line = discord_activity_line(presence)
-    body: list[str] = []
-    if AVATAR_PNG.exists():
-        b64 = base64.b64encode(AVATAR_PNG.read_bytes()).decode("ascii")
-        href = f"data:image/png;base64,{b64}"
-        body.append(
-            f'<image href="{href}" x="12" y="38" width="56" height="56"/>'
-        )
-        tx = 80
-    else:
-        body.append(f'<circle cx="24" cy="68" r="7" fill="{color}"/>')
-        tx = 42
-    body.extend(
-        [
-            f'<text x="{tx}" y="58" font-size="15" font-weight="700" fill="{TEXT}">{esc(display)}</text>',
-            f'<text x="{tx}" y="76" font-size="12" fill="{MUTED}">{esc(where)}</text>',
-            f'<text x="{tx}" y="94" font-size="12" fill="{PINK}">{esc(line)}</text>',
-        ]
-    )
-    return panel_frame(width, height, host, "discord.presence", body)
+    return ink_panels_deep.discord_panel(host, presence)
 
 
 def _removed_setup_svg(repos: dict[str, dict], tags: dict[str, str]) -> str:
@@ -1368,17 +1287,7 @@ def fetch_bili(mid: str) -> dict:
 
 
 def media_svg(host: str, bili: dict) -> str:
-    fans = fmt_num(int(bili.get("follower") or 0))
-    following = fmt_num(int(bili.get("following") or 0))
-    body = [
-        f'<text x="20" y="62" font-size="12" fill="{MUTED}">Bilibili</text>',
-        f'<text x="20" y="84" font-size="22" font-weight="700" fill="{PINK}">{esc(fans)}</text>',
-        f'<text x="20" y="104" font-size="12" fill="{TEXT}">fans</text>',
-        f'<text x="150" y="62" font-size="12" fill="{MUTED}">following</text>',
-        f'<text x="150" y="84" font-size="22" font-weight="700" fill="{GOLD}">{esc(following)}</text>',
-        f'<text x="20" y="124" font-size="12" fill="{MUTED}">space.bilibili.com/1452905012</text>',
-    ]
-    return panel_frame(280, 140, host, "bili.stat", body)
+    return ink_panels_deep.media_panel(host, bili)
 
 
 def _dead_kv_svg(host: str, title: str, rows: list[tuple[str, str, str]], width: int = 495, height: int = 170) -> str:

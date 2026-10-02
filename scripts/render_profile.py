@@ -1779,6 +1779,11 @@ def render_origin_section(profile: dict) -> str:
     )
     img = "https://raw.githubusercontent.com/dwgx/DWGX/main/assets/origin-panel.svg"
     alt = f"{name} — {title}: {blurb}"
+    # A mermaid fence is GitHub-native: it themes itself, it is text, and it
+    # survives a 309px viewport where an SVG panel would render at 1.1 CSS px.
+    flow = " -->\n".join(
+        f'  {str(c.get("key") or "")}["{str(c.get("desc") or "")}"]' for c in concepts
+    )
     return f"""### `origin.genesis`
 
 <div align="center">
@@ -1791,11 +1796,16 @@ def render_origin_section(profile: dict) -> str:
 
 </div>
 
-{intro}
+```mermaid
+flowchart LR
+{flow}
+```
 
 | 概念索引 | 含义 |
 | :-- | :-- |
 {rows}
+
+{intro}
 
 这四项是介绍用的概念索引，不是四个同名 API，也不是固定调用顺序。
 

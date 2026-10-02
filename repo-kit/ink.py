@@ -453,11 +453,20 @@ def spray(cx: float, cy: float, r: float, n: int = 26, seed: int = 67,
     return out
 
 
-def _resample(points, step: float):
-    """Walk a polyline and emit points roughly `step` apart, ends included."""
+def _resample(points, step: float, cap: int = 96):
+    """Walk a polyline and emit points roughly `step` apart, ends included.
+
+    `cap` bounds how many samples a stroke can produce. Without it a long edge —
+    a 950-unit panel frame — resampled every 2 units and emitted ~3800 points, so
+    the frame alone cost 47 KB of path data. Shape fidelity on a long straight
+    edge does not need 3800 samples; 96 is indistinguishable and 40x smaller.
+    """
     pts = list(points)
     if len(pts) < 2:
         return pts
+    total = sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(pts, pts[1:]))
+    if total > 0:
+        step = max(step, total / cap)
     out = [pts[0]]
     carry = 0.0
     for a, b in zip(pts, pts[1:]):

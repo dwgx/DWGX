@@ -48,6 +48,18 @@ def doc(w: int, h: int, title: str, body: str) -> str:
     )
 
 
+# Consolas / Cascadia Mono / SF Mono all sit near 0.6em per glyph. ink.text_width
+# is a Georgia-class serif metric, so any mono run measured with it comes out
+# ~20% narrow — which is how a rule ended up drawn through its own label.
+MONO_EM = 0.6
+
+
+def mono_width(body: str, size: float, tracking: float = 0.0) -> float:
+    """Advance width of a monospaced run, including per-glyph letter-spacing."""
+    n = max(len(str(body)), 1)
+    return n * (size * MONO_EM + tracking)
+
+
 def chrome(x: float, y: float, left: str, right: str = "", w: int = 960) -> list[str]:
     """The `INK LAB / nn · style · palette` line every banner wears."""
     out = [ink.text(x, y, left, 12, MUTED, ink.MONO, tracking="2")]
@@ -190,6 +202,7 @@ def key_cap(num: str, label: str, idx: int) -> str:
 RAILS = [
     ("01", "SYSTEM CONFIGURATION", "dwgx.cfg"),
     ("02", "PROCESS MEMORY", "loaded modules"),
+    ("03", "GENESIS CHAMBER", "origin"),
     ("04", "EXPANSION SLOTS", "selected work"),
     ("05", "MACHINE INVENTORY", "devices"),
     ("06", "PHANTASM ARCHIVE", "touhou"),
@@ -199,20 +212,50 @@ RAILS = [
 
 
 def rail(num: str, label: str, sub: str, idx: int) -> str:
-    """A divider struck with a loaded brush: the rules are fat and die at both
-    ends, and the label sits in the gap between them."""
+    """A divider struck with a loaded brush.
+
+    Every horizontal slot is measured with the mono metric and clamped, so a
+    long label or a long sub can never push a rule through text or invert it.
+    """
     w, h = 960, 62
-    label_w = ink.text_width(label, 26) + 3 * len(label)
-    sub_w = ink.text_width(sub, 22) + 2 * len(sub)
-    num_x = w / 2 - label_w * 0.5 - 38
-    b = [ink.brush_rule(20, num_x - 30, 31, width=6.0, seed=61 + idx * 5, sag=1.5,
-                        colour=INK, opacity=0.85, enter=0.02, exit_=0.22),
-         ink.brush_rule(num_x + 38 + label_w + 30, w - 20 - sub_w - 30, 31,
-                        width=6.0, seed=67 + idx * 5, sag=-1.5, colour=INK,
-                        opacity=0.85, enter=0.22, exit_=0.02)]
+    gap = 30
+    num_w = mono_width(num, 22, 1)
+    label_w = mono_width(label, 26, 3)
+    num_x = 20
+    label_x = num_x + num_w + 22
+    label_end = label_x + label_w
+
+    right_limit = w - 20
+    sub_w = mono_width(sub, 22, 2)
+    sub_x = right_limit - sub_w
+    left_end = num_x - gap
+    right_start = label_end + gap
+    right_end = sub_x - gap
+
+    def hits(seg, span):
+        return max(0.0, min(seg[1], span[1]) - max(seg[0], span[0]))
+
+    spans = ((num_x, num_x + num_w), (label_x, label_end), (sub_x, right_limit))
+
+    def clear(a, b_):
+        return all(hits((a, b_), sp) <= 0 for sp in spans)
+
+    b = []
+    if left_end > 70 and clear(20, left_end):
+        b.append(ink.brush_rule(20, left_end, 31, width=6.0, seed=61 + idx * 5, sag=1.5,
+                                colour=INK, opacity=0.85, enter=0.02, exit_=0.22))
+    # drop the sub, not the rule, when the two collide
+    if right_start + 90 >= right_end:
+        sub_x = None
+        right_end = right_limit - 10
+    if right_end - right_start >= 90 and clear(right_start, right_end):
+        b.append(ink.brush_rule(right_start, right_end, 31, width=6.0,
+                                seed=67 + idx * 5, sag=-1.5, colour=INK,
+                                opacity=0.85, enter=0.22, exit_=0.02))
     b.append(ink.text(num_x, 40, num, 22, GOLD, ink.MONO, tracking="1"))
-    b.append(ink.text(num_x + 38, 40, label, 26, INK, ink.MONO, tracking="3"))
-    b.append(ink.text(w - 20, 40, sub, 22, MUTED, ink.MONO, anchor="end", tracking="2"))
+    b.append(ink.text(label_x, 40, label, 26, INK, ink.MONO, tracking="3"))
+    if sub_x is not None:
+        b.append(ink.text(sub_x, 40, sub, 22, MUTED, ink.MONO, tracking="2"))
     return doc(w, h, label, "".join(b))
     ("03", "GENESIS CHAMBER", "origin"),
 
@@ -328,11 +371,19 @@ def main() -> int:
             continue
         path.write_text(svg, encoding="utf-8")
         print(f"{name:<22} {len(svg.encode('utf-8')):>6} B")
+    stale = sorted(p.name for p in ASSETS.glob("ink-*.svg") if p.name not in files)
     if args.check:
-        if drift:
-            print("drift: " + ", ".join(drift))
+        if drift or stale:
+            if drift:
+                print("drift: " + ", ".join(drift))
+            if stale:
+                print("stale (no longer produced): " + ", ".join(stale))
             return 1
         print(f"clean: {len(files)} assets match a fresh render")
+    elif stale:
+        for name in stale:
+            (ASSETS / name).unlink()
+            print(f"removed stale {name}")
     return 0
 
 

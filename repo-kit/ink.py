@@ -406,14 +406,14 @@ def spray(cx: float, cy: float, r: float, n: int = 26, seed: int = 67,
         a = rnd() * TAU
         # sqrt keeps the disc even instead of piling everything at the middle
         d = r * math.sqrt(rnd()) * (0.55 + 0.45 * density)
-        rad = 0.5 + rnd() * 1.9
+        rad = 2.0 + rnd() * 1.6      # below 2.0 the dots read as fog, not spray
         out_op = 0.25 + 0.5 * (1 - d / max(r, 0.001)) * density
         out.append(f'<circle cx="{fmt(cx + math.cos(a) * d)}" cy="{fmt(cy + math.sin(a) * d)}" '
                    f'r="{fmt(rad)}" fill="{colour}" opacity="{fmt(out_op)}"/>')
     return out
 
 
-def drip(x: float, y: float, length: float, seed: int = 71, w: float = 2.4,
+def drip(x: float, y: float, length: float, seed: int = 71, w: float = 3.4,
          colour: str = "currentColor", opacity: float = 1.0) -> list[str]:
     """One paint run: a tapering stroke that ends in a bead."""
     rnd = rng(seed)
@@ -423,7 +423,7 @@ def drip(x: float, y: float, length: float, seed: int = 71, w: float = 2.4,
            (x0 + lean * length, y + length)]
     body = polyline(pts, seed=seed, close=False, roughness=0.5)
     bead = (f'<circle cx="{fmt(pts[-1][0])}" cy="{fmt(pts[-1][1] + w * 0.9)}" '
-            f'r="{fmt(w * 0.85)}" fill="{colour}"/>')
+            f'r="{fmt(w * 1.1)}" fill="{colour}"/>')
     return [path(body, colour, w, opacity), bead]
 
 

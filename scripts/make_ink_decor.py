@@ -127,7 +127,7 @@ def signature_layer(x: float, y: float, width: float, colour: str,
 
 
 def hero(profile: dict) -> str:
-    w, h = 960, 300
+    w, h = 960, 328
     ident = profile.get("identity", {})
     flag = profile.get("flagship", {})
     host = str(flag.get("url", "")).replace("https://", "")
@@ -140,8 +140,8 @@ def hero(profile: dict) -> str:
 
     # aerosol behind the hand, then the hand twice: once as a misregistered
     # print in rose, once on top in cream. Nothing is drawn over the signature.
-    sig_x, sig_y, sig_w = 92.0, 78.0, 580.0
-    b += ink.spray(470, 165, 290, n=54, seed=131, colour=ROSE, density=0.55)
+    sig_x, sig_y, sig_w = 92.0, 62.0, 516.0
+    b += ink.spray(460, 145, 270, n=58, seed=131, colour=ROSE, density=0.55)
     # printed twice, the way a second pull sits off register — same size, so it
     # reads as misregistration and not as a drop shadow
     echo_svg, box = signature_layer(sig_x + 7, sig_y - 5, sig_w, ROSE, opacity=0.3)
@@ -152,15 +152,15 @@ def hero(profile: dict) -> str:
     # swash under the hand, overshooting both ways, with one run of paint
     under = box[1] + box[3] + 11
     b += ink.tag_underline(box[0] - 16, box[0] + box[2] + 20, under, seed=137,
-                           colour=GOLD, weight=3.4)
-    b += ink.drip(box[0] + box[2] * 0.72, under + 4, 22, seed=139, w=2.4, colour=GOLD)
-    b += ink.drip(box[0] + box[2] * 0.2, under + 3, 13, seed=149, w=1.8, colour=ROSE)
+                           colour=GOLD, weight=4.4)
+    b += ink.drip(box[0] + box[2] * 0.72, under + 5, 28, seed=139, w=3.6, colour=GOLD)
+    b += ink.drip(box[0] + box[2] * 0.2, under + 4, 26, seed=149, w=3.0, colour=ROSE)
 
     # the Owner asked for the signature, not for a manifesto: the voice block
     # lives in README `operator.voice`, the hero only signs.
     if alias:
-        b.append(ink.text(38, 278, alias, 13, MUTED, ink.MONO, tracking="1"))
-    b.append(ink.text(w - 38, 278, str(flag.get("zh_tagline", "")), 13, GOLD, ink.SERIF,
+        b.append(ink.text(38, 302, alias, 22, MUTED, ink.MONO, tracking="1"))
+    b.append(ink.text(w - 38, 302, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
                       anchor="end", italic=True))
     return doc(w, h, f"{TITLE} · signature", "".join(b))
 
@@ -197,73 +197,73 @@ RAILS = [
 
 
 def rail(num: str, label: str, sub: str, idx: int) -> str:
-    w, h = 960, 42
+    w, h = 960, 62
     # the rules must clear the actual text, so measure it instead of guessing
     # mono runs are wider than the serif metric, and letter-spacing adds per glyph
-    label_w = ink.text_width(label, 13) + 2 * len(label)
-    sub_w = ink.text_width(sub, 11) + 1 * len(sub)
-    num_x = w / 2 - label_w * 0.5 - 26
-    left_end = num_x - 20
-    right_end = w - 16 - sub_w - 16
-    right_start = num_x + 26 + label_w + 20
-    b = [ink.path(ink.hand_line(16, 20, left_end, 20, seed=61 + idx * 5, bend=0.012),
-                  INK, 1.4, 0.75)]
-    b.append(ink.path(ink.hand_line(right_start, 20, right_end, 20, seed=67 + idx * 5,
-                                    bend=0.012), INK, 1.4, 0.75))
-    b += ink.spark(w / 2, 20, 11, seed=71 + idx * 5, colour=GOLD)
-    b.append(ink.text(num_x, 25, num, 12, GOLD, ink.MONO, tracking="1"))
-    b.append(ink.text(num_x + 26, 25, label, 13, INK, ink.MONO, tracking="2"))
-    b.append(ink.text(w - 16, 25, sub, 11, MUTED, ink.MONO, anchor="end", tracking="1"))
+    label_w = ink.text_width(label, 26) + 3 * len(label)
+    sub_w = ink.text_width(sub, 22) + 2 * len(sub)
+    num_x = w / 2 - label_w * 0.5 - 38
+    left_end = num_x - 26
+    right_end = w - 20 - sub_w - 26
+    right_start = num_x + 38 + label_w + 26
+    b = [ink.path(ink.hand_line(20, 31, left_end, 31, seed=61 + idx * 5, bend=0.012),
+                  INK, 2.4, 0.8)]
+    b.append(ink.path(ink.hand_line(right_start, 31, right_end, 31, seed=67 + idx * 5,
+                                    bend=0.012), INK, 2.4, 0.8))
+    b += ink.spark(w / 2, 31, 17, seed=71 + idx * 5, colour=GOLD)
+    b.append(ink.text(num_x, 40, num, 22, GOLD, ink.MONO, tracking="1"))
+    b.append(ink.text(num_x + 38, 40, label, 26, INK, ink.MONO, tracking="3"))
+    b.append(ink.text(w - 20, 40, sub, 22, MUTED, ink.MONO, anchor="end", tracking="2"))
     return doc(w, h, label, "".join(b))
     ("03", "GENESIS CHAMBER", "origin"),
 
 
 # ── rear I/O panel ───────────────────────────────────────────────────────────
 def io_panel() -> str:
-    w, h = 960, 70
+    w, h = 960, 104
     b = [ink.path(ink.rect_path(12, 10, w - 24, h - 20, seed=83, wobble=0.03), INK, 1.8, 0.85)]
     x = 30
-    ports = [(46, 12), (26, 12), (34, 8), (22, 16), (40, 14), (30, 10)]
+    ports = [(72, 20), (42, 20), (54, 14), (36, 26), (64, 23), (48, 17)]
     for i, (pw, ph) in enumerate(ports):
-        b.append(ink.path(ink.rect_path(x, 44 - ph, pw, ph, seed=89 + i * 4, wobble=0.07),
+        b.append(ink.path(ink.rect_path(x, 82 - ph, pw, ph, seed=89 + i * 4, wobble=0.07),
                           AURORA if i % 2 else INK, 1.5, 0.85))
         x += pw + 12
-    b.append(ink.text(30, 24, "REAR I/O", 11, MUTED, ink.MONO, tracking="3"))
-    b.append(ink.text(w - 30, 24, "dwgx@main", 11, GOLD, ink.MONO, anchor="end", tracking="1"))
+    b.append(ink.text(30, 38, "REAR I/O", 22, MUTED, ink.MONO, tracking="4"))
+    b.append(ink.text(w - 30, 38, "dwgx@main", 22, GOLD, ink.MONO, anchor="end", tracking="2"))
     return doc(w, h, "Decorative rear I/O panel", "".join(b))
 
 
 # ── phantasm danmaku ─────────────────────────────────────────────────────────
 def phantasm() -> str:
-    w, h = 960, 98
+    w, h = 960, 126
     b: list[str] = []
     for i in range(26):
         s = ink.seed_of(f"danmaku-{i}")
         x = 20 + (s % 920)
-        y = 18 + (s >> 5) % 68
+        y = 22 + (s >> 5) % 72
         b += ink.spark(x, y, 9 + (s >> 11) % 7, seed=s, colour=AURORA if i % 3 else GOLD)
         if i % 2 == 0:      # a short streak gives the bullet direction
             b.append(ink.path(ink.hand_line(x - 14, y + 3, x + 6, y - 2,
                                             seed=s + 3, bend=0.2), GOLD, 1.3, 0.5))
-    b.append(ink.path(ink.hand_line(0, 49, w, 47, seed=97, bend=0.01), INK, 1.0, 0.28))
-    b.append(ink.text(24, 90, "幻想万華鏡 · THE MEMORIES OF PHANTASM", 11, MUTED,
-                      ink.MONO, tracking="3"))
+    b.append(ink.path(ink.hand_line(0, 61, w, 59, seed=97, bend=0.01), INK, 1.6, 0.3))
+    b.append(ink.text(24, 116, "幻想万華鏡 · THE MEMORIES OF PHANTASM", 26, MUTED,
+                      ink.MONO, tracking="4"))
     return doc(w, h, "Touhou danmaku ornament for the Phantasm feature", "".join(b))
 
 
 # ── end of file ──────────────────────────────────────────────────────────────
 def eof() -> str:
-    w, h = 960, 136
+    w, h = 960, 176
     b = [ink.path(ink.hand_line(40, 40, w / 2 - 60, 40, seed=101, bend=0.02), INK, 1.4, 0.6)]
-    b.append(ink.path(ink.hand_line(w / 2 + 60, 40, w - 40, 40, seed=103, bend=0.02),
-                      INK, 1.4, 0.6))
-    b.append(ink.path(ink.arrow(w / 2 - 112, 66, w / 2 - 168, 66, seed=107, head=13),
+    b.append(ink.path(ink.hand_line(w / 2 + 96, 46, w - 40, 46, seed=103, bend=0.02),
+                      INK, 2.4, 0.7))
+    b.append(ink.path(ink.arrow(w / 2 - 150, 84, w / 2 - 246, 84, seed=107, head=20),
                       AURORA, 2.2))
-    b.append(ink.text(w / 2, 74, "〔 返回 boot.menu 〕", 17, INK, ink.SERIF, anchor="middle"))
+    b.append(ink.text(w / 2, 92, "〔 返回 boot.menu 〕", 38, INK, ink.SERIF, anchor="middle"))
     b.append(ink.path(ink.hand_line(w / 2 - 120, 90, w / 2 + 120, 92, seed=109, bend=0.03),
                       GOLD, 1.4, 0.55))
-    b.append(ink.text(w / 2, 116, "END OF FILE · 主机关机", 11, MUTED, ink.MONO,
-                      anchor="middle", tracking="3"))
+    b.append(ink.text(w / 2, 146, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
+                      anchor="middle", tracking="4"))
     return doc(w, h, "End of file, return to the dwgx.menu navigation", "".join(b))
 
 

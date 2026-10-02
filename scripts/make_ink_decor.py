@@ -175,6 +175,63 @@ def process_panel(rows: list, host: str, stamp: str, panel_title: str = "process
     return doc(w, h, panel_title, "".join(out[:1]) + "".join(out[1:]))
 
 
+
+def heatmap_panel(host: str, weeks: list, total: int, ramp: list, months: list) -> str:
+    """The 53-week contribution grid, drawn as inked cells rather than <rect>s.
+
+    Cells are brush-filled squares with jittered edges, so an empty week reads as
+    a faint drawn mark and a busy week reads as solid, the way a hand-inked
+    calendar does.
+    """
+    cols = len(weeks)
+    cell, gap, left, top = 26, 8, 92, 96
+    w = left + cols * (cell + gap) + 40
+    h = top + 7 * (cell + gap) + 74
+    out = [panel_doc(w, h, "contribution.memory", "")]
+    out.append(type_line(w - 26, 46, f"{total:,} TOTAL", TYPE["micro"], GOLD, ink.MONO,
+                         anchor="end", tracking="2"))
+    last_month, last_label_x = -1, -1e9
+    for col, week in enumerate(weeks):
+        days = week.get("contributionDays") or []
+        if not days:
+            continue
+        x = left + col * (cell + gap)
+        month = int(str(days[0].get("date") or "")[5:7] or 0)
+        # month labels collided ("SepOct") because nothing measured the previous
+        # one; keep them apart by their own rendered width
+        name = months[month - 1] if month else ""
+        need = mono_width(name, TYPE["micro"] - 4, 1) if name else 0
+        if month and (month != last_month or x - last_label_x > need + 24):
+            last_month, last_label_x = month, x
+            out.append(type_line(x, top - 18, name, TYPE["micro"] - 4,
+                                 MUTED, ink.MONO, tracking="1"))
+        for row, day in enumerate(days[:7]):
+            level = int(day.get("level") or 0)
+            colour = ramp[min(level, len(ramp) - 1)]
+            cx, cy = x + cell / 2, top + row * (cell + gap) + cell / 2
+            out.append(ink.brush_fill(
+                ink.chip(cx, cy, cell * 0.46, seed=ink.seed_of(f"{col}-{row}-{level}")),
+                colour))
+    for row, name in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
+        out.append(type_line(left - 18, top + row * (cell + gap) + cell * 0.72, name,
+                             TYPE["micro"] - 4, MUTED, ink.MONO, anchor="end"))
+    ly = h - 34
+    out.append(type_line(left, ly + 8, "LESS", TYPE["micro"] - 4, MUTED, ink.MONO,
+                         tracking="2"))
+    for i, colour in enumerate(ramp):
+        cx = left + mono_width("LESS", TYPE["micro"] - 4, 2) + 26 + i * (cell + gap)
+        out.append(ink.brush_fill(
+            ink.chip(cx, ly, cell * 0.46, seed=ink.seed_of(f"ramp-{i}")), colour))
+    out.append(type_line(left + mono_width("LESS", TYPE["micro"] - 4, 2) + 26 +
+                         len(ramp) * (cell + gap) + 8, ly + 8, "MORE",
+                         TYPE["micro"] - 4, MUTED, ink.MONO, tracking="2"))
+    out.append(ink.brush_rule(left, w - 40, h - 16, width=STROKE["hair"], seed=19,
+                              colour=INK, opacity=ALPHA["faint"]))
+    out.append(type_line(w - 40, h - 16, host, TYPE["micro"] - 4, MUTED, ink.MONO,
+                         anchor="end", tracking="1"))
+    return doc(w, h, "contribution.memory", "".join(out))
+
+
 # ── hero: the signature ───────────────────────────────────────────────────────
 SIGNATURE = ASSETS / "dwgx-signature.svg"
 _PT = re.compile(r"[ML](-?[\d.]+) (-?[\d.]+)")

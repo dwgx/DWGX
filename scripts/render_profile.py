@@ -936,66 +936,22 @@ HEAT_LEVELS = {
 
 
 def heatmap_svg(host: str, cal: dict) -> str:
-    """53-week contribution grid in the page palette. Empty string when unavailable."""
+    """53-week contribution grid, drawn on the INK tokens. Empty when unavailable."""
     weeks = (cal or {}).get("weeks") or []
     if not weeks:
         return ""
-    cell, gap, left, top = 9, 3, 46, 40
-    width = left + len(weeks) * (cell + gap) + 10
-    height = top + 7 * (cell + gap) + 28
-    total = fmt_num(int((cal or {}).get("totalContributions") or 0))
-    body: list[str] = []
-    last_month = -1
-    for col, week in enumerate(weeks):
-        days = week.get("contributionDays") or []
-        if not days:
-            continue
-        x = left + col * (cell + gap)
-        month = int(str(days[0].get("date") or "")[5:7] or 0)
-        if month and month != last_month:
-            last_month = month
-            body.append(
-                f'<text x="{x}" y="{top - 8}" font-size="9" fill="{MUTED}">'
-                f"{MONTHS[month - 1]}</text>"
-            )
-        for row, day in enumerate(days[:7]):
-            level = HEAT_LEVELS.get(str(day.get("contributionLevel") or "NONE"), 0)
-            body.append(
-                f'<rect x="{x}" y="{top + row * (cell + gap)}" width="{cell}" '
-                f'height="{cell}" rx="1.5" fill="{HEAT_RAMP[level]}"/>'
-            )
-    for row, name in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
-        body.append(
-            f'<text x="{left - 8}" y="{top + row * (cell + gap) + cell - 1}" '
-            f'text-anchor="end" font-size="9" fill="{MUTED}">{name}</text>'
-        )
-    ly = height - 12
-    body.append(f'<text x="{left}" y="{ly + 3}" font-size="9" fill="{MUTED}">less</text>')
-    for i, color in enumerate(HEAT_RAMP):
-        body.append(
-            f'<rect x="{left + 26 + i * (cell + gap)}" y="{ly - 5}" width="{cell}" '
-            f'height="{cell}" rx="1.5" fill="{color}"/>'
-        )
-    body.append(
-        f'<text x="{left + 26 + 5 * (cell + gap) + 4}" y="{ly + 3}" font-size="9" '
-        f'fill="{MUTED}">more</text>'
-    )
-    return "".join(
-        [
-            f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
-            f'viewBox="0 0 {width} {height}" role="img" '
-            f'aria-label="dwgx contribution calendar, {esc(total)} contributions in 53 weeks" '
-            f"font-family=\"ui-monospace,'Cascadia Mono',Consolas,'SF Mono',monospace\">",
-            f'<rect width="{width}" height="{height}" rx="4" fill="#0d1117" stroke="#30363d"/>',
-            f'<rect x="1" y="1" width="{width-2}" height="22" rx="3" fill="#161b22"/>',
-            f'<line x1="0" y1="22" x2="{width}" y2="22" stroke="#30363d"/>',
-            f'<text x="12" y="16" font-size="11" font-weight="700" fill="{PINK}">{esc(host)}</text>',
-            f'<text x="{12 + text_w(host, True) + 26:.1f}" y="16" font-size="11" fill="{TEXT}">contribution.memory</text>',
-            f'<text x="{width - 12}" y="16" text-anchor="end" font-size="11" fill="{GOLD}">{esc(total)} TOTAL</text>',
-            *body,
-            "</svg>",
-        ]
-    )
+    total = int((cal or {}).get("totalContributions") or 0)
+    out = []
+    for week in weeks:
+        days = []
+        for day in (week.get("contributionDays") or [])[:7]:
+            days.append({
+                "date": day.get("date"),
+                "level": HEAT_LEVELS.get(str(day.get("contributionLevel") or "NONE"), 0),
+            })
+        out.append({"contributionDays": days})
+    ramp = list(HEAT_RAMP)
+    return ink_panel.heatmap_panel(host, out, total, ramp, list(MONTHS))
 
 
 def panel_frame(width: int, height: int, host: str, title: str, body: list[str]) -> str:

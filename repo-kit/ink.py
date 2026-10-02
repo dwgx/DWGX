@@ -556,6 +556,28 @@ def brush_rule(x1: float, x2: float, y: float, width: float = 5.0, seed: int = 9
 
 
 
+
+def chip(cx: float, cy: float, r: float, seed: int = 101, points: int = 12,
+         squircle: float = 4.0, wobble: float = 0.1) -> str:
+    """A filled hand-marked cell: a jittered squircle, drawn not stamped.
+
+    `brush()` is wrong for this — a two-point stroke of width r comes out as a
+    lumpy polygon, not a cell. The radius comes from a superellipse so the
+    corners round without the sides scalloping, then every vertex is nudged.
+    """
+    rnd = rng(seed)
+    pts = []
+    for i in range(points):
+        a = TAU * i / points
+        ca, sa = math.cos(a), math.sin(a)
+        rad = r / ((abs(ca) ** squircle + abs(sa) ** squircle) ** (1.0 / squircle))
+        rad += (rnd() - 0.5) * r * wobble * 2
+        pts.append((cx + ca * rad, cy + sa * rad))
+    body = " ".join(("M" if i == 0 else "L") + f"{fmt(x)} {fmt(y)}"
+                    for i, (x, y) in enumerate(pts))
+    return f"{body} Z"
+
+
 def drip(x: float, y: float, length: float, seed: int = 71, w: float = 3.4,
          colour: str = "currentColor", opacity: float = 1.0) -> list[str]:
     """One paint run: a tapering stroke that ends in a bead."""

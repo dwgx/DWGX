@@ -19,9 +19,10 @@ Three rules this file keeps, all of them learned from a bug that shipped once:
     that reads like a measurement. fetch_extra_stats seeds every field with 0 and
     hands those seeds back untouched when GraphQL fails, and tags come back as ""
     from a caught exception, so both look exactly like real data if you print them;
-  * every panel ends with assert_clear(), which re-parses the markup this module
+  * every panel ends in Board.finish(), which re-parses the markup this module
     just emitted — filled paths, stroked paths, dots and type — and fails if any
-    ink box touches any text box.
+    ink box touches a text box, if two runs touch each other, or if anything
+    strayed above the shared chrome or below the measured type floor.
 
 status_panel deliberately carries only what no other panel prints. Total stars,
 public repos, the year count, the WindsurfAPI star count and the WindsurfAPI issue
@@ -244,9 +245,26 @@ def _ink_boxes(body: str) -> list[tuple[float, float, float, float]]:
                       float(cx) + float(r) + SLACK, float(cy) + float(r) + SLACK))
     return boxes
 
-
 def _hits(a: tuple[float, float, float, float], b: tuple[float, float, float, float]) -> bool:
+    """Plain box intersection — two runs of type overlapping is a collision too."""
     return (min(a[2], b[2]) - max(a[0], b[0])) > 0 and (min(a[3], b[3]) - max(a[1], b[1])) > 0
+
+
+def _crosses(ink: tuple[float, float, float, float],
+             run: tuple[float, float, float, float]) -> bool:
+    """True when ink lands on type rather than around it.
+
+    Enclosure is allowed on purpose: a bay drawn around its own MODE label is the
+    drawing working. A rule that runs through a word is not, and that is the case
+    this file exists to make impossible.
+    """
+    if min(ink[2], run[2]) - max(ink[0], run[0]) <= 0:
+        return False
+    if min(ink[3], run[3]) - max(ink[1], run[1]) <= 0:
+        return False
+    enclosed = (ink[0] <= run[0] and ink[1] <= run[1]
+                and ink[2] >= run[2] and ink[3] >= run[3])
+    return not enclosed
 
 
 def _assert_clear(body: str, runs: list[tuple], title: str, w: int, h: int) -> None:
@@ -266,15 +284,23 @@ def _assert_clear(body: str, runs: list[tuple], title: str, w: int, h: int) -> N
             raise AssertionError(f"{title}: {s!r} runs off the plate at {x0:.0f}..{x1:.0f}")
         if y0 < CHROME - 0.01 or y1 > h - 6:
             raise AssertionError(f"{title}: {s!r} sits at y {y0:.0f}..{y1:.0f}")
+    # two runs are the same kind of collision as ink on type: the summary line and
+    # its right-hand caption printed into each other until this was added
+    for i, first in enumerate(runs):
+        for second in runs[i + 1:]:
+            if _hits(first[:4], second[:4]):
+                raise AssertionError(
+                    f"{title}: {first[5]!r} [{first[0]:.0f}..{first[2]:.0f}] runs into "
+                    f"{second[5]!r} [{second[0]:.0f}..{second[2]:.0f}]")
     for box in _ink_boxes(body):
         if box[1] < CHROME - 0.01 or box[3] > h - 6:
             raise AssertionError(f"{title}: ink at y {box[1]:.0f}..{box[3]:.0f} leaves "
                                  f"the plate")
-        if box[0] < 18 or box[2] > w - 22:
+        if box[0] < 14 or box[2] > w - 22:
             raise AssertionError(f"{title}: ink at x {box[0]:.0f}..{box[2]:.0f} leaves "
                                  f"the plate")
         for x0, y0, x1, y1, _size, s, _rx, _ry in runs:
-            if _hits(box, (x0, y0, x1, y1)):
+            if _crosses(box, (x0, y0, x1, y1)):
                 raise AssertionError(
                     f"{title}: ink [{box[0]:.0f},{box[1]:.0f},{box[2]:.0f},{box[3]:.0f}] "
                     f"overlaps {s!r} [{x0:.0f},{y0:.0f},{x1:.0f},{y1:.0f}]")
@@ -298,7 +324,7 @@ def ladder(b: "Board", x: float, ys: list[float], *, seed: int, active: int = -1
     if len(ys) < 2:
         return
     b.add(ink.path(ink.hand_line(x, ys[0], x, ys[-1], seed=seed, bend=0.012),
-                   colour, STROKE["hair"], ALPHA["ghost"]))
+                   colour, STROKE["fine"], ALPHA["soft"]))
     for i, y in enumerate(ys):
         on = i == active
         b.chip(x, y, r + (3.0 if on else 0.0), GOLD if on else INK,
@@ -379,9 +405,10 @@ class Board:
 
     def kv(self, x: float, y: float, key, value, *, value_x: float = VALUE_X,
            colour: str = GOLD, key_colour: str = MUTED, size: float = HEAD,
-           tracking: float = RUN_TRACK) -> None:
+           tracking: float = RUN_TRACK, value_tracking: float | None = None) -> None:
         """A labelled value. The gutter is measured, and the two runs are refused
         rather than allowed to print over each other."""
+        vt = tracking if value_tracking is None else value_tracking
         if x + run_width(key, size, tracking) + GUTTER > value_x:
             raise AssertionError(
                 f"{self.title}: key {key!r} needs "
@@ -389,17 +416,17 @@ class Board:
                 f"opens at {value_x}")
         self.text(x, y, key, size, key_colour, ink.MONO, tracking=tracking)
         room = RIGHT - value_x
-        self.text(value_x, y, fit(value, room, size, tracking), size, colour, ink.MONO,
-                  tracking=tracking)
+        self.text(value_x, y, fit(value, room, size, vt), size, colour, ink.MONO,
+                  tracking=vt)
 
     def dash(self, x: float, y: float, *, size: float = HEAD, colour: str = MUTED,
              anchor: str = "start", gap: float = 26.0) -> None:
         """A value that was never fetched: the em dash, and the mark that says why."""
         x0, x1 = self.text(x, y, DASH, size, colour, anchor=anchor)
-        cy = y - size * 0.32
         self.missing += 1
-        missing_mark(self, (x1 if anchor == "start" else x0) - gap - 13 if anchor == "end"
-                     else x1 + gap + 13, cy)
+        edge = x1 if anchor == "start" else x0
+        missing_mark(self, edge + gap + 13 if anchor == "start" else edge - gap - 13,
+                     y - size * 0.32)
 
     def dash_end(self, x: float, y: float, *, size: float = HEAD, gap: float = 26.0) -> None:
         self.dash(x, y, size=size, anchor="end", gap=gap)
@@ -410,13 +437,15 @@ class Board:
         self.h = max(self.h, baseline + pad)
 
     def footnote(self, y: float) -> None:
-        """The bottom line: what the marks mean, or what the screen is not."""
+        """The bottom line: what the marks mean, or what the screen is not.
+
+        The legend carries its own em dash, so it gets no mark of its own — one
+        struck circle is a symbol, two side by side is a mistake.
+        """
         if self.missing:
             note = f"{DASH} = not fetched · {self.missing} value" + \
                    ("" if self.missing == 1 else "s")
-            _x0, x1 = self.text(RIGHT - 46, y, note, HEAD, MUTED, ink.MONO,
-                                anchor="end", tracking=1)
-            missing_mark(self, x1 + 23, y - HEAD * 0.32)
+            self.end(RIGHT, y, note, HEAD, MUTED, ink.MONO, tracking=1)
         else:
             self.end(RIGHT, y, "a snapshot, not a live clock", HEAD, MUTED, ink.MONO,
                      tracking=1)
@@ -452,13 +481,12 @@ def setup_panel(repos: dict, tags: dict) -> str:
     looks like from the outside.
     """
     b = Board(W, 520, "AMIBIOS · BOOT ORDER")
-    live = {name: str(name in (repos or {})) == "True" for name in CHAIN[1:3]}
+    live = {name: name in (repos or {}) for name in CHAIN[1:3]}
     seen_tag = {name: str((tags or {}).get(name) or "") for name in CHAIN[1:3]}
 
     y = 96
     b.head(PAD, y, "BOOT SETTINGS")
     b.rule(PAD, RIGHT, y + 18)
-    b.spray(866, 196, 40, 16, 223, MUTED)          # the empty right of the block
     y += 54
     for label, value in SETTINGS:
         b.kv(PAD, y, label, value)
@@ -516,7 +544,7 @@ def status_panel(work: dict, extra: dict, repos: dict, today: str) -> str:
     sha = str(work.get("sha") or "")
     ago = str(work.get("ago") or "")
 
-    # left — the last public event
+    # left — the last public event, then the one number only this screen owns
     b.head(PAD, 96, "LAST PUBLIC EVENT")
     b.rule(PAD, 500, 114)
     if verb and repo:
@@ -526,42 +554,41 @@ def status_panel(work: dict, extra: dict, repos: dict, today: str) -> str:
         b.text(PAD, 160, "no public event", BIG, MUTED, ink.SERIF, italic=True)
     note = wrap(msg, 456, HEAD, 1, limit=1)[0] if msg else ""
     b.text(PAD, 206, note, HEAD, INK, ink.SERIF) if note else b.dash(PAD, 206)
-    b.kv(PAD, 254, "WHEN", ago, value_x=140)
+    b.kv(PAD, 254, "WHEN", ago, value_x=160)
     b.end(380, 254, "HEAD", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
     if sha:
         b.end(500, 254, sha, HEAD, GOLD, ink.MONO, tracking=RUN_TRACK)
+    elif verb and repo:
+        # a release or an issue has no commit to point at. That is an answer, not
+        # a failed fetch, so it gets no dash and no mark.
+        b.end(500, 254, "n/a", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
     else:
         b.dash_end(500, 254)
 
-    # right — the build stamp, then today's rate
-    b.head(560, 96, "BUILD")
-    b.rule(560, RIGHT, 114)
-    b.kv(560, 152, "BIOS", "dwgx.menu 2.9", value_x=650)
-    b.kv(560, 190, "DATE", date_s, value_x=650)
-
-    b.head(560, 248, "COMMITS TODAY")
-    b.rule(560, RIGHT, 266)
+    b.head(PAD, 330, "COMMITS TODAY")
+    b.rule(PAD, 500, 348)
     n_today = as_count(extra.get("commits_today"))
     if n_today is None:
-        b.dash(560, 312, size=BIG)
+        b.dash(PAD, 400, size=BIG)
     else:
-        b.text(560, 312, f"{n_today:,}", BIG, GOLD, ink.MONO, tracking=1)
+        b.text(PAD, 400, f"{n_today:,}", BIG, GOLD, ink.MONO, tracking=1)
 
-    b.head(560, 404, "OPEN ISSUES")
-    b.rule(560, RIGHT, 422)
-    b.text(560, 470, "KiroStudio", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
+    # right — the build stamp, then the one issue count that is not on post
+    b.head(560, 96, "BUILD")
+    b.rule(560, RIGHT, 114)
+    b.kv(560, 152, "BIOS", "dwgx.menu 2.9", value_x=664, value_tracking=0)
+    b.kv(560, 190, "DATE", date_s, value_x=664, value_tracking=0)
+
+    b.head(560, 266, "OPEN ISSUES")
+    b.rule(560, RIGHT, 284)
+    b.text(560, 332, "KiroStudio", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
     kiro = as_repo_count(repos, "KiroStudio", "open_issues_count")
     if kiro is None:
-        b.dash_end(RIGHT, 470)
+        b.dash_end(RIGHT, 332)
     else:
-        b.end(RIGHT, 470, f"{kiro} open", HEAD, GOLD, ink.MONO, tracking=RUN_TRACK)
+        b.end(RIGHT, 332, f"{kiro} open", HEAD, GOLD, ink.MONO, tracking=RUN_TRACK)
 
-    if b.missing:
-        missing_mark(b, PAD + 13, 470 - HEAD * 0.32)
-        b.text(PAD + 52, 470, f"{DASH} = not fetched", HEAD, MUTED, ink.MONO, tracking=1)
-    else:
-        b.text(PAD, 470, "the last public event, not a clock", HEAD, MUTED, ink.MONO,
-               tracking=1)
+    b.footnote(448)
     return b.finish()
 
 
@@ -596,7 +623,7 @@ def devices_panel(heads: list[dict]) -> str:
         b.text(COL_SLOT, y, slot, HEAD, INK, ink.MONO)
         if name:
             b.text(COL_DEV, y, fit(name, COL_HEAD - COL_DEV - 24), HEAD, INK, ink.MONO)
-            b.text(COL_HEAD, y, fit(sha or DASH, 100, HEAD, 1), HEAD, GOLD, ink.MONO,
+            b.text(COL_HEAD, y, fit(sha or DASH, 130, HEAD, 1), HEAD, GOLD, ink.MONO,
                    tracking=1)
             b.text(COL_AGE, y, fit(ago or DASH, 60), HEAD, MUTED, ink.MONO)
             b.chip(COL_NODE, y - 9, 11, GOLD, ALPHA["full"], seed=311 + 7 * i)
@@ -614,14 +641,12 @@ def devices_panel(heads: list[dict]) -> str:
     y += 50
     b.text(PAD, y, f"{len(heads)} / {len(SLOTS)} BAYS FILLED", HEAD, GOLD, ink.MONO,
            tracking=RUN_TRACK)
-    b.end(RIGHT, y, "filled from GitHub, not a local disk", HEAD, MUTED, ink.MONO,
-          tracking=1)
+    b.end(RIGHT, y, "from GitHub, not a local disk", HEAD, MUTED, ink.MONO, tracking=1)
     if len(heads) < len(SLOTS):
         gap = len(SLOTS) - len(heads)
         b.missing += gap
-        _x0, x1 = b.text(PAD, y + 46, f"{DASH} = not fetched · {gap} repos did not "
-                                        f"answer", HEAD, MUTED, ink.MONO, tracking=1)
-        missing_mark(b, x1 + 23, y + 46 - HEAD * 0.32)
+        b.text(PAD, y + 46, f"{DASH} = not fetched · {gap} repos did not answer", HEAD,
+               MUTED, ink.MONO, tracking=1)
         y += 46
 
     msg = str((heads[0].get("msg") if heads else "") or "")
@@ -631,6 +656,7 @@ def devices_panel(heads: list[dict]) -> str:
             b.text(PAD, y + 46, fit(line, RIGHT - PAD, size, 0, ink.SERIF), size, MUTED,
                    ink.SERIF)
             y += 46
+    b.fit_to(y)
     return b.finish()
 
 
@@ -658,7 +684,8 @@ def eventlog_panel(lines: list[dict]) -> str:
         missing_mark(b, W / 2 - run_width("no public events", BIG) / 2 - 34,
                      190 - BIG * 0.32)
         b.missing += 1
-        b.spray(W / 2, 262, 50, 18, 401, MUTED)
+        b.spray(W / 2, 302, 44, 18, 401, MUTED)
+        b.fit_to(332)
         return b.finish()
 
     for x, cap in ((52, "TIME"), (180, "AGE"), (290, "TYPE"), (390, "SOURCE")):
@@ -667,8 +694,8 @@ def eventlog_panel(lines: list[dict]) -> str:
     b.rule(52, RIGHT, 114)
 
     ys: list[float] = []
-    for i, row in enumerate(rows):
-        y = 152 + i * 58
+    y = 152
+    for row in rows:
         ys.append(y - 9)
         stamp = str(row.get("stamp") or "")
         if ":" not in stamp:
@@ -683,14 +710,18 @@ def eventlog_panel(lines: list[dict]) -> str:
                ink.MONO, tracking=1)
         b.text(390, y, fit(str(row.get("repo") or DASH), 500), HEAD, INK, ink.MONO)
         msg = str(row.get("msg") or "")
+        # a CJK message is set at 38, which is 12 units taller than the line above
+        # it: the row grows with the message instead of printing through it
+        y2 = y + 34 + (14 if msg and prose_size(msg) > HEAD else 0)
         if msg:
             size = prose_size(msg)
             line = wrap(msg, RIGHT - 52, size, 0, limit=1, family=ink.SERIF)[0]
-            b.text(52, y + 26, fit(line, RIGHT - 52, size, 0, ink.SERIF), size, MUTED,
+            b.text(52, y2, fit(line, RIGHT - 52, size, 0, ink.SERIF), size, MUTED,
                    ink.SERIF)
         else:
-            b.dash(52, y + 26)
-    ladder(b, 30, ys, seed=411, active=0, r=10, stub=0)
+            b.dash(52, y2)
+        y = y2 + 32 + (14 if msg and prose_size(msg) > HEAD else 0)
+    ladder(b, 32, ys, seed=411, active=0, r=10, stub=0)
 
-    b.footnote(152 + len(rows) * 58)
+    b.footnote(y + 16)
     return b.finish()

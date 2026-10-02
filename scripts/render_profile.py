@@ -1857,6 +1857,44 @@ def stamp_row() -> str:
     )
 
 
+# GitHub strips user `style` attributes (RESEARCH-github-readme-native-2026-10-02
+# §1.3: `style="border-radius:50%"` is gone in the rendered page and replaced with
+# GitHub's own `max-width: 100%`). The circle has to be in the pixels instead.
+def avatar_img() -> str:
+    src = links_qq_avatar()
+    out = ROOT / "assets" / "avatar-round.png"
+    cached = _round_avatar(src, out)
+    return (f'<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/'
+            f'avatar-round.png" width="128" alt="dwgx" />') if cached else (
+            f'<img src="{src}" width="128" alt="dwgx" />')
+
+
+def links_qq_avatar() -> str:
+    return str((load_profile().get("links") or {}).get("qq_avatar") or "")
+
+
+def _round_avatar(src: str, out: pathlib.Path) -> bool:
+    """Mask the avatar into a circle once; never let a remote fetch fail the render."""
+    try:
+        import io
+        import urllib.request
+        from PIL import Image, ImageDraw
+        with urllib.request.urlopen(src, timeout=20) as r:
+            raw = r.read()
+        im = Image.open(io.BytesIO(raw)).convert("RGBA").resize((256, 256), Image.LANCZOS)
+        mask = Image.new("L", (256, 256), 0)
+        ImageDraw.Draw(mask).ellipse((2, 2, 253, 253), fill=255)
+        im.putalpha(mask)
+        buf = io.BytesIO()
+        im.save(buf, "PNG", optimize=True)
+        data = buf.getvalue()
+        if not out.exists() or out.read_bytes() != data:
+            out.write_bytes(data)
+        return True
+    except Exception:
+        return False
+
+
 def render_readme(profile: dict, ctx: dict) -> str:
     ident = profile["identity"]
     ship = profile.get("ship") or {}
@@ -1898,7 +1936,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 <div align="center">
 
-<img src="{links['qq_avatar']}" width="128" style="border-radius:50%;" />
+{avatar_img()}
 
 <br/>
 

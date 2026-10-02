@@ -1838,13 +1838,6 @@ def render_bbs_entry(gb: int, sign_href: str) -> str:
 没有接入的频道会直接写未接入，不用“0 条”代替未知。→ {tail}"""
 
 
-def render_voice_block(profile: dict) -> str:
-    """Owner's own words, printed verbatim. Renders nothing without [voice]."""
-    lines = [str(v).strip() for v in ((profile.get("voice") or {}).get("lines") or [])]
-    lines = [v for v in lines if v]
-    if not lines:
-        return ""
-    return "\n### `operator.voice`\n\n```text\n" + "\n".join(lines) + "\n```\n"
 
 
 
@@ -1884,7 +1877,6 @@ def render_readme(profile: dict, ctx: dict) -> str:
         if gb
         else "https://github.com/dwgx/DWGX/issues"
     )
-    voice_block = render_voice_block(profile)
     if (ctx.get("calendar") or {}).get("weeks"):
         contrib_block = (
             '<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/heatmap.svg" '
@@ -1958,8 +1950,6 @@ KiroStudio  = {ship.get('kiro', 'rust gateway')} · {ktag}
 other = {ship.get('also', 'VRChat RE · SmartCLI')}
 from  = {ship.get('came', 'MC clients')}
 ```
-{voice_block}
-
 ---
 
 {ornament('rail-02', 'PROCESS MEMORY')}

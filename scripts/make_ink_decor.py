@@ -127,40 +127,43 @@ def signature_layer(x: float, y: float, width: float, colour: str,
 
 
 def hero(profile: dict) -> str:
-    w, h = 960, 328
+    """The plate a signature sits on. One hand, one swash, no confetti.
+
+    The aerosol and the off-register second print both read as dirt at this
+    size; the plate earns its weight from the frame and the mark alone.
+    """
+    w, h = 960, 386
     ident = profile.get("identity", {})
     flag = profile.get("flagship", {})
     host = str(flag.get("url", "")).replace("https://", "")
     alias = str(ident.get("alias", ""))
 
     b: list[str] = []
-    b.append(ink.path(ink.rect_path(10, 10, w - 20, h - 20, seed=3, wobble=0.03), INK, 1.6, 0.5))
-    b += chrome(38, 44, "dwgx · PROFILE · 09 · crayon", f"{ident.get('from', '')} · {host}")
-    b.append(ink.path(ink.hand_line(38, 58, w - 38, 58, seed=5, bend=0.01), INK, 1.2, 0.45))
+    b.append(ink.brush_box(14, 14, w - 28, h - 28, width=4.5, seed=3,
+                           overshoot=26, colour=INK, opacity=0.55))
+    b += chrome(44, 50, "dwgx · PROFILE · 09 · crayon", f"{ident.get('from', '')} · {host}")
+    b.append(ink.brush_rule(44, w - 44, 64, width=3.0, seed=5, colour=INK, opacity=0.4))
 
-    # aerosol behind the hand, then the hand twice: once as a misregistered
-    # print in rose, once on top in cream. Nothing is drawn over the signature.
-    sig_x, sig_y, sig_w = 92.0, 62.0, 516.0
-    b += ink.spray(460, 145, 270, n=58, seed=131, colour=ROSE, density=0.55)
-    # printed twice, the way a second pull sits off register — same size, so it
-    # reads as misregistration and not as a drop shadow
-    echo_svg, box = signature_layer(sig_x + 7, sig_y - 5, sig_w, ROSE, opacity=0.3)
-    b.append(echo_svg)
-    main_svg, _ = signature_layer(sig_x, sig_y, sig_w, INK)
+    sig_x, sig_y, sig_w = 96.0, 92.0, 540.0
+    main_svg, box = signature_layer(sig_x, sig_y, sig_w, INK)
     b.append(main_svg)
 
-    # swash under the hand, overshooting both ways, with one run of paint
-    under = box[1] + box[3] + 11
-    b += ink.tag_underline(box[0] - 16, box[0] + box[2] + 20, under, seed=137,
-                           colour=GOLD, weight=4.4)
-    b += ink.drip(box[0] + box[2] * 0.72, under + 5, 28, seed=139, w=3.6, colour=GOLD)
-    b += ink.drip(box[0] + box[2] * 0.2, under + 4, 26, seed=149, w=3.0, colour=ROSE)
+    # one swash, struck under the hand and dying at both ends
+    under = box[1] + box[3] + 20
+    b.append(ink.brush_rule(box[0] - 24, box[0] + box[2] + 30, under, width=8.0,
+                           seed=137, sag=5, colour=GOLD, enter=0.1, exit_=0.3))
+    b += ink.drip(box[0] + box[2] * 0.52, under + 3, 30, seed=139, w=3.6, colour=GOLD)
 
-    # the Owner asked for the signature, not for a manifesto: the voice block
-    # lives in README `operator.voice`, the hero only signs.
+    # a single index mark, top right of the plate, so the corner is not empty
+    # spark() hands back path data for the arms and markup for the dot
+    b += [o if o.startswith("<") else ink.path(o, ROSE, 2.6) for o in
+          ink.spark(w - 96, 96, 26, seed=151, colour=ROSE)]
+    b.append(ink.text(w - 96, 150, "SIGNED", 20, MUTED, ink.MONO, anchor="middle",
+                      tracking="4"))
+
     if alias:
-        b.append(ink.text(38, 302, alias, 22, MUTED, ink.MONO, tracking="1"))
-    b.append(ink.text(w - 38, 302, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
+        b.append(ink.text(44, 360, alias, 22, MUTED, ink.MONO, tracking="1"))
+    b.append(ink.text(w - 44, 360, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
                       anchor="end", italic=True))
     return doc(w, h, f"{TITLE} · signature", "".join(b))
 
@@ -172,15 +175,14 @@ KEYS = [("01", "MAIN"), ("02", "PROCESS"), ("03", "ORIGIN"),
 
 
 def key_cap(num: str, label: str, idx: int) -> str:
-    w, h = 156, 54
-    b = [ink.path(ink.rect_path(4, 4, w - 8, h - 8, seed=41 + idx * 6, wobble=0.06),
-                  INK, 1.7, 0.85)]
-    b.append(ink.text(16, 24, num, 12, GOLD, ink.MONO, tracking="1"))
-    b.append(ink.text(w - 14, 24, label, 13, INK, ink.MONO, anchor="end", tracking="1.5"))
-    b.append(ink.path(ink.hand_line(16, 34, w - 16, 34, seed=47 + idx * 6, bend=0.03),
-                      INK, 1.0, 0.4))
-    b.append(ink.path(ink.hand_line(16, 42, 16 + (w - 32) * (0.5 + 0.08 * idx), 42,
-                                    seed=53 + idx * 6, bend=0.08), AURORA, 1.6, 0.7))
+    """A keycap: marker box, index in the corner, one confident strike."""
+    w, h = 156, 58
+    b = [ink.brush_box(5, 5, w - 10, h - 10, width=4.0, seed=41 + idx * 6,
+                       overshoot=7, colour=INK, opacity=0.9)]
+    b.append(ink.text(18, 30, num, 13, GOLD, ink.MONO, tracking="1"))
+    b.append(ink.text(w - 16, 30, label, 14, INK, ink.MONO, anchor="end", tracking="1.5"))
+    b.append(ink.brush_rule(18, w - 18, 42, width=4.4, seed=53 + idx * 6,
+                            colour=AURORA, opacity=0.8, enter=0.04, exit_=0.3))
     return doc(w, h, f"{label} section link", "".join(b))
 
 
@@ -197,20 +199,17 @@ RAILS = [
 
 
 def rail(num: str, label: str, sub: str, idx: int) -> str:
+    """A divider struck with a loaded brush: the rules are fat and die at both
+    ends, and the label sits in the gap between them."""
     w, h = 960, 62
-    # the rules must clear the actual text, so measure it instead of guessing
-    # mono runs are wider than the serif metric, and letter-spacing adds per glyph
     label_w = ink.text_width(label, 26) + 3 * len(label)
     sub_w = ink.text_width(sub, 22) + 2 * len(sub)
     num_x = w / 2 - label_w * 0.5 - 38
-    left_end = num_x - 26
-    right_end = w - 20 - sub_w - 26
-    right_start = num_x + 38 + label_w + 26
-    b = [ink.path(ink.hand_line(20, 31, left_end, 31, seed=61 + idx * 5, bend=0.012),
-                  INK, 2.4, 0.8)]
-    b.append(ink.path(ink.hand_line(right_start, 31, right_end, 31, seed=67 + idx * 5,
-                                    bend=0.012), INK, 2.4, 0.8))
-    b += ink.spark(w / 2, 31, 17, seed=71 + idx * 5, colour=GOLD)
+    b = [ink.brush_rule(20, num_x - 30, 31, width=6.0, seed=61 + idx * 5, sag=1.5,
+                        colour=INK, opacity=0.85, enter=0.02, exit_=0.22),
+         ink.brush_rule(num_x + 38 + label_w + 30, w - 20 - sub_w - 30, 31,
+                        width=6.0, seed=67 + idx * 5, sag=-1.5, colour=INK,
+                        opacity=0.85, enter=0.22, exit_=0.02)]
     b.append(ink.text(num_x, 40, num, 22, GOLD, ink.MONO, tracking="1"))
     b.append(ink.text(num_x + 38, 40, label, 26, INK, ink.MONO, tracking="3"))
     b.append(ink.text(w - 20, 40, sub, 22, MUTED, ink.MONO, anchor="end", tracking="2"))
@@ -220,32 +219,39 @@ def rail(num: str, label: str, sub: str, idx: int) -> str:
 
 # ── rear I/O panel ───────────────────────────────────────────────────────────
 def io_panel() -> str:
+    """Rear I/O: a panel with real ports, each one a filled mark."""
     w, h = 960, 104
-    b = [ink.path(ink.rect_path(12, 10, w - 24, h - 20, seed=83, wobble=0.03), INK, 1.8, 0.85)]
-    x = 30
-    ports = [(72, 20), (42, 20), (54, 14), (36, 26), (64, 23), (48, 17)]
+    b = [ink.brush_box(12, 10, w - 24, h - 20, width=4.0, seed=83, overshoot=14,
+                       colour=INK, opacity=0.85)]
+    x = 34
+    ports = [(80, 26), (50, 26), (62, 18), (42, 34), (72, 30), (56, 22),
+             (86, 24), (46, 30)]
     for i, (pw, ph) in enumerate(ports):
-        b.append(ink.path(ink.rect_path(x, 82 - ph, pw, ph, seed=89 + i * 4, wobble=0.07),
-                          AURORA if i % 2 else INK, 1.5, 0.85))
-        x += pw + 12
-    b.append(ink.text(30, 38, "REAR I/O", 22, MUTED, ink.MONO, tracking="4"))
-    b.append(ink.text(w - 30, 38, "dwgx@main", 22, GOLD, ink.MONO, anchor="end", tracking="2"))
+        b.append(ink.brush_box(x, 82 - ph, pw, ph, width=3.4, seed=89 + i * 4,
+                               overshoot=5, colour=AURORA if i % 2 else INK, opacity=0.9))
+        x += pw + 28
+    b.append(ink.text(34, 44, "REAR I/O", 22, MUTED, ink.MONO, tracking="4"))
+    b.append(ink.text(w - 34, 44, "dwgx@main", 22, GOLD, ink.MONO, anchor="end",
+                      tracking="2"))
+    b.append(ink.brush_rule(34, w - 34, 64, width=3.2, seed=97, colour=INK, opacity=0.3))
     return doc(w, h, "Decorative rear I/O panel", "".join(b))
 
 
 # ── phantasm danmaku ─────────────────────────────────────────────────────────
 def phantasm() -> str:
+    """Touhou danmaku as brush ticks crossing the band, not as dots."""
     w, h = 960, 126
     b: list[str] = []
-    for i in range(26):
-        s = ink.seed_of(f"danmaku-{i}")
-        x = 20 + (s % 920)
-        y = 22 + (s >> 5) % 72
-        b += ink.spark(x, y, 9 + (s >> 11) % 7, seed=s, colour=AURORA if i % 3 else GOLD)
-        if i % 2 == 0:      # a short streak gives the bullet direction
-            b.append(ink.path(ink.hand_line(x - 14, y + 3, x + 6, y - 2,
-                                            seed=s + 3, bend=0.2), GOLD, 1.3, 0.5))
-    b.append(ink.path(ink.hand_line(0, 61, w, 59, seed=97, bend=0.01), INK, 1.6, 0.3))
+    for i in range(30):
+        s_ = ink.seed_of(f"danmaku-{i}")
+        x = 26 + (s_ % 900)
+        y = 26 + (s_ >> 5) % 62
+        ln = 16 + (s_ >> 11) % 26
+        tilt = -22 + (s_ >> 17) % 44
+        d = ink.brush([(x, y + ln / 2), (x + ln, y - ln / 2)], width=6.0,
+                      seed=s_, enter=0.05, exit_=0.42, jitter=0.2)
+        b.append(ink.brush_fill(d, AURORA if i % 3 else GOLD, 0.5 + (i % 4) * 0.12))
+    b.append(ink.brush_rule(24, w - 24, 74, width=2.6, seed=97, colour=INK, opacity=0.35))
     b.append(ink.text(24, 116, "幻想万華鏡 · THE MEMORIES OF PHANTASM", 26, MUTED,
                       ink.MONO, tracking="4"))
     return doc(w, h, "Touhou danmaku ornament for the Phantasm feature", "".join(b))
@@ -253,16 +259,18 @@ def phantasm() -> str:
 
 # ── end of file ──────────────────────────────────────────────────────────────
 def eof() -> str:
+    """Shutdown: two struck rules, a brush arrow back to the boot menu, the sign-off."""
     w, h = 960, 176
-    b = [ink.path(ink.hand_line(40, 40, w / 2 - 60, 40, seed=101, bend=0.02), INK, 1.4, 0.6)]
-    b.append(ink.path(ink.hand_line(w / 2 + 96, 46, w - 40, 46, seed=103, bend=0.02),
-                      INK, 2.4, 0.7))
-    b.append(ink.path(ink.arrow(w / 2 - 150, 84, w / 2 - 246, 84, seed=107, head=20),
-                      AURORA, 2.2))
-    b.append(ink.text(w / 2, 92, "〔 返回 boot.menu 〕", 38, INK, ink.SERIF, anchor="middle"))
-    b.append(ink.path(ink.hand_line(w / 2 - 120, 90, w / 2 + 120, 92, seed=109, bend=0.03),
-                      GOLD, 1.4, 0.55))
-    b.append(ink.text(w / 2, 146, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
+    b = [ink.brush_rule(40, w / 2 - 130, 46, width=5.0, seed=101, sag=2,
+                        colour=INK, opacity=0.6, enter=0.02, exit_=0.2),
+         ink.brush_rule(w / 2 + 130, w - 40, 46, width=5.0, seed=103, sag=-2,
+                        colour=INK, opacity=0.6, enter=0.2, exit_=0.02)]
+    b.append(ink.path(ink.arrow(w / 2 - 150, 92, w / 2 - 250, 92, seed=107, head=22),
+                      GOLD, 4.0))
+    b.append(ink.text(w / 2, 102, "〔 返回 boot.menu 〕", 38, INK, ink.SERIF, anchor="middle"))
+    b.append(ink.brush_rule(w / 2 - 170, w / 2 + 170, 130, width=4.0, seed=109,
+                            colour=GOLD, opacity=0.55))
+    b.append(ink.text(w / 2, 158, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
                       anchor="middle", tracking="4"))
     return doc(w, h, "End of file, return to the dwgx.menu navigation", "".join(b))
 
@@ -273,15 +281,19 @@ STAMPS = [("dwgx", "PERSONAL WEB"), ("bios", "SETUP UTILITY"),
 
 
 def stamp(word: str, sub: str, idx: int) -> str:
+    """A rubber stamp: hit slightly off square and rocked a few degrees."""
     w, h = 176, 62
-    b = [ink.path(ink.rect_path(5, 5, w - 10, h - 10, seed=113 + idx * 9, wobble=0.09),
-                  AURORA, 1.8, 0.8)]
-    b.append(ink.path(ink.rect_path(11, 11, w - 22, h - 22, seed=119 + idx * 9, wobble=0.1),
-                      AURORA, 1.0, 0.5))
-    b.append(ink.text(w / 2, 36, word.upper(), 20, GOLD, ink.SERIF,
+    b = [ink.brush_box(6, 6, w - 12, h - 12, width=6.4, seed=113 + idx * 9,
+                       overshoot=8, colour=AURORA, opacity=0.85),
+         ink.brush_box(14, 14, w - 28, h - 28, width=3.0, seed=131 + idx * 9,
+                       overshoot=4, colour=AURORA, opacity=0.4)]
+    b.append(ink.text(w / 2, 36, word.upper(), 22, GOLD, ink.SERIF,
                       anchor="middle", weight="600", tracking="1"))
-    b.append(ink.text(w / 2, 50, sub, 9, MUTED, ink.MONO, anchor="middle", tracking="1.5"))
-    return doc(w, h, f"{word.upper()} decorative web button", "".join(b))
+    b.append(ink.text(w / 2, 52, sub, 14, MUTED, ink.MONO, anchor="middle", tracking="1"))
+    tilt = -3.4 + idx * 2.1                      # a hand never hits a stamp square
+    body = "".join(b)
+    return doc(w, h, f"{word.upper()} decorative web button",
+               f'<g transform="rotate({tilt:.1f} {w / 2} {h / 2})">{body}</g>')
 
 
 def build(profile: dict) -> dict[str, str]:

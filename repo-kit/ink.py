@@ -413,6 +413,109 @@ def spray(cx: float, cy: float, r: float, n: int = 26, seed: int = 67,
     return out
 
 
+def _resample(points, step: float):
+    """Walk a polyline and emit points roughly `step` apart, ends included."""
+    pts = list(points)
+    if len(pts) < 2:
+        return pts
+    out = [pts[0]]
+    carry = 0.0
+    for a, b in zip(pts, pts[1:]):
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        seg = math.hypot(dx, dy)
+        if seg < 1e-9:
+            continue
+        ux, uy = dx / seg, dy / seg
+        t = carry
+        while t + step <= seg:
+            t += step
+            out.append((a[0] + ux * t, a[1] + uy * t))
+        carry = t - seg + step
+    if (out[-1][0] - pts[-1][0]) ** 2 + (out[-1][1] - pts[-1][1]) ** 2 > 1e-6:
+        out.append(pts[-1])
+    return out
+
+
+def brush(points, width: float = 6.0, seed: int = 83, enter: float = 0.16,
+          exit_: float = 0.26, bow: float = 0.0, jitter: float = 0.16) -> str:
+    """A marker or brush stroke with a real width envelope, returned as path data.
+
+    Every other primitive here draws a constant-width centre line, which is why
+    hand-drawn output reads as cheap: a real stroke is fat in the belly and
+    dies at both ends. This walks the centre line, offsets it left and right by
+    a width profile, and closes the two sides into one filled outline.
+
+    `enter` and `exit_` are the fractions of the length spent tapering.
+    `bow` bows the belly sideways, `jitter` is the per-sample width noise.
+    """
+    pts = _resample(points, max(2.0, width * 0.45))
+    if len(pts) < 2:
+        if not pts:
+            return ""
+        r = width * 0.5
+        return f"M{fmt(pts[0][0] - r)} {fmt(pts[0][1])} a{fmt(r)} {fmt(r)} 0 1 0 " \
+               f"{fmt(r * 2)} 0 a{fmt(r)} {fmt(r)} 0 1 0 {fmt(-r * 2)} 0"
+    rnd = rng(seed)
+    n = len(pts)
+    left, right = [], []
+    for i, (x, y) in enumerate(pts):
+        t = i / (n - 1)
+        # envelope: ramp in, hold, ramp out, with a slight belly at the middle
+        head = min(1.0, t / max(enter, 1e-6))
+        tail = min(1.0, (1.0 - t) / max(exit_, 1e-6))
+        env = min(head, tail) ** 0.72
+        belly = 1.0 + 0.16 * math.sin(math.pi * t)
+        w = width * 0.5 * env * belly * (1.0 + (rnd() - 0.5) * 2 * jitter)
+        # normal from the local tangent
+        ax, ay = pts[max(i - 1, 0)]
+        bx, by = pts[min(i + 1, n - 1)]
+        dx, dy = bx - ax, by - ay
+        ln = math.hypot(dx, dy) or 1.0
+        nx, ny = -dy / ln, dx / ln
+        # bow is in units, not a multiple of width: multiplying by width made the
+        # two sides cross and the stroke folded back on itself
+        b = math.sin(math.pi * t) * min(abs(bow), width * 0.28) * (1 if bow >= 0 else -1)
+        left.append((x + nx * (w + b), y + ny * (w + b)))
+        right.append((x - nx * max(w - b * 0.4, 0.2), y - ny * max(w - b * 0.4, 0.2)))
+    ring = left + right[::-1]
+    body = " ".join(("M" if i == 0 else "L") + f"{fmt(px)} {fmt(py)}"
+                    for i, (px, py) in enumerate(ring))
+    return f"{body} Z"
+
+
+def brush_fill(d: str, colour: str, opacity: float = 1.0) -> str:
+    return f'<path d="{d}" fill="{colour}" stroke="none" opacity="{fmt(opacity)}"/>'
+
+def brush_box(x: float, y: float, w: float, h: float, width: float = 5.0,
+              seed: int = 89, overshoot: float = 10.0, colour: str = "currentColor",
+              opacity: float = 1.0) -> str:
+    """A box drawn the way a marker draws one: four separate tapered sides that
+    overshoot the corners, instead of a closed polyline with the corners met."""
+    sides = (((x, y), (x + w, y)), ((x + w, y), (x + w, y + h)),
+             ((x + w, y + h), (x, y + h)), ((x, y + h), (x, y)))
+    out = []
+    for i, (a, b) in enumerate(sides):
+        d = brush([a, b], width=width, seed=seed + i * 7, enter=0.03, exit_=0.05,
+                  jitter=0.1)
+        out.append(brush_fill(d, colour, opacity))
+    for cx, cy, dx, dy in ((x, y, 1, 1), (x + w, y, -1, 1),
+                           (x + w, y + h, -1, -1), (x, y + h, 1, -1)):
+        d = brush([(cx, cy), (cx + dx * overshoot, cy + dy * overshoot * 0.24)],
+                  width=width * 0.62, seed=seed + 13, enter=0.02, exit_=0.9, jitter=0.3)
+        out.append(brush_fill(d, colour, opacity * 0.85))
+    return "".join(out)
+
+
+def brush_rule(x1: float, x2: float, y: float, width: float = 5.0, seed: int = 97,
+               sag: float = 0.0, colour: str = "currentColor",
+               opacity: float = 1.0, enter: float = 0.06, exit_: float = 0.08) -> str:
+    """One confident horizontal mark, thick in the middle and dying at both ends."""
+    d = brush([(x1, y), ((x1 + x2) / 2, y + sag), (x2, y)], width=width, seed=seed,
+              enter=enter, exit_=exit_, jitter=0.12)
+    return brush_fill(d, colour, opacity)
+
+
+
 def drip(x: float, y: float, length: float, seed: int = 71, w: float = 3.4,
          colour: str = "currentColor", opacity: float = 1.0) -> list[str]:
     """One paint run: a tapering stroke that ends in a bead."""

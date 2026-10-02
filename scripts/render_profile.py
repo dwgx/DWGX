@@ -719,89 +719,37 @@ def text_w(s: str, bold: bool = False) -> float:
     return round(len(s) * (8.7 if bold else 7.8), 1)
 
 
+import make_ink_decor as ink_panel  # noqa: E402  (INK LAB panels)
+
+
 def process_svg(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> str:
+    """The module board. Drawing lives in make_ink_decor so it uses the same
+    tokens as the ornaments; this function only assembles the rows."""
     rows = profile.get("process") or []
-    n = len(rows)
-    row_h = 22
-    header_h = 26
-    col_y = 48
-    first_y = 72
-    height = first_y + (n - 1) * row_h + 34
-    width = 617
-    parts: list[str] = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
-        f'viewBox="0 0 {width} {height}" '
-        f"font-family=\"ui-monospace,'Cascadia Mono',Consolas,'SF Mono',monospace\">",
-        f'<rect width="{width}" height="{height}" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>',
-        f'<rect x="1" y="1" width="{width-2}" height="{header_h}" rx="3" fill="#161b22"/>',
-        '<line x1="0" y1="26" x2="617" y2="26" stroke="#30363d" stroke-width="1"/>',
-        f'<text x="16.0" y="18.0" font-size="13" font-weight="700" fill="{PINK}">{esc(prompt_host(profile))}</text>',
-        f'<text x="109.6" y="18.0" font-size="13" font-weight="700" fill="{TEXT}">process.table</text>',
-        f'<text x="234.4" y="18.0" font-size="13" font-weight="400" fill="{MUTED}">[{n} tasks]</text>',
-        f'<text x="476.2" y="18.0" font-size="13" font-weight="400" fill="{GREEN}">active · JST+9</text>',
-        f'<text x="16.0" y="{col_y}.0" font-size="13" font-weight="700" fill="{MUTED}">PID</text>',
-        f'<text x="62.8" y="{col_y}.0" font-size="13" font-weight="700" fill="{MUTED}">MODULE</text>',
-        f'<text x="250.0" y="{col_y}.0" font-size="13" font-weight="700" fill="{MUTED}">LANG</text>',
-        f'<text x="296.8" y="{col_y}.0" font-size="13" font-weight="700" fill="{MUTED}">STATUS</text>',
-        '<line x1="16" y1="54" x2="601" y2="54" stroke="#30363d" stroke-width="1"/>',
-    ]
-    for i, row in enumerate(rows):
-        y = first_y + i * row_h
-        if i % 2 == 1:
-            parts.append(
-                f'<rect x="1" y="{y-15}" width="{width-2}" height="{row_h}" fill="#161b22" fill-opacity="0.5"/>'
-            )
-        pid = f"{i+1:04d}"
+    out = []
+    for i, row in enumerate(rows, 1):
         name = str(row.get("name") or "")
-        lang = str(row.get("lang") or "-")
-        status = str(row.get("status") or "")
-        status_color = str(row.get("status_color") or GOLD)
         r = repos.get(name, {})
         note = str(row.get("note") or row.get("fallback_note") or "")
         kind = row.get("note_kind") or row.get("kind")
+        bar = None
         if kind == "stars":
-            stars = int(r.get("stargazers_count") or 0)
-            note = f"★{stars}"
+            note = "\u2605%d" % int(r.get("stargazers_count") or 0)
         elif kind == "release":
             tag = tags.get(name) or ""
             note = tag if tag else str(row.get("fallback_note") or "")
-        parts.append(
-            f'<text x="16.0" y="{y}.0" font-size="13" font-weight="700" fill="{GOLD}">{esc(pid)}</text>'
-        )
-        parts.append(
-            f'<text x="62.8" y="{y}.0" font-size="13" font-weight="400" fill="{TEXT}">{esc(name)}</text>'
-        )
-        parts.append(
-            f'<text x="250.0" y="{y}.0" font-size="13" font-weight="400" fill="{BLUE}">{esc(lang)}</text>'
-        )
         if kind == "bar":
             bar = float(row.get("bar") or 0)
-            bw = 100.0
-            fw = round(bw * max(0.0, min(1.0, bar)), 1)
-            pct = f"{int(round(bar * 100))}%"
-            parts.append(
-                f'<rect x="296.8" y="{y-8}.0" width="{bw}" height="10" rx="3" fill="#30363d"/>'
-            )
-            parts.append(
-                f'<rect x="296.8" y="{y-8}.0" width="{fw}" height="10" rx="3" fill="{PINK}"/>'
-            )
-            parts.append(
-                f'<text x="404.8" y="{y}.0" font-size="13" font-weight="700" fill="{GOLD}">{esc(pct)}</text>'
-            )
-            parts.append(
-                f'<text x="432.2" y="{y}.0" font-size="13" font-weight="400" fill="{MUTED}">{esc(note)}</text>'
-            )
-        else:
-            parts.append(
-                f'<text x="296.8" y="{y}.0" font-size="13" font-weight="700" fill="{status_color}">{esc(status)}</text>'
-            )
-            nx = round(296.8 + text_w(status, bold=True) + 8.0, 1)
-            if note:
-                parts.append(
-                    f'<text x="{nx}" y="{y}.0" font-size="13" font-weight="400" fill="{MUTED}">{esc(note)}</text>'
-                )
-    parts.append("</svg>")
-    return "".join(parts)
+        out.append({
+            "pid": "%04d" % i,
+            "name": name,
+            "lang": str(row.get("lang") or "-"),
+            "status": "" if bar is not None else str(row.get("status") or ""),
+            "colour": str(row.get("status_color") or "#e5c07b"),
+            "note": note,
+            "bar": bar,
+        })
+    return ink_panel.process_panel(out, prompt_host(profile), "active \u00b7 JST+9")
 
 
 def disp_len(text: str) -> int:

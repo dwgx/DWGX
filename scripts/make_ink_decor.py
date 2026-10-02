@@ -27,14 +27,27 @@ sys.path.insert(0, str(ROOT / "repo-kit"))
 import ink  # noqa: E402  (path set above, on purpose)
 
 ASSETS = ROOT / "assets"
-GROUND = "#06020f"          # the BIOS ground the existing ornaments already use
-FAMILY = "crayon"           # provenance: the profile is Kobe-era crayon paper
-P = ink.PALETTES[FAMILY]
-INK, GOLD, AURORA = P["ink"], P["gold"], P["aurora"]
-VIOLET, LAPIS, ROSE, MUTED = P["violet"], P["lapis"], P["rose"], P["muted"]
-
 TITLE = "dwgx.menu"
 DESC = "Decorative dwgx.menu panel; not live telemetry."
+
+# One design system, resolved once. Nothing below names a colour, a stroke width
+# or a type size as a literal: those live in repo-kit/ink.py so the profile and
+# the 22 repository banners cannot drift apart.
+T = ink.theme("crayon", light=False, ground="#06020f")
+C, STROKE, TYPE, SPACE, ALPHA, RULES = (T["c"], T["stroke"], T["type"], T["space"],
+                                        T["alpha"], T["rules"])
+INK, GOLD, AURORA = C["ink"], C["gold"], C["aurora"]
+VIOLET, LAPIS, ROSE, MUTED = C["violet"], C["lapis"], C["rose"], C["muted"]
+GROUND = C["ground"]
+
+# every text helper routes through here, so the CJK floor is impossible to miss
+_LABEL = TYPE["label"]
+
+
+def type_line(x: float, y: float, body, size: float = _LABEL, colour: str = INK,
+          family: str = ink.MONO, **kw) -> str:
+    """Set type at the token size, automatically raised for CJK runs."""
+    return ink.text(x, y, body, ink.type_for(body, size), colour, family, **kw)
 
 
 def doc(w: int, h: int, title: str, body: str) -> str:
@@ -46,7 +59,6 @@ def doc(w: int, h: int, title: str, body: str) -> str:
         f'<rect width="{w}" height="{h}" fill="{GROUND}"/>'
         f'{body}</svg>'
     )
-
 
 # Consolas / Cascadia Mono / SF Mono all sit near 0.6em per glyph. ink.text_width
 # is a Georgia-class serif metric, so any mono run measured with it comes out
@@ -62,9 +74,9 @@ def mono_width(body: str, size: float, tracking: float = 0.0) -> float:
 
 def chrome(x: float, y: float, left: str, right: str = "", w: int = 960) -> list[str]:
     """The `INK LAB / nn · style · palette` line every banner wears."""
-    out = [ink.text(x, y, left, 12, MUTED, ink.MONO, tracking="2")]
+    out = [type_line(x, y, left, 12, MUTED, ink.MONO, tracking="2")]
     if right:
-        out.append(ink.text(w - x, y, right, 12, MUTED, ink.MONO, anchor="end", tracking="1"))
+        out.append(type_line(w - x, y, right, 12, MUTED, ink.MONO, anchor="end", tracking="1"))
     return out
 
 
@@ -90,6 +102,77 @@ def root_motif(cx: float, cy: float, r: float, seed: int) -> list[str]:
     out += ink.rays(cx, cy, r * 1.06, r * 1.42, 9, seed=seed + 13, bend=0.08)
     out += ink.spark(cx - r * 0.12, cy - r * 0.1, r * 0.3, seed=seed + 17, colour=GOLD)
     return [o if o.startswith("<") else ink.path(o, GOLD, 1.4, 0.55) for o in out]
+
+
+
+# ── data panels ───────────────────────────────────────────────────────────────
+# The panels below carry the page's actual data, so they get the same treatment
+# as the ornaments: real ink, one type scale, and type that survives the 0.322x
+# mobile scale. They live here rather than in render_profile.py so the data
+# assembly and the drawing stay separate: the caller hands over plain dicts.
+
+def panel_doc(w: int, h: int, title: str, body: str) -> str:
+    """A panel: ink ground, brush frame, and the same title bar as the rails."""
+    parts = [ink.brush_box(6, 6, w - 12, h - 12, width=3.2, seed=ink.seed_of(title),
+                           overshoot=12, colour=INK, opacity=ALPHA["full"])]
+    parts.append(type_line(26, 46, title, TYPE["label"], INK, ink.MONO, tracking="3"))
+    parts.append(ink.brush_rule(26, w - 26, 60, width=STROKE["hair"], seed=11,
+                                colour=INK, opacity=ALPHA["ghost"]))
+    return doc(w, h, title, "".join(parts) + body)
+
+
+def process_panel(rows: list, host: str, stamp: str, panel_title: str = "process.table") -> str:
+    """Twelve live modules as a task board: pid, name, language, state, note.
+
+    `rows` is a list of dicts with keys pid / name / lang / status / colour /
+    note / bar. `bar` in 0..1 draws a brush progress stroke instead of a status.
+    """
+    w = 960
+    top = 92
+    row_h = 48
+    h = top + len(rows) * row_h + 34
+    out = [panel_doc(w, h, panel_title, "")]
+    count = f"[{len(rows)} tasks]"
+    out.append(type_line(w - 26, 46, count, TYPE["micro"], GOLD, ink.MONO,
+                         anchor="end", tracking="2"))
+    if stamp:
+        # measured against the count, not guessed: two right-aligned runs used
+        # to collide exactly the way the rails did
+        out.append(type_line(w - 26 - mono_width(count, TYPE["micro"], 2) - 26, 46,
+                             stamp, TYPE["micro"], MUTED, ink.MONO, anchor="end",
+                             tracking="2"))
+    for x, cap in ((26, "PID"), (108, "MODULE"), (470, "LANG"), (556, "STATE")):
+        out.append(type_line(x, 84, cap, TYPE["micro"], MUTED, ink.MONO, tracking="4"))
+
+    y = top + 22
+    for r in rows:
+        out.append(type_line(26, y, r["pid"], TYPE["micro"], GOLD, ink.MONO, tracking="1"))
+        out.append(type_line(108, y, r["name"], TYPE["label"], INK, ink.SERIF))
+        out.append(type_line(470, y, r.get("lang") or "-", TYPE["micro"], LAPIS,
+                             ink.MONO, tracking="1"))
+        if r.get("bar") is not None:
+            frac = max(0.0, min(1.0, float(r["bar"])))
+            out.append(ink.brush_rule(556, 656, y - 8, width=STROKE["body"],
+                                      seed=int(frac * 1000) + 3, colour=MUTED,
+                                      opacity=ALPHA["soft"], enter=0.02, exit_=0.02))
+            filled = 556 + 100 * frac
+            if filled > 566:
+                out.append(ink.brush_rule(556, filled, y - 8, width=STROKE["body"],
+                                          seed=int(frac * 1000) + 3, colour=ROSE,
+                                          enter=0.02, exit_=0.04))
+            out.append(type_line(668, y, f"{int(round(frac * 100))}%", TYPE["micro"],
+                                 GOLD, ink.MONO, tracking="1"))
+        else:
+            out.append(type_line(556, y, r.get("status") or "", TYPE["micro"],
+                                 r.get("colour") or GOLD, ink.MONO, tracking="2"))
+        if r.get("note"):
+            out.append(type_line(716, y, r["note"], TYPE["micro"], MUTED, ink.MONO,
+                                 tracking="1"))
+        y += row_h
+    out.append(ink.brush_rule(26, w - 26, h - 40, width=STROKE["hair"], seed=17,
+                              colour=INK, opacity=ALPHA["faint"]))
+    out.append(type_line(26, h - 12, host, TYPE["micro"], MUTED, ink.MONO, tracking="1"))
+    return doc(w, h, panel_title, "".join(out[:1]) + "".join(out[1:]))
 
 
 # ── hero: the signature ───────────────────────────────────────────────────────
@@ -170,12 +253,12 @@ def hero(profile: dict) -> str:
     # spark() hands back path data for the arms and markup for the dot
     b += [o if o.startswith("<") else ink.path(o, ROSE, 2.6) for o in
           ink.spark(w - 96, 96, 26, seed=151, colour=ROSE)]
-    b.append(ink.text(w - 96, 150, "SIGNED", 20, MUTED, ink.MONO, anchor="middle",
+    b.append(type_line(w - 96, 150, "SIGNED", 20, MUTED, ink.MONO, anchor="middle",
                       tracking="4"))
 
     if alias:
-        b.append(ink.text(44, 360, alias, 22, MUTED, ink.MONO, tracking="1"))
-    b.append(ink.text(w - 44, 360, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
+        b.append(type_line(44, 360, alias, 22, MUTED, ink.MONO, tracking="1"))
+    b.append(type_line(w - 44, 360, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
                       anchor="end", italic=True))
     return doc(w, h, f"{TITLE} · signature", "".join(b))
 
@@ -191,8 +274,8 @@ def key_cap(num: str, label: str, idx: int) -> str:
     w, h = 156, 58
     b = [ink.brush_box(5, 5, w - 10, h - 10, width=4.0, seed=41 + idx * 6,
                        overshoot=7, colour=INK, opacity=0.9)]
-    b.append(ink.text(18, 30, num, 13, GOLD, ink.MONO, tracking="1"))
-    b.append(ink.text(w - 16, 30, label, 14, INK, ink.MONO, anchor="end", tracking="1.5"))
+    b.append(type_line(18, 30, num, 13, GOLD, ink.MONO, tracking="1"))
+    b.append(type_line(w - 16, 30, label, 14, INK, ink.MONO, anchor="end", tracking="1.5"))
     b.append(ink.brush_rule(18, w - 18, 42, width=4.4, seed=53 + idx * 6,
                             colour=AURORA, opacity=0.8, enter=0.04, exit_=0.3))
     return doc(w, h, f"{label} section link", "".join(b))
@@ -252,10 +335,10 @@ def rail(num: str, label: str, sub: str, idx: int) -> str:
         b.append(ink.brush_rule(right_start, right_end, 31, width=6.0,
                                 seed=67 + idx * 5, sag=-1.5, colour=INK,
                                 opacity=0.85, enter=0.22, exit_=0.02))
-    b.append(ink.text(num_x, 40, num, 22, GOLD, ink.MONO, tracking="1"))
-    b.append(ink.text(label_x, 40, label, 26, INK, ink.MONO, tracking="3"))
+    b.append(type_line(num_x, 40, num, 22, GOLD, ink.MONO, tracking="1"))
+    b.append(type_line(label_x, 40, label, 26, INK, ink.MONO, tracking="3"))
     if sub_x is not None:
-        b.append(ink.text(sub_x, 40, sub, 22, MUTED, ink.MONO, tracking="2"))
+        b.append(type_line(sub_x, 40, sub, 22, MUTED, ink.MONO, tracking="2"))
     return doc(w, h, label, "".join(b))
     ("03", "GENESIS CHAMBER", "origin"),
 
@@ -273,8 +356,8 @@ def io_panel() -> str:
         b.append(ink.brush_box(x, 82 - ph, pw, ph, width=3.4, seed=89 + i * 4,
                                overshoot=5, colour=AURORA if i % 2 else INK, opacity=0.9))
         x += pw + 28
-    b.append(ink.text(34, 44, "REAR I/O", 22, MUTED, ink.MONO, tracking="4"))
-    b.append(ink.text(w - 34, 44, "dwgx@main", 22, GOLD, ink.MONO, anchor="end",
+    b.append(type_line(34, 44, "REAR I/O", 22, MUTED, ink.MONO, tracking="4"))
+    b.append(type_line(w - 34, 44, "dwgx@main", 22, GOLD, ink.MONO, anchor="end",
                       tracking="2"))
     b.append(ink.brush_rule(34, w - 34, 64, width=3.2, seed=97, colour=INK, opacity=0.3))
     return doc(w, h, "Decorative rear I/O panel", "".join(b))
@@ -295,7 +378,7 @@ def phantasm() -> str:
                       seed=s_, enter=0.05, exit_=0.42, jitter=0.2)
         b.append(ink.brush_fill(d, AURORA if i % 3 else GOLD, 0.5 + (i % 4) * 0.12))
     b.append(ink.brush_rule(24, w - 24, 74, width=2.6, seed=97, colour=INK, opacity=0.35))
-    b.append(ink.text(24, 116, "幻想万華鏡 · THE MEMORIES OF PHANTASM", 26, MUTED,
+    b.append(type_line(24, 116, "幻想万華鏡 · THE MEMORIES OF PHANTASM", 26, MUTED,
                       ink.MONO, tracking="4"))
     return doc(w, h, "Touhou danmaku ornament for the Phantasm feature", "".join(b))
 
@@ -310,10 +393,10 @@ def eof() -> str:
                         colour=INK, opacity=0.6, enter=0.2, exit_=0.02)]
     b.append(ink.path(ink.arrow(w / 2 - 150, 92, w / 2 - 250, 92, seed=107, head=22),
                       GOLD, 4.0))
-    b.append(ink.text(w / 2, 102, "〔 返回 boot.menu 〕", 38, INK, ink.SERIF, anchor="middle"))
+    b.append(type_line(w / 2, 102, "〔 返回 boot.menu 〕", 38, INK, ink.SERIF, anchor="middle"))
     b.append(ink.brush_rule(w / 2 - 170, w / 2 + 170, 130, width=4.0, seed=109,
                             colour=GOLD, opacity=0.55))
-    b.append(ink.text(w / 2, 158, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
+    b.append(type_line(w / 2, 158, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
                       anchor="middle", tracking="4"))
     return doc(w, h, "End of file, return to the dwgx.menu navigation", "".join(b))
 
@@ -330,9 +413,9 @@ def stamp(word: str, sub: str, idx: int) -> str:
                        overshoot=8, colour=AURORA, opacity=0.85),
          ink.brush_box(14, 14, w - 28, h - 28, width=3.0, seed=131 + idx * 9,
                        overshoot=4, colour=AURORA, opacity=0.4)]
-    b.append(ink.text(w / 2, 36, word.upper(), 22, GOLD, ink.SERIF,
+    b.append(type_line(w / 2, 36, word.upper(), 22, GOLD, ink.SERIF,
                       anchor="middle", weight="600", tracking="1"))
-    b.append(ink.text(w / 2, 52, sub, 14, MUTED, ink.MONO, anchor="middle", tracking="1"))
+    b.append(type_line(w / 2, 52, sub, 14, MUTED, ink.MONO, anchor="middle", tracking="1"))
     tilt = -3.4 + idx * 2.1                      # a hand never hits a stamp square
     body = "".join(b)
     return doc(w, h, f"{word.upper()} decorative web button",

@@ -59,6 +59,46 @@ PAPER_PALETTES = {
 }
 
 
+
+# ── design tokens ────────────────────────────────────────────────────────────
+# One place where the ink language is decided, so the profile and the 22 banners
+# stop making these choices one file at a time. Sizes are in viewBox units for
+# the 960-unit band that every wide asset uses; multiply by 0.873 for desktop CSS
+# pixels and 0.322 for a 309px phone.
+#
+# The floors are measured, not guessed — see
+# ops/RESEARCH-handdrawn-svg-readability-2026-10-02.md:
+#   * type   Latin >= 26 units, CJK >= 38 units at the 0.322x mobile scale
+#   * ink    stroke >= 3.0 units, or it vanishes at dpr 1
+#   * spray  dot radius >= 2.0 units, dot pitch >= 6 units, or it reads as fog
+#   * echo   offset >= 4 units, or the two impressions fuse into a thicker stroke
+STROKE = {"hair": 3.0, "fine": 4.0, "body": 6.0, "heavy": 9.0, "poster": 14.0}
+TYPE = {"micro": 20.0, "label": 26.0, "title": 38.0, "display": 54.0}
+TYPE_CJK_MIN = 38.0
+SPACE = {"tight": 20.0, "snug": 30.0, "room": 44.0, "loose": 70.0}
+ALPHA = {"full": 0.9, "soft": 0.55, "ghost": 0.32, "faint": 0.16}
+RULES = {"overshoot": 4.0, "spray_r": 2.0, "spray_pitch": 6.0, "echo": 4.0,
+         "drip_len": 25.0, "min_rule": 90.0}
+
+
+def theme(family: str = "crayon", light: bool = False, ground: str | None = None) -> dict:
+    """Resolve one design system: palette plus the scales above.
+
+    Callers ask for `T["ink"]` or `T["stroke"]["body"]`, never for a literal.
+    """
+    table = PAPER_PALETTES if light else PALETTES
+    pal = dict(table.get(family) or table["cosmic"])
+    pal["ground"] = ground or (GROUND["light"] if light else "#06020f")
+    pal["family"] = family
+    return {"c": pal, "stroke": STROKE, "type": TYPE, "space": SPACE,
+            "alpha": ALPHA, "rules": RULES}
+
+
+def type_for(body: str, base: float, cjk_min: float = TYPE_CJK_MIN) -> float:
+    """A CJK run needs roughly 1.45x the Latin size at the same optical weight."""
+    has_cjk = any(ord(ch) > 0x2E7F for ch in str(body))
+    return max(base, cjk_min) if has_cjk else base
+
 def palette_for(family: str, light: bool) -> dict:
     table = PAPER_PALETTES if light else PALETTES
     return table.get(family) or table["cosmic"]

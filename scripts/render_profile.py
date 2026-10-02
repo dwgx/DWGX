@@ -1894,7 +1894,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 <!-- ════════════════════════════════════════════════════════════════ -->
 {ornament('hero', 'dwgx · profile · voice fingerprint')}
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.svg" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <div align="center">
 
@@ -2193,17 +2193,6 @@ from  = {ship.get('came', 'MC clients')}
 
 {ornament('rail-07', 'ACTIVITY MEMORY')}
 
-### `3d.contrib`
-
-<div align="center">
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-rainbow.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" />
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" width="100%" alt="3d contribution" />
-</picture>
-
-</div>
 
 ---
 
@@ -2244,7 +2233,7 @@ from  = {ship.get('came', 'MC clients')}
 <a href="{genesis}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg" height="48" alt="F2 HDD-0 ORIGIN" /></a>
 <a href="{links['youtube']}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg" height="48" alt="F8 BBS YouTube" /></a>
 <a href="{links['bilibili']}"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg" height="48" alt="F9 BBS Bilibili" /></a>
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg" height="48" alt="F10 maybe I'm dwgx" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg" height="48" alt="F10 · 也许我就是dwgx" />
 </p>
 
 ### `field.notes`

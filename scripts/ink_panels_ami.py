@@ -555,15 +555,18 @@ def status_panel(work: dict, extra: dict, repos: dict, today: str) -> str:
     note = wrap(msg, 456, HEAD, 1, limit=1)[0] if msg else ""
     b.text(PAD, 206, note, HEAD, INK, ink.SERIF) if note else b.dash(PAD, 206)
     b.kv(PAD, 254, "WHEN", ago, value_x=160)
-    b.end(380, 254, "HEAD", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
+    # the HEAD caption and the sha share y=254; a fixed 380/500 pair collides as
+    # soon as the sha is short, so the caption measures the gap instead
+    _hx0, hx1 = b.text(300, 254, "HEAD", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
+    sha_x = max(500.0, hx1 + 30)
     if sha:
-        b.end(500, 254, sha, HEAD, GOLD, ink.MONO, tracking=RUN_TRACK)
+        b.end(sha_x, 254, sha, HEAD, GOLD, ink.MONO, tracking=RUN_TRACK)
     elif verb and repo:
         # a release or an issue has no commit to point at. That is an answer, not
         # a failed fetch, so it gets no dash and no mark.
-        b.end(500, 254, "n/a", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
+        b.end(sha_x, 254, "n/a", HEAD, MUTED, ink.MONO, tracking=RUN_TRACK)
     else:
-        b.dash_end(500, 254)
+        b.dash_end(sha_x, 254)
 
     b.head(PAD, 330, "COMMITS TODAY")
     b.rule(PAD, 500, 348)

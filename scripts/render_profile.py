@@ -22,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ami  # noqa: E402
 import ami_book  # noqa: E402
+import ink_panels_ami  # noqa: E402  (INK LAB panels)
 import ink_panels_deep  # noqa: E402  (INK LAB panels)
 
 JST = timezone(timedelta(hours=9))
@@ -1992,9 +1993,9 @@ from  = {ship.get('came', 'MC clients')}
 
 <div align="center">
 
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
+<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
 &nbsp;&nbsp;
-<img height="170" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
+<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
 
 </div>
 
@@ -2156,10 +2157,10 @@ def main() -> int:
                 work["sha"] = h["sha"]
                 break
     dmesg = dmesg_events(events)
-    SETUP_SVG.write_text(ami.setup_svg(by_name, tags), encoding="utf-8")
-    STATUS_SVG.write_text(ami.status_svg(work, extra, by_name, today), encoding="utf-8")
-    DEVICES_SVG.write_text(ami.devices_svg(heads), encoding="utf-8")
-    EVENT_SVG.write_text(ami.eventlog_svg(dmesg), encoding="utf-8")
+    SETUP_SVG.write_text(ink_panels_ami.setup_panel(by_name, tags), encoding="utf-8")
+    STATUS_SVG.write_text(ink_panels_ami.status_panel(work, extra, by_name, today), encoding="utf-8")
+    DEVICES_SVG.write_text(ink_panels_ami.devices_panel(heads), encoding="utf-8")
+    EVENT_SVG.write_text(ink_panels_ami.eventlog_panel(dmesg), encoding="utf-8")
     book = ami_book.render_book(
         {
             "repos": by_name,

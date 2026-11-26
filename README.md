@@ -11,12 +11,12 @@
 <a name="dwgx-boot-menu"></a>
 <!-- DWGX-ORNAMENT:boot-menu:BEGIN -->
 <p align="center">
-<a href="#dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-01.svg?t=1795730433" width="124" alt="MAIN — jump to section" /></a>
-<a href="#processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-02.svg?t=1795730433" width="124" alt="PROCESS — jump to section" /></a>
-<a href="#origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-03.svg?t=1795730433" width="124" alt="ORIGIN — jump to section" /></a>
-<a href="#pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-04.svg?t=1795730433" width="124" alt="MODULES — jump to section" /></a>
-<a href="#featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-05.svg?t=1795730433" width="124" alt="PHANTASM — jump to section" /></a>
-<a href="#eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-06.svg?t=1795730433" width="124" alt="GUESTBOOK — jump to section" /></a>
+<a href="#user-content-dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-01.svg?t=1795730433" width="124" alt="MAIN — jump to section" /></a>
+<a href="#user-content-processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-02.svg?t=1795730433" width="124" alt="PROCESS — jump to section" /></a>
+<a href="#user-content-origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-03.svg?t=1795730433" width="124" alt="ORIGIN — jump to section" /></a>
+<a href="#user-content-pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-04.svg?t=1795730433" width="124" alt="MODULES — jump to section" /></a>
+<a href="#user-content-featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-05.svg?t=1795730433" width="124" alt="PHANTASM — jump to section" /></a>
+<a href="#user-content-eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-06.svg?t=1795730433" width="124" alt="GUESTBOOK — jump to section" /></a>
 </p>
 <!-- DWGX-ORNAMENT:boot-menu:END -->
 
@@ -27,7 +27,7 @@
 </picture>
 </p>
 
-<p align="center"><samp>〔 <a href="#dwgxcfg">配置</a> / <a href="#origingenesis">ORIGIN</a> / <a href="#pinned">项目</a> / <a href="#featured">幻想万華鏡</a> / <a href="#eventlog">留言</a> 〕</samp></p>
+<p align="center"><samp>〔 <a href="#user-content-dwgxcfg">配置</a> / <a href="#user-content-origingenesis">ORIGIN</a> / <a href="#user-content-pinned">项目</a> / <a href="#user-content-featured">幻想万華鏡</a> / <a href="#user-content-eventlog">留言</a> 〕</samp></p>
 
 <div align="center">
 
@@ -737,5 +737,5 @@ flowchart LR
 <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-dwgx.svg?t=1795730433" width="88" alt="DWGX decorative web button" />
 </p>
 <p align="center">
-<a href="#dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-eof.svg?t=1795730433" width="100%" alt="End of file — return to boot.menu" /></a>
+<a href="#user-content-dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-eof.svg?t=1795730433" width="100%" alt="End of file — return to boot.menu" /></a>
 </p>

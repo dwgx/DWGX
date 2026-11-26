@@ -1401,11 +1401,11 @@ def today_svg(host: str, extra: dict) -> str:
 
 def render_profile_nav() -> str:
     items = [
-        ("#dwgxcfg", "配置"),
-        ("#origingenesis", "ORIGIN"),
-        ("#pinned", "项目"),
-        ("#featured", "幻想万華鏡"),
-        ("#eventlog", "留言"),
+        ("#user-content-dwgxcfg", "配置"),
+        ("#user-content-origingenesis", "ORIGIN"),
+        ("#user-content-pinned", "项目"),
+        ("#user-content-featured", "幻想万華鏡"),
+        ("#user-content-eventlog", "留言"),
     ]
     links = " / ".join(f'<a href="{href}">{label}</a>' for href, label in items)
     return f'<p align="center"><samp>〔 {links} 〕</samp></p>'
@@ -1508,12 +1508,12 @@ def origin_panel_svg(profile: dict) -> str:
 
 def boot_menu_keys() -> str:
     keys = [
-        ("key-01", "#dwgxcfg", "MAIN — jump to section"),
-        ("key-02", "#processtable", "PROCESS — jump to section"),
-        ("key-03", "#origingenesis", "ORIGIN — jump to section"),
-        ("key-04", "#pinned", "MODULES — jump to section"),
-        ("key-05", "#featured", "PHANTASM — jump to section"),
-        ("key-06", "#eventlog", "GUESTBOOK — jump to section"),
+        ("key-01", "#user-content-dwgxcfg", "MAIN — jump to section"),
+        ("key-02", "#user-content-processtable", "PROCESS — jump to section"),
+        ("key-03", "#user-content-origingenesis", "ORIGIN — jump to section"),
+        ("key-04", "#user-content-pinned", "MODULES — jump to section"),
+        ("key-05", "#user-content-featured", "PHANTASM — jump to section"),
+        ("key-06", "#user-content-eventlog", "GUESTBOOK — jump to section"),
     ]
     imgs = "\n".join(
         f'<a href="{href}">{ornament(key, alt, "124", outer=False)}</a>' for key, href, alt in keys
@@ -2104,7 +2104,7 @@ from  = {ship.get('came', 'MC clients')}
 {stamp_row()}
 </p>
 <p align="center">
-<a href="#dwgx-boot-menu">{ornament('eof', 'End of file — return to boot.menu', '100%', outer=False)}</a>
+<a href="#user-content-dwgx-boot-menu">{ornament('eof', 'End of file — return to boot.menu', '100%', outer=False)}</a>
 </p>
 """
     out: list[str] = []

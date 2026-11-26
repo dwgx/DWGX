@@ -18,6 +18,7 @@ import math
 import pathlib
 import re
 import sys
+import textwrap
 import tomllib
 import xml.etree.ElementTree as ElementTree
 
@@ -30,12 +31,14 @@ ASSETS = ROOT / "assets"
 TITLE = "dwgx.menu"
 DESC = "Decorative dwgx.menu panel; not live telemetry."
 
-# One design system, resolved once. Nothing below names a colour, a stroke width
-# or a type size as a literal: those live in repo-kit/ink.py so the profile and
-# the 22 repository banners cannot drift apart.
-T = ink.theme("crayon", light=False, ground="#06020f")
+# The profile uses pigment on warm paper. Keep the shared stroke engine and its
+# seeds unchanged: the other repository banners retain their own theme choice.
+T = ink.theme("crayon", light=True, ground="#F4EFE6")
 C, STROKE, TYPE, SPACE, ALPHA, RULES = (T["c"], T["stroke"], T["type"], T["space"],
                                         T["alpha"], T["rules"])
+# Local role aliases keep every existing drawing in the owner's visual language.
+C.update(ink="#2A2320", gold="#A8452C", aurora="#A8452C", rose="#A8452C",
+         violet="#6B5647", lapis="#4A5158", muted="#62564F")
 INK, GOLD, AURORA = C["ink"], C["gold"], C["aurora"]
 VIOLET, LAPIS, ROSE, MUTED = C["violet"], C["lapis"], C["rose"], C["muted"]
 GROUND = C["ground"]
@@ -51,12 +54,31 @@ def type_line(x: float, y: float, body, size: float = _LABEL, colour: str = INK,
 
 
 def doc(w: int, h: int, title: str, body: str) -> str:
+    # A few hairline fibres, not random spots or a heavy raster/filter. The
+    # pattern is fixed and tiny; nested data-panel documents share the same ink.
+    paper = (
+        '<defs><pattern id="paper-fibre" width="128" height="128" '
+        'patternUnits="userSpaceOnUse">'
+        f'<path d="M9 17l8 -1M63 35l11 1M103 91l9 -1M25 108l13 1M82 69l5 -1" '
+        f'fill="none" stroke="{INK}" stroke-width=".55" opacity=".055"/>'
+        f'<path d="M38 54l7 1M112 12l6 0M52 88l9 -1" fill="none" '
+        f'stroke="{GOLD}" stroke-width=".45" opacity=".06"/>'
+        '</pattern></defs>'
+        '<style>.ink-breathe{opacity:1}'
+        '@media(prefers-reduced-motion:no-preference){'
+        '.ink-breathe{animation:ink-breath 9s ease-in-out infinite}'
+        '.ink-breathe.slow{animation-duration:13s}'
+        '@keyframes ink-breath{0%,18%,72%,100%{opacity:1}45%{opacity:.72}}}'
+        '@media(prefers-reduced-motion:reduce){.ink-breathe{animation:none!important;opacity:1}}'
+        '</style>'
+    )
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
         f'viewBox="0 0 {w} {h}" role="img" aria-labelledby="title desc">'
         f'<title id="title">{ink.esc(title)}</title>'
         f'<desc id="desc">{DESC}</desc>'
-        f'<rect width="{w}" height="{h}" fill="{GROUND}"/>'
+        f'{paper}<rect width="{w}" height="{h}" fill="{GROUND}"/>'
+        f'<rect width="{w}" height="{h}" fill="url(#paper-fibre)"/>'
         f'{body}</svg>'
     )
 
@@ -112,13 +134,27 @@ def root_motif(cx: float, cy: float, r: float, seed: int) -> list[str]:
 # assembly and the drawing stay separate: the caller hands over plain dicts.
 
 def panel_doc(w: int, h: int, title: str, body: str) -> str:
-    """A panel: ink ground, brush frame, and the same title bar as the rails."""
-    parts = [ink.brush_box(6, 6, w - 12, h - 12, width=3.2, seed=ink.seed_of(title),
-                           overshoot=12, colour=INK, opacity=ALPHA["full"])]
+    """A paper panel: a light brush frame around a clear ink title."""
+    parts = [ink.brush_box(8, 8, w - 16, h - 16, width=2.4, seed=ink.seed_of(title),
+                           overshoot=8, colour=INK, opacity=0.32)]
     parts.append(type_line(26, 46, title, TYPE["label"], INK, ink.MONO, tracking="3"))
     parts.append(ink.brush_rule(26, w - 26, 60, width=STROKE["hair"], seed=11,
-                                colour=INK, opacity=ALPHA["ghost"]))
+                                colour=GOLD, opacity=0.22))
     return doc(w, h, title, "".join(parts) + body)
+
+
+def _paper_status(colour: str | None) -> str:
+    """Keep status families, but use pigments legible on the light ground."""
+    return {
+        "#7ee787": "#386348", "#f2a6c4": "#8B4152",
+        "#79c0ff": "#375E77", "#d2a8ff": "#654A78",
+        "#c9a84c": GOLD,
+    }.get(str(colour or "").lower(), GOLD)
+
+
+def _note_lines(note: str, width: int = 16) -> list[str]:
+    return textwrap.wrap(str(note), width=width, break_long_words=True,
+                         break_on_hyphens=False) or [""]
 
 
 def process_panel(rows: list, host: str, stamp: str, panel_title: str = "process.table") -> str:
@@ -129,9 +165,10 @@ def process_panel(rows: list, host: str, stamp: str, panel_title: str = "process
     """
     w = 960
     top = 92
-    row_h = 48
-    h = top + len(rows) * row_h + 34
-    out = [panel_doc(w, h, panel_title, "")]
+    notes = [_note_lines(r.get("note") or "") for r in rows]
+    heights = [max(48, len(lines) * 23 + 12) for lines in notes]
+    h = top + sum(heights) + 34
+    out = []
     count = f"[{len(rows)} tasks]"
     out.append(type_line(w - 26, 46, count, TYPE["micro"], GOLD, ink.MONO,
                          anchor="end", tracking="2"))
@@ -145,7 +182,7 @@ def process_panel(rows: list, host: str, stamp: str, panel_title: str = "process
         out.append(type_line(x, 84, cap, TYPE["micro"], MUTED, ink.MONO, tracking="4"))
 
     y = top + 22
-    for r in rows:
+    for index, r in enumerate(rows):
         out.append(type_line(26, y, r["pid"], TYPE["micro"], GOLD, ink.MONO, tracking="1"))
         out.append(type_line(108, y, r["name"], TYPE["label"], INK, ink.SERIF))
         out.append(type_line(470, y, r.get("lang") or "-", TYPE["micro"], LAPIS,
@@ -164,15 +201,70 @@ def process_panel(rows: list, host: str, stamp: str, panel_title: str = "process
                                  GOLD, ink.MONO, tracking="1"))
         else:
             out.append(type_line(556, y, r.get("status") or "", TYPE["micro"],
-                                 r.get("colour") or GOLD, ink.MONO, tracking="2"))
+                                 _paper_status(r.get("colour")), ink.MONO, tracking="2"))
         if r.get("note"):
-            out.append(type_line(716, y, r["note"], TYPE["micro"], MUTED, ink.MONO,
-                                 tracking="1"))
-        y += row_h
+            # 218 units remain to the right edge: at 20px + 1px tracking,
+            # sixteen mono characters fit. Keep every word and wrap the note.
+            ny = y - 7 if len(notes[index]) > 1 else y
+            for line in notes[index]:
+                out.append(type_line(716, ny, line, TYPE["micro"], MUTED, ink.MONO,
+                                     tracking="1"))
+                ny += 23
+        if index < len(rows) - 1:
+            out.append(ink.brush_rule(26, w - 26, y + heights[index] - 23,
+                                      width=1.0, seed=300 + index, colour=INK, opacity=0.09))
+        y += heights[index]
     out.append(ink.brush_rule(26, w - 26, h - 40, width=STROKE["hair"], seed=17,
                               colour=INK, opacity=ALPHA["faint"]))
-    out.append(type_line(26, h - 12, host, TYPE["micro"], MUTED, ink.MONO, tracking="1"))
-    return doc(w, h, panel_title, "".join(out[:1]) + "".join(out[1:]))
+    out.append(type_line(26, h - 20, host, TYPE["micro"], MUTED, ink.MONO, tracking="1"))
+    return panel_doc(w, h, panel_title, "".join(out))
+
+
+def process_panel_mobile(rows: list, host: str, stamp: str,
+                         panel_title: str = "process.table") -> str:
+    """480-unit art direction from exactly the same rows as process_panel.
+
+    Module, language, status/progress, and note remain real text. No records are
+    omitted or truncated; the note gets its own full-width line on a phone.
+    """
+    w, top = 480, 112
+    notes = [_note_lines(r.get("note") or "", 27) for r in rows]
+    heights = [max(108, 81 + len(lines) * 26) for lines in notes]
+    h = top + sum(heights) + 42
+    out = [ink.brush_box(8, 8, w - 16, h - 16, width=2.2,
+                         seed=ink.seed_of(panel_title), overshoot=8, colour=INK, opacity=0.32)]
+    out.append(type_line(26, 44, panel_title, 24, INK, ink.MONO, tracking="1"))
+    out.append(type_line(w - 26, 44, f"{len(rows)} tasks", 18, GOLD, ink.MONO, anchor="end"))
+    if stamp:
+        out.append(type_line(26, 76, stamp, 18, MUTED, ink.MONO))
+    out.append(ink.brush_rule(26, w - 26, 92, width=2.0, seed=11, colour=GOLD, opacity=0.24))
+    y = top + 18
+    for index, r in enumerate(rows):
+        out.append(type_line(26, y, r["pid"], 18, GOLD, ink.MONO))
+        out.append(type_line(86, y, r["name"], 26, INK, ink.SERIF))
+        out.append(type_line(w - 26, y, r.get("lang") or "-", 20, LAPIS,
+                             ink.MONO, anchor="end"))
+        if r.get("bar") is not None:
+            frac = max(0.0, min(1.0, float(r["bar"])))
+            out.append(ink.brush_rule(86, 196, y + 24, width=4, seed=int(frac * 1000) + 3,
+                                      colour=INK, opacity=0.14, enter=0.02, exit_=0.02))
+            if frac > 0:
+                out.append(ink.brush_rule(86, 86 + 110 * frac, y + 24, width=4,
+                                          seed=int(frac * 1000) + 3, colour=GOLD,
+                                          enter=0.02, exit_=0.04))
+            state = f"{int(round(frac * 100))}%"
+            out.append(type_line(214, y + 30, state, 22, GOLD, ink.MONO))
+        else:
+            out.append(type_line(86, y + 30, r.get("status") or "", 22,
+                                 _paper_status(r.get("colour")), ink.MONO, tracking="1"))
+        if r.get("note"):
+            for n, line in enumerate(notes[index]):
+                out.append(type_line(86, y + 59 + n * 26, line, 22, MUTED, ink.MONO))
+        out.append(ink.brush_rule(26, w - 26, y + heights[index] - 26,
+                                  width=1.1, seed=300 + index, colour=INK, opacity=0.12))
+        y += heights[index]
+    out.append(type_line(26, h - 20, host, 20, MUTED, ink.MONO))
+    return doc(w, h, panel_title, "".join(out))
 
 
 
@@ -286,27 +378,29 @@ def hero(profile: dict) -> str:
     The aerosol and the off-register second print both read as dirt at this
     size; the plate earns its weight from the frame and the mark alone.
     """
-    w, h = 960, 386
+    w, h = 960, 320
     ident = profile.get("identity", {})
     flag = profile.get("flagship", {})
     host = str(flag.get("url", "")).replace("https://", "")
     alias = str(ident.get("alias", ""))
 
     b: list[str] = []
-    b.append(ink.brush_box(14, 14, w - 28, h - 28, width=4.5, seed=3,
-                           overshoot=26, colour=INK, opacity=0.55))
-    b += chrome(44, 50, "dwgx · PROFILE · 09 · crayon", f"{ident.get('from', '')} · {host}")
-    b.append(ink.brush_rule(44, w - 44, 64, width=3.0, seed=5, colour=INK, opacity=0.4))
+    b.append(ink.brush_box(12, 12, w - 24, h - 24, width=2.8, seed=3,
+                           overshoot=18, colour=INK, opacity=0.30))
+    b += chrome(36, 37, "dwgx · PROFILE · 09 · crayon", f"{ident.get('from', '')} · {host}")
+    b.append(ink.brush_rule(36, w - 36, 51, width=1.8, seed=5, colour=INK, opacity=0.20))
 
-    sig_x, sig_y, sig_w = 96.0, 92.0, 540.0
+    sig_x, sig_y, sig_w = 80.0, 68.0, 540.0
     main_svg, box = signature_layer(sig_x, sig_y, sig_w, INK)
     b.append(main_svg)
 
     # one swash, struck under the hand and dying at both ends
-    under = box[1] + box[3] + 20
+    under = box[1] + box[3] + 12
+    b.append('<g class="ink-breathe">')
     b.append(ink.brush_rule(box[0] - 24, box[0] + box[2] + 30, under, width=8.0,
                            seed=137, sag=5, colour=GOLD, enter=0.1, exit_=0.3))
-    b += ink.drip(box[0] + box[2] * 0.52, under + 3, 30, seed=139, w=3.6, colour=GOLD)
+    b += ink.drip(box[0] + box[2] * 0.52, under + 3, 10, seed=139, w=3.0, colour=GOLD)
+    b.append('</g>')
 
     # a single index mark, top right of the plate, so the corner is not empty
     # spark() hands back path data for the arms and markup for the dot
@@ -316,8 +410,8 @@ def hero(profile: dict) -> str:
                       tracking="4"))
 
     if alias:
-        b.append(type_line(44, 360, alias, 22, MUTED, ink.MONO, tracking="1"))
-    b.append(type_line(w - 44, 360, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
+        b.append(type_line(36, 292, alias, 22, MUTED, ink.MONO, tracking="1"))
+    b.append(type_line(w - 36, 292, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
                       anchor="end", italic=True))
     return doc(w, h, f"{TITLE} · signature", "".join(b))
 
@@ -331,12 +425,12 @@ KEYS = [("01", "MAIN"), ("02", "PROCESS"), ("03", "ORIGIN"),
 def key_cap(num: str, label: str, idx: int) -> str:
     """A keycap: marker box, index in the corner, one confident strike."""
     w, h = 156, 58
-    b = [ink.brush_box(5, 5, w - 10, h - 10, width=4.0, seed=41 + idx * 6,
-                       overshoot=7, colour=INK, opacity=0.9)]
+    b = [ink.brush_box(5, 5, w - 10, h - 10, width=2.6, seed=41 + idx * 6,
+                       overshoot=7, colour=INK, opacity=0.42)]
     b.append(type_line(18, 30, num, 13, GOLD, ink.MONO, tracking="1"))
     b.append(type_line(w - 16, 30, label, 14, INK, ink.MONO, anchor="end", tracking="1.5"))
-    b.append(ink.brush_rule(18, w - 18, 42, width=4.4, seed=53 + idx * 6,
-                            colour=AURORA, opacity=0.8, enter=0.04, exit_=0.3))
+    b.append(ink.brush_rule(18, w - 18, 42, width=3.2, seed=53 + idx * 6,
+                            colour=AURORA, opacity=0.72, enter=0.04, exit_=0.3))
     return doc(w, h, f"{label} section link", "".join(b))
 
 
@@ -384,30 +478,29 @@ def rail(num: str, label: str, sub: str, idx: int) -> str:
 
     b = []
     if left_end > 70 and clear(20, left_end):
-        b.append(ink.brush_rule(20, left_end, 31, width=6.0, seed=61 + idx * 5, sag=1.5,
-                                colour=INK, opacity=0.85, enter=0.02, exit_=0.22))
+        b.append(ink.brush_rule(20, left_end, 31, width=3.0, seed=61 + idx * 5, sag=1.5,
+                                colour=GOLD, opacity=0.40, enter=0.02, exit_=0.22))
     # drop the sub, not the rule, when the two collide
     if right_start + 90 >= right_end:
         sub_x = None
         right_end = right_limit - 10
     if right_end - right_start >= 90 and clear(right_start, right_end):
-        b.append(ink.brush_rule(right_start, right_end, 31, width=6.0,
-                                seed=67 + idx * 5, sag=-1.5, colour=INK,
-                                opacity=0.85, enter=0.22, exit_=0.02))
+        b.append(ink.brush_rule(right_start, right_end, 31, width=3.0,
+                                seed=67 + idx * 5, sag=-1.5, colour=GOLD,
+                                opacity=0.40, enter=0.22, exit_=0.02))
     b.append(type_line(num_x, 40, num, 22, GOLD, ink.MONO, tracking="1"))
     b.append(type_line(label_x, 40, label, 26, INK, ink.MONO, tracking="3"))
     if sub_x is not None:
         b.append(type_line(sub_x, 40, sub, 22, MUTED, ink.MONO, tracking="2"))
     return doc(w, h, label, "".join(b))
-    ("03", "GENESIS CHAMBER", "origin"),
 
 
 # ── rear I/O panel ───────────────────────────────────────────────────────────
 def io_panel() -> str:
     """Rear I/O: a panel with real ports, each one a filled mark."""
     w, h = 960, 104
-    b = [ink.brush_box(12, 10, w - 24, h - 20, width=4.0, seed=83, overshoot=14,
-                       colour=INK, opacity=0.85)]
+    b = [ink.brush_box(12, 10, w - 24, h - 20, width=2.6, seed=83, overshoot=14,
+                       colour=INK, opacity=0.34)]
     x = 34
     ports = [(80, 26), (50, 26), (62, 18), (42, 34), (72, 30), (56, 22),
              (86, 24), (46, 30)]
@@ -445,17 +538,19 @@ def phantasm() -> str:
 # ── end of file ──────────────────────────────────────────────────────────────
 def eof() -> str:
     """Shutdown: two struck rules, a brush arrow back to the boot menu, the sign-off."""
-    w, h = 960, 176
-    b = [ink.brush_rule(40, w / 2 - 130, 46, width=5.0, seed=101, sag=2,
-                        colour=INK, opacity=0.6, enter=0.02, exit_=0.2),
-         ink.brush_rule(w / 2 + 130, w - 40, 46, width=5.0, seed=103, sag=-2,
-                        colour=INK, opacity=0.6, enter=0.2, exit_=0.02)]
+    w, h = 960, 198
+    b = [ink.brush_rule(40, w / 2 - 130, 46, width=3.0, seed=101, sag=2,
+                        colour=INK, opacity=0.28, enter=0.02, exit_=0.2),
+         ink.brush_rule(w / 2 + 130, w - 40, 46, width=3.0, seed=103, sag=-2,
+                        colour=INK, opacity=0.28, enter=0.2, exit_=0.02)]
+    b.append('<g class="ink-breathe slow">')
     b.append(ink.path(ink.arrow(w / 2 - 150, 92, w / 2 - 250, 92, seed=107, head=22),
                       GOLD, 4.0))
+    b.append('</g>')
     b.append(type_line(w / 2, 102, "〔 返回 boot.menu 〕", 38, INK, ink.SERIF, anchor="middle"))
     b.append(ink.brush_rule(w / 2 - 170, w / 2 + 170, 130, width=4.0, seed=109,
                             colour=GOLD, opacity=0.55))
-    b.append(type_line(w / 2, 158, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
+    b.append(type_line(w / 2, 178, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
                       anchor="middle", tracking="4"))
     return doc(w, h, "End of file, return to the dwgx.menu navigation", "".join(b))
 
@@ -468,10 +563,10 @@ STAMPS = [("dwgx", "PERSONAL WEB"), ("bios", "SETUP UTILITY"),
 def stamp(word: str, sub: str, idx: int) -> str:
     """A rubber stamp: hit slightly off square and rocked a few degrees."""
     w, h = 176, 62
-    b = [ink.brush_box(6, 6, w - 12, h - 12, width=6.4, seed=113 + idx * 9,
-                       overshoot=8, colour=AURORA, opacity=0.85),
+    b = [ink.brush_box(6, 6, w - 12, h - 12, width=4.4, seed=113 + idx * 9,
+                       overshoot=8, colour=AURORA, opacity=0.72),
          ink.brush_box(14, 14, w - 28, h - 28, width=3.0, seed=131 + idx * 9,
-                       overshoot=4, colour=AURORA, opacity=0.4)]
+                       overshoot=4, colour=AURORA, opacity=0.26)]
     b.append(type_line(w / 2, 36, word.upper(), 22, GOLD, ink.SERIF,
                       anchor="middle", weight="600", tracking="1"))
     b.append(type_line(w / 2, 52, sub, 14, MUTED, ink.MONO, anchor="middle", tracking="1"))

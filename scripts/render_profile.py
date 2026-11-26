@@ -24,6 +24,7 @@ import ami  # noqa: E402
 import ami_book  # noqa: E402
 import ink_panels_ami  # noqa: E402  (INK LAB panels)
 import ink_panels_deep  # noqa: E402  (INK LAB panels)
+import profile_extras  # noqa: E402
 
 JST = timezone(timedelta(hours=9))
 
@@ -80,12 +81,12 @@ LANG_COLORS = {
     "CSS": "#563d7c",
 }
 
-PINK = "#f2a6c4"
-GOLD = "#c9a84c"
-TEXT = "#e6edf3"
-MUTED = "#8b949e"
-BLUE = "#79c0ff"
-GREEN = "#7ee787"
+PINK = "#93422F"
+GOLD = "#A8452C"
+TEXT = "#2A2320"
+MUTED = "#65584D"
+BLUE = "#3F6280"
+GREEN = "#46634C"
 PANEL_MARK = "live"
 PANEL_MARK_COLOR = GREEN
 
@@ -98,19 +99,19 @@ AMI_YELLOW = "#FFFF55"
 AMI_GRAY = "#AAAAAA"
 AMI_W, AMI_H = 960, 500
 
-# UI-04 palette (2026-09-18). New components use these; AMIBIOS assets migrate later.
-UI_INK = "#0F131B"          # shell background
-UI_PANEL = "#161C27"        # card / panel surface
-UI_TEXT = "#EBE4D8"         # warm body text
-UI_MUTED = "#A5AFBF"        # secondary text
-UI_SAKURA = "#D6A0AC"       # signature / guestbook accent
-UI_GOLD = "#CEB27C"         # ORIGIN accent
-UI_BLUE = "#98B8DC"         # link / focus
-UI_TERM = "#ACC4A5"         # terminal accent
-UI_PAPER = "#E9DECA"        # ORIGIN plate paper
-UI_PAPER_LINE = "#CEB27C"   # ORIGIN plate rule
-UI_PAPER_TEXT = "#282A2F"   # ORIGIN plate body
-UI_PAPER_INDEX = "#735A31"  # ORIGIN plate index
+# Paper and terracotta. The original BIOS screen remains a historical artifact.
+UI_INK = "#2A2320"          # badge label / dark accent
+UI_PANEL = "#E9E1D4"        # inset surface
+UI_TEXT = "#2A2320"
+UI_MUTED = "#65584D"
+UI_SAKURA = "#A8452C"       # terracotta
+UI_GOLD = "#7A5D18"         # ochre
+UI_BLUE = "#3F6280"
+UI_TERM = "#46634C"
+UI_PAPER = "#F4EFE6"
+UI_PAPER_LINE = "#C9B7A5"
+UI_PAPER_TEXT = "#2A2320"
+UI_PAPER_INDEX = "#93422F"
 
 
 def load_profile() -> dict:
@@ -446,24 +447,24 @@ def guestbook_svg(rows: list[tuple[str, str, str]], issue: int) -> str:
     height = 4 + head_h + row_h * len(show)
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" font-family="\'Lucida Console\',\'Courier New\',Consolas,monospace">',
-        f'<rect width="{width}" height="{height}" fill="#000055" stroke="#55FFFF" stroke-width="2"/>',
-        f'<rect x="0" y="0" width="{width}" height="{head_h}" fill="#AAAAAA"/>',
-        '<text x="9" y="16" font-size="12" font-weight="700" fill="#000000">when (JST)</text>',
-        f'<text x="{col_when + 9}" y="16" font-size="12" font-weight="700" fill="#000000">who</text>',
-        f'<text x="{col_when + col_who + 9}" y="16" font-size="12" font-weight="700" fill="#000000">note</text>',
-        f'<line x1="{col_when}" y1="0" x2="{col_when}" y2="{head_h}" stroke="#000055" stroke-width="2"/>',
-        f'<line x1="{col_when + col_who}" y1="0" x2="{col_when + col_who}" y2="{head_h}" stroke="#000055" stroke-width="2"/>',
+        f'<rect width="{width}" height="{height}" fill="{UI_PAPER}" stroke="{UI_PAPER_LINE}" stroke-width="1"/>',
+        f'<rect x="0" y="0" width="{width}" height="{head_h}" fill="{UI_PANEL}"/>',
+        f'<text x="9" y="16" font-size="12" font-weight="700" fill="{UI_TEXT}">when (JST)</text>',
+        f'<text x="{col_when + 9}" y="16" font-size="12" font-weight="700" fill="{UI_TEXT}">who</text>',
+        f'<text x="{col_when + col_who + 9}" y="16" font-size="12" font-weight="700" fill="{UI_TEXT}">note</text>',
+        f'<line x1="{col_when}" y1="0" x2="{col_when}" y2="{head_h}" stroke="{UI_PAPER_LINE}" stroke-width="1"/>',
+        f'<line x1="{col_when + col_who}" y1="0" x2="{col_when + col_who}" y2="{head_h}" stroke="{UI_PAPER_LINE}" stroke-width="1"/>',
     ]
     y = head_h
     for when, who, note in show:
-        who_fill = "#AAAAAA" if who in {".", "·", "--"} else "#FFFF55"
+        who_fill = UI_MUTED if who in {".", "·", "--"} else UI_SAKURA
         note_fit = note if len(note) <= 54 else note[:53] + "..."
-        parts.append(f'<text x="9" y="{y + 16}" font-size="12" fill="#FFFF55">{esc(when)}</text>')
+        parts.append(f'<text x="9" y="{y + 16}" font-size="12" fill="{UI_MUTED}">{esc(when)}</text>')
         parts.append(
             f'<text x="{col_when + 9}" y="{y + 16}" font-size="12" fill="{who_fill}">{esc(who)}</text>'
         )
         parts.append(
-            f'<text x="{col_when + col_who + 9}" y="{y + 16}" font-size="12" fill="#FFFF55">{esc(note_fit)}</text>'
+            f'<text x="{col_when + col_who + 9}" y="{y + 16}" font-size="12" fill="{UI_TEXT}">{esc(note_fit)}</text>'
         )
         y += row_h
     parts.append("</svg>")
@@ -724,7 +725,7 @@ def text_w(s: str, bold: bool = False) -> float:
 import make_ink_decor as ink_panel  # noqa: E402  (INK LAB panels)
 
 
-def process_svg(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> str:
+def process_rows(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> list[dict]:
     """The module board. Drawing lives in make_ink_decor so it uses the same
     tokens as the ornaments; this function only assembles the rows."""
     rows = profile.get("process") or []
@@ -751,7 +752,17 @@ def process_svg(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> 
             "note": note,
             "bar": bar,
         })
-    return ink_panel.process_panel(out, prompt_host(profile), "active \u00b7 JST+9")
+    return out
+
+
+def process_svg(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> str:
+    return ink_panel.process_panel(process_rows(profile, repos, tags),
+                                   prompt_host(profile), "JST+9")
+
+
+def process_mobile_svg(profile: dict, repos: dict[str, dict], tags: dict[str, str]) -> str:
+    return ink_panel.process_panel_mobile(process_rows(profile, repos, tags),
+                                          prompt_host(profile), "JST+9")
 
 
 def disp_len(text: str) -> int:
@@ -916,7 +927,7 @@ def render_legacy_pins(profile: dict, repos: dict[str, dict]) -> str:
     table = "<table>\n" + "\n".join(rows) + "\n</table>"
     return (
         "<details>\n"
-        "<summary>原版 ASCII 卡片 / 设计快照（数字与阶段不是实时数据）</summary>\n\n"
+        "<summary>ASCII 卡片 · 归档</summary>\n\n"
         f"{table}\n\n"
         "</details>"
     )
@@ -926,7 +937,7 @@ def fmt_num(n: int) -> str:
     return f"{int(n):,}"
 
 
-HEAT_RAMP = ("#1B1226", "#3A2440", "#6D3A55", "#B0567F", PINK)
+HEAT_RAMP = ("#E9E1D4", "#DEC6B2", "#C99775", "#B76C4D", "#93422F")
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 HEAT_LEVELS = {
     "NONE": 0,
@@ -1585,8 +1596,8 @@ def render_bbs_entry(gb: int, sign_href: str) -> str:
 | :-- | :-- | :-- |
 | `GUESTBOOK` | 留一句话 | [{guest_label}]({reply}) |
 | `TALK` | 聊问题、交换想法 | [打开 Issues](https://github.com/dwgx/DWGX/issues) |
-| `DEVLOG` | 记录一次有意义的推进 | 列表未接入 · 先发在 Issues 里 |
-| `PATCHES` | 真实的文件变更与审阅 | [主页仓库的 PR](https://github.com/dwgx/DWGX/pulls) |
+| `DEVLOG` | 开发记录 | [在 Issues 里写一篇](https://github.com/dwgx/DWGX/issues) |
+| `PATCHES` | 改动与审阅 | [主页仓库的 PR](https://github.com/dwgx/DWGX/pulls) |
 
 <details>
 <summary>写 DEVLOG / 使用约定</summary>
@@ -1597,7 +1608,7 @@ def render_bbs_entry(gb: int, sign_href: str) -> str:
 
 </details>
 
-没有接入的频道会直接写未接入，不用“0 条”代替未知。→ {tail}"""
+{tail}"""
 
 
 
@@ -1627,8 +1638,8 @@ def avatar_img() -> str:
     out = ROOT / "assets" / "avatar-round.png"
     cached = _round_avatar(src, out)
     return (f'<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/'
-            f'avatar-round.png" width="128" alt="dwgx" />') if cached else (
-            f'<img src="{src}" width="128" alt="dwgx" />')
+            f'avatar-round.png" width="72" alt="dwgx" />') if cached else (
+            f'<img src="{src}" width="72" alt="dwgx" />')
 
 
 def links_qq_avatar() -> str:
@@ -1677,7 +1688,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
         if gb
         else "https://github.com/dwgx/DWGX/issues"
     )
-    if (ctx.get("calendar") or {}).get("weeks"):
+    if (ctx.get("calendar") or {}).get("weeks") or HEATMAP_SVG.exists():
         contrib_block = (
             '<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/heatmap.svg" '
             'width="100%" alt="dwgx · 53-week contribution memory" />'
@@ -1692,9 +1703,18 @@ def render_readme(profile: dict, ctx: dict) -> str:
 <!--  dwgx.menu  v{profile.get('version','2.2')}  ·  generated {today} {stamp} JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
-{ornament('hero', 'dwgx · profile · voice fingerprint')}
+{ornament('hero', 'DWGX · 手写签名')}
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+{boot_menu_keys()}
+
+<p align="center">
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip.svg" width="100%" alt="最近公开活动与版本" />
+</picture>
+</p>
+
+{render_profile_nav()}
 
 <div align="center">
 
@@ -1721,10 +1741,6 @@ def render_readme(profile: dict, ctx: dict) -> str:
 </p>
 
 </div>
-
-{boot_menu_keys()}
-
-{render_profile_nav()}
 
 ---
 
@@ -1758,13 +1774,23 @@ from  = {ship.get('came', 'MC clients')}
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg" width="88%" alt="process.table" />
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg" width="100%" alt="process.table · 12 modules" />
+</picture>
 
 </div>
 
 ---
 
 ### `setup.utility`
+
+<details>
+<summary>AMIBIOS · boot screen</summary>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+
+</details>
 
 <details>
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
@@ -1836,28 +1862,20 @@ from  = {ship.get('came', 'MC clients')}
 
 {ctx['project_cards']}
 
-<sub>六个项目，保留原名单与原顺序。</sub>
-
 </div>
 
 {ctx['legacy_pins']}
 
 ---
 
-<p align="center">
-</p>
-<p align="center"><sub>发布档案入口 · 点开查看版本与说明</sub></p>
-
 ### `demo.deck`
 
 <p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-demo-deck.svg" width="100%" alt="SmartCLI — open the existing project demonstration" /></a></p>
 
 <details>
-<summary>PLAY 01 · 看 SmartCLI 已有的 lazygit 演示</summary>
+<summary>PLAY 01 · lazygit</summary>
 
-<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/SmartCLI/main/showcase/drive-lazygit.gif" width="700" alt="SmartCLI 项目已有的 lazygit TUI 演示；这是录制画面，不是实时终端" /></a></p>
-
-演示来自 SmartCLI 仓库；这里没有新执行一次测试，也不把装饰图当成运行证据。
+<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/SmartCLI/main/showcase/drive-lazygit.gif" width="700" alt="SmartCLI · lazygit 录屏" /></a></p>
 
 </details>
 
@@ -1927,10 +1945,10 @@ from  = {ship.get('came', 'MC clients')}
 
 <br/><br/>
 
-<img src="https://img.shields.io/badge/東方Project-二次創作-f2a6c4?style=flat-square&labelColor=06020f" />
-<img src="https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=06020f" />
-<img src="https://img.shields.io/badge/Episodes-18-d4c8ef?style=flat-square&labelColor=06020f" />
-<img src="https://img.shields.io/badge/Format-BDRip-2d1b69?style=flat-square&labelColor=06020f" />
+<img src="https://img.shields.io/badge/東方Project-二次創作-A8452C?style=flat-square&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/滿福神社-Studio-7A5D18?style=flat-square&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/Episodes-18-6B5647?style=flat-square&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/Format-BDRip-93422F?style=flat-square&labelColor=2A2320" />
 
 <br/><br/>
 
@@ -1958,27 +1976,27 @@ from  = {ship.get('came', 'MC clients')}
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/★-Solo_Crew-f2a6c4?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-IL2CPP_Diver-c9a84c?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Starstruck_x3-ed8b00?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Pull_Shark_x3-3178c6?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Pair_Extraordinaire_x4-f778ba?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Solo_Crew-A8452C?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-IL2CPP_Diver-7A5D18?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Starstruck_x3-ed8b00?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Pull_Shark_x3-3178c6?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Pair_Extraordinaire_x4-93422F?style=for-the-badge&labelColor=2A2320" />
 
 <br/>
 
-<img src="https://img.shields.io/badge/★-Galaxy_Brain-6f42c1?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-{ctx['uptime']}_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Galaxy_Brain-6B5647?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Public_Sponsor-A8452C?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-{ctx['uptime']}_Days_Uptime-65584D?style=for-the-badge&labelColor=2A2320" />
 
 <br/>
 
-<img src="https://img.shields.io/badge/★-Cheat_Scene_Alumnus-2d1b69?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-ff66aa?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Flagship_{shield_stars(windsurf_stars)}-2d1b69?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Cheat_Scene_Alumnus-93422F?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-93422F?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Flagship_{shield_stars(windsurf_stars)}-93422F?style=for-the-badge&labelColor=2A2320" />
 
 </div>
 
@@ -1993,9 +2011,9 @@ from  = {ship.get('came', 'MC clients')}
 
 <div align="center">
 
-<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
-&nbsp;&nbsp;
-<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
+<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
+
+<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
 
 </div>
 
@@ -2006,6 +2024,18 @@ from  = {ship.get('came', 'MC clients')}
 <div align="center">
 
 {contrib_block}
+
+<a href="https://github.com/dwgx?tab=overview"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/contribution-relief.svg" width="100%" alt="Contribution relief · GitHub 贡献日历的立体视图" /></a>
+
+<details>
+<summary>3D archive · seasonal / night</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-view.svg" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg" width="100%" alt="3D contribution calendar" />
+</picture>
+
+</details>
 
 </div>
 
@@ -2130,6 +2160,8 @@ def main() -> int:
         PANEL_MARK_COLOR = GREEN
     SVG.parent.mkdir(parents=True, exist_ok=True)
     SVG.write_text(process_svg(profile, by_name, tags), encoding="utf-8")
+    (SVG.parent / "process-table-mobile.svg").write_text(
+        process_mobile_svg(profile, by_name, tags), encoding="utf-8")
     ORIGIN_SVG.write_text(origin_panel_svg(profile), encoding="utf-8")
     for i, pin in enumerate((profile.get("pin") or [])[:6], 1):
         name = str(pin.get("name") or "")
@@ -2206,6 +2238,13 @@ def main() -> int:
         "doing_line": doing_line[:110],
         "event_log": fetch_event_log(login, gb_issue, token),
     }
+    (SVG.parent / "overview-strip.svg").write_text(
+        profile_extras.overview_strip(profile, ctx), encoding="utf-8")
+    (SVG.parent / "overview-strip-mobile.svg").write_text(
+        profile_extras.overview_strip_mobile(profile, ctx), encoding="utf-8")
+    relief = profile_extras.contribution_relief(calendar)
+    if relief:
+        (SVG.parent / "contribution-relief.svg").write_text(relief, encoding="utf-8")
     README.write_text(render_readme(profile, ctx).rstrip() + "\n", encoding="utf-8")
     print(f"wrote {README.relative_to(ROOT)}")
     print(f"wrote {SVG.relative_to(ROOT)}")

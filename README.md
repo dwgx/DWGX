@@ -1,60 +1,65 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.12  ·  generated 2026-11-27 06:50 JST          -->
+<!--  dwgx.menu  v2.13  ·  generated 2026-11-27 06:50 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 <!-- DWGX-ORNAMENT:hero:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-hero.svg?t=1795729829" width="100%" alt="dwgx · profile · voice fingerprint" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-hero.svg?t=paper-2.13" width="100%" alt="DWGX · 手写签名" />
 </p>
 <!-- DWGX-ORNAMENT:hero:END -->
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png?t=1795729829" width="100%" alt="dwgx.menu · AMIBIOS POST" />
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/avatar-round.png?t=1795729829" width="128" alt="dwgx" />
-
-<br/>
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=D6A0AC&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
-
-<p>
-  <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=D6A0AC&label=visits" />
-  &nbsp;
-  <img src="https://img.shields.io/github/followers/dwgx?style=flat-square&color=D6A0AC&label=follow" />
-  &nbsp;
-  <img src="https://img.shields.io/github/stars/dwgx?style=flat-square&color=CEB27C&label=stars" />
-</p>
-
-<p>
-  <img src="https://img.shields.io/badge/total_stars-3652-CEB27C?style=flat-square&labelColor=0F131B" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/public_repos-120-D6A0AC?style=flat-square&labelColor=0F131B" />
-  &nbsp;
-  <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=0F131B&label=flagship%20WindsurfAPI" />
-</p>
-
-</div>
 
 <a name="dwgx-boot-menu"></a>
 <!-- DWGX-ORNAMENT:boot-menu:BEGIN -->
 <p align="center">
-<a href="#dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-01.svg?t=1795729829" width="124" alt="MAIN — jump to section" /></a>
-<a href="#processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-02.svg?t=1795729829" width="124" alt="PROCESS — jump to section" /></a>
-<a href="#origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-03.svg?t=1795729829" width="124" alt="ORIGIN — jump to section" /></a>
-<a href="#pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-04.svg?t=1795729829" width="124" alt="MODULES — jump to section" /></a>
-<a href="#featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-05.svg?t=1795729829" width="124" alt="PHANTASM — jump to section" /></a>
-<a href="#eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-06.svg?t=1795729829" width="124" alt="GUESTBOOK — jump to section" /></a>
+<a href="#dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-01.svg?t=paper-2.13" width="124" alt="MAIN — jump to section" /></a>
+<a href="#processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-02.svg?t=paper-2.13" width="124" alt="PROCESS — jump to section" /></a>
+<a href="#origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-03.svg?t=paper-2.13" width="124" alt="ORIGIN — jump to section" /></a>
+<a href="#pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-04.svg?t=paper-2.13" width="124" alt="MODULES — jump to section" /></a>
+<a href="#featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-05.svg?t=paper-2.13" width="124" alt="PHANTASM — jump to section" /></a>
+<a href="#eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-06.svg?t=paper-2.13" width="124" alt="GUESTBOOK — jump to section" /></a>
 </p>
 <!-- DWGX-ORNAMENT:boot-menu:END -->
 
+<p align="center">
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip-mobile.svg?t=paper-2.13" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip.svg?t=paper-2.13" width="100%" alt="最近公开活动与版本" />
+</picture>
+</p>
+
 <p align="center"><samp>〔 <a href="#dwgxcfg">配置</a> / <a href="#origingenesis">ORIGIN</a> / <a href="#pinned">项目</a> / <a href="#featured">幻想万華鏡</a> / <a href="#eventlog">留言</a> 〕</samp></p>
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/avatar-round.png?t=paper-2.13" width="72" alt="dwgx" />
+
+<br/>
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=A8452C&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
+
+<p>
+  <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=A8452C&label=visits" />
+  &nbsp;
+  <img src="https://img.shields.io/github/followers/dwgx?style=flat-square&color=A8452C&label=follow" />
+  &nbsp;
+  <img src="https://img.shields.io/github/stars/dwgx?style=flat-square&color=7A5D18&label=stars" />
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/total_stars-3652-7A5D18?style=flat-square&labelColor=2A2320" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/public_repos-120-A8452C?style=flat-square&labelColor=2A2320" />
+  &nbsp;
+  <img src="https://img.shields.io/github/stars/dwgx/WindsurfAPI?style=flat-square&color=2A2320&label=flagship%20WindsurfAPI" />
+</p>
+
+</div>
 
 ---
 
 <!-- DWGX-ORNAMENT:rail-01:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-01.svg?t=1795729829" width="100%" alt="SYSTEM CONFIGURATION" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-01.svg?t=paper-2.13" width="100%" alt="SYSTEM CONFIGURATION" />
 </p>
 <!-- DWGX-ORNAMENT:rail-01:END -->
 
@@ -82,7 +87,7 @@ from  = MC clients
 
 <!-- DWGX-ORNAMENT:rail-02:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-02.svg?t=1795729829" width="100%" alt="PROCESS MEMORY" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-02.svg?t=paper-2.13" width="100%" alt="PROCESS MEMORY" />
 </p>
 <!-- DWGX-ORNAMENT:rail-02:END -->
 
@@ -90,7 +95,10 @@ from  = MC clients
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=1795729829" width="88%" alt="process.table" />
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table-mobile.svg?t=paper-2.13" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/process-table.svg?t=paper-2.13" width="100%" alt="process.table · 12 modules" />
+</picture>
 
 </div>
 
@@ -99,10 +107,17 @@ from  = MC clients
 ### `setup.utility`
 
 <details>
+<summary>AMIBIOS · boot screen</summary>
+
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png?t=paper-2.13" width="100%" alt="dwgx.menu · AMIBIOS POST" />
+
+</details>
+
+<details>
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=1795729829" width="100%" alt="AMIBIOS Boot" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/setup.svg?t=paper-2.13" width="100%" alt="AMIBIOS Boot" />
 </p>
 
 </details>
@@ -115,7 +130,7 @@ from  = MC clients
 <summary>Main — last public work · release RDC-Operator-Kit · 13h ago · v0.1.0a5</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=1795729829" width="100%" alt="AMIBIOS Main" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/status.svg?t=paper-2.13" width="100%" alt="AMIBIOS Main" />
 </p>
 
 </details>
@@ -124,7 +139,7 @@ from  = MC clients
 <summary>Advanced — git HEADs as IDE devices</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=1795729829" width="100%" alt="AMIBIOS Advanced" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/devices.svg?t=paper-2.13" width="100%" alt="AMIBIOS Advanced" />
 </p>
 
 </details>
@@ -133,7 +148,7 @@ from  = MC clients
 <summary>Log — public events</summary>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=1795729829" width="100%" alt="AMIBIOS Log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/eventlog.svg?t=paper-2.13" width="100%" alt="AMIBIOS Log" />
 </p>
 
 </details>
@@ -144,19 +159,19 @@ from  = MC clients
 
 <details>
 <summary>POST — CPU cache · memory test · IDE auto-detect</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=1795729829" width="100%" alt="POST" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/post.svg?t=paper-2.13" width="100%" alt="POST" /></p>
 </details>
 
 <details>
 <summary>DMI — SMBIOS Type 0 BIOS · Type 1 system · Type 2 ROG · Type 3 Homecloud</summary>
-<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=1795729829" width="100%" alt="DMI" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/dmi.svg?t=paper-2.13" width="100%" alt="DMI" /></p>
 </details>
 
 ---
 
 <!-- DWGX-ORNAMENT:rail-03:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-03.svg?t=1795729829" width="100%" alt="GENESIS CHAMBER" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-03.svg?t=paper-2.13" width="100%" alt="GENESIS CHAMBER" />
 </p>
 <!-- DWGX-ORNAMENT:rail-03:END -->
 
@@ -164,7 +179,7 @@ from  = MC clients
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/origin-panel.svg?t=1795729829" width="92%" alt="ORIGIN — World protocol · causal history · replay: Declare a world, let change happen under its laws, and preserve cause and result in replayable history." />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/origin-panel.svg?t=paper-2.13" width="92%" alt="ORIGIN — World protocol · causal history · replay: Declare a world, let change happen under its laws, and preserve cause and result in replayable history." />
 
 <sub>World protocol · causal history · replay</sub>
 
@@ -208,7 +223,7 @@ flowchart LR
 
 <!-- DWGX-ORNAMENT:rail-04:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-04.svg?t=1795729829" width="100%" alt="EXPANSION SLOTS" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-04.svg?t=paper-2.13" width="100%" alt="EXPANSION SLOTS" />
 </p>
 <!-- DWGX-ORNAMENT:rail-04:END -->
 
@@ -221,14 +236,14 @@ flowchart LR
 <td width="50%" valign="top" align="left">
 <p><samp>01 / 逆向笔记</samp></p>
 <h4><a href="https://github.com/dwgx/vrchat-il2cpp-re">vrchat-il2cpp-re</a></h4>
-<p>整理 VRChat 的 IL2CPP 结构，让类、方法与字段成为可以继续查阅的研究材料。</p>
+<p>VRChat IL2CPP 结构与逆向笔记：类、方法、字段索引。</p>
 <p><code>classes</code> <code>methods</code> <code>fields</code><br /><sub>Unity / IL2CPP · C# · ★40</sub></p>
 <p><a href="https://github.com/dwgx/vrchat-il2cpp-re">打开项目 →</a></p>
 </td>
 <td width="50%" valign="top" align="left">
 <p><samp>02 / 协议网关</samp></p>
 <h4><a href="https://github.com/dwgx/KiroStudio">KiroStudio</a></h4>
-<p>把 Anthropic Messages 请求转接到 Kiro / AWS Q，配合凭据调度和内置管理面板。</p>
+<p>Kiro / AWS Q 网关，支持 Anthropic Messages、凭据池和管理面板。</p>
 <p><samp>Messages → Gateway → Kiro</samp><br /><sub>proto-bridge + pool · Rust · ★18 · v1.2.5</sub></p>
 <p><a href="https://github.com/dwgx/KiroStudio">打开项目 →</a></p>
 </td>
@@ -237,14 +252,14 @@ flowchart LR
 <td width="50%" valign="top" align="left">
 <p><samp>03 / 接口适配</samp></p>
 <h4><a href="https://github.com/dwgx/WindsurfAPI">WindsurfAPI</a></h4>
-<p>为 Windsurf / Devin 接入提供多协议接口，把兼容边界、部署和更新留在项目文档里。</p>
+<p>Windsurf / Devin 多协议网关：Chat、Responses、Messages、Gemini。</p>
 <p><code>Chat</code> · <code>Responses</code> · <code>Messages</code> · <code>Gemini</code><br /><sub>multi-protocol · zero-dep · JavaScript · ★3,163 · v4.0.2</sub></p>
 <p><a href="https://github.com/dwgx/WindsurfAPI">打开项目 →</a></p>
 </td>
 <td width="50%" valign="top" align="left">
 <p><samp>04 / 终端工具</samp></p>
 <h4><a href="https://github.com/dwgx/SmartCLI">SmartCLI</a></h4>
-<p>读取真实终端的屏幕状态，再操作、等待并确认结果；不只是把命令塞进字节流。</p>
+<p>读取终端画面，执行操作，再检查结果。PTY + pyte。</p>
 <p><samp>$ read → act → confirm</samp><br /><sub>PTY + pyte · Python · ★5</sub></p>
 <p><a href="https://github.com/dwgx/SmartCLI">打开项目 →</a></p>
 </td>
@@ -253,14 +268,14 @@ flowchart LR
 <td width="50%" valign="top" align="left">
 <p><samp>05 / 内核门控</samp></p>
 <h4><a href="https://github.com/dwgx/MCPClient">MCPClient</a></h4>
-<p>把 Minecraft 1.8.9 客户端经 MCP 暴露给 LLM，用 7 层 NT 风格内核做权限门控。</p>
+<p>Minecraft 1.8.9 的 MCP 接口，带 7 层 NT 风格权限内核。</p>
 <p><code>mc.1.8.9 client</code><br /><code>mcp.server</code><br /><code>nt.kernel 7L</code><br /><sub>MCP · Java · Java · ★3</sub></p>
 <p><a href="https://github.com/dwgx/MCPClient">打开项目 →</a></p>
 </td>
 <td width="50%" valign="top" align="left">
 <p><samp>06 / 桌面工具</samp></p>
 <h4><a href="https://github.com/dwgx/VRCSM">VRCSM</a></h4>
-<p>面向 VRChat 的 Windows 桌面工具，把缓存和配置放进可操作的界面。</p>
+<p>VRChat 缓存与配置管理，Windows 桌面工具。</p>
 <p><samp>cache / config / desktop</samp><br /><sub>VRChat / Windows · C++ / TypeScript · ★5 · v0.16.5</sub></p>
 <p><a href="https://github.com/dwgx/VRCSM">打开项目 →</a></p>
 </td>
@@ -269,12 +284,10 @@ flowchart LR
 
 [120 public repos · 3,652 stars · browse all →](https://github.com/dwgx?tab=repositories)
 
-<sub>六个项目，保留原名单与原顺序。</sub>
-
 </div>
 
 <details>
-<summary>原版 ASCII 卡片 / 设计快照（数字与阶段不是实时数据）</summary>
+<summary>ASCII 卡片 · 归档</summary>
 
 <table>
 <tr>
@@ -395,20 +408,14 @@ flowchart LR
 
 ---
 
-<p align="center">
-</p>
-<p align="center"><sub>发布档案入口 · 点开查看版本与说明</sub></p>
-
 ### `demo.deck`
 
-<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-demo-deck.svg?t=1795729829" width="100%" alt="SmartCLI — open the existing project demonstration" /></a></p>
+<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-demo-deck.svg?t=paper-2.13" width="100%" alt="SmartCLI — open the existing project demonstration" /></a></p>
 
 <details>
-<summary>PLAY 01 · 看 SmartCLI 已有的 lazygit 演示</summary>
+<summary>PLAY 01 · lazygit</summary>
 
-<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/SmartCLI/main/showcase/drive-lazygit.gif" width="700" alt="SmartCLI 项目已有的 lazygit TUI 演示；这是录制画面，不是实时终端" /></a></p>
-
-演示来自 SmartCLI 仓库；这里没有新执行一次测试，也不把装饰图当成运行证据。
+<p align="center"><a href="https://github.com/dwgx/SmartCLI#driving-a-real-tui"><img src="https://raw.githubusercontent.com/dwgx/SmartCLI/main/showcase/drive-lazygit.gif" width="700" alt="SmartCLI · lazygit 录屏" /></a></p>
 
 </details>
 
@@ -433,13 +440,13 @@ flowchart LR
 
 <!-- DWGX-ORNAMENT:rail-05:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-05.svg?t=1795729829" width="100%" alt="MACHINE INVENTORY" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-05.svg?t=paper-2.13" width="100%" alt="MACHINE INVENTORY" />
 </p>
 <!-- DWGX-ORNAMENT:rail-05:END -->
 
 <!-- DWGX-ORNAMENT:io-panel:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-io.svg?t=1795729829" width="100%" alt="Decorative rear I/O panel" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-io.svg?t=paper-2.13" width="100%" alt="Decorative rear I/O panel" />
 </p>
 <!-- DWGX-ORNAMENT:io-panel:END -->
 
@@ -486,12 +493,12 @@ flowchart LR
 ### `discord.presence`
 
 <a href="https://discord.com/users/1284670281926967336">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=1795729829" alt="discord presence" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/discord.svg?t=paper-2.13" alt="discord presence" />
 </a>
 
 <br/>
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=1795729829" alt="bili.stat" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/media.svg?t=paper-2.13" alt="bili.stat" />
 
 </div>
 
@@ -503,7 +510,7 @@ flowchart LR
 
 <!-- DWGX-ORNAMENT:media-aux:BEGIN -->
 <p align="center">
-<a href="https://github.com/dwgx/NewAppleMusicPlayer"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-media-aux.svg?t=1795729829" width="640" alt="NewAppleMusicPlayer — project link, decorative equalizer" /></a>
+<a href="https://github.com/dwgx/NewAppleMusicPlayer"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-media-aux.svg?t=paper-2.13" width="640" alt="NewAppleMusicPlayer — project link, decorative equalizer" /></a>
 </p>
 <!-- DWGX-ORNAMENT:media-aux:END -->
 
@@ -513,13 +520,13 @@ flowchart LR
 
 <!-- DWGX-ORNAMENT:rail-06:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-06.svg?t=1795729829" width="100%" alt="PHANTASM ARCHIVE" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-06.svg?t=paper-2.13" width="100%" alt="PHANTASM ARCHIVE" />
 </p>
 <!-- DWGX-ORNAMENT:rail-06:END -->
 
 <!-- DWGX-ORNAMENT:phantasm:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-phantasm.svg?t=1795729829" width="100%" alt="Touhou / The Memories of Phantasm danmaku ornament" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-phantasm.svg?t=paper-2.13" width="100%" alt="Touhou / The Memories of Phantasm danmaku ornament" />
 </p>
 <!-- DWGX-ORNAMENT:phantasm:END -->
 
@@ -529,7 +536,7 @@ flowchart LR
 
 ## 幻想万華鏡 ~ The Memories of Phantasm
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=1795729829" width="640" alt="幻想万華鏡" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/gensou.gif?t=paper-2.13" width="640" alt="幻想万華鏡" />
 
 <br/>
 
@@ -537,10 +544,10 @@ flowchart LR
 
 <br/><br/>
 
-<img src="https://img.shields.io/badge/東方Project-二次創作-f2a6c4?style=flat-square&labelColor=06020f" />
-<img src="https://img.shields.io/badge/滿福神社-Studio-c9a84c?style=flat-square&labelColor=06020f" />
-<img src="https://img.shields.io/badge/Episodes-18-d4c8ef?style=flat-square&labelColor=06020f" />
-<img src="https://img.shields.io/badge/Format-BDRip-2d1b69?style=flat-square&labelColor=06020f" />
+<img src="https://img.shields.io/badge/東方Project-二次創作-A8452C?style=flat-square&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/滿福神社-Studio-7A5D18?style=flat-square&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/Episodes-18-6B5647?style=flat-square&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/Format-BDRip-93422F?style=flat-square&labelColor=2A2320" />
 
 <br/><br/>
 
@@ -558,7 +565,7 @@ flowchart LR
 
 ### `stack`
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=1795729829" width="92%" alt="stack" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stack.svg?t=paper-2.13" width="92%" alt="stack" />
 
 </div>
 
@@ -568,27 +575,27 @@ flowchart LR
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/★-Solo_Crew-f2a6c4?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-IL2CPP_Diver-c9a84c?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Starstruck_x3-ed8b00?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Pull_Shark_x3-3178c6?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Pair_Extraordinaire_x4-f778ba?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Solo_Crew-A8452C?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-IL2CPP_Diver-7A5D18?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Starstruck_x3-ed8b00?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Pull_Shark_x3-3178c6?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Pair_Extraordinaire_x4-93422F?style=for-the-badge&labelColor=2A2320" />
 
 <br/>
 
-<img src="https://img.shields.io/badge/★-Galaxy_Brain-6f42c1?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Public_Sponsor-ea4aaa?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-5989_Days_Uptime-8a7aaa?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Galaxy_Brain-6B5647?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Public_Sponsor-A8452C?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-5989_Days_Uptime-65584D?style=for-the-badge&labelColor=2A2320" />
 
 <br/>
 
-<img src="https://img.shields.io/badge/★-Cheat_Scene_Alumnus-2d1b69?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-ff66aa?style=for-the-badge&labelColor=06020f" />
-<img src="https://img.shields.io/badge/★-Flagship_3.2k-2d1b69?style=for-the-badge&labelColor=06020f" />
+<img src="https://img.shields.io/badge/★-Cheat_Scene_Alumnus-93422F?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-93422F?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Flagship_3.2k-93422F?style=for-the-badge&labelColor=2A2320" />
 
 </div>
 
@@ -596,7 +603,7 @@ flowchart LR
 
 <!-- DWGX-ORNAMENT:rail-07:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-07.svg?t=1795729829" width="100%" alt="ACTIVITY MEMORY" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-07.svg?t=paper-2.13" width="100%" alt="ACTIVITY MEMORY" />
 </p>
 <!-- DWGX-ORNAMENT:rail-07:END -->
 
@@ -607,9 +614,9 @@ flowchart LR
 
 <div align="center">
 
-<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1795729829" alt="stats.panel" />
-&nbsp;&nbsp;
-<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1795729829" alt="langs.panel" />
+<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=paper-2.13" alt="stats.panel" />
+
+<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=paper-2.13" alt="langs.panel" />
 
 </div>
 
@@ -619,7 +626,19 @@ flowchart LR
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/heatmap.svg?t=1795729829" width="100%" alt="dwgx · 53-week contribution memory" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/heatmap.svg?t=paper-2.13" width="100%" alt="dwgx · 53-week contribution memory" />
+
+<a href="https://github.com/dwgx?tab=overview"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/contribution-relief.svg?t=paper-2.13" width="100%" alt="Contribution relief · GitHub 贡献日历的立体视图" /></a>
+
+<details>
+<summary>3D archive · seasonal / night</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-night-view.svg?t=paper-2.13" />
+  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/profile-3d-contrib/profile-season.svg?t=paper-2.13" width="100%" alt="3D contribution calendar" />
+</picture>
+
+</details>
 
 </div>
 
@@ -641,39 +660,39 @@ flowchart LR
 ### `hotkeys`
 
 <p align="center">
-<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=1795729829" height="48" alt="DEL Setup" /></a>
-<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=1795729829" height="48" alt="F2 HDD-0 ORIGIN" /></a>
-<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=1795729829" height="48" alt="F8 BBS YouTube" /></a>
-<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=1795729829" height="48" alt="F9 BBS Bilibili" /></a>
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=1795729829" height="48" alt="F10 · 也许我就是dwgx" />
+<a href="https://dwgx.github.io"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-del.svg?t=paper-2.13" height="48" alt="DEL Setup" /></a>
+<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f2.svg?t=paper-2.13" height="48" alt="F2 HDD-0 ORIGIN" /></a>
+<a href="https://www.youtube.com/@dwgx1337"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f8.svg?t=paper-2.13" height="48" alt="F8 BBS YouTube" /></a>
+<a href="https://space.bilibili.com/1452905012"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f9.svg?t=paper-2.13" height="48" alt="F9 BBS Bilibili" /></a>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/key-f10.svg?t=paper-2.13" height="48" alt="F10 · 也许我就是dwgx" />
 </p>
 
 ### `field.notes`
 
 <p align="center">
-<a href="https://blog.dwgx.top"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-blog.svg?t=1795729829" width="260" alt="工程笔记 — public reading destination" /></a>
-<a href="https://dwgx.github.io/WindsurfAPI/HISTORY-LEDGER-VIZ.html"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-ledger.svg?t=1795729829" width="260" alt="WindsurfAPI 开发账本 — public reading destination" /></a>
-<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-genesis.svg?t=1795729829" width="260" alt="ORIGIN 文档 — public reading destination" /></a>
+<a href="https://blog.dwgx.top"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-blog.svg?t=paper-2.13" width="260" alt="工程笔记 — public reading destination" /></a>
+<a href="https://dwgx.github.io/WindsurfAPI/HISTORY-LEDGER-VIZ.html"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-ledger.svg?t=paper-2.13" width="260" alt="WindsurfAPI 开发账本 — public reading destination" /></a>
+<a href="https://genesis.wiki"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/exp-ticket-genesis.svg?t=paper-2.13" width="260" alt="ORIGIN 文档 — public reading destination" /></a>
 </p>
 <p align="center"><sub>笔记 · 开发记录 · 世界文档</sub></p>
 
 <!-- DWGX-ORNAMENT:rail-08:BEGIN -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-08.svg?t=1795729829" width="100%" alt="BBS GUESTBOOK" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-rail-08.svg?t=paper-2.13" width="100%" alt="BBS GUESTBOOK" />
 </p>
 <!-- DWGX-ORNAMENT:rail-08:END -->
 
 ### `event.log`
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-header.svg?t=1795729829" width="100%" alt="DWGX BBS · 留言／讨论／DEVLOG／PR" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-header.svg?t=paper-2.13" width="100%" alt="DWGX BBS · 留言／讨论／DEVLOG／PR" />
 </p>
 
 <p align="center">
-<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-guest.svg?t=1795729829" width="210" alt="留言大厅" /></a>
-<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-talk.svg?t=1795729829" width="210" alt="讨论话题" /></a>
-<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-devlog.svg?t=1795729829" width="210" alt="我的 DEVLOG" /></a>
-<a href="https://github.com/dwgx/DWGX/pulls"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-patch.svg?t=1795729829" width="210" alt="改动与 PR" /></a>
+<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-guest.svg?t=paper-2.13" width="210" alt="留言大厅" /></a>
+<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-talk.svg?t=paper-2.13" width="210" alt="讨论话题" /></a>
+<a href="https://github.com/dwgx/DWGX/issues"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-devlog.svg?t=paper-2.13" width="210" alt="我的 DEVLOG" /></a>
+<a href="https://github.com/dwgx/DWGX/pulls"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bbs-port-patch.svg?t=paper-2.13" width="210" alt="改动与 PR" /></a>
 </p>
 
 留言，讨论，还有边做边写的记录。
@@ -682,8 +701,8 @@ flowchart LR
 | :-- | :-- | :-- |
 | `GUESTBOOK` | 留一句话 | [回复 #5](https://github.com/dwgx/DWGX/issues/5#issuecomment-new) |
 | `TALK` | 聊问题、交换想法 | [打开 Issues](https://github.com/dwgx/DWGX/issues) |
-| `DEVLOG` | 记录一次有意义的推进 | 列表未接入 · 先发在 Issues 里 |
-| `PATCHES` | 真实的文件变更与审阅 | [主页仓库的 PR](https://github.com/dwgx/DWGX/pulls) |
+| `DEVLOG` | 开发记录 | [在 Issues 里写一篇](https://github.com/dwgx/DWGX/issues) |
+| `PATCHES` | 改动与审阅 | [主页仓库的 PR](https://github.com/dwgx/DWGX/pulls) |
 
 <details>
 <summary>写 DEVLOG / 使用约定</summary>
@@ -694,29 +713,29 @@ flowchart LR
 
 </details>
 
-没有接入的频道会直接写未接入，不用“0 条”代替未知。→ [打开 Event Log #5](https://github.com/dwgx/DWGX/issues/5)
+[打开 Event Log #5](https://github.com/dwgx/DWGX/issues/5)
 
 <p align="center">
-<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=1795729829" height="30" alt="F1 Sign Event Log" /></a>
+<a href="https://github.com/dwgx/DWGX/issues/5#issuecomment-new"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/sign-log.svg?t=paper-2.13" height="30" alt="F1 Sign Event Log" /></a>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=1795729829" width="100%" alt="event.log" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/guestbook.svg?t=paper-2.13" width="100%" alt="event.log" />
 </p>
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=1795729829" height="30" width="62%" alt="VGA marquee" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=1795729829" height="30" alt="Best viewed with AMIBIOS" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=1795729829" height="30" alt="80x25 VGA" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/marquee.svg?t=paper-2.13" height="30" width="62%" alt="VGA marquee" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/viewed.svg?t=paper-2.13" height="30" alt="Best viewed with AMIBIOS" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/vga.svg?t=paper-2.13" height="30" alt="80x25 VGA" />
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-bios.svg?t=1795729829" width="88" alt="BIOS decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-ascii.svg?t=1795729829" width="88" alt="ASCII decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-touhou.svg?t=1795729829" width="88" alt="TOUHOU decorative web button" />
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-dwgx.svg?t=1795729829" width="88" alt="DWGX decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-bios.svg?t=paper-2.13" width="88" alt="BIOS decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-ascii.svg?t=paper-2.13" width="88" alt="ASCII decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-touhou.svg?t=paper-2.13" width="88" alt="TOUHOU decorative web button" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-stamp-dwgx.svg?t=paper-2.13" width="88" alt="DWGX decorative web button" />
 </p>
 <p align="center">
-<a href="#dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-eof.svg?t=1795729829" width="100%" alt="End of file — return to boot.menu" /></a>
+<a href="#dwgx-boot-menu"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-eof.svg?t=paper-2.13" width="100%" alt="End of file — return to boot.menu" /></a>
 </p>

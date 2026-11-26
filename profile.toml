@@ -4,7 +4,7 @@
 
 login = "dwgx"
 prompt = "dwgx@main"
-version = "2.12"
+version = "2.13"
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
 
@@ -45,7 +45,7 @@ pins = [
 name = "WindsurfAPI"
 lang = "js"
 status = "LISTENING"
-status_color = "#7ee787"
+status_color = "#46634C"
 note_kind = "stars"
 fallback_note = "openai ⇄ anthropic"
 
@@ -53,7 +53,7 @@ fallback_note = "openai ⇄ anthropic"
 name = "KiroStudio"
 lang = "rust"
 status = "GATEWAY"
-status_color = "#f2a6c4"
+status_color = "#93422F"
 note_kind = "release"
 fallback_note = "proto-bridge+pool"
 
@@ -61,7 +61,7 @@ fallback_note = "proto-bridge+pool"
 name = "vrchat-il2cpp-re"
 lang = "c#"
 status = "DEOBF"
-status_color = "#c9a84c"
+status_color = "#7A5D18"
 kind = "bar"
 bar = 0.98
 note = "64k cls · unity6"
@@ -70,14 +70,14 @@ note = "64k cls · unity6"
 name = "SmartCLI"
 lang = "py"
 status = "PTY+pyte"
-status_color = "#7ee787"
+status_color = "#46634C"
 note = "tui.driver"
 
 [[process]]
 name = "VRCSM"
 lang = "ts"
 status = "CACHE"
-status_color = "#f2a6c4"
+status_color = "#93422F"
 kind = "bar"
 bar = 0.78
 note = "vrc.settings"
@@ -86,7 +86,7 @@ note = "vrc.settings"
 name = "YuKiKo"
 lang = "py"
 status = "QQ.BOT"
-status_color = "#79c0ff"
+status_color = "#3F6280"
 note_kind = "stars"
 fallback_note = "onebot+napcat"
 
@@ -94,42 +94,42 @@ fallback_note = "onebot+napcat"
 name = "cursorapi"
 lang = "js"
 status = "KEYPOOL"
-status_color = "#d2a8ff"
+status_color = "#6B5647"
 note = "openai+anthropic"
 
 [[process]]
 name = "fuckopencode"
 lang = "ts"
 status = "PROTO"
-status_color = "#d2a8ff"
+status_color = "#6B5647"
 note = "deepseek.bridge"
 
 [[process]]
 name = "SaoMoLa"
 lang = "c"
 status = "UPLOADING"
-status_color = "#f2a6c4"
+status_color = "#93422F"
 note = "vrc.avatar.pipe"
 
 [[process]]
 name = "origin"
 lang = "go"
 status = "GENESIS"
-status_color = "#c9a84c"
+status_color = "#7A5D18"
 note = "genesis.wiki"
 
 [[process]]
 name = "MCPClient"
 lang = "java"
 status = "PUBLIC"
-status_color = "#7ee787"
+status_color = "#46634C"
 note = "mcp.router · mc1.8.9"
 
 [[process]]
 name = "homecloud"
 lang = "sh"
 status = "WORKER"
-status_color = "#7ee787"
+status_color = "#46634C"
 note = "debian13 · rtx3060"
 
 # 项目卡。结构由 form 决定：index 分类索引 / route 文字路由 / protocol 协议字段 /
@@ -139,7 +139,7 @@ note = "debian13 · rtx3060"
 name = "vrchat-il2cpp-re"
 tag = "01 / 逆向笔记"
 form = "index"
-role = "整理 VRChat 的 IL2CPP 结构，让类、方法与字段成为可以继续查阅的研究材料。"
+role = "VRChat IL2CPP 结构与逆向笔记：类、方法、字段索引。"
 items = ["classes", "methods", "fields"]
 tech = "Unity / IL2CPP"
 lang = "C#"
@@ -150,7 +150,7 @@ legacy = { blurb = "64K classes\n570K methods · 188K fld\nUnity 6 baseline RE",
 name = "KiroStudio"
 tag = "02 / 协议网关"
 form = "route"
-role = "把 Anthropic Messages 请求转接到 Kiro / AWS Q，配合凭据调度和内置管理面板。"
+role = "Kiro / AWS Q 网关，支持 Anthropic Messages、凭据池和管理面板。"
 items = ["Messages", "Gateway", "Kiro"]
 tech = "proto-bridge + pool"
 lang = "Rust"
@@ -161,7 +161,7 @@ legacy = { blurb = "Kiro unified gateway\nproto-bridge + pool\nRust + SQLite + D
 name = "WindsurfAPI"
 tag = "03 / 接口适配"
 form = "protocol"
-role = "为 Windsurf / Devin 接入提供多协议接口，把兼容边界、部署和更新留在项目文档里。"
+role = "Windsurf / Devin 多协议网关：Chat、Responses、Messages、Gemini。"
 items = ["Chat", "Responses", "Messages", "Gemini"]
 tech = "multi-protocol · zero-dep"
 lang = "JavaScript"
@@ -172,7 +172,7 @@ legacy = { blurb = "Windsurf ⇄ OpenAI\n100+ models · 3 APIs\nzero-dep self-ho
 name = "SmartCLI"
 tag = "04 / 终端工具"
 form = "loop"
-role = "读取真实终端的屏幕状态，再操作、等待并确认结果；不只是把命令塞进字节流。"
+role = "读取终端画面，执行操作，再检查结果。PTY + pyte。"
 items = ["read", "act", "confirm"]
 tech = "PTY + pyte"
 lang = "Python"
@@ -183,7 +183,7 @@ legacy = { blurb = "3 agent skills · 1 PTY\npyte cell-accurate TUI\npip smartcl
 name = "MCPClient"
 tag = "05 / 内核门控"
 form = "layers"
-role = "把 Minecraft 1.8.9 客户端经 MCP 暴露给 LLM，用 7 层 NT 风格内核做权限门控。"
+role = "Minecraft 1.8.9 的 MCP 接口，带 7 层 NT 风格权限内核。"
 items = ["mc.1.8.9 client", "mcp.server", "nt.kernel 7L"]
 tech = "MCP · Java"
 lang = "Java"
@@ -194,7 +194,7 @@ legacy = { blurb = "Live MC 1.8.9 client\nMCP surface for LLMs\n7-layer NT kerne
 name = "VRCSM"
 tag = "06 / 桌面工具"
 form = "settings"
-role = "面向 VRChat 的 Windows 桌面工具，把缓存和配置放进可操作的界面。"
+role = "VRChat 缓存与配置管理，Windows 桌面工具。"
 items = ["cache", "config", "desktop"]
 tech = "VRChat / Windows"
 lang = "C++ / TypeScript"

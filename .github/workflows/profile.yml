@@ -39,6 +39,7 @@ jobs:
           python -m pip install --quiet pillow
           python scripts/make_ink_decor.py      # 手绘装饰：profile.toml → assets/ink-*.svg
           python scripts/render_profile.py
+          python scripts/theme_static_assets.py
 
       - name: commit
         # Only the main branch is written by the bot. On PR branches this job still

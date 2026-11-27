@@ -26,6 +26,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "repo-kit"))
 
 import ink  # noqa: E402  (path set above, on purpose)
+from profile_theme import THEME
 
 ASSETS = ROOT / "assets"
 TITLE = "dwgx.menu"
@@ -33,12 +34,13 @@ DESC = "Decorative dwgx.menu panel; not live telemetry."
 
 # The profile uses pigment on warm paper. Keep the shared stroke engine and its
 # seeds unchanged: the other repository banners retain their own theme choice.
-T = ink.theme("crayon", light=True, ground="#F4EFE6")
+T = ink.theme("crayon", light=THEME == "paper", ground="#F4EFE6" if THEME == "paper" else "#06020f")
 C, STROKE, TYPE, SPACE, ALPHA, RULES = (T["c"], T["stroke"], T["type"], T["space"],
                                         T["alpha"], T["rules"])
 # Local role aliases keep every existing drawing in the owner's visual language.
-C.update(ink="#2A2320", gold="#A8452C", aurora="#A8452C", rose="#A8452C",
-         violet="#6B5647", lapis="#4A5158", muted="#62564F")
+if THEME == "paper":
+    C.update(ink="#2A2320", gold="#A8452C", aurora="#A8452C", rose="#A8452C",
+             violet="#6B5647", lapis="#4A5158", muted="#62564F")
 INK, GOLD, AURORA = C["ink"], C["gold"], C["aurora"]
 VIOLET, LAPIS, ROSE, MUTED = C["violet"], C["lapis"], C["rose"], C["muted"]
 GROUND = C["ground"]
@@ -54,6 +56,20 @@ def type_line(x: float, y: float, body, size: float = _LABEL, colour: str = INK,
 
 
 def doc(w: int, h: int, title: str, body: str) -> str:
+    if THEME == "classic":
+        return (
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w} {h}" role="img" aria-labelledby="title desc">'
+            f'<title id="title">{ink.esc(title)}</title>'
+            f'<desc id="desc">{DESC}</desc>'
+            f'<rect width="{w}" height="{h}" fill="{GROUND}"/>'
+            f'{body}</svg>'
+        )
+    
+    # Consolas / Cascadia Mono / SF Mono all sit near 0.6em per glyph. ink.text_width
+    # is a Georgia-class serif metric, so any mono run measured with it comes out
+    # ~20% narrow — which is how a rule ended up drawn through its own label.
+    MONO_EM = 0.6
     # A few hairline fibres, not random spots or a heavy raster/filter. The
     # pattern is fixed and tiny; nested data-panel documents share the same ink.
     paper = (
@@ -145,6 +161,8 @@ def panel_doc(w: int, h: int, title: str, body: str) -> str:
 
 def _paper_status(colour: str | None) -> str:
     """Keep status families, but use pigments legible on the light ground."""
+    if THEME == "classic":
+        return str(colour or GOLD)
     return {
         "#7ee787": "#386348", "#f2a6c4": "#8B4152",
         "#79c0ff": "#375E77", "#d2a8ff": "#654A78",
@@ -378,29 +396,27 @@ def hero(profile: dict) -> str:
     The aerosol and the off-register second print both read as dirt at this
     size; the plate earns its weight from the frame and the mark alone.
     """
-    w, h = 960, 320
+    w, h = 960, 386
     ident = profile.get("identity", {})
     flag = profile.get("flagship", {})
     host = str(flag.get("url", "")).replace("https://", "")
     alias = str(ident.get("alias", ""))
 
     b: list[str] = []
-    b.append(ink.brush_box(12, 12, w - 24, h - 24, width=2.8, seed=3,
-                           overshoot=18, colour=INK, opacity=0.30))
-    b += chrome(36, 37, "dwgx · PROFILE · 09 · crayon", f"{ident.get('from', '')} · {host}")
-    b.append(ink.brush_rule(36, w - 36, 51, width=1.8, seed=5, colour=INK, opacity=0.20))
+    b.append(ink.brush_box(14, 14, w - 28, h - 28, width=4.5, seed=3,
+                           overshoot=26, colour=INK, opacity=0.55))
+    b += chrome(44, 50, "dwgx · PROFILE · 09 · crayon", f"{ident.get('from', '')} · {host}")
+    b.append(ink.brush_rule(44, w - 44, 64, width=3.0, seed=5, colour=INK, opacity=0.4))
 
-    sig_x, sig_y, sig_w = 80.0, 68.0, 540.0
+    sig_x, sig_y, sig_w = 96.0, 92.0, 540.0
     main_svg, box = signature_layer(sig_x, sig_y, sig_w, INK)
     b.append(main_svg)
 
     # one swash, struck under the hand and dying at both ends
-    under = box[1] + box[3] + 12
-    b.append('<g class="ink-breathe">')
+    under = box[1] + box[3] + 20
     b.append(ink.brush_rule(box[0] - 24, box[0] + box[2] + 30, under, width=8.0,
                            seed=137, sag=5, colour=GOLD, enter=0.1, exit_=0.3))
-    b += ink.drip(box[0] + box[2] * 0.52, under + 3, 10, seed=139, w=3.0, colour=GOLD)
-    b.append('</g>')
+    b += ink.drip(box[0] + box[2] * 0.52, under + 3, 30, seed=139, w=3.6, colour=GOLD)
 
     # a single index mark, top right of the plate, so the corner is not empty
     # spark() hands back path data for the arms and markup for the dot
@@ -410,8 +426,8 @@ def hero(profile: dict) -> str:
                       tracking="4"))
 
     if alias:
-        b.append(type_line(36, 292, alias, 22, MUTED, ink.MONO, tracking="1"))
-    b.append(type_line(w - 36, 292, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
+        b.append(type_line(44, 360, alias, 22, MUTED, ink.MONO, tracking="1"))
+    b.append(type_line(w - 44, 360, str(flag.get("zh_tagline", "")), 38, GOLD, ink.SERIF,
                       anchor="end", italic=True))
     return doc(w, h, f"{TITLE} · signature", "".join(b))
 
@@ -425,12 +441,12 @@ KEYS = [("01", "MAIN"), ("02", "PROCESS"), ("03", "ORIGIN"),
 def key_cap(num: str, label: str, idx: int) -> str:
     """A keycap: marker box, index in the corner, one confident strike."""
     w, h = 156, 58
-    b = [ink.brush_box(5, 5, w - 10, h - 10, width=2.6, seed=41 + idx * 6,
-                       overshoot=7, colour=INK, opacity=0.42)]
+    b = [ink.brush_box(5, 5, w - 10, h - 10, width=4.0, seed=41 + idx * 6,
+                       overshoot=7, colour=INK, opacity=0.9)]
     b.append(type_line(18, 30, num, 13, GOLD, ink.MONO, tracking="1"))
     b.append(type_line(w - 16, 30, label, 14, INK, ink.MONO, anchor="end", tracking="1.5"))
-    b.append(ink.brush_rule(18, w - 18, 42, width=3.2, seed=53 + idx * 6,
-                            colour=AURORA, opacity=0.72, enter=0.04, exit_=0.3))
+    b.append(ink.brush_rule(18, w - 18, 42, width=4.4, seed=53 + idx * 6,
+                            colour=AURORA, opacity=0.8, enter=0.04, exit_=0.3))
     return doc(w, h, f"{label} section link", "".join(b))
 
 
@@ -478,29 +494,30 @@ def rail(num: str, label: str, sub: str, idx: int) -> str:
 
     b = []
     if left_end > 70 and clear(20, left_end):
-        b.append(ink.brush_rule(20, left_end, 31, width=3.0, seed=61 + idx * 5, sag=1.5,
-                                colour=GOLD, opacity=0.40, enter=0.02, exit_=0.22))
+        b.append(ink.brush_rule(20, left_end, 31, width=6.0, seed=61 + idx * 5, sag=1.5,
+                                colour=INK, opacity=0.85, enter=0.02, exit_=0.22))
     # drop the sub, not the rule, when the two collide
     if right_start + 90 >= right_end:
         sub_x = None
         right_end = right_limit - 10
     if right_end - right_start >= 90 and clear(right_start, right_end):
-        b.append(ink.brush_rule(right_start, right_end, 31, width=3.0,
-                                seed=67 + idx * 5, sag=-1.5, colour=GOLD,
-                                opacity=0.40, enter=0.22, exit_=0.02))
+        b.append(ink.brush_rule(right_start, right_end, 31, width=6.0,
+                                seed=67 + idx * 5, sag=-1.5, colour=INK,
+                                opacity=0.85, enter=0.22, exit_=0.02))
     b.append(type_line(num_x, 40, num, 22, GOLD, ink.MONO, tracking="1"))
     b.append(type_line(label_x, 40, label, 26, INK, ink.MONO, tracking="3"))
     if sub_x is not None:
         b.append(type_line(sub_x, 40, sub, 22, MUTED, ink.MONO, tracking="2"))
     return doc(w, h, label, "".join(b))
+    ("03", "GENESIS CHAMBER", "origin"),
 
 
 # ── rear I/O panel ───────────────────────────────────────────────────────────
 def io_panel() -> str:
     """Rear I/O: a panel with real ports, each one a filled mark."""
     w, h = 960, 104
-    b = [ink.brush_box(12, 10, w - 24, h - 20, width=2.6, seed=83, overshoot=14,
-                       colour=INK, opacity=0.34)]
+    b = [ink.brush_box(12, 10, w - 24, h - 20, width=4.0, seed=83, overshoot=14,
+                       colour=INK, opacity=0.85)]
     x = 34
     ports = [(80, 26), (50, 26), (62, 18), (42, 34), (72, 30), (56, 22),
              (86, 24), (46, 30)]
@@ -538,19 +555,17 @@ def phantasm() -> str:
 # ── end of file ──────────────────────────────────────────────────────────────
 def eof() -> str:
     """Shutdown: two struck rules, a brush arrow back to the boot menu, the sign-off."""
-    w, h = 960, 198
-    b = [ink.brush_rule(40, w / 2 - 130, 46, width=3.0, seed=101, sag=2,
-                        colour=INK, opacity=0.28, enter=0.02, exit_=0.2),
-         ink.brush_rule(w / 2 + 130, w - 40, 46, width=3.0, seed=103, sag=-2,
-                        colour=INK, opacity=0.28, enter=0.2, exit_=0.02)]
-    b.append('<g class="ink-breathe slow">')
+    w, h = 960, 176
+    b = [ink.brush_rule(40, w / 2 - 130, 46, width=5.0, seed=101, sag=2,
+                        colour=INK, opacity=0.6, enter=0.02, exit_=0.2),
+         ink.brush_rule(w / 2 + 130, w - 40, 46, width=5.0, seed=103, sag=-2,
+                        colour=INK, opacity=0.6, enter=0.2, exit_=0.02)]
     b.append(ink.path(ink.arrow(w / 2 - 150, 92, w / 2 - 250, 92, seed=107, head=22),
                       GOLD, 4.0))
-    b.append('</g>')
     b.append(type_line(w / 2, 102, "〔 返回 boot.menu 〕", 38, INK, ink.SERIF, anchor="middle"))
     b.append(ink.brush_rule(w / 2 - 170, w / 2 + 170, 130, width=4.0, seed=109,
                             colour=GOLD, opacity=0.55))
-    b.append(type_line(w / 2, 178, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
+    b.append(type_line(w / 2, 158, "END OF FILE · 主机关机", 22, MUTED, ink.MONO,
                       anchor="middle", tracking="4"))
     return doc(w, h, "End of file, return to the dwgx.menu navigation", "".join(b))
 
@@ -563,10 +578,10 @@ STAMPS = [("dwgx", "PERSONAL WEB"), ("bios", "SETUP UTILITY"),
 def stamp(word: str, sub: str, idx: int) -> str:
     """A rubber stamp: hit slightly off square and rocked a few degrees."""
     w, h = 176, 62
-    b = [ink.brush_box(6, 6, w - 12, h - 12, width=4.4, seed=113 + idx * 9,
-                       overshoot=8, colour=AURORA, opacity=0.72),
+    b = [ink.brush_box(6, 6, w - 12, h - 12, width=6.4, seed=113 + idx * 9,
+                       overshoot=8, colour=AURORA, opacity=0.85),
          ink.brush_box(14, 14, w - 28, h - 28, width=3.0, seed=131 + idx * 9,
-                       overshoot=4, colour=AURORA, opacity=0.26)]
+                       overshoot=4, colour=AURORA, opacity=0.4)]
     b.append(type_line(w / 2, 36, word.upper(), 22, GOLD, ink.SERIF,
                       anchor="middle", weight="600", tracking="1"))
     b.append(type_line(w / 2, 52, sub, 14, MUTED, ink.MONO, anchor="middle", tracking="1"))

@@ -4,7 +4,8 @@
 
 login = "dwgx"
 prompt = "dwgx@main"
-version = "2.13"
+version = "2.14"
+theme = "paper"  # paper | classic
 born = "2010-07-05"
 timezone = "Asia/Tokyo"
 
@@ -45,7 +46,7 @@ pins = [
 name = "WindsurfAPI"
 lang = "js"
 status = "LISTENING"
-status_color = "#46634C"
+status_color = "#7ee787"
 note_kind = "stars"
 fallback_note = "openai ⇄ anthropic"
 
@@ -53,7 +54,7 @@ fallback_note = "openai ⇄ anthropic"
 name = "KiroStudio"
 lang = "rust"
 status = "GATEWAY"
-status_color = "#93422F"
+status_color = "#f2a6c4"
 note_kind = "release"
 fallback_note = "proto-bridge+pool"
 
@@ -61,7 +62,7 @@ fallback_note = "proto-bridge+pool"
 name = "vrchat-il2cpp-re"
 lang = "c#"
 status = "DEOBF"
-status_color = "#7A5D18"
+status_color = "#c9a84c"
 kind = "bar"
 bar = 0.98
 note = "64k cls · unity6"
@@ -70,14 +71,14 @@ note = "64k cls · unity6"
 name = "SmartCLI"
 lang = "py"
 status = "PTY+pyte"
-status_color = "#46634C"
+status_color = "#7ee787"
 note = "tui.driver"
 
 [[process]]
 name = "VRCSM"
 lang = "ts"
 status = "CACHE"
-status_color = "#93422F"
+status_color = "#f2a6c4"
 kind = "bar"
 bar = 0.78
 note = "vrc.settings"
@@ -86,7 +87,7 @@ note = "vrc.settings"
 name = "YuKiKo"
 lang = "py"
 status = "QQ.BOT"
-status_color = "#3F6280"
+status_color = "#79c0ff"
 note_kind = "stars"
 fallback_note = "onebot+napcat"
 
@@ -94,42 +95,42 @@ fallback_note = "onebot+napcat"
 name = "cursorapi"
 lang = "js"
 status = "KEYPOOL"
-status_color = "#6B5647"
+status_color = "#d2a8ff"
 note = "openai+anthropic"
 
 [[process]]
 name = "fuckopencode"
 lang = "ts"
 status = "PROTO"
-status_color = "#6B5647"
+status_color = "#d2a8ff"
 note = "deepseek.bridge"
 
 [[process]]
 name = "SaoMoLa"
 lang = "c"
 status = "UPLOADING"
-status_color = "#93422F"
+status_color = "#f2a6c4"
 note = "vrc.avatar.pipe"
 
 [[process]]
 name = "origin"
 lang = "go"
 status = "GENESIS"
-status_color = "#7A5D18"
+status_color = "#c9a84c"
 note = "genesis.wiki"
 
 [[process]]
 name = "MCPClient"
 lang = "java"
 status = "PUBLIC"
-status_color = "#46634C"
+status_color = "#7ee787"
 note = "mcp.router · mc1.8.9"
 
 [[process]]
 name = "homecloud"
 lang = "sh"
 status = "WORKER"
-status_color = "#46634C"
+status_color = "#7ee787"
 note = "debian13 · rtx3060"
 
 # 项目卡。结构由 form 决定：index 分类索引 / route 文字路由 / protocol 协议字段 /

@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!--  dwgx.menu  v2.13  ·  generated 2026-11-27 11:25 JST          -->
+<!--  dwgx.menu  v2.14  ·  generated 2026-11-27 11:25 JST          -->
 <!--  source: profile.toml  ·  renderer: scripts/render_profile.py     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 <!-- DWGX-ORNAMENT:hero:BEGIN -->
@@ -8,34 +8,15 @@
 </p>
 <!-- DWGX-ORNAMENT:hero:END -->
 
-<a name="dwgx-boot-menu"></a>
-<!-- DWGX-ORNAMENT:boot-menu:BEGIN -->
-<p align="center">
-<a href="#user-content-dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-01.svg?t=1795746337" width="124" alt="MAIN — jump to section" /></a>
-<a href="#user-content-processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-02.svg?t=1795746337" width="124" alt="PROCESS — jump to section" /></a>
-<a href="#user-content-origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-03.svg?t=1795746337" width="124" alt="ORIGIN — jump to section" /></a>
-<a href="#user-content-pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-04.svg?t=1795746337" width="124" alt="MODULES — jump to section" /></a>
-<a href="#user-content-featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-05.svg?t=1795746337" width="124" alt="PHANTASM — jump to section" /></a>
-<a href="#user-content-eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-06.svg?t=1795746337" width="124" alt="GUESTBOOK — jump to section" /></a>
-</p>
-<!-- DWGX-ORNAMENT:boot-menu:END -->
-
-<p align="center">
-<picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip-mobile.svg?t=1795746337" />
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip.svg?t=1795746337" width="100%" alt="最近公开活动与版本" />
-</picture>
-</p>
-
-<p align="center"><samp>〔 <a href="#user-content-dwgxcfg">配置</a> / <a href="#user-content-origingenesis">ORIGIN</a> / <a href="#user-content-pinned">项目</a> / <a href="#user-content-featured">幻想万華鏡</a> / <a href="#user-content-eventlog">留言</a> 〕</samp></p>
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png?t=1795746337" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/avatar-round.png?t=1795746337" width="72" alt="dwgx" />
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/avatar-round.png?t=1795746337" width="128" alt="dwgx" />
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color=A8452C&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+SC&weight=600&size=22&pause=1200&color=A8452C&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color=A8452C&label=visits" />
@@ -54,6 +35,20 @@
 </p>
 
 </div>
+
+<a name="dwgx-boot-menu"></a>
+<!-- DWGX-ORNAMENT:boot-menu:BEGIN -->
+<p align="center">
+<a href="#user-content-dwgxcfg"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-01.svg?t=1795746337" width="124" alt="MAIN — jump to section" /></a>
+<a href="#user-content-processtable"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-02.svg?t=1795746337" width="124" alt="PROCESS — jump to section" /></a>
+<a href="#user-content-origingenesis"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-03.svg?t=1795746337" width="124" alt="ORIGIN — jump to section" /></a>
+<a href="#user-content-pinned"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-04.svg?t=1795746337" width="124" alt="MODULES — jump to section" /></a>
+<a href="#user-content-featured"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-05.svg?t=1795746337" width="124" alt="PHANTASM — jump to section" /></a>
+<a href="#user-content-eventlog"><img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/ink-key-06.svg?t=1795746337" width="124" alt="GUESTBOOK — jump to section" /></a>
+</p>
+<!-- DWGX-ORNAMENT:boot-menu:END -->
+
+<p align="center"><samp>〔 <a href="#user-content-dwgxcfg">配置</a> / <a href="#user-content-origingenesis">ORIGIN</a> / <a href="#user-content-pinned">项目</a> / <a href="#user-content-featured">幻想万華鏡</a> / <a href="#user-content-eventlog">留言</a> 〕</samp></p>
 
 ---
 
@@ -105,13 +100,6 @@ from  = MC clients
 ---
 
 ### `setup.utility`
-
-<details>
-<summary>AMIBIOS · boot screen</summary>
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png?t=1795746337" width="100%" alt="dwgx.menu · AMIBIOS POST" />
-
-</details>
 
 <details>
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
@@ -614,9 +602,9 @@ flowchart LR
 
 <div align="center">
 
-<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1795746337" alt="stats.panel" />
-
-<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1795746337" alt="langs.panel" />
+<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg?t=1795746337" alt="stats.panel" />
+&nbsp;&nbsp;
+<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg?t=1795746337" alt="langs.panel" />
 
 </div>
 

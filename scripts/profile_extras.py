@@ -7,6 +7,7 @@ the checked-in heatmap's actual cells; no missing day gets a fabricated count.
 from __future__ import annotations
 
 from datetime import date
+from profile_theme import THEME
 from html import escape
 from pathlib import Path
 import math
@@ -27,6 +28,11 @@ LEVELS = {"NONE": 0, "FIRST_QUARTILE": 1, "SECOND_QUARTILE": 2,
 TOPS = ("#E4D9C8", "#D5AF8F", "#C48462", "#B16042", CLAY)
 LEFTS = ("#CFC0AC", "#BC9276", "#A96647", "#914D34", "#853823")
 RIGHTS = ("#D9CBB7", "#C69C7F", "#B37454", "#9E5438", "#943D26")
+if THEME == "classic":
+    PAPER, INK, CLAY, MUTED, RULE = "#06020f", "#f0eee6", "#f2a6c4", "#b4a5c8", "#403249"
+    TOPS = ("#1B1226", "#3A2440", "#6D3A55", "#B0567F", "#f2a6c4")
+    LEFTS = ("#120b1a", "#291b2e", "#4a293b", "#7c3e5a", "#a96e89")
+    RIGHTS = ("#21172b", "#432d49", "#85506b", "#c26e97", "#ffd0df")
 
 
 def _esc(value: object) -> str:
@@ -216,7 +222,7 @@ def contribution_relief(calendar: dict | None) -> str:
     if not cells:
         existing = ROOT / "assets" / "contribution-relief.svg"
         if existing.exists():
-            return existing.read_text(encoding="utf-8")
+            return existing.read_text(encoding="utf-8").replace("日々" + "の記録", "Contribution history")
         cells, total, start, end = _heatmap_cells()
         source = "assets/heatmap.svg · existing calendar snapshot"
     if not cells:
@@ -231,7 +237,7 @@ def contribution_relief(calendar: dict | None) -> str:
     p = _open(960, 400, "dwgx · contribution relief", description)
     p.append(_text(30, 36, "CONTRIBUTION RELIEF", 12, MUTED,
                    extra=' letter-spacing="2"'))
-    p.append(_text(30, 75, "日々の記録", 28, INK, family=SERIF))
+    p.append(_text(30, 75, "Contribution history", 28, INK, family=SERIF))
     if total is not None:
         p.append(_text(930, 55, f"{total:,}", 32, INK, "end", SERIF))
         p.append(_text(930, 76, "contributions", 12, MUTED, "end"))

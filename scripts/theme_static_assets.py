@@ -12,6 +12,7 @@ import argparse
 from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
+from profile_theme import THEME
 
 PAPER = "#F4EFE6"
 INK = "#2A2320"
@@ -181,6 +182,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Report pending changes without writing")
     args = parser.parse_args()
+    if THEME == "classic":
+        # Original static art is addressed by immutable commit in the README.
+        return 0
     assets = Path(__file__).resolve().parents[1] / "assets"
     changed = []
     for name in STATIC_ASSETS:

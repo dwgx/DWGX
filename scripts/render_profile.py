@@ -25,6 +25,7 @@ import ami_book  # noqa: E402
 import ink_panels_ami  # noqa: E402  (INK LAB panels)
 import ink_panels_deep  # noqa: E402  (INK LAB panels)
 import profile_extras  # noqa: E402
+from profile_theme import THEME, CLASSIC_REF, CLASSIC_STATIC_ASSETS
 
 JST = timezone(timedelta(hours=9))
 
@@ -112,6 +113,28 @@ UI_PAPER = "#F4EFE6"
 UI_PAPER_LINE = "#C9B7A5"
 UI_PAPER_TEXT = "#2A2320"
 UI_PAPER_INDEX = "#93422F"
+
+
+if THEME == "classic":
+    PINK = "#f2a6c4"
+    GOLD = "#c9a84c"
+    TEXT = "#e6edf3"
+    MUTED = "#8b949e"
+    BLUE = "#79c0ff"
+    GREEN = "#7ee787"
+    UI_INK = "#0F131B"        
+    UI_PANEL = "#161C27"      
+    UI_TEXT = "#EBE4D8"       
+    UI_MUTED = "#A5AFBF"      
+    UI_SAKURA = "#D6A0AC"     
+    UI_GOLD = "#CEB27C"       
+    UI_BLUE = "#98B8DC"       
+    UI_TERM = "#ACC4A5"       
+    UI_PAPER = "#E9DECA"      
+    UI_PAPER_LINE = "#CEB27C" 
+    UI_PAPER_TEXT = "#282A2F" 
+    UI_PAPER_INDEX = "#735A31"
+    PANEL_MARK_COLOR = GREEN
 
 
 def load_profile() -> dict:
@@ -937,7 +960,7 @@ def fmt_num(n: int) -> str:
     return f"{int(n):,}"
 
 
-HEAT_RAMP = ("#E9E1D4", "#DEC6B2", "#C99775", "#B76C4D", "#93422F")
+HEAT_RAMP = ("#1B1226", "#3A2440", "#6D3A55", "#B0567F", PINK) if THEME == "classic" else ("#E9E1D4", "#DEC6B2", "#C99775", "#B76C4D", "#93422F")
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 HEAT_LEVELS = {
     "NONE": 0,
@@ -1638,8 +1661,8 @@ def avatar_img() -> str:
     out = ROOT / "assets" / "avatar-round.png"
     cached = _round_avatar(src, out)
     return (f'<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/'
-            f'avatar-round.png" width="72" alt="dwgx" />') if cached else (
-            f'<img src="{src}" width="72" alt="dwgx" />')
+            f'avatar-round.png" width="128" alt="dwgx" />') if cached else (
+            f'<img src="{src}" width="128" alt="dwgx" />')
 
 
 def links_qq_avatar() -> str:
@@ -1705,16 +1728,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 <!-- ════════════════════════════════════════════════════════════════ -->
 {ornament('hero', 'DWGX · 手写签名')}
 
-{boot_menu_keys()}
-
-<p align="center">
-<picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip-mobile.svg" />
-  <img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/overview-strip.svg" width="100%" alt="最近公开活动与版本" />
-</picture>
-</p>
-
-{render_profile_nav()}
+<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png" width="100%" alt="dwgx.menu · AMIBIOS POST" />
 
 <div align="center">
 
@@ -1722,7 +1736,7 @@ def render_readme(profile: dict, ctx: dict) -> str:
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+JP&weight=600&size=22&pause=1200&color={UI_SAKURA.lstrip('#')}&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Noto+Serif+SC&weight=600&size=22&pause=1200&color={UI_SAKURA.lstrip('#')}&center=true&vCenter=true&random=false&width=620&lines=%E4%B9%9F%E8%AE%B8%E6%88%91%E5%B0%B1%E6%98%AFdwgx;WindsurfAPI+%C2%B7+KiroStudio+%C2%B7+ORIGIN;injected+into+process)](https://dwgx.github.io)
 
 <p>
   <img src="https://komarev.com/ghpvc/?username=dwgx&style=flat-square&color={UI_SAKURA.lstrip('#')}&label=visits" />
@@ -1741,6 +1755,10 @@ def render_readme(profile: dict, ctx: dict) -> str:
 </p>
 
 </div>
+
+{boot_menu_keys()}
+
+{render_profile_nav()}
 
 ---
 
@@ -1784,13 +1802,6 @@ from  = {ship.get('came', 'MC clients')}
 ---
 
 ### `setup.utility`
-
-<details>
-<summary>AMIBIOS · boot screen</summary>
-
-<img src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/bios-header.png" width="100%" alt="dwgx.menu · AMIBIOS POST" />
-
-</details>
 
 <details>
 <summary>Boot — 1st ORIGIN · 2nd WindsurfAPI · 3rd KiroStudio</summary>
@@ -1945,10 +1956,10 @@ from  = {ship.get('came', 'MC clients')}
 
 <br/><br/>
 
-<img src="https://img.shields.io/badge/東方Project-二次創作-A8452C?style=flat-square&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/滿福神社-Studio-7A5D18?style=flat-square&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/Episodes-18-6B5647?style=flat-square&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/Format-BDRip-93422F?style=flat-square&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/東方Project-二次創作-{'f2a6c4' if THEME == 'classic' else 'A8452C'}?style=flat-square&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/滿福神社-Studio-{'c9a84c' if THEME == 'classic' else '7A5D18'}?style=flat-square&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/Episodes-18-{'d4c8ef' if THEME == 'classic' else '6B5647'}?style=flat-square&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/Format-BDRip-{'2d1b69' if THEME == 'classic' else '93422F'}?style=flat-square&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
 
 <br/><br/>
 
@@ -1976,27 +1987,27 @@ from  = {ship.get('came', 'MC clients')}
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/★-Solo_Crew-A8452C?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-IL2CPP_Diver-7A5D18?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Starstruck_x3-ed8b00?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Pull_Shark_x3-3178c6?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Pair_Extraordinaire_x4-93422F?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Solo_Crew-{'f2a6c4' if THEME == 'classic' else 'A8452C'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-IL2CPP_Diver-{'c9a84c' if THEME == 'classic' else '7A5D18'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Starstruck_x3-ed8b00?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Pull_Shark_x3-3178c6?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Pair_Extraordinaire_x4-{'f778ba' if THEME == 'classic' else '93422F'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
 
 <br/>
 
-<img src="https://img.shields.io/badge/★-Galaxy_Brain-6B5647?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Public_Sponsor-A8452C?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-{ctx['uptime']}_Days_Uptime-65584D?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Galaxy_Brain-{'6f42c1' if THEME == 'classic' else '6B5647'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Public_Sponsor-{'ea4aaa' if THEME == 'classic' else 'A8452C'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Quickdraw-d01c1f?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-YOLO-ededed?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-{ctx['uptime']}_Days_Uptime-{'8a7aaa' if THEME == 'classic' else '65584D'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
 
 <br/>
 
-<img src="https://img.shields.io/badge/★-Cheat_Scene_Alumnus-93422F?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-93422F?style=for-the-badge&labelColor=2A2320" />
-<img src="https://img.shields.io/badge/★-Flagship_{shield_stars(windsurf_stars)}-93422F?style=for-the-badge&labelColor=2A2320" />
+<img src="https://img.shields.io/badge/★-Cheat_Scene_Alumnus-{'2d1b69' if THEME == 'classic' else '93422F'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Flipper_Hacker-ff8300?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Paper_Plugin_Dev-6db33f?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Live2D_Pet_Maker-{'ff66aa' if THEME == 'classic' else '93422F'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
+<img src="https://img.shields.io/badge/★-Flagship_{shield_stars(windsurf_stars)}-{'2d1b69' if THEME == 'classic' else '93422F'}?style=for-the-badge&labelColor={'06020f' if THEME == 'classic' else '2A2320'}" />
 
 </div>
 
@@ -2011,9 +2022,9 @@ from  = {ship.get('came', 'MC clients')}
 
 <div align="center">
 
-<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
-
-<img width="100%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
+<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/stats.svg" alt="stats.panel" />
+&nbsp;&nbsp;
+<img width="49%" src="https://raw.githubusercontent.com/dwgx/DWGX/main/assets/langs.svg" alt="langs.panel" />
 
 </div>
 
@@ -2107,6 +2118,10 @@ from  = {ship.get('came', 'MC clients')}
 <a href="#user-content-dwgx-boot-menu">{ornament('eof', 'End of file — return to boot.menu', '100%', outer=False)}</a>
 </p>
 """
+    if THEME == "classic":
+        for name in CLASSIC_STATIC_ASSETS:
+            text = text.replace(f"https://raw.githubusercontent.com/dwgx/DWGX/main/assets/{name}",
+                                f"https://raw.githubusercontent.com/dwgx/DWGX/{CLASSIC_REF}/assets/{name}")
     out: list[str] = []
     needle = "https://raw.githubusercontent.com/dwgx/DWGX/"
     i = 0
